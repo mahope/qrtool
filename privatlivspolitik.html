@@ -65,6 +65,7 @@
                 <h3>Hvad vi bruger:</h3>
                 <ul>
                     <li>✅ <strong>LocalStorage:</strong> For at gemme dine QR-kode historik og tema-præference (mørk/lys mode) lokalt på din enhed</li>
+                    <li>✅ <strong>Plausible Analytics:</strong> Anonymiseret statistik om besøgende (ingen cookies, ingen personlig data)</li>
                     <li>✅ <strong>Cookies:</strong> Ingen cookies anvendes på QRTool.dk</li>
                 </ul>
             </article>
@@ -122,6 +123,18 @@
             <article class="content-block">
                 <h2>4. Tredjepartstjenester</h2>
 
+                <h3>Analytics (Plausible)</h3>
+                <p>Vi bruger <strong>Plausible Analytics</strong> - en privacy-venlig analytics service der:</p>
+                <ul>
+                    <li>✅ IKKE bruger cookies</li>
+                    <li>✅ IKKE indsamler personlige data</li>
+                    <li>✅ IKKE tracker på tværs af websites</li>
+                    <li>✅ Er GDPR, CCPA og PECR compliant</li>
+                    <li>✅ Indsamler kun anonymiseret statistik (antal besøgende, populære sider, etc.)</li>
+                </ul>
+                <p>Plausible hostes på vores egen server (analytics.holstjensen.eu) og deler ingen data med tredjeparter.</p>
+
+                <h3>Eksterne Biblioteker</h3>
                 <p>QRTool.dk bruger følgende eksterne biblioteker via CDN (Content Delivery Network):</p>
 
                 <ul>
@@ -255,6 +268,10 @@
             </p>
         </footer>
     </div>
+
+    <!-- Plausible Analytics -->
+    <script defer data-domain="qrtool.dk" src="https://analytics.holstjensen.eu/js/script.file-downloads.hash.outbound-links.pageview-props.tagged-events.js"></script>
+    <script>window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }</script>
 
     <script src="https://unpkg.com/qrcode-generator@1.4.4/qrcode.js"></script>
     <script src="app.js"></script>

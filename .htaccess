@@ -45,7 +45,7 @@
     Header always set Permissions-Policy "geolocation=(), microphone=(), camera=()"
 
     # Content Security Policy (adjust as needed)
-    Header always set Content-Security-Policy "default-src 'self' https://unpkg.com https://cdnjs.cloudflare.com; script-src 'self' 'unsafe-inline' https://unpkg.com https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:;"
+    Header always set Content-Security-Policy "default-src 'self' https://unpkg.com https://cdnjs.cloudflare.com https://analytics.holstjensen.eu; script-src 'self' 'unsafe-inline' https://unpkg.com https://cdnjs.cloudflare.com https://analytics.holstjensen.eu; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self' https://analytics.holstjensen.eu;"
 </IfModule>
 
 # Compression
