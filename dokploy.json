@@ -1,0 +1,13 @@
+{
+  "name": "qrtool",
+  "type": "static",
+  "buildCommand": "echo 'No build needed - static HTML'",
+  "outputDirectory": ".",
+  "environmentVariables": {},
+  "domains": [
+    "qrtool.dk",
+    "www.qrtool.dk"
+  ],
+  "customNginx": true,
+  "nginxConfigPath": "nginx.conf"
+}

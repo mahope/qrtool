@@ -1,0 +1,23 @@
+# Git files
+.git
+.gitignore
+
+# Node modules
+node_modules
+
+# Documentation
+README.md
+DEPLOYMENT.md
+PRODUCTION-READY.md
+
+# IDE files
+.vscode
+.idea
+.DS_Store
+
+# Development files
+package.json
+package-lock.json
+
+# Apache config (not needed for nginx)
+.htaccess
