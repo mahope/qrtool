@@ -45,29 +45,42 @@
         <section class="seo-content">
             <article class="content-block">
                 <h2>Introduktion</h2>
-                <p>Velkommen til QRTool.dk. Din privatliv er vigtigt for os. Denne privatlivspolitik forklarer hvordan vi indsamler, bruger og beskytter dine oplysninger når du bruger vores QR-kode generator.</p>
+                <p>Velkommen til QRTool.dk. Dit privatliv er vigtigt for mig. Denne privatlivspolitik forklarer hvordan jeg indsamler, bruger og beskytter dine oplysninger når du bruger QR Tool.</p>
 
-                <p><strong>Kort fortalt:</strong> QRTool.dk er designet med dit privatliv for øje. Vi indsamler ingen personlige oplysninger, og alle QR-koder genereres lokalt i din browser.</p>
+                <p><strong>Kort fortalt:</strong> QRTool.dk er designet med dit privatliv for øje. Der indsamles ingen personlige oplysninger, og alle QR-koder genereres lokalt i din browser. Jeg bruger privacy-venlig anonymiseret analytics (Plausible) for at forstå hvordan siden bruges og forbedre brugeroplevelsen.</p>
             </article>
 
             <article class="content-block">
                 <h2>1. Dataindsamling</h2>
 
-                <h3>Hvad vi IKKE indsamler:</h3>
+                <h3>Hvad der IKKE indsamles:</h3>
                 <ul>
                     <li>❌ Personlige oplysninger (navn, email, telefonnummer)</li>
                     <li>❌ QR-kode indhold (alt håndteres lokalt i din browser)</li>
-                    <li>❌ IP-adresser eller geolokation</li>
+                    <li>❌ IP-adresser</li>
+                    <li>❌ Præcis geolokation</li>
                     <li>❌ Browser fingerprints</li>
                     <li>❌ Brugerkonti eller login information</li>
+                    <li>❌ Tracking på tværs af websites</li>
                 </ul>
 
-                <h3>Hvad vi bruger:</h3>
+                <h3>Hvad der indsamles:</h3>
                 <ul>
-                    <li>✅ <strong>LocalStorage:</strong> For at gemme dine QR-kode historik og tema-præference (mørk/lys mode) lokalt på din enhed</li>
-                    <li>✅ <strong>Plausible Analytics:</strong> Anonymiseret statistik om besøgende (ingen cookies, ingen personlig data)</li>
+                    <li>✅ <strong>LocalStorage:</strong> Dine QR-kode historik og tema-præference (mørk/lys mode) gemmes lokalt på din enhed</li>
+                    <li>✅ <strong>Anonymiseret Analytics (Plausible):</strong>
+                        <ul>
+                            <li>Antal besøgende (uden personidentifikation)</li>
+                            <li>Hvilke sider der besøges</li>
+                            <li>Cirka geografisk region (land-niveau, IKKE præcis lokation)</li>
+                            <li>Browser type (Chrome, Firefox, etc.)</li>
+                            <li>Enheds type (desktop, mobil, tablet)</li>
+                            <li>Henvisende websites</li>
+                        </ul>
+                    </li>
                     <li>✅ <strong>Cookies:</strong> Ingen cookies anvendes på QRTool.dk</li>
                 </ul>
+
+                <p><strong>Vigtigt:</strong> Alle analytics data er 100% anonymiseret. Der er ingen måde at identificere individuelle brugere eller linke data til specifikke personer.</p>
             </article>
 
             <article class="content-block">
@@ -78,15 +91,15 @@
                 <div class="feature-grid">
                     <div class="feature-item">
                         <h3>🔒 Lokal Behandling</h3>
-                        <p>Alle QR-koder genereres direkte i din browser. Ingen data sendes til vores servere.</p>
+                        <p>Alle QR-koder genereres direkte i din browser. Ingen QR-kode data sendes til servere.</p>
                     </div>
                     <div class="feature-item">
                         <h3>💾 LocalStorage</h3>
                         <p>Din QR-historik gemmes kun på din enhed og kan slettes når som helst.</p>
                     </div>
                     <div class="feature-item">
-                        <h3>🚫 Ingen Tracking</h3>
-                        <p>Vi bruger ingen analytics, tracking pixels eller tredjepartsscripts til sporing.</p>
+                        <h3>📊 Privacy-First Analytics</h3>
+                        <p>Jeg bruger Plausible Analytics - en cookie-fri, privacy-venlig analytics service der kun indsamler anonymiseret data.</p>
                     </div>
                     <div class="feature-item">
                         <h3>🔐 Sikker Forbindelse</h3>
@@ -124,15 +137,28 @@
                 <h2>4. Tredjepartstjenester</h2>
 
                 <h3>Analytics (Plausible)</h3>
-                <p>Vi bruger <strong>Plausible Analytics</strong> - en privacy-venlig analytics service der:</p>
+                <p>Jeg bruger <strong>Plausible Analytics</strong> - en privacy-venlig analytics service der:</p>
                 <ul>
                     <li>✅ IKKE bruger cookies</li>
-                    <li>✅ IKKE indsamler personlige data</li>
+                    <li>✅ IKKE indsamler personlige data eller IP-adresser</li>
                     <li>✅ IKKE tracker på tværs af websites</li>
                     <li>✅ Er GDPR, CCPA og PECR compliant</li>
-                    <li>✅ Indsamler kun anonymiseret statistik (antal besøgende, populære sider, etc.)</li>
+                    <li>✅ Kun indsamler anonymiseret, aggregeret statistik</li>
+                    <li>✅ Open source og gennemsigtig</li>
                 </ul>
-                <p>Plausible hostes på vores egen server (analytics.holstjensen.eu) og deler ingen data med tredjeparter.</p>
+                <p>Plausible hostes på min egen server (analytics.holstjensen.eu) og deler ingen data med tredjeparter. Data bruges udelukkende til at forstå hvordan QR Tool bruges, så jeg kan forbedre siden.</p>
+
+                <p><strong>Hvad tracker Plausible konkret?</strong></p>
+                <ul>
+                    <li>Antal besøgende (anonymiseret, ingen individuel tracking)</li>
+                    <li>Populære sider (hvilke QR-typer bruges mest)</li>
+                    <li>Land-niveau lokation (f.eks. "Danmark", ikke præcis by/adresse)</li>
+                    <li>Browser og enheds type (for at optimere brugeroplevelsen)</li>
+                    <li>Henvisende websites (hvor kommer besøgende fra)</li>
+                    <li>Download events (når nogen downloader en QR-kode)</li>
+                </ul>
+
+                <p>Alle disse data er fuldstændig anonyme og kan ikke linkes til dig som individuel person.</p>
 
                 <h3>Eksterne Biblioteker</h3>
                 <p>QRTool.dk bruger følgende eksterne biblioteker via CDN (Content Delivery Network):</p>
@@ -242,6 +268,7 @@
                         <ul>
                             <li>Genererer QR-koder lokalt i din browser</li>
                             <li>Gemmer historik lokalt på din enhed</li>
+                            <li>Indsamler anonymiseret statistik (Plausible)</li>
                             <li>Beskytter din forbindelse med HTTPS</li>
                             <li>Giver dig fuld kontrol over dine data</li>
                         </ul>
@@ -250,7 +277,8 @@
                         <h4>❌ Hvad QRTool.dk IKKE Gør</h4>
                         <ul>
                             <li>Indsamler personlige oplysninger</li>
-                            <li>Tracker din aktivitet</li>
+                            <li>Tracker dig som individ</li>
+                            <li>Bruger cookies til tracking</li>
                             <li>Deler data med tredjeparter</li>
                             <li>Sender QR-kode indhold til servere</li>
                         </ul>
