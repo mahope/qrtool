@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Side ikke fundet | QRTool.dk</title>
+    <meta name="robots" content="noindex">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .error-page {
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+        }
+        .error-code {
+            font-size: 8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 0;
+            line-height: 1;
+        }
+        .error-title {
+            font-size: 2rem;
+            color: var(--text-color);
+            margin: 1rem 0;
+        }
+        .error-text {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 1rem auto 2rem;
+        }
+        .error-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .qr-404 {
+            width: 200px;
+            height: 200px;
+            margin: 2rem 0;
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="error-page">
+            <h1 class="error-code">404</h1>
+            <h2 class="error-title">Siden blev ikke fundet</h2>
+            <p class="error-text">
+                Ups! Den side du leder efter eksisterer ikke. Måske har du fulgt et forældet link,
+                eller siden er blevet flyttet. Lad os hjælpe dig tilbage på rette spor.
+            </p>
+
+            <svg class="qr-404" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="10" y="10" width="30" height="30"/>
+                <rect x="60" y="10" width="30" height="30"/>
+                <rect x="10" y="60" width="30" height="30"/>
+                <circle cx="75" cy="75" r="10" stroke-dasharray="2,2"/>
+                <text x="72" y="80" font-size="16" fill="currentColor">?</text>
+            </svg>
+
+            <div class="error-actions">
+                <a href="/" class="btn btn-primary">🏠 Gå til forsiden</a>
+                <a href="/wifi-qr-kode" class="btn btn-secondary">📶 WiFi QR-Kode</a>
+                <a href="/vcard-qr-kode" class="btn btn-secondary">👤 vCard QR-Kode</a>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <p>Lavet med ❤️ af <a href="https://mahope.dk" target="_blank" rel="noopener">Mahope.dk</a></p>
+            <p class="footer-links">
+                <a href="/">QRTool.dk</a> |
+                <a href="#privacy">Privatlivspolitik</a> |
+                <a href="#about">Om QR Tool</a>
+            </p>
+        </footer>
+    </div>
+</body>
+</html>

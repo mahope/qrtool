@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Primary Meta Tags -->
+    <title>QR Tool - Gratis QR-Kode Generator | QRTool.dk</title>
+    <meta name="title" content="QR Tool - Gratis QR-Kode Generator | QRTool.dk">
+    <meta name="description" content="Generer professionelle QR-koder gratis med farvetilpasning og WiFi/vCard support. Download som PNG, SVG, JPG eller WebP. Inkluderer batch-generering og QR-historik.">
+    <meta name="keywords" content="qr kode, qr generator, gratis qr kode, qr code generator, wifi qr kode, vcard qr, batch qr koder, dansk qr generator">
+    <meta name="author" content="Mahope.dk">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://qrtool.dk">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://qrtool.dk">
+    <meta property="og:title" content="QR Tool - Gratis QR-Kode Generator">
+    <meta property="og:description" content="Generer professionelle QR-koder gratis med farvetilpasning og WiFi/vCard support. Download som PNG, SVG, JPG eller WebP.">
+    <meta property="og:image" content="https://qrtool.dk/og-image.png">
+    <meta property="og:locale" content="da_DK">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://qrtool.dk">
+    <meta property="twitter:title" content="QR Tool - Gratis QR-Kode Generator">
+    <meta property="twitter:description" content="Generer professionelle QR-koder gratis med farvetilpasning og WiFi/vCard support.">
+    <meta property="twitter:image" content="https://qrtool.dk/og-image.png">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📱</text></svg>">
+
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://unpkg.com">
+
+    <!-- Schema.org structured data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "QR Tool",
+      "url": "https://qrtool.dk",
+      "description": "Professionel QR-kode generator med avancerede funktioner",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "Any",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "DKK"
+      },
+      "creator": {
+        "@type": "Organization",
+        "name": "Mahope",
+        "url": "https://mahope.dk"
+      }
+    }
+    </script>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-top">
+                <div class="logo">
+                    <svg id="logoQR" width="50" height="50" viewBox="0 0 100 100"></svg>
+                </div>
+                <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme">
+                    <svg class="sun-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                    <svg class="moon-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                </button>
+            </div>
+            <h1>QR Tool - QR-Kode Generator</h1>
+            <p>Generer og download dine QR-koder med avancerede tilpasningsmuligheder</p>
+        </header>
+
+        <div class="main-content">
+            <!-- Input sektion -->
+            <div class="input-section">
+                <!-- QR Type Tabs -->
+                <div class="qr-type-tabs">
+                    <button class="tab-button active" data-tab="text">📝 Tekst/URL</button>
+                    <button class="tab-button" data-tab="wifi">📶 WiFi</button>
+                    <button class="tab-button" data-tab="vcard">👤 vCard</button>
+                    <button class="tab-button" data-tab="email">✉️ Email</button>
+                    <button class="tab-button" data-tab="sms">💬 SMS</button>
+                    <button class="tab-button" data-tab="calendar">📅 Kalender</button>
+                </div>
+
+                <!-- Text/URL Tab Content -->
+                <div class="tab-content active" data-content="text">
+                    <div class="form-group">
+                        <label for="qrText">Indtast tekst eller URL:</label>
+                        <textarea id="qrText" rows="4" placeholder="https://example.com eller din tekst her..."></textarea>
+                    </div>
+                </div>
+
+                <!-- WiFi Tab Content -->
+                <div class="tab-content" data-content="wifi">
+                    <div class="form-group">
+                        <label for="wifiSSID">Netværksnavn (SSID):</label>
+                        <input type="text" id="wifiSSID" placeholder="Mit WiFi Netværk">
+                    </div>
+                    <div class="form-group">
+                        <label for="wifiPassword">Adgangskode:</label>
+                        <input type="text" id="wifiPassword" placeholder="skriv adgangskode">
+                    </div>
+                    <div class="form-group">
+                        <label for="wifiEncryption">Kryptering:</label>
+                        <select id="wifiEncryption">
+                            <option value="WPA">WPA/WPA2</option>
+                            <option value="WEP">WEP</option>
+                            <option value="nopass">Ingen (Åbent netværk)</option>
+                        </select>
+                    </div>
+                    <div class="form-group checkbox-group">
+                        <label>
+                            <input type="checkbox" id="wifiHidden">
+                            <span>Skjult netværk</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- vCard Tab Content -->
+                <div class="tab-content" data-content="vcard">
+                    <div class="form-group">
+                        <label for="vcardName">Fulde navn:</label>
+                        <input type="text" id="vcardName" placeholder="Anders Andersen">
+                    </div>
+                    <div class="form-group">
+                        <label for="vcardOrg">Organisation:</label>
+                        <input type="text" id="vcardOrg" placeholder="Min Virksomhed ApS">
+                    </div>
+                    <div class="form-group">
+                        <label for="vcardTitle">Titel:</label>
+                        <input type="text" id="vcardTitle" placeholder="Direktør">
+                    </div>
+                    <div class="form-group">
+                        <label for="vcardPhone">Telefon:</label>
+                        <input type="tel" id="vcardPhone" placeholder="+45 12 34 56 78">
+                    </div>
+                    <div class="form-group">
+                        <label for="vcardEmail">Email:</label>
+                        <input type="email" id="vcardEmail" placeholder="anders@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="vcardWebsite">Hjemmeside:</label>
+                        <input type="url" id="vcardWebsite" placeholder="https://example.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="vcardAddress">Adresse:</label>
+                        <textarea id="vcardAddress" rows="2" placeholder="Eksempelvej 123, 1234 København"></textarea>
+                    </div>
+                </div>
+
+                <!-- Email Tab Content -->
+                <div class="tab-content" data-content="email">
+                    <div class="form-group">
+                        <label for="emailTo">Til (email adresse):</label>
+                        <input type="email" id="emailTo" placeholder="modtager@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="emailSubject">Emne:</label>
+                        <input type="text" id="emailSubject" placeholder="Hej!">
+                    </div>
+                    <div class="form-group">
+                        <label for="emailBody">Besked:</label>
+                        <textarea id="emailBody" rows="4" placeholder="Skriv din besked her..."></textarea>
+                    </div>
+                </div>
+
+                <!-- SMS Tab Content -->
+                <div class="tab-content" data-content="sms">
+                    <div class="form-group">
+                        <label for="smsPhone">Telefonnummer:</label>
+                        <input type="tel" id="smsPhone" placeholder="+45 12 34 56 78">
+                    </div>
+                    <div class="form-group">
+                        <label for="smsMessage">Besked:</label>
+                        <textarea id="smsMessage" rows="4" placeholder="Din SMS besked her..."></textarea>
+                    </div>
+                </div>
+
+                <!-- Calendar Tab Content -->
+                <div class="tab-content" data-content="calendar">
+                    <div class="form-group">
+                        <label for="calTitle">Begivenhed:</label>
+                        <input type="text" id="calTitle" placeholder="Møde med klient">
+                    </div>
+                    <div class="form-group">
+                        <label for="calLocation">Lokation:</label>
+                        <input type="text" id="calLocation" placeholder="Kontoret, København">
+                    </div>
+                    <div class="form-group">
+                        <label for="calStart">Start dato & tid:</label>
+                        <input type="datetime-local" id="calStart">
+                    </div>
+                    <div class="form-group">
+                        <label for="calEnd">Slut dato & tid:</label>
+                        <input type="datetime-local" id="calEnd">
+                    </div>
+                    <div class="form-group">
+                        <label for="calDescription">Beskrivelse:</label>
+                        <textarea id="calDescription" rows="3" placeholder="Detaljer om begivenheden..."></textarea>
+                    </div>
+                </div>
+
+                <div class="settings-grid">
+                    <!-- Style Template -->
+                    <div class="form-group">
+                        <label for="qrStyle">QR-kode stil:</label>
+                        <select id="qrStyle">
+                            <option value="square">■ Standard (Firkanter)</option>
+                            <option value="rounded">● Afrundet</option>
+                            <option value="dots">⚫ Prikker</option>
+                        </select>
+                    </div>
+
+                    <!-- Farveindstillinger -->
+                    <div class="form-group">
+                        <label for="qrColor">QR-kode farve:</label>
+                        <div class="color-picker">
+                            <input type="color" id="qrColor" value="#000000">
+                            <span class="color-value">#000000</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="bgColor">Baggrundsfarve:</label>
+                        <div class="color-picker">
+                            <input type="color" id="bgColor" value="#ffffff">
+                            <span class="color-value">#ffffff</span>
+                        </div>
+                    </div>
+
+                    <!-- Transparent baggrund -->
+                    <div class="form-group checkbox-group">
+                        <label>
+                            <input type="checkbox" id="transparentBg">
+                            <span>Transparent baggrund</span>
+                        </label>
+                    </div>
+
+                    <!-- Størrelse -->
+                    <div class="form-group">
+                        <label for="qrSize">Størrelse (px):</label>
+                        <select id="qrSize">
+                            <option value="256">256×256 (Lille)</option>
+                            <option value="512" selected>512×512 (Medium)</option>
+                            <option value="1024">1024×1024 (Stor)</option>
+                            <option value="2048">2048×2048 (Meget stor)</option>
+                        </select>
+                    </div>
+
+                    <!-- Fejlkorrektion (kompleksitet) -->
+                    <div class="form-group">
+                        <label for="errorCorrection">Fejlkorrektion:</label>
+                        <select id="errorCorrection">
+                            <option value="L">Lav (~7%)</option>
+                            <option value="M" selected>Medium (~15%)</option>
+                            <option value="Q">Høj (~25%)</option>
+                            <option value="H">Meget høj (~30%)</option>
+                        </select>
+                    </div>
+
+                    <!-- Filformat -->
+                    <div class="form-group">
+                        <label for="fileFormat">Filformat:</label>
+                        <select id="fileFormat">
+                            <option value="png" selected>PNG</option>
+                            <option value="jpg">JPG</option>
+                            <option value="svg">SVG</option>
+                            <option value="webp">WebP</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Batch Generation Section -->
+                <div class="batch-section">
+                    <details>
+                        <summary>📦 Batch Generering (flere QR-koder)</summary>
+                        <div class="batch-content">
+                            <div class="form-group">
+                                <label for="batchInput">Indtast URLs/tekster (en per linje):</label>
+                                <textarea id="batchInput" rows="5" placeholder="https://example1.com&#10;https://example2.com&#10;https://example3.com"></textarea>
+                            </div>
+                            <button id="batchGenerateBtn" class="btn btn-secondary">Generer alle & download som ZIP</button>
+                        </div>
+                    </details>
+                </div>
+
+                <div class="button-group">
+                    <button id="generateBtn" class="btn btn-primary">Generer QR-kode</button>
+                    <button id="downloadBtn" class="btn btn-secondary" disabled>Download</button>
+                </div>
+            </div>
+
+            <!-- Preview sektion -->
+            <div class="preview-section">
+                <div class="preview-container">
+                    <div id="qrPreview" class="qr-preview">
+                        <div class="placeholder">
+                            <svg width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <rect x="3" y="3" width="7" height="7" stroke-width="2"/>
+                                <rect x="14" y="3" width="7" height="7" stroke-width="2"/>
+                                <rect x="3" y="14" width="7" height="7" stroke-width="2"/>
+                                <rect x="14" y="14" width="7" height="7" stroke-width="2"/>
+                            </svg>
+                            <p>Din QR-kode vil blive vist her</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="info-panel">
+                    <p><strong>Info:</strong></p>
+                    <ul>
+                        <li>Højere fejlkorrektion = mere robust QR-kode</li>
+                        <li>Transparent baggrund kun tilgængelig for PNG</li>
+                        <li>SVG format er vektorbaseret og skalerbart</li>
+                        <li>Test altid din QR-kode før brug</li>
+                    </ul>
+                </div>
+
+                <!-- History Section -->
+                <div class="history-section">
+                    <h3>📜 Tidligere QR-koder</h3>
+                    <div id="historyList" class="history-list">
+                        <p class="history-empty">Ingen tidligere QR-koder</p>
+                    </div>
+                    <button id="clearHistory" class="btn-clear-history" style="display: none;">Ryd historik</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- SEO Content Section -->
+        <section class="seo-content">
+            <article class="content-block">
+                <h2>Hvorfor bruge QR Tool til dine QR-koder?</h2>
+                <p>QR Tool er Danmarks mest avancerede <strong>gratis QR-kode generator</strong> med professionelle funktioner til både private og erhverv. Vores platform giver dig fuld kontrol over dine QR-koder med unikke features som farvetilpasning, forskellige stilarter og specialiserede QR-typer.</p>
+
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <h3>🎨 Professionelt Design</h3>
+                        <p>Skab unikke QR-koder med custom farver og vælg mellem forskellige stilarter (firkanter, afrundet, prikker). Perfekt til branding og markedsføring.</p>
+                    </div>
+                    <div class="feature-item">
+                        <h3>📱 WiFi QR-koder</h3>
+                        <p>Lad dine gæster forbinde til WiFi med ét scan. Ingen manuelle indtastninger af lange adgangskoder - perfekt til restauranter, hoteller og events.</p>
+                    </div>
+                    <div class="feature-item">
+                        <h3>👤 Digitale Visitkort</h3>
+                        <p>Generer vCard QR-koder der automatisk gemmer dine kontaktoplysninger i modtagerens telefon. Moderne networking gjort nemt.</p>
+                    </div>
+                    <div class="feature-item">
+                        <h3>📦 Batch Generering</h3>
+                        <p>Har du brug for mange QR-koder? Generer op til 100 QR-koder på én gang og download dem som en ZIP fil.</p>
+                    </div>
+                </div>
+            </article>
+
+            <article class="content-block">
+                <h2>Sådan bruger du QR Tool effektivt</h2>
+                <ol class="guide-list">
+                    <li><strong>Vælg din QR-type:</strong> Start med at vælge hvilken type QR-kode du har brug for - fra simple URL'er til avancerede WiFi eller vCard koder.</li>
+                    <li><strong>Tilpas designet:</strong> Vælg farver der matcher dit brand, og vælg mellem forskellige stilarter (firkanter, afrundet, prikker) for et unikt look.</li>
+                    <li><strong>Optimér fejlkorrektion:</strong> Hvis QR-koden skal bruges udendørs eller printes, vælg højere fejlkorrektion (Q eller H) for bedre scanbarhed.</li>
+                    <li><strong>Vælg rigtigt format:</strong> PNG til web og print, SVG for vektorbaseret skalering, eller WebP for moderne websites med lille filstørrelse.</li>
+                    <li><strong>Test din QR-kode:</strong> Scan altid din QR-kode med flere forskellige enheder før du printer eller deler den.</li>
+                </ol>
+            </article>
+
+            <article class="content-block">
+                <h2>Hvad er en QR-kode?</h2>
+                <p>En <strong>QR-kode (Quick Response code)</strong> er en todimensional stregkode der kan scannes med et kamera på en smartphone eller tablet. QR-koder blev oprindeligt udviklet i 1994 af det japanske firma Denso Wave til brug i bilindustrien, men er i dag blevet en universel måde at dele information på.</p>
+
+                <p>I modsætning til traditionelle stregkoder kan QR-koder indeholde meget mere data - op til 4.296 alfanumeriske tegn. Dette gør dem ideelle til at dele:</p>
+                <ul>
+                    <li>URLs til websites og landingpages</li>
+                    <li>WiFi login oplysninger</li>
+                    <li>Kontaktinformation (vCard)</li>
+                    <li>Email adresser og beskeder</li>
+                    <li>SMS beskeder</li>
+                    <li>Kalender events</li>
+                    <li>Betalingsoplysninger</li>
+                    <li>App download links</li>
+                </ul>
+            </article>
+
+            <article class="content-block">
+                <h2>Anvendelsesmuligheder for QR-koder</h2>
+
+                <div class="use-cases">
+                    <div class="use-case">
+                        <h3>🏢 Erhverv & Markedsføring</h3>
+                        <ul>
+                            <li>Produktemballage med links til produktinfo</li>
+                            <li>Visitkort med vCard QR-kode</li>
+                            <li>Plakater og flyers til events</li>
+                            <li>Menu i restauranter</li>
+                            <li>Feedback formularer</li>
+                            <li>Rabatkuponer og tilbud</li>
+                        </ul>
+                    </div>
+
+                    <div class="use-case">
+                        <h3>🏠 Privat brug</h3>
+                        <ul>
+                            <li>Del WiFi adgang til gæster</li>
+                            <li>Bryllupsinvitationer med RSVP</li>
+                            <li>Digitale julegavekort</li>
+                            <li>Links til fotoalbums</li>
+                            <li>Kontaktinfo til networking</li>
+                        </ul>
+                    </div>
+
+                    <div class="use-case">
+                        <h3>🎓 Uddannelse</h3>
+                        <ul>
+                            <li>Links til online læringsmaterialer</li>
+                            <li>Fremmøderegistrering</li>
+                            <li>Eksamensresultater</li>
+                            <li>Bibliotekets bogsystem</li>
+                            <li>Campus kort og vejvisning</li>
+                        </ul>
+                    </div>
+                </div>
+            </article>
+
+            <!-- FAQ Section -->
+            <article class="content-block faq-section" id="faq">
+                <h2>Ofte Stillede Spørgsmål (FAQ)</h2>
+
+                <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+                    <h3 itemprop="name">Er QR Tool gratis at bruge?</h3>
+                    <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                        <p itemprop="text">Ja, QR Tool er 100% gratis at bruge. Du kan generere ubegrænset antal QR-koder uden registrering eller betaling. Alle features, inklusiv logo upload, batch generering og specialiserede QR-typer, er gratis tilgængelige.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+                    <h3 itemprop="name">Udløber mine QR-koder?</h3>
+                    <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                        <p itemprop="text">Nej, QR-koder genereret med QR Tool udløber aldrig. Når du downloader en QR-kode, er den statisk og vil fungere for evigt. Bemærk dog at hvis QR-koden linker til en URL, skal den URL stadig være aktiv for at QR-koden virker.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+                    <h3 itemprop="name">Hvilket format skal jeg vælge til print?</h3>
+                    <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                        <p itemprop="text">Til print anbefaler vi SVG format, da det er vektorbaseret og kan skaleres til enhver størrelse uden tab af kvalitet. Alternativt kan du bruge PNG i høj opløsning (1024px eller 2048px). Undgå JPG til print, da kompressionen kan gøre QR-koden svær at scanne.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+                    <h3 itemprop="name">Kan jeg tilpasse farverne på min QR-kode?</h3>
+                    <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                        <p itemprop="text">Ja! Du kan vælge hvilken som helst farve til både QR-koden og baggrunden. Vi anbefaler høj kontrast (f.eks. sort på hvid) for bedst scanbarhed. Du kan også vælge transparent baggrund til PNG og SVG formater.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+                    <h3 itemprop="name">Hvordan virker WiFi QR-koder?</h3>
+                    <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                        <p itemprop="text">WiFi QR-koder indeholder dit netværksnavn (SSID), adgangskode og krypteringstype. Når nogen scanner QR-koden med deres smartphone, forbinder telefonen automatisk til WiFi-netværket uden manuel indtastning. Dette virker på de fleste moderne Android og iOS enheder.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+                    <h3 itemprop="name">Hvad er fejlkorrektion og hvilken skal jeg vælge?</h3>
+                    <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                        <p itemprop="text">Fejlkorrektion bestemmer hvor meget af QR-koden der kan være beskadiget og stadig kunne scannes. L (~7%) er hurtigst at scanne, M (~15%) er standard, Q (~25%) er god til print, og H (~30%) skal bruges når du tilføjer logo eller QR-koden skal bruges udendørs.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+                    <h3 itemprop="name">Kan jeg spore hvor mange der scanner min QR-kode?</h3>
+                    <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                        <p itemprop="text">QR-koder genereret med QR Tool er statiske og inkluderer ikke tracking. For at spore scans skal du bruge en URL shortener service som bit.ly eller Google Analytics campaign URLs, og derefter lave en QR-kode til den forkortede URL.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+                    <h3 itemprop="name">Hvor stor skal min QR-kode være?</h3>
+                    <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                        <p itemprop="text">Det afhænger af scanningsafstanden. Som tommelfingerregel: QR-koden skal være mindst 1/10 af scanningsafstanden. Dvs. hvis folk scanner fra 1 meters afstand, skal QR-koden være mindst 10cm. Til visitkort er 2-3cm ofte tilstrækkeligt.</p>
+                    </div>
+                </div>
+            </article>
+
+            <article class="content-block">
+                <h2>Tips til effektive QR-koder</h2>
+                <div class="tips-grid">
+                    <div class="tip-card">
+                        <h4>✅ Gør</h4>
+                        <ul>
+                            <li>Test QR-koden på flere enheder</li>
+                            <li>Brug høj kontrast (sort på hvid er bedst)</li>
+                            <li>Giv QR-koden nok "white space" omkring</li>
+                            <li>Brug højere fejlkorrektion til udendørs brug</li>
+                            <li>Tilføj en "Scan me" tekst til kontekst</li>
+                        </ul>
+                    </div>
+                    <div class="tip-card">
+                        <h4>❌ Undgå</h4>
+                        <ul>
+                            <li>Lav kontrast farver (grå på hvid)</li>
+                            <li>At gøre QR-koden for lille</li>
+                            <li>At invertere farver (hvid på sort)</li>
+                            <li>At placere på krøllede overflader</li>
+                            <li>JPG format med høj kompression</li>
+                        </ul>
+                    </div>
+                </div>
+            </article>
+        </section>
+
+        <!-- Footer with branding -->
+        <footer class="footer">
+            <p>Lavet med ❤️ af <a href="https://mahope.dk" target="_blank" rel="noopener">Mahope.dk</a></p>
+            <p class="footer-links">
+                <a href="/">QRTool.dk</a> |
+                <a href="/privatlivspolitik">Privatlivspolitik</a> |
+                <a href="/om-qr-tool">Om QR Tool</a>
+            </p>
+        </footer>
+    </div>
+
+    <script src="https://unpkg.com/qrcode-generator@1.4.4/qrcode.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

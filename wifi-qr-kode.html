@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Primary Meta Tags -->
+    <title>WiFi QR-Kode Generator - Gratis | QRTool.dk</title>
+    <meta name="title" content="WiFi QR-Kode Generator - Gratis | QRTool.dk">
+    <meta name="description" content="Generer WiFi QR-koder gratis. Lad dine gæster forbinde til dit WiFi med ét scan - ingen manuelle adgangskoder. Perfekt til restauranter, hoteller og events.">
+    <meta name="keywords" content="wifi qr kode, gratis wifi qr, wifi qr generator, restaurant wifi, hotel wifi qr, wifi gæstenetværk">
+    <meta name="author" content="Mahope.dk">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://qrtool.dk/wifi-qr-kode">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://qrtool.dk/wifi-qr-kode">
+    <meta property="og:title" content="WiFi QR-Kode Generator - Gratis">
+    <meta property="og:description" content="Generer WiFi QR-koder gratis. Lad dine gæster forbinde til dit WiFi med ét scan.">
+    <meta property="og:image" content="https://qrtool.dk/og-image-wifi.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://qrtool.dk/wifi-qr-kode">
+    <meta property="twitter:title" content="WiFi QR-Kode Generator - Gratis">
+    <meta property="twitter:description" content="Generer WiFi QR-koder gratis. Lad dine gæster forbinde til dit WiFi med ét scan.">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📶</text></svg>">
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Schema.org for WiFi QR -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "WiFi QR-Kode Generator",
+      "url": "https://qrtool.dk/wifi-qr-kode",
+      "description": "Gratis WiFi QR-kode generator til restauranter, hoteller og private",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "Any",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "DKK"
+      },
+      "creator": {
+        "@type": "Organization",
+        "name": "Mahope",
+        "url": "https://mahope.dk"
+      }
+    }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-top">
+                <div class="logo">
+                    <a href="/">
+                        <svg id="logoQR" width="50" height="50" viewBox="0 0 100 100"></svg>
+                    </a>
+                </div>
+                <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme">
+                    <svg class="sun-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                    <svg class="moon-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                </button>
+            </div>
+            <h1>📶 WiFi QR-Kode Generator</h1>
+            <p>Lad dine gæster forbinde til WiFi med ét scan - Helt gratis!</p>
+            <nav class="breadcrumb">
+                <a href="/">Hjem</a> / WiFi QR-Kode
+            </nav>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="hero-content">
+                <h2>Gør WiFi Login Nemt for Dine Gæster</h2>
+                <p class="hero-text">Slut med at stave lange WiFi adgangskoder! Generer en WiFi QR-kode på 30 sekunder, og lad dine gæster forbinde automatisk ved at scanne koden.</p>
+                <div class="hero-benefits">
+                    <div class="benefit">✅ Gratis for evigt</div>
+                    <div class="benefit">✅ Ingen registrering</div>
+                    <div class="benefit">✅ Virker på alle smartphones</div>
+                    <div class="benefit">✅ Download i høj kvalitet</div>
+                </div>
+            </div>
+        </section>
+
+        <div class="main-content">
+            <!-- Quick WiFi Form -->
+            <div class="input-section wifi-focused">
+                <h3>Generer Din WiFi QR-Kode</h3>
+
+                <div class="form-group">
+                    <label for="wifiSSID">Netværksnavn (SSID):</label>
+                    <input type="text" id="wifiSSID" placeholder="Mit WiFi Netværk" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="wifiPassword">Adgangskode:</label>
+                    <input type="text" id="wifiPassword" placeholder="skriv adgangskode">
+                </div>
+
+                <div class="form-group">
+                    <label for="wifiEncryption">Kryptering:</label>
+                    <select id="wifiEncryption">
+                        <option value="WPA">WPA/WPA2 (Anbefalet)</option>
+                        <option value="WEP">WEP</option>
+                        <option value="nopass">Ingen (Åbent netværk)</option>
+                    </select>
+                </div>
+
+                <div class="form-group checkbox-group">
+                    <label>
+                        <input type="checkbox" id="wifiHidden">
+                        <span>Skjult netværk</span>
+                    </label>
+                </div>
+
+                <div class="settings-grid">
+                    <div class="form-group">
+                        <label for="qrColor">QR-kode farve:</label>
+                        <div class="color-picker">
+                            <input type="color" id="qrColor" value="#000000">
+                            <span class="color-value">#000000</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="qrSize">Størrelse:</label>
+                        <select id="qrSize">
+                            <option value="512" selected>512×512 (Medium)</option>
+                            <option value="1024">1024×1024 (Stor)</option>
+                            <option value="2048">2048×2048 (Print)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="fileFormat">Format:</label>
+                        <select id="fileFormat">
+                            <option value="png" selected>PNG</option>
+                            <option value="svg">SVG (Print)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button id="generateBtn" class="btn btn-primary">📶 Generer WiFi QR-Kode</button>
+                    <button id="downloadBtn" class="btn btn-secondary" disabled>Download</button>
+                </div>
+            </div>
+
+            <!-- Preview -->
+            <div class="preview-section">
+                <div class="preview-container">
+                    <div id="qrPreview" class="qr-preview">
+                        <div class="placeholder">
+                            <svg width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M5 12.55a11 11 0 0 1 14.08 0"></path>
+                                <path d="M1.42 9a16 16 0 0 1 21.16 0"></path>
+                                <path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path>
+                                <line x1="12" y1="20" x2="12.01" y2="20"></line>
+                            </svg>
+                            <p>Din WiFi QR-kode vil blive vist her</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SEO Content -->
+        <section class="seo-content">
+            <article class="content-block">
+                <h2>Hvorfor Bruge WiFi QR-Koder?</h2>
+                <p>WiFi QR-koder revolutionerer måden gæster forbinder til trådløse netværk på. I stedet for at stave lange, komplekse adgangskoder, kan dine gæster simpelthen scanne en QR-kode og være forbundet på sekunder.</p>
+
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <h3>🏨 Hoteller & Airbnb</h3>
+                        <p>Placer WiFi QR-koden i værelserne og giv gæster øjeblikkelig adgang uden at skulle ringe til receptionen.</p>
+                    </div>
+                    <div class="feature-item">
+                        <h3>🍽️ Restauranter & Caféer</h3>
+                        <p>Lad dine gæster forbinde til WiFi mens de venter på maden. Forbedrer kundeoplevelsen markant.</p>
+                    </div>
+                    <div class="feature-item">
+                        <h3>🏢 Kontor & Mødelokaler</h3>
+                        <p>Giv besøgende og konsulenter nem adgang til gæste-WiFi uden at kompromittere sikkerhed.</p>
+                    </div>
+                    <div class="feature-item">
+                        <h3>🏠 Privat Brug</h3>
+                        <p>Når du har gæster hjemme, behøver du ikke længere diktere lange adgangskoder.</p>
+                    </div>
+                </div>
+            </article>
+
+            <article class="content-block">
+                <h2>Sådan Fungerer Det</h2>
+                <ol class="guide-list">
+                    <li><strong>Indtast netværksinfo:</strong> Skriv dit WiFi netværksnavn (SSID) og adgangskode.</li>
+                    <li><strong>Vælg kryptering:</strong> De fleste moderne netværk bruger WPA/WPA2.</li>
+                    <li><strong>Generer QR-koden:</strong> Klik på knappen og din WiFi QR-kode genereres øjeblikkeligt.</li>
+                    <li><strong>Download & print:</strong> Download som PNG eller SVG og print den ud.</li>
+                    <li><strong>Placer synligt:</strong> Sæt QR-koden op hvor gæster nemt kan scanne den.</li>
+                </ol>
+            </article>
+
+            <article class="content-block">
+                <h2>Best Practices for WiFi QR-Koder</h2>
+                <ul>
+                    <li><strong>Placer strategisk:</strong> Sæt QR-koden ved indgangen, ved bordet eller i værelserne</li>
+                    <li><strong>Brug laminering:</strong> Beskyt din printede QR-kode med laminering for længere holdbarhed</li>
+                    <li><strong>Tilføj instruktioner:</strong> Skriv "Scan for WiFi" så folk ved hvad QR-koden gør</li>
+                    <li><strong>Test regelmæssigt:</strong> Sørg for QR-koden virker efter ændringer i WiFi-indstillinger</li>
+                    <li><strong>Opdater ved ændring:</strong> Hvis du skifter WiFi adgangskode, generer en ny QR-kode</li>
+                </ul>
+            </article>
+
+            <article class="content-block faq-section">
+                <h2>Ofte Stillede Spørgsmål om WiFi QR-Koder</h2>
+
+                <div class="faq-item">
+                    <h3>Virker WiFi QR-koder på iPhone?</h3>
+                    <p>Ja! WiFi QR-koder virker på iOS 11 og nyere. iPhone'en vil automatisk vise en notifikation når QR-koden scannes.</p>
+                </div>
+
+                <div class="faq-item">
+                    <h3>Virker det på Android telefoner?</h3>
+                    <p>Ja, Android har indbygget support for WiFi QR-koder fra Android 10 og fremefter. Ældre versioner kan bruge tredjepartsapps.</p>
+                </div>
+
+                <div class="faq-item">
+                    <h3>Er det sikkert at dele min WiFi adgangskode via QR-kode?</h3>
+                    <p>Ja, men vær opmærksom på hvor du placerer QR-koden. Til offentlige steder anbefaler vi at oprette et separat gæstenetværk.</p>
+                </div>
+
+                <div class="faq-item">
+                    <h3>Kan jeg ændre mit WiFi password senere?</h3>
+                    <p>Hvis du ændrer WiFi password, skal du generere en ny QR-kode med den nye adgangskode. Den gamle QR-kode vil ikke længere virke.</p>
+                </div>
+
+                <div class="faq-item">
+                    <h3>Hvordan scanner jeg en WiFi QR-kode?</h3>
+                    <p>Åbn kamera-appen på din smartphone og peg den mod QR-koden. En notifikation vil dukke op - tryk på den for at forbinde.</p>
+                </div>
+            </article>
+        </section>
+
+        <footer class="footer">
+            <p>Lavet med ❤️ af <a href="https://mahope.dk" target="_blank" rel="noopener">Mahope.dk</a></p>
+            <p class="footer-links">
+                <a href="/">QRTool.dk</a> |
+                <a href="/privatlivspolitik">Privatlivspolitik</a> |
+                <a href="/om-qr-tool">Om QR Tool</a>
+            </p>
+        </footer>
+    </div>
+
+    <script src="https://unpkg.com/qrcode-generator@1.4.4/qrcode.js"></script>
+    <script src="app.js"></script>
+    <script>
+        // Auto-select WiFi tab on load
+        document.addEventListener('DOMContentLoaded', () => {
+            const wifiTab = document.querySelector('[data-tab="wifi"]');
+            if (wifiTab) {
+                wifiTab.click();
+            }
+        });
+    </script>
+</body>
+</html>

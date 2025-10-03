@@ -1,0 +1,54 @@
+{
+  "name": "qrtool",
+  "version": "1.0.0",
+  "description": "Danmarks mest avancerede gratis QR-kode generator med WiFi, vCard, logo support og batch generering",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx http-server -p 8080 -o",
+    "test": "echo \"No tests configured\" && exit 0"
+  },
+  "keywords": [
+    "qr-code",
+    "qr-generator",
+    "wifi-qr",
+    "vcard-qr",
+    "qr-code-generator",
+    "dansk",
+    "gratis",
+    "batch-qr",
+    "logo-qr"
+  ],
+  "author": {
+    "name": "Mahope.dk",
+    "url": "https://mahope.dk"
+  },
+  "license": "MIT",
+  "homepage": "https://qrtool.dk",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mahope/qrtool"
+  },
+  "bugs": {
+    "url": "https://github.com/mahope/qrtool/issues",
+    "email": "kontakt@mahope.dk"
+  },
+  "dependencies": {
+    "file-saver": "^2.0.5",
+    "qrcode": "^1.5.4"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "cdn": {
+    "qrcode-generator": "https://unpkg.com/qrcode-generator@1.4.4/qrcode.js",
+    "jszip": "https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"
+  },
+  "seo": {
+    "title": "QR Tool - Gratis QR-Kode Generator | QRTool.dk",
+    "description": "Generer professionelle QR-koder gratis med logo, farvetilpasning og WiFi/vCard support.",
+    "keywords": "qr kode, qr generator, gratis qr kode, wifi qr, vcard qr"
+  }
+}
