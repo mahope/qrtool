@@ -29,23 +29,30 @@
 
 # Security Headers
 <IfModule mod_headers.c>
+    # HTTP Strict Transport Security (HSTS) - Force HTTPS for 1 year
+    Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+
     # X-Frame-Options for clickjacking protection
     Header always set X-Frame-Options "SAMEORIGIN"
 
     # X-Content-Type-Options
     Header always set X-Content-Type-Options "nosniff"
 
-    # X-XSS-Protection
+    # X-XSS-Protection (legacy browsers)
     Header always set X-XSS-Protection "1; mode=block"
 
     # Referrer Policy
     Header always set Referrer-Policy "strict-origin-when-cross-origin"
 
     # Permissions Policy
-    Header always set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+    Header always set Permissions-Policy "geolocation=(), microphone=(), camera=(), payment=(), usb=()"
 
-    # Content Security Policy (adjust as needed)
-    Header always set Content-Security-Policy "default-src 'self' https://unpkg.com https://cdnjs.cloudflare.com https://analytics.holstjensen.eu; script-src 'self' 'unsafe-inline' https://unpkg.com https://cdnjs.cloudflare.com https://analytics.holstjensen.eu; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self' https://analytics.holstjensen.eu;"
+    # Content Security Policy
+    Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://cdnjs.cloudflare.com https://analytics.holstjensen.eu; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self' https://analytics.holstjensen.eu; form-action 'self'; frame-ancestors 'self'; base-uri 'self'; object-src 'none';"
+
+    # Cross-Origin policies
+    Header always set Cross-Origin-Opener-Policy "same-origin"
+    Header always set Cross-Origin-Embedder-Policy "credentialless"
 </IfModule>
 
 # Compression
