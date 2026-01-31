@@ -290,16 +290,211 @@
     <script defer data-domain="qrtool.dk" src="https://analytics.holstjensen.eu/js/script.file-downloads.hash.outbound-links.pageview-props.tagged-events.js"></script>
     <script>window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }</script>
 
-    <script src="https://unpkg.com/qrcode-generator@1.4.4/qrcode.js"></script>
-    <script src="app.js"></script>
+    <script src="https://unpkg.com/qrcode-generator@1.4.4/qrcode.js" crossorigin="anonymous"></script>
     <script>
-        // Auto-select WiFi tab on load
-        document.addEventListener('DOMContentLoaded', () => {
-            const wifiTab = document.querySelector('[data-tab="wifi"]');
-            if (wifiTab) {
-                wifiTab.click();
+        // Standalone WiFi QR Generator Script
+        (function() {
+            // Theme management
+            const themeToggle = document.getElementById('themeToggle');
+            const html = document.documentElement;
+            const currentTheme = localStorage.getItem('theme') || 'dark';
+            html.setAttribute('data-theme', currentTheme);
+
+            if (themeToggle) {
+                themeToggle.addEventListener('click', () => {
+                    const theme = html.getAttribute('data-theme');
+                    const newTheme = theme === 'dark' ? 'light' : 'dark';
+                    html.setAttribute('data-theme', newTheme);
+                    localStorage.setItem('theme', newTheme);
+                });
             }
-        });
+
+            // DOM elementer
+            const generateBtn = document.getElementById('generateBtn');
+            const downloadBtn = document.getElementById('downloadBtn');
+            const qrPreview = document.getElementById('qrPreview');
+            const qrColor = document.getElementById('qrColor');
+            const qrSize = document.getElementById('qrSize');
+            const fileFormat = document.getElementById('fileFormat');
+
+            let currentQRCanvas = null;
+            let currentQRSVG = null;
+
+            // Generate logo QR
+            function generateLogoQR() {
+                if (typeof qrcode === 'undefined') {
+                    setTimeout(generateLogoQR, 100);
+                    return;
+                }
+                const logoSvg = document.getElementById('logoQR');
+                if (!logoSvg) return;
+
+                const qr = qrcode(0, 'M');
+                qr.addData('https://qrtool.dk');
+                qr.make();
+
+                const cells = qr.getModuleCount();
+                const size = 100;
+                const scale = size / cells;
+
+                let path = '';
+                for (let y = 0; y < cells; y++) {
+                    for (let x = 0; x < cells; x++) {
+                        if (qr.isDark(y, x)) {
+                            const px = x * scale;
+                            const py = y * scale;
+                            path += `M${px},${py}h${scale}v${scale}h-${scale}z `;
+                        }
+                    }
+                }
+
+                logoSvg.innerHTML = `<path d="${path}" fill="url(#gradient)"/>
+                    <defs>
+                        <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#6366f1;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:1" />
+                        </linearGradient>
+                    </defs>`;
+            }
+
+            // Get WiFi data
+            function getWiFiData() {
+                const ssid = document.getElementById('wifiSSID').value.trim();
+                const password = document.getElementById('wifiPassword').value;
+                const encryption = document.getElementById('wifiEncryption').value;
+                const hidden = document.getElementById('wifiHidden').checked ? 'true' : 'false';
+
+                if (!ssid) return null;
+                return `WIFI:T:${encryption};S:${ssid};P:${password};H:${hidden};;`;
+            }
+
+            // Draw QR to canvas
+            function drawCanvas(qr, size, canvas) {
+                const cells = qr.getModuleCount();
+                const scale = size / cells;
+                canvas.width = size;
+                canvas.height = size;
+                const ctx = canvas.getContext('2d');
+
+                ctx.fillStyle = '#ffffff';
+                ctx.fillRect(0, 0, size, size);
+                ctx.fillStyle = qrColor.value;
+
+                for (let y = 0; y < cells; y++) {
+                    for (let x = 0; x < cells; x++) {
+                        if (qr.isDark(y, x)) {
+                            ctx.fillRect(x * scale, y * scale, scale, scale);
+                        }
+                    }
+                }
+            }
+
+            // Generate SVG string
+            function toSvgString(qr, border) {
+                const cells = qr.getModuleCount();
+                const size = cells + border * 2;
+                let parts = [];
+                parts.push(`<?xml version="1.0" encoding="UTF-8"?>`);
+                parts.push(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${size} ${size}">`);
+                parts.push(`<rect width="100%" height="100%" fill="#ffffff"/>`);
+                parts.push(`<path d="`);
+                for (let y = 0; y < cells; y++) {
+                    for (let x = 0; x < cells; x++) {
+                        if (qr.isDark(y, x)) {
+                            parts.push(`M${x + border},${y + border}h1v1h-1z`);
+                        }
+                    }
+                }
+                parts.push(`" fill="${qrColor.value}"/></svg>`);
+                return parts.join('\n');
+            }
+
+            // Generate QR code
+            function generateQRCode() {
+                const text = getWiFiData();
+                if (!text) {
+                    alert('Indtast venligst netværksnavn!');
+                    return;
+                }
+
+                try {
+                    qrPreview.innerHTML = '';
+                    const size = parseInt(qrSize.value);
+                    const format = fileFormat.value;
+                    const qr = qrcode(0, 'M');
+                    qr.addData(text);
+                    qr.make();
+
+                    if (format === 'svg') {
+                        currentQRSVG = toSvgString(qr, 2);
+                        qrPreview.innerHTML = currentQRSVG;
+                        currentQRCanvas = null;
+                    } else {
+                        const canvas = document.createElement('canvas');
+                        drawCanvas(qr, size, canvas);
+                        qrPreview.appendChild(canvas);
+                        currentQRCanvas = canvas;
+                        currentQRSVG = null;
+                    }
+
+                    downloadBtn.disabled = false;
+                    generateBtn.textContent = '✓ Genereret!';
+                    generateBtn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+                    setTimeout(() => {
+                        generateBtn.textContent = '📶 Generer WiFi QR-Kode';
+                        generateBtn.style.background = '';
+                    }, 2000);
+                } catch (error) {
+                    alert('Fejl: ' + error.message);
+                }
+            }
+
+            // Download
+            function downloadQRCode() {
+                const format = fileFormat.value;
+                const filename = `wifi-qr-${Date.now()}.${format}`;
+
+                function downloadBlob(blob, name) {
+                    const url = URL.createObjectURL(blob);
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.download = name;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    URL.revokeObjectURL(url);
+                }
+
+                if (format === 'svg' && currentQRSVG) {
+                    const blob = new Blob([currentQRSVG], { type: 'image/svg+xml' });
+                    downloadBlob(blob, filename);
+                } else if (currentQRCanvas) {
+                    currentQRCanvas.toBlob((blob) => downloadBlob(blob, filename), 'image/png');
+                }
+
+                downloadBtn.textContent = '✓ Downloaded!';
+                setTimeout(() => { downloadBtn.textContent = 'Download'; }, 2000);
+            }
+
+            // Color picker display
+            if (qrColor) {
+                qrColor.addEventListener('input', (e) => {
+                    const span = e.target.nextElementSibling;
+                    if (span) span.textContent = e.target.value;
+                });
+            }
+
+            // Event listeners
+            if (generateBtn) generateBtn.addEventListener('click', generateQRCode);
+            if (downloadBtn) downloadBtn.addEventListener('click', downloadQRCode);
+
+            // Init logo
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', generateLogoQR);
+            } else {
+                generateLogoQR();
+            }
+        })();
     </script>
 </body>
 </html>

@@ -6,13 +6,15 @@ const html = document.documentElement;
 const currentTheme = localStorage.getItem('theme') || 'dark';
 html.setAttribute('data-theme', currentTheme);
 
-// Theme toggle handler
-themeToggle.addEventListener('click', () => {
-    const theme = html.getAttribute('data-theme');
-    const newTheme = theme === 'dark' ? 'light' : 'dark';
-    html.setAttribute('data-theme', newTheme);
-    localStorage.setItem('theme', newTheme);
-});
+// Theme toggle handler (with null check)
+if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+        const theme = html.getAttribute('data-theme');
+        const newTheme = theme === 'dark' ? 'light' : 'dark';
+        html.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+    });
+}
 
 // Tab management
 const tabButtons = document.querySelectorAll('.tab-button');
@@ -68,10 +70,11 @@ function generateLogoQR() {
     }
 
     const logoSvg = document.getElementById('logoQR');
+    if (!logoSvg) return; // Skip if logo element doesn't exist
 
     // Brug qrcode generator biblioteket
     const qr = qrcode(0, 'M');
-    qr.addData('https://mahope.dk');
+    qr.addData('https://qrtool.dk');
     qr.make();
 
     const cells = qr.getModuleCount();
@@ -218,8 +221,10 @@ function getQRData() {
     }
 }
 
-// Generer QR-kode
-generateBtn.addEventListener('click', generateQRCode);
+// Generer QR-kode (with null check for button)
+if (generateBtn) {
+    generateBtn.addEventListener('click', generateQRCode);
+}
 
 function generateQRCode() {
     const text = getQRData();
@@ -381,8 +386,10 @@ function toSvgString(qr, border, style = 'square') {
     return parts.join('\n');
 }
 
-// Download QR-kode
-downloadBtn.addEventListener('click', downloadQRCode);
+// Download QR-kode (with null check)
+if (downloadBtn) {
+    downloadBtn.addEventListener('click', downloadQRCode);
+}
 
 function downloadQRCode() {
     const format = fileFormat.value;
@@ -485,9 +492,10 @@ function downloadBlob(blob, filename) {
     URL.revokeObjectURL(url);
 }
 
-// Batch generation with JSZip
-batchGenerateBtn.addEventListener('click', async () => {
-    const lines = batchInput.value.trim().split('\n').filter(line => line.trim());
+// Batch generation with JSZip (with null check)
+if (batchGenerateBtn && batchInput) {
+    batchGenerateBtn.addEventListener('click', async () => {
+        const lines = batchInput.value.trim().split('\n').filter(line => line.trim());
 
     if (lines.length === 0) {
         alert('Indtast venligst mindst én URL/tekst!');
@@ -552,7 +560,8 @@ batchGenerateBtn.addEventListener('click', async () => {
         batchGenerateBtn.textContent = originalText;
         batchGenerateBtn.disabled = false;
     }
-});
+    });
+}
 
 // History management
 function saveToHistory(text, type) {
@@ -578,6 +587,13 @@ function getHistory() {
     return stored ? JSON.parse(stored) : [];
 }
 
+// Sanitize text for safe HTML display (XSS prevention)
+function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
+
 function renderHistory() {
     const history = getHistory();
 
@@ -589,7 +605,10 @@ function renderHistory() {
 
     clearHistory.style.display = 'block';
 
-    historyList.innerHTML = history.map((entry, index) => {
+    // Clear existing content
+    historyList.innerHTML = '';
+
+    history.forEach((entry, index) => {
         const date = new Date(entry.timestamp);
         const typeIcon = {
             'text': '📝',
@@ -600,22 +619,51 @@ function renderHistory() {
             'calendar': '📅'
         }[entry.type] || '📝';
 
-        return `
-            <div class="history-item">
-                <div class="history-item-info">
-                    <div class="history-item-text">${typeIcon} ${entry.text}</div>
-                    <div class="history-item-date">${date.toLocaleString('da-DK')}</div>
-                </div>
-                <div class="history-item-actions">
-                    <button class="btn-history-action" onclick="loadFromHistory(${index})" title="Genindlæs">🔄</button>
-                    <button class="btn-history-action" onclick="deleteFromHistory(${index})" title="Slet">🗑️</button>
-                </div>
-            </div>
-        `;
-    }).join('');
+        // Create elements safely (XSS prevention)
+        const item = document.createElement('div');
+        item.className = 'history-item';
+
+        const info = document.createElement('div');
+        info.className = 'history-item-info';
+
+        const textDiv = document.createElement('div');
+        textDiv.className = 'history-item-text';
+        textDiv.textContent = `${typeIcon} ${entry.text}`;
+
+        const dateDiv = document.createElement('div');
+        dateDiv.className = 'history-item-date';
+        dateDiv.textContent = date.toLocaleString('da-DK');
+
+        info.appendChild(textDiv);
+        info.appendChild(dateDiv);
+
+        const actions = document.createElement('div');
+        actions.className = 'history-item-actions';
+
+        const loadBtn = document.createElement('button');
+        loadBtn.className = 'btn-history-action';
+        loadBtn.title = 'Genindlæs';
+        loadBtn.textContent = '🔄';
+        loadBtn.setAttribute('aria-label', 'Genindlæs denne QR-kode');
+        loadBtn.addEventListener('click', () => loadFromHistory(index));
+
+        const deleteBtn = document.createElement('button');
+        deleteBtn.className = 'btn-history-action';
+        deleteBtn.title = 'Slet';
+        deleteBtn.textContent = '🗑️';
+        deleteBtn.setAttribute('aria-label', 'Slet denne QR-kode fra historik');
+        deleteBtn.addEventListener('click', () => deleteFromHistory(index));
+
+        actions.appendChild(loadBtn);
+        actions.appendChild(deleteBtn);
+
+        item.appendChild(info);
+        item.appendChild(actions);
+        historyList.appendChild(item);
+    });
 }
 
-window.loadFromHistory = function(index) {
+function loadFromHistory(index) {
     const history = getHistory();
     const entry = history[index];
 
@@ -629,61 +677,76 @@ window.loadFromHistory = function(index) {
     }
 
     // For text tab, just load the text
-    if (targetTab === 'text') {
+    if (targetTab === 'text' && qrText) {
         qrText.value = entry.text;
     }
 
     // Generate QR code
     setTimeout(() => generateQRCode(), 100);
-};
+}
 
-window.deleteFromHistory = function(index) {
+function deleteFromHistory(index) {
     const history = getHistory();
     history.splice(index, 1);
     localStorage.setItem('qr-history', JSON.stringify(history));
     renderHistory();
-};
+}
 
-clearHistory.addEventListener('click', () => {
-    if (confirm('Er du sikker på at du vil slette hele historikken?')) {
-        localStorage.removeItem('qr-history');
-        renderHistory();
-    }
-});
+// Expose functions globally for backward compatibility
+window.loadFromHistory = loadFromHistory;
+window.deleteFromHistory = deleteFromHistory;
 
-// Load history on page load
-renderHistory();
+// Clear history button (with null check)
+if (clearHistory) {
+    clearHistory.addEventListener('click', () => {
+        if (confirm('Er du sikker på at du vil slette hele historikken?')) {
+            localStorage.removeItem('qr-history');
+            renderHistory();
+        }
+    });
+}
+
+// Load history on page load (with null check)
+if (historyList) {
+    renderHistory();
+}
 
 // Generer automatisk når der indtastes (med debounce)
 let debounceTimer;
-qrText.addEventListener('input', () => {
-    clearTimeout(debounceTimer);
-    if (qrText.value.trim()) {
-        debounceTimer = setTimeout(() => {
+if (qrText) {
+    qrText.addEventListener('input', () => {
+        clearTimeout(debounceTimer);
+        if (qrText.value.trim()) {
+            debounceTimer = setTimeout(() => {
+                generateQRCode();
+            }, 1000);
+        }
+    });
+
+    // Keyboard shortcut: Enter til at generere
+    qrText.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
             generateQRCode();
-        }, 1000);
-    }
-});
+        }
+    });
+}
 
 // Generer automatisk ved ændring af indstillinger
 [qrColor, bgColor, qrSize, errorCorrection, fileFormat, qrStyle].forEach(element => {
-    element.addEventListener('change', () => {
+    if (element) {
+        element.addEventListener('change', () => {
+            if (currentQRCanvas || currentQRSVG) {
+                generateQRCode();
+            }
+        });
+    }
+});
+
+if (transparentBg) {
+    transparentBg.addEventListener('change', () => {
         if (currentQRCanvas || currentQRSVG) {
             generateQRCode();
         }
     });
-});
-
-transparentBg.addEventListener('change', () => {
-    if (currentQRCanvas || currentQRSVG) {
-        generateQRCode();
-    }
-});
-
-// Keyboard shortcut: Enter til at generere
-qrText.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
-        e.preventDefault();
-        generateQRCode();
-    }
-});
+}

@@ -33,6 +33,8 @@
 
     <!-- Preconnect for performance -->
     <link rel="preconnect" href="https://unpkg.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="dns-prefetch" href="https://analytics.holstjensen.eu">
 
     <!-- Schema.org structured data -->
     <script type="application/ld+json">
@@ -60,7 +62,8 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
+    <a href="#main-content" class="skip-link">Spring til indhold</a>
+    <div class="container" role="main" id="main-content">
         <header>
             <div class="header-top">
                 <div class="logo">
@@ -303,8 +306,8 @@
                 </div>
 
                 <div class="button-group">
-                    <button id="generateBtn" class="btn btn-primary">Generer QR-kode</button>
-                    <button id="downloadBtn" class="btn btn-secondary" disabled>Download</button>
+                    <button id="generateBtn" class="btn btn-primary" aria-label="Generer din QR-kode nu">Generer QR-kode</button>
+                    <button id="downloadBtn" class="btn btn-secondary" disabled aria-label="Download din genererede QR-kode">Download</button>
                 </div>
             </div>
 
@@ -556,8 +559,8 @@
     <script defer data-domain="qrtool.dk" src="https://analytics.holstjensen.eu/js/script.file-downloads.hash.outbound-links.pageview-props.tagged-events.js"></script>
     <script>window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }</script>
 
-    <script src="https://unpkg.com/qrcode-generator@1.4.4/qrcode.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://unpkg.com/qrcode-generator@1.4.4/qrcode.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="app.js"></script>
 </body>
 </html>
