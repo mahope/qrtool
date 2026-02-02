@@ -43,7 +43,7 @@
     "node": ">=14.0.0"
   },
   "cdn": {
-    "qrcode-generator": "https://unpkg.com/qrcode-generator@1.4.4/qrcode.js",
+    "qrcode-generator": "https://unpkg.com/qrcode-generator@2.0.4/dist/qrcode.js",
     "jszip": "https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"
   },
   "seo": {
