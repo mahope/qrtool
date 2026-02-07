@@ -4,29 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Om QR Tool | QRTool.dk</title>
-    <meta name="description" content="Lær mere om QR Tool - Danmarks mest avancerede gratis QR-kode generator. Udviklet af Mahope.dk.">
-    <meta name="keywords" content="om qr tool, qr kode generator, gratis qr kode, dansk qr generator, mahope">
-    <meta name="author" content="Mahope.dk">
+    <meta name="description" content="Lær mere om QR Tool - Danmarks mest avancerede gratis QR-kode generator. Udviklet af Mahope.dk med fokus på privatliv og brugervenlighed.">
+    <meta name="keywords" content="om qr tool, qr kode generator baggrund, gratis qr værktøj, dansk qr generator, mahope">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://qrtool.dk/om-qr-tool">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://qrtool.dk/om-qr-tool">
-    <meta property="og:title" content="Om QR Tool | Danmarks Gratis QR-Kode Generator">
-    <meta property="og:description" content="Lær mere om QR Tool - Danmarks mest avancerede gratis QR-kode generator. Udviklet af Mahope.dk.">
+    <meta property="og:title" content="Om QR Tool - Gratis Dansk QR-Kode Generator">
+    <meta property="og:description" content="Lær mere om QR Tool - Danmarks mest avancerede gratis QR-kode generator udviklet af Mahope.dk.">
     <meta property="og:image" content="https://qrtool.dk/og-image.png">
     <meta property="og:locale" content="da_DK">
 
     <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:url" content="https://qrtool.dk/om-qr-tool">
-    <meta name="twitter:title" content="Om QR Tool | Danmarks Gratis QR-Kode Generator">
-    <meta name="twitter:description" content="Lær mere om QR Tool - Danmarks mest avancerede gratis QR-kode generator.">
-    <meta name="twitter:image" content="https://qrtool.dk/og-image.png">
-
-    <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📱</text></svg>">
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://qrtool.dk/om-qr-tool">
+    <meta property="twitter:title" content="Om QR Tool - Gratis Dansk QR-Kode Generator">
+    <meta property="twitter:description" content="Lær mere om QR Tool - Danmarks mest avancerede gratis QR-kode generator.">
+    <meta property="twitter:image" content="https://qrtool.dk/og-image.png">
 
     <!-- Schema.org structured data -->
     <script type="application/ld+json">
@@ -35,7 +31,7 @@
       "@type": "AboutPage",
       "name": "Om QR Tool",
       "url": "https://qrtool.dk/om-qr-tool",
-      "description": "Lær mere om QR Tool - Danmarks mest avancerede gratis QR-kode generator",
+      "description": "Information om QR Tool - Danmarks gratis QR-kode generator",
       "mainEntity": {
         "@type": "WebApplication",
         "name": "QR Tool",
@@ -48,13 +44,20 @@
           "priceCurrency": "DKK"
         }
       },
-      "author": {
+      "creator": {
         "@type": "Organization",
         "name": "Mahope",
         "url": "https://mahope.dk"
       }
     }
     </script>
+
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://unpkg.com" crossorigin>
+    <link rel="dns-prefetch" href="https://analytics.holstjensen.eu">
+
+    <!-- Preload critical resources -->
+    <link rel="preload" href="style.css" as="style">
 
     <link rel="stylesheet" href="style.css">
 </head>
@@ -258,7 +261,7 @@
 
                 <p>Jeg håber min QR-kode generator gør din hverdag lidt lettere.</p>
 
-                <div class="hero-benefits" style="margin-top: 2rem;">
+                <div class="hero-benefits">
                     <div class="benefit">🎨 Altid Gratis</div>
                     <div class="benefit">🔒 Privacy Først</div>
                     <div class="benefit">⚡ Hurtig & Nem</div>
@@ -274,18 +277,18 @@
                 <a href="/privatlivspolitik">Privatlivspolitik</a> |
                 <a href="/om-qr-tool">Om QR Tool</a>
             </p>
-            <div style="margin-top: 1.5rem; padding: 1.5rem; background: var(--card-bg); border-radius: 12px; border: 2px solid var(--border-color);">
-                <h3 style="margin: 0 0 1rem 0; font-size: 1.1rem; color: var(--text-color);">🚀 Andre gratis værktøjer fra Mahope.dk</h3>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
-                    <a href="https://levetidsberegner.dk" target="_blank" rel="noopener" style="display: block; padding: 1rem; background: var(--bg-color); border-radius: 8px; text-decoration: none; border: 1px solid var(--border-color); transition: transform 0.2s;">
-                        <div style="font-size: 2rem; margin-bottom: 0.5rem;">⏳</div>
-                        <h4 style="margin: 0 0 0.5rem 0; color: var(--primary-color);">Levetidsberegner.dk</h4>
-                        <p style="margin: 0; font-size: 0.9rem; color: var(--text-muted);">Beregn din forventede levetid</p>
+            <div class="footer-tools">
+                <h3>🚀 Andre gratis værktøjer fra Mahope.dk</h3>
+                <div class="footer-tools-grid">
+                    <a href="https://levetidsberegner.dk" target="_blank" rel="noopener" class="footer-tool-card">
+                        <span class="emoji">⏳</span>
+                        <h4>Levetidsberegner.dk</h4>
+                        <p>Beregn din forventede levetid</p>
                     </a>
-                    <a href="https://pakkeliste.com" target="_blank" rel="noopener" style="display: block; padding: 1rem; background: var(--bg-color); border-radius: 8px; text-decoration: none; border: 1px solid var(--border-color); transition: transform 0.2s;">
-                        <div style="font-size: 2rem; margin-bottom: 0.5rem;">✈️</div>
-                        <h4 style="margin: 0 0 0.5rem 0; color: var(--primary-color);">Pakkeliste.com</h4>
-                        <p style="margin: 0; font-size: 0.9rem; color: var(--text-muted);">Intelligent rejseværktøj til pakkelister</p>
+                    <a href="https://pakkeliste.com" target="_blank" rel="noopener" class="footer-tool-card">
+                        <span class="emoji">✈️</span>
+                        <h4>Pakkeliste.com</h4>
+                        <p>Intelligent rejseværktøj til pakkelister</p>
                     </a>
                 </div>
             </div>
@@ -296,7 +299,7 @@
     <script defer data-domain="qrtool.dk" src="https://analytics.holstjensen.eu/js/script.file-downloads.hash.outbound-links.pageview-props.tagged-events.js"></script>
     <script>window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }</script>
 
-    <script src="https://unpkg.com/qrcode-generator@2.0.4/dist/qrcode.js" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/qrcode-generator@2.0.4/dist/qrcode.js" crossorigin="anonymous" integrity="sha384-e9EFD6BGC90bkW9aDV5xbbBfzwN7G8YImHao2lfLVKV/hPB0E0go+H3I64h7oHtA"></script>
     <script src="app.js"></script>
 </body>
 </html>
