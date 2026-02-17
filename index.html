@@ -484,15 +484,22 @@
                         </select>
                     </div>
 
-                    <!-- Fejlkorrektion (kompleksitet) -->
-                    <div class="form-group">
-                        <label for="errorCorrection">Fejlkorrektion:</label>
-                        <select id="errorCorrection">
-                            <option value="L">Lav (~7%)</option>
-                            <option value="M" selected>Medium (~15%)</option>
-                            <option value="Q">Høj (~25%)</option>
-                            <option value="H">Meget høj (~30%)</option>
+                    <!-- Fejlkorrektion -->
+                    <div class="form-group ec-group">
+                        <label>Fejlkorrektion:</label>
+                        <select id="errorCorrection" class="visually-hidden">
+                            <option value="L">Lav</option>
+                            <option value="M" selected>Medium</option>
+                            <option value="Q">Høj</option>
+                            <option value="H">Meget høj</option>
                         </select>
+                        <div class="ec-segmented" role="group" aria-label="Fejlkorrektionsniveau">
+                            <button type="button" class="ec-option" data-ec="L" aria-pressed="false">L</button>
+                            <button type="button" class="ec-option active" data-ec="M" aria-pressed="true">M</button>
+                            <button type="button" class="ec-option" data-ec="Q" aria-pressed="false">Q</button>
+                            <button type="button" class="ec-option" data-ec="H" aria-pressed="false">H</button>
+                        </div>
+                        <p class="ec-hint" id="ecHint">Medium (~15%) — Anbefalet til de fleste formål</p>
                     </div>
 
                     <!-- Filformat -->

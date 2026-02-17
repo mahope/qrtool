@@ -530,6 +530,55 @@ header p {
     gap: 1rem;
 }
 
+/* Error Correction Segmented Control */
+.ec-group {
+    grid-column: 1 / -1;
+}
+
+.ec-segmented {
+    display: flex;
+    gap: 0;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin-top: 0.25rem;
+}
+
+.ec-option {
+    flex: 1;
+    padding: 0.5rem;
+    border: none;
+    background: var(--card-bg);
+    color: var(--text-muted);
+    font-weight: 600;
+    font-size: 0.85rem;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all var(--transition);
+    border-right: 1px solid var(--border-color);
+}
+
+.ec-option:last-child {
+    border-right: none;
+}
+
+.ec-option:hover {
+    background: var(--primary-light);
+    color: var(--primary-color);
+}
+
+.ec-option.active {
+    background: var(--primary-color);
+    color: white;
+}
+
+.ec-hint {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-top: 0.35rem;
+    font-style: italic;
+}
+
 .settings-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);

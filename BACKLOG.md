@@ -266,7 +266,7 @@ Tilføj en simpel SVG-illustration i hero-sektionen der viser en telefon der sca
 ### #50 — Settings-panel som collapsible sektioner (P2)
 Gruppér indstillinger (Stil, Farver, Størrelse, Format) i collapsible accordion-sektioner med ikoner. Reducerer visuel overload.
 
-- [ ] Ikke startet
+- [x] Færdig — 3 collapsible details-sektioner (Stil, Farver, Størrelse & Format) med ikoner og pil-animation
 
 ### #51 — Forbedret error correction level-UI (P3)
 Vis fejlkorrektionsniveauer visuelt med en slider og en kort forklaring af hvad hvert niveau betyder i praksis ("Lav: til rene overflader", "Høj: til print med logo").

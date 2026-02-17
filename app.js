@@ -294,6 +294,32 @@ if (swapColorsBtn) {
     });
 }
 
+// Error Correction segmented control
+const ecOptions = document.querySelectorAll('.ec-option');
+const ecHint = document.getElementById('ecHint');
+const ecHints = {
+    L: 'Lav (~7%) — Til rene overflader og digitale skærme',
+    M: 'Medium (~15%) — Anbefalet til de fleste formål',
+    Q: 'Høj (~25%) — Til print og overflader med lidt slid',
+    H: 'Meget høj (~30%) — Til print med logo eller udendørs brug'
+};
+ecOptions.forEach(opt => {
+    opt.addEventListener('click', () => {
+        const val = opt.dataset.ec;
+        if (errorCorrection) {
+            errorCorrection.value = val;
+            errorCorrection.dispatchEvent(new Event('change'));
+        }
+        ecOptions.forEach(o => {
+            o.classList.remove('active');
+            o.setAttribute('aria-pressed', 'false');
+        });
+        opt.classList.add('active');
+        opt.setAttribute('aria-pressed', 'true');
+        if (ecHint) ecHint.textContent = ecHints[val] || '';
+    });
+});
+
 // QR Style preview cards
 const styleCards = document.querySelectorAll('.style-preview-card');
 styleCards.forEach(card => {
