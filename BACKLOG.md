@@ -222,7 +222,7 @@ Vis to QR-koder side om side med forskellige indstillinger (størrelse, fejlkorr
 ### #42 — Favoritter/gemte QR-koder (P3)
 Udover historik: lad brugere markere QR-koder som favoritter der ikke automatisk slettes fra listen. Persisteres i localStorage.
 
-- [ ] Ikke startet
+- [x] Færdig — stjerne-toggle på historik-entries, favoritter beskyttes mod auto-sletning, filter og visuel markering
 
 ---
 

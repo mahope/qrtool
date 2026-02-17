@@ -1534,10 +1534,13 @@ function saveToHistory(text, type) {
         timestamp: Date.now()
     };
 
-    // Add to beginning, keep max 20 entries
+    // Add to beginning, keep max 20 non-favorite entries (favorites always kept)
     history.unshift(entry);
-    if (history.length > 20) {
-        history.splice(20);
+    const nonFavs = history.filter(e => !e.favorite);
+    if (nonFavs.length > 20) {
+        const oldest = nonFavs[nonFavs.length - 1];
+        const idx = history.indexOf(oldest);
+        if (idx !== -1) history.splice(idx, 1);
     }
 
     localStorage.setItem('qr-history', JSON.stringify(history));
@@ -1572,7 +1575,8 @@ function renderHistory() {
     const filtered = history
         .map((entry, index) => ({ ...entry, type: entry.type || 'text', originalIndex: index }))
         .filter(entry => {
-            if (filter !== 'all' && entry.type !== filter) return false;
+            if (filter === 'favorites' && !entry.favorite) return false;
+            if (filter !== 'all' && filter !== 'favorites' && entry.type !== filter) return false;
             if (search) {
                 const haystack = ((entry.label || '') + ' ' + entry.text + ' ' + (typeLabels[entry.type] || '')).toLowerCase();
                 if (!haystack.includes(search)) return false;
@@ -1591,7 +1595,7 @@ function renderHistory() {
         const date = new Date(entry.timestamp);
 
         const item = document.createElement('div');
-        item.className = 'history-item';
+        item.className = 'history-item' + (entry.favorite ? ' history-item-favorite' : '');
 
         const info = document.createElement('div');
         info.className = 'history-item-info';
@@ -1625,6 +1629,14 @@ function renderHistory() {
         const actions = document.createElement('div');
         actions.className = 'history-item-actions';
 
+        // Favorite toggle
+        const favBtn = document.createElement('button');
+        favBtn.className = 'btn-history-action';
+        favBtn.title = entry.favorite ? 'Fjern favorit' : 'Tilføj favorit';
+        favBtn.textContent = entry.favorite ? '⭐' : '☆';
+        favBtn.setAttribute('aria-label', entry.favorite ? 'Fjern fra favoritter' : 'Tilføj til favoritter');
+        favBtn.addEventListener('click', () => toggleFavorite(entry.originalIndex));
+
         // Rename button
         const renameBtn = document.createElement('button');
         renameBtn.className = 'btn-history-action';
@@ -1647,6 +1659,7 @@ function renderHistory() {
         deleteBtn.setAttribute('aria-label', 'Slet denne QR-kode fra historik');
         deleteBtn.addEventListener('click', () => deleteFromHistory(entry.originalIndex));
 
+        actions.appendChild(favBtn);
         actions.appendChild(renameBtn);
         actions.appendChild(loadBtn);
         actions.appendChild(deleteBtn);
@@ -1683,6 +1696,16 @@ function loadFromHistory(index) {
 
     // Generate QR code
     setTimeout(() => generateQRCode(), 100);
+}
+
+function toggleFavorite(index) {
+    const history = getHistory();
+    const entry = history[index];
+    if (!entry) return;
+    entry.favorite = !entry.favorite;
+    localStorage.setItem('qr-history', JSON.stringify(history));
+    renderHistory();
+    showToast(entry.favorite ? 'Tilføjet til favoritter' : 'Fjernet fra favoritter', 'success');
 }
 
 function deleteFromHistory(index) {
