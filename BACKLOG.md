@@ -329,12 +329,12 @@ Ved tab-skift: flyt fokus automatisk til første input-felt i den nye tab. Ved Q
 ### #61 — Tekststørrelses-kontrol (P3)
 Tilføj en A/A+/A++ kontrol i headeren der justerer base font-size. Nyttigt for ældre brugere og synshæmmede.
 
-- [ ] Ikke startet
+- [x] Færdig — A/A+/A++ toggle i header med 100%/112.5%/125% font-size, localStorage-persisteret
 
 ### #62 — WCAG AAA farvekontrast-audit (P2)
 Gennemgå og justér alle farver så de overholder WCAG AAA (7:1 kontrast). Særligt muted-tekst og placeholder-tekst.
 
-- [ ] Ikke startet
+- [x] Færdig — text-muted justeret til 7:1+ kontrast i både dark (#acb7c6) og light (#475569) tema
 
 ---
 

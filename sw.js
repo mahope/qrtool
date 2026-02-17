@@ -1,4 +1,4 @@
-const CACHE_NAME = 'qrtool-v4';
+const CACHE_NAME = 'qrtool-v5';
 const ASSETS = [
     '/',
     '/style.css',
