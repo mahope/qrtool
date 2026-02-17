@@ -207,7 +207,7 @@ Tilføj PDF som eksportformat. Generér en A4-side med QR-koden centreret, valgf
 ### #39 — Bulk import fra CSV (P2)
 Batch-generation via CSV-upload. Upload en fil med URL'er, kontakter, WiFi-netværk osv. og generér QR-koder for alle rækker.
 
-- [ ] Ikke startet
+- [x] Færdig — CSV/TSV import med auto-delimiter detection, header-skip og første kolonne til batch textarea
 
 ### #40 — Social media QR-profiler (P3)
 Ny QR-type: "Social profil" der samler links til Instagram, Facebook, LinkedIn, TikTok osv. i én QR-kode (linktree-style landing).

@@ -639,6 +639,11 @@
                                 <label for="batchInput">Indtast URLs/tekster (en per linje):</label>
                                 <textarea id="batchInput" rows="5" placeholder="https://example1.com&#10;https://example2.com&#10;https://example3.com"></textarea>
                             </div>
+                            <div class="form-group">
+                                <label class="btn btn-secondary" for="csvFileInput" style="display:inline-block;cursor:pointer;">📄 Importér fra CSV</label>
+                                <input type="file" id="csvFileInput" accept=".csv,.txt,.tsv" class="visually-hidden">
+                                <span class="cta-hint">Upload en CSV-fil — første kolonne bruges som QR-indhold</span>
+                            </div>
                             <div class="batch-actions">
                                 <button id="batchPreviewBtn" class="btn btn-secondary">Forhåndsvis</button>
                                 <button id="batchGenerateBtn" class="btn btn-primary">Generer alle & download som ZIP</button>

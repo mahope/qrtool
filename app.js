@@ -1463,6 +1463,52 @@ if (batchGenerateBtn && batchInput) {
     });
 }
 
+// CSV Import for batch generation
+const csvFileInput = document.getElementById('csvFileInput');
+if (csvFileInput) {
+    csvFileInput.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = (ev) => {
+            const text = ev.target.result;
+            const lines = text.split(/\r?\n/).filter(l => l.trim());
+            if (lines.length === 0) {
+                showToast('CSV-filen er tom.', 'error');
+                return;
+            }
+
+            // Detect delimiter: comma, semicolon, or tab
+            const firstLine = lines[0];
+            const delim = firstLine.includes('\t') ? '\t' : firstLine.includes(';') ? ';' : ',';
+
+            // Check if first line looks like a header
+            const firstCell = firstLine.split(delim)[0].trim().replace(/^["']|["']$/g, '');
+            const startsAt = /^(url|link|text|data|indhold|tekst|qr)/i.test(firstCell) ? 1 : 0;
+
+            const values = [];
+            for (let i = startsAt; i < lines.length; i++) {
+                const cell = lines[i].split(delim)[0].trim().replace(/^["']|["']$/g, '');
+                if (cell) values.push(cell);
+            }
+
+            if (values.length === 0) {
+                showToast('Ingen data fundet i CSV-filen.', 'error');
+                return;
+            }
+
+            if (batchInput) {
+                batchInput.value = values.join('\n');
+            }
+
+            showToast(`${values.length} rækker importeret fra CSV.`, 'success');
+            csvFileInput.value = '';
+        };
+        reader.readAsText(file, 'UTF-8');
+    });
+}
+
 // History management
 const historyControls = document.getElementById('historyControls');
 const historySearch = document.getElementById('historySearch');
