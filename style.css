@@ -1023,6 +1023,88 @@ header p {
     margin-top: 1rem;
 }
 
+.batch-actions {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+}
+
+.batch-actions .btn {
+    flex: 1;
+}
+
+.batch-progress {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 0.75rem;
+}
+
+.batch-progress-bar {
+    flex: 1;
+    height: 8px;
+    background: var(--border-color);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.batch-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    border-radius: 4px;
+    transition: width 0.2s ease;
+    width: 0%;
+}
+
+.batch-progress-text {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    white-space: nowrap;
+    min-width: 3.5rem;
+    text-align: right;
+}
+
+.batch-preview-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.batch-preview-item {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    padding: 0.5rem;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color var(--transition), transform var(--transition);
+}
+
+.batch-preview-item:hover {
+    border-color: var(--primary-color);
+    transform: scale(1.03);
+}
+
+.batch-preview-item canvas,
+.batch-preview-item svg {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+.batch-preview-item .batch-preview-label {
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    margin-top: 0.25rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
 /* ===========================================
    History Section
    =========================================== */

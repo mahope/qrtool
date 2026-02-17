@@ -1106,72 +1106,140 @@ function svgToCanvas(svgString) {
     });
 }
 
-// Batch generation with JSZip (with null check)
-if (batchGenerateBtn && batchInput) {
-    batchGenerateBtn.addEventListener('click', async () => {
-        const lines = batchInput.value.trim().split('\n').filter(line => line.trim());
+// Batch generation
+const batchPreviewBtn = document.getElementById('batchPreviewBtn');
+const batchProgress = document.getElementById('batchProgress');
+const batchProgressFill = document.getElementById('batchProgressFill');
+const batchProgressText = document.getElementById('batchProgressText');
+const batchPreviewGrid = document.getElementById('batchPreviewGrid');
 
-    if (lines.length === 0) {
-        showToast('Indtast venligst mindst én URL/tekst!', 'error');
-        return;
-    }
+function getBatchLines() {
+    if (!batchInput) return [];
+    return batchInput.value.trim().split('\n').filter(line => line.trim());
+}
 
-    if (lines.length > 100) {
-        showToast('Maksimalt 100 QR-koder ad gangen!', 'error');
-        return;
-    }
+function updateBatchProgress(current, total) {
+    if (!batchProgress) return;
+    batchProgress.style.display = 'flex';
+    const pct = Math.round((current / total) * 100);
+    if (batchProgressFill) batchProgressFill.style.width = pct + '%';
+    if (batchProgressText) batchProgressText.textContent = `${current}/${total}`;
+}
 
-    // Check if JSZip is available (we'll need to add this library)
-    if (typeof JSZip === 'undefined') {
-        showToast('JSZip biblioteket mangler. Genindlæs siden.', 'error');
-        return;
-    }
+function hideBatchProgress() {
+    if (batchProgress) batchProgress.style.display = 'none';
+    if (batchProgressFill) batchProgressFill.style.width = '0%';
+}
 
-    const originalText = batchGenerateBtn.textContent;
-    batchGenerateBtn.textContent = 'Genererer...';
-    batchGenerateBtn.disabled = true;
+// Preview batch QR codes
+if (batchPreviewBtn && batchInput) {
+    batchPreviewBtn.addEventListener('click', () => {
+        const lines = getBatchLines();
+        if (lines.length === 0) {
+            showToast('Indtast venligst mindst én URL/tekst!', 'error');
+            return;
+        }
+        if (lines.length > 100) {
+            showToast('Maksimalt 100 QR-koder ad gangen!', 'error');
+            return;
+        }
 
-    try {
-        const zip = new JSZip();
-        const size = parseInt(qrSize.value);
-        const format = fileFormat.value;
         const ecLevel = errorCorrection.value;
         const style = qrStyle.value;
+        if (batchPreviewGrid) batchPreviewGrid.innerHTML = '';
 
-        for (let i = 0; i < lines.length; i++) {
-            const text = lines[i];
+        lines.forEach((text, i) => {
             const qr = qrcode(0, ecLevel);
             qr.addData(text);
             qr.make();
 
-            if (format === 'svg') {
-                const svg = toSvgString(qr, 2, style);
-                zip.file(`qr-${i + 1}.svg`, svg);
-            } else {
-                const canvas = document.createElement('canvas');
-                drawCanvas(qr, size, canvas, style);
-                const blob = await new Promise(resolve => {
-                    canvas.toBlob(resolve, `image/${format}`, 0.95);
-                });
-                zip.file(`qr-${i + 1}.${format}`, blob);
-            }
+            const item = document.createElement('div');
+            item.className = 'batch-preview-item';
+            item.title = text;
 
-            batchGenerateBtn.textContent = `Genererer ${i + 1}/${lines.length}...`;
+            const previewCanvas = document.createElement('canvas');
+            drawCanvas(qr, 128, previewCanvas, style);
+            item.appendChild(previewCanvas);
+
+            const label = document.createElement('div');
+            label.className = 'batch-preview-label';
+            label.textContent = `${i + 1}. ${text.length > 20 ? text.substring(0, 20) + '...' : text}`;
+            item.appendChild(label);
+
+            if (batchPreviewGrid) batchPreviewGrid.appendChild(item);
+        });
+
+        showToast(`${lines.length} QR-koder vist i forhåndsvisning`, 'success');
+    });
+}
+
+// Generate batch with progress bar
+if (batchGenerateBtn && batchInput) {
+    batchGenerateBtn.addEventListener('click', async () => {
+        const lines = getBatchLines();
+
+        if (lines.length === 0) {
+            showToast('Indtast venligst mindst én URL/tekst!', 'error');
+            return;
         }
 
-        const zipBlob = await zip.generateAsync({ type: 'blob' });
-        downloadBlob(zipBlob, `qr-codes-${Date.now()}.zip`);
+        if (lines.length > 100) {
+            showToast('Maksimalt 100 QR-koder ad gangen!', 'error');
+            return;
+        }
 
-        showToast(`${lines.length} QR-koder downloadet som ZIP!`, 'success');
-        batchGenerateBtn.textContent = originalText;
-        batchGenerateBtn.disabled = false;
+        if (typeof JSZip === 'undefined') {
+            showToast('JSZip biblioteket mangler. Genindlæs siden.', 'error');
+            return;
+        }
 
-    } catch (error) {
-        console.error('Fejl ved batch generering:', error);
-        showToast('Fejl ved batch generering: ' + error.message, 'error');
-        batchGenerateBtn.textContent = originalText;
-        batchGenerateBtn.disabled = false;
-    }
+        const originalText = batchGenerateBtn.textContent;
+        batchGenerateBtn.textContent = 'Genererer...';
+        batchGenerateBtn.disabled = true;
+
+        try {
+            const zip = new JSZip();
+            const size = parseInt(qrSize.value);
+            const format = fileFormat.value;
+            const ecLevel = errorCorrection.value;
+            const style = qrStyle.value;
+
+            for (let i = 0; i < lines.length; i++) {
+                const text = lines[i];
+                const qr = qrcode(0, ecLevel);
+                qr.addData(text);
+                qr.make();
+
+                if (format === 'svg') {
+                    const svg = toSvgString(qr, 2, style);
+                    zip.file(`qr-${i + 1}.svg`, svg);
+                } else {
+                    const canvas = document.createElement('canvas');
+                    drawCanvas(qr, size, canvas, style);
+                    const blob = await new Promise(resolve => {
+                        canvas.toBlob(resolve, `image/${format}`, 0.95);
+                    });
+                    zip.file(`qr-${i + 1}.${format}`, blob);
+                }
+
+                updateBatchProgress(i + 1, lines.length);
+            }
+
+            const zipBlob = await zip.generateAsync({ type: 'blob' });
+            downloadBlob(zipBlob, `qr-codes-${Date.now()}.zip`);
+
+            showToast(`${lines.length} QR-koder downloadet som ZIP!`, 'success');
+            batchGenerateBtn.textContent = originalText;
+            batchGenerateBtn.disabled = false;
+            hideBatchProgress();
+
+        } catch (error) {
+            console.error('Fejl ved batch generering:', error);
+            showToast('Fejl ved batch generering: ' + error.message, 'error');
+            batchGenerateBtn.textContent = originalText;
+            batchGenerateBtn.disabled = false;
+            hideBatchProgress();
+        }
     });
 }
 
