@@ -121,6 +121,7 @@ const copyBtn = document.getElementById('copyBtn');
 const shareBtn = document.getElementById('shareBtn');
 const printBtn = document.getElementById('printBtn');
 const qrPreview = document.getElementById('qrPreview');
+const qrAnnouncement = document.getElementById('qrAnnouncement');
 const ctaText = document.getElementById('ctaText');
 
 // Batch elements
@@ -635,6 +636,14 @@ function generateQRCode() {
 
         // Save to history
         saveToHistory(text, currentTab);
+
+        // Announce to screen readers
+        if (qrAnnouncement) {
+            const typeLabels = { text: 'URL/tekst', wifi: 'WiFi', vcard: 'visitkort', email: 'e-mail', sms: 'SMS', calendar: 'kalender' };
+            const label = typeLabels[currentTab] || currentTab;
+            const preview = text.length > 80 ? text.substring(0, 80) + '...' : text;
+            qrAnnouncement.textContent = 'QR-kode genereret for ' + label + ': ' + preview;
+        }
 
         showToast('QR-kode genereret!', 'success');
 

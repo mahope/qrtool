@@ -319,7 +319,7 @@ Opsæt GitHub Action der kører Lighthouse på hver PR og blokerer merge hvis sc
 ### #59 — Screen reader QR-indhold (P1)
 Tilføj `aria-live` region der annoncerer QR-kodens indhold til screen readers når den genereres ("QR-kode genereret for URL: example.com").
 
-- [ ] Ikke startet
+- [x] Færdig — aria-live assertive region annoncerer QR-type og indhold ved generering
 
 ### #60 — Forbedret fokus-management (P2)
 Ved tab-skift: flyt fokus automatisk til første input-felt i den nye tab. Ved QR-generation: flyt fokus til preview/download-området.
