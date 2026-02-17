@@ -1942,6 +1942,27 @@ if (scanCopyBtn) {
 })();
 
 // ===========================================
+// Lazy-load below-fold sections
+// ===========================================
+
+(() => {
+    const lazySections = document.querySelectorAll('.lazy-section');
+    if (!lazySections.length || !('IntersectionObserver' in window)) {
+        lazySections.forEach(s => s.classList.add('visible'));
+        return;
+    }
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.05 });
+    lazySections.forEach(s => observer.observe(s));
+})();
+
+// ===========================================
 // Button Ripple Effect
 // ===========================================
 

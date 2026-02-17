@@ -276,7 +276,7 @@ Vis fejlkorrektionsniveauer visuelt med en slider og en kort forklaring af hvad 
 ### #52 — High-contrast mode (P3)
 Tilføj en high-contrast farve-variant for synshandicappede brugere. Kan aktiveres via en tilgængeligheds-toggle i headeren.
 
-- [ ] Ikke startet
+- [x] Færdig — kontrasttoggle i header med gul/cyan (mørk) og blå/rød (lys) high-contrast tema
 
 ---
 
