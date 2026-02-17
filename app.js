@@ -48,6 +48,7 @@ const qrStyle = document.getElementById('qrStyle');
 const generateBtn = document.getElementById('generateBtn');
 const downloadBtn = document.getElementById('downloadBtn');
 const copyBtn = document.getElementById('copyBtn');
+const shareBtn = document.getElementById('shareBtn');
 const qrPreview = document.getElementById('qrPreview');
 
 // Batch elements
@@ -534,9 +535,10 @@ function generateQRCode() {
             currentQRSVG = null;
         }
 
-        // Aktiver download og kopiér knapper
+        // Aktiver download, kopiér og del knapper
         downloadBtn.disabled = false;
         if (copyBtn) copyBtn.disabled = false;
+        if (shareBtn) shareBtn.disabled = false;
 
         // Save to history
         saveToHistory(text, currentTab);
@@ -792,6 +794,55 @@ async function copyQRCode() {
     } catch (error) {
         console.error('Fejl ved kopiering:', error);
         showToast('Kunne ikke kopiere. Sørg for at siden kører over HTTPS.', 'error');
+    }
+}
+
+// Del QR-kode via Web Share API
+if (shareBtn) {
+    shareBtn.addEventListener('click', shareQRCode);
+}
+
+async function shareQRCode() {
+    if (!navigator.share) {
+        showToast('Deling er ikke understøttet i din browser. Prøv at kopiere i stedet.', 'info');
+        return;
+    }
+
+    try {
+        let canvas = currentQRCanvas;
+        if (!canvas && currentQRSVG) {
+            canvas = await svgToCanvas(currentQRSVG);
+        }
+        if (!canvas) {
+            showToast('Generer venligst en QR-kode først!', 'info');
+            return;
+        }
+
+        const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
+        if (!blob) {
+            showToast('Kunne ikke oprette billede til deling.', 'error');
+            return;
+        }
+
+        const file = new File([blob], 'qr-kode.png', { type: 'image/png' });
+
+        if (navigator.canShare && !navigator.canShare({ files: [file] })) {
+            showToast('Din browser understøtter ikke deling af billeder.', 'info');
+            return;
+        }
+
+        await navigator.share({
+            title: 'QR-kode fra QRTool.dk',
+            files: [file]
+        });
+
+        showToast('QR-kode delt!', 'success');
+    } catch (error) {
+        // User cancelled the share dialog — not an error
+        if (error.name !== 'AbortError') {
+            console.error('Fejl ved deling:', error);
+            showToast('Kunne ikke dele QR-koden.', 'error');
+        }
     }
 }
 

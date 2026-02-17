@@ -172,7 +172,7 @@ Foruddefinerede skabeloner for typiske use-cases: "Restaurant menu", "WiFi til g
 ### #32 — Del QR-kode direkte (Web Share API) (P1)
 Integrer Web Share API (`navigator.share`) så brugere kan dele QR-koden direkte til SMS, mail, WhatsApp osv. med ét klik.
 
-- [ ] Ikke startet
+- [x] Færdig — Del-knap med navigator.share(), canShare check og fallback
 
 ### #33 — QR-kode med frame/ramme og CTA-tekst (P2)
 Tilføj mulighed for at tilføje en dekorativ ramme rundt om QR-koden med call-to-action tekst (f.eks. "Scan mig!", "Forbind til WiFi").
