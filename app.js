@@ -71,7 +71,7 @@ if (contrastToggle) {
 // Tab management
 const tabButtons = document.querySelectorAll('.tab-button');
 const tabContents = document.querySelectorAll('.tab-content');
-const tabOrder = ['text', 'wifi', 'vcard', 'email', 'sms', 'calendar'];
+const tabOrder = ['text', 'wifi', 'vcard', 'email', 'sms', 'calendar', 'geo'];
 let currentTab = 'text';
 
 function switchToTab(tabName, { autoFocus = true } = {}) {
@@ -658,6 +658,18 @@ function getQRData() {
 
             return ical;
 
+        case 'geo':
+            const geoLat = parseFloat(document.getElementById('geoLat').value.trim());
+            const geoLng = parseFloat(document.getElementById('geoLng').value.trim());
+            const geoLabel = document.getElementById('geoLabel').value.trim();
+
+            if (isNaN(geoLat) || isNaN(geoLng)) return null;
+
+            if (geoLabel) {
+                return `geo:0,0?q=${geoLat},${geoLng}(${encodeURIComponent(geoLabel)})`;
+            }
+            return `geo:${geoLat},${geoLng}`;
+
         default:
             return null;
     }
@@ -761,6 +773,27 @@ function validateForm() {
             }
             break;
         }
+        case 'geo': {
+            const latStr = document.getElementById('geoLat').value.trim();
+            const lngStr = document.getElementById('geoLng').value.trim();
+            const latNum = parseFloat(latStr);
+            const lngNum = parseFloat(lngStr);
+            if (!latStr) {
+                setFieldError('geoLat', 'Breddegrad er påkrævet.');
+                valid = false;
+            } else if (isNaN(latNum) || latNum < -90 || latNum > 90) {
+                setFieldError('geoLat', 'Breddegrad skal være mellem -90 og 90.');
+                valid = false;
+            }
+            if (!lngStr) {
+                setFieldError('geoLng', 'Længdegrad er påkrævet.');
+                valid = false;
+            } else if (isNaN(lngNum) || lngNum < -180 || lngNum > 180) {
+                setFieldError('geoLng', 'Længdegrad skal være mellem -180 og 180.');
+                valid = false;
+            }
+            break;
+        }
     }
     return valid;
 }
@@ -843,7 +876,7 @@ function generateQRCode() {
 
         // Announce to screen readers
         if (qrAnnouncement) {
-            const typeLabels = { text: 'URL/tekst', wifi: 'WiFi', vcard: 'visitkort', email: 'e-mail', sms: 'SMS', calendar: 'kalender' };
+            const typeLabels = { text: 'URL/tekst', wifi: 'WiFi', vcard: 'visitkort', email: 'e-mail', sms: 'SMS', calendar: 'kalender', geo: 'lokation' };
             const label = typeLabels[currentTab] || currentTab;
             const preview = text.length > 80 ? text.substring(0, 80) + '...' : text;
             qrAnnouncement.textContent = 'QR-kode genereret for ' + label + ': ' + preview;
@@ -1343,7 +1376,8 @@ const typeLabels = {
     'vcard': 'vCard',
     'email': 'Email',
     'sms': 'SMS',
-    'calendar': 'Kalender'
+    'calendar': 'Kalender',
+    'geo': 'Lokation'
 };
 
 function saveToHistory(text, type) {
@@ -1491,9 +1525,15 @@ function loadFromHistory(index) {
         tabButton.click();
     }
 
-    // For text tab, just load the text
+    // Restore field values based on tab type
     if (targetTab === 'text' && qrText) {
         qrText.value = entry.text;
+    } else if (targetTab === 'geo') {
+        const geoMatch = entry.text.match(/geo:(?:0,0\?q=)?([-\d.]+),([-\d.]+)/);
+        if (geoMatch) {
+            document.getElementById('geoLat').value = geoMatch[1];
+            document.getElementById('geoLng').value = geoMatch[2];
+        }
     }
 
     // Generate QR code
@@ -1582,6 +1622,37 @@ if (transparentBg) {
         if (currentQRCanvas || currentQRSVG) {
             generateQRCode();
         }
+    });
+}
+
+// ===========================================
+// Geo Location - Use my location button
+// ===========================================
+const geoLocateBtn = document.getElementById('geoLocateBtn');
+if (geoLocateBtn) {
+    geoLocateBtn.addEventListener('click', () => {
+        if (!navigator.geolocation) {
+            showToast('Geolokation understøttes ikke i denne browser.', 'error');
+            return;
+        }
+        geoLocateBtn.disabled = true;
+        geoLocateBtn.textContent = '📍 Henter placering...';
+        navigator.geolocation.getCurrentPosition(
+            (pos) => {
+                document.getElementById('geoLat').value = pos.coords.latitude.toFixed(6);
+                document.getElementById('geoLng').value = pos.coords.longitude.toFixed(6);
+                geoLocateBtn.disabled = false;
+                geoLocateBtn.textContent = '📍 Brug min placering';
+                showToast('Placering hentet!', 'success');
+            },
+            (err) => {
+                geoLocateBtn.disabled = false;
+                geoLocateBtn.textContent = '📍 Brug min placering';
+                const msgs = { 1: 'Adgang til placering blev nægtet.', 2: 'Placering ikke tilgængelig.', 3: 'Anmodning udløb.' };
+                showToast(msgs[err.code] || 'Kunne ikke hente placering.', 'error');
+            },
+            { enableHighAccuracy: true, timeout: 10000, maximumAge: 60000 }
+        );
     });
 }
 
@@ -2043,7 +2114,15 @@ document.addEventListener('click', (e) => {
 
     // Close when clicking a nav link
     mobileNav.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', closeMenu);
+        link.addEventListener('click', (e) => {
+            const tab = link.dataset.navTab;
+            if (tab) {
+                e.preventDefault();
+                switchToTab(tab);
+                document.querySelector('.input-section')?.scrollIntoView({ behavior: 'smooth' });
+            }
+            closeMenu();
+        });
     });
 })();
 
@@ -2103,7 +2182,7 @@ document.addEventListener('click', (e) => {
                 e.preventDefault();
                 if (themeToggle) themeToggle.click();
                 break;
-            case '1': case '2': case '3': case '4': case '5': case '6':
+            case '1': case '2': case '3': case '4': case '5': case '6': case '7':
                 e.preventDefault();
                 switchToTab(tabOrder[parseInt(e.key) - 1]);
                 break;

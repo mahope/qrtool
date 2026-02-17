@@ -127,8 +127,8 @@
     <!-- Critical CSS inline for fast first paint -->
     <style>
         *{margin:0;padding:0;box-sizing:border-box}
-        :root{--primary-color:#6366f1;--bg-color:#0f172a;--bg-gradient:#1e293b;--card-bg:#1e293b;--text-color:#f1f5f9;--text-muted:#94a3b8;--border-color:#334155}
-        [data-theme="light"]{--bg-color:#f8fafc;--bg-gradient:#e2e8f0;--card-bg:#ffffff;--text-color:#0f172a;--text-muted:#64748b;--border-color:#e2e8f0}
+        :root{--primary-color:#6366f1;--bg-color:#0f172a;--bg-gradient:#1e293b;--card-bg:#1e293b;--text-color:#f1f5f9;--text-muted:#acb7c6;--border-color:#334155}
+        [data-theme="light"]{--bg-color:#f8fafc;--bg-gradient:#e2e8f0;--card-bg:#ffffff;--text-color:#0f172a;--text-muted:#475569;--border-color:#e2e8f0}
         body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:linear-gradient(135deg,var(--bg-color),var(--bg-gradient));color:var(--text-color);min-height:100vh;padding:2rem 1rem}
         .container{max-width:1400px;margin:0 auto}
         header{text-align:center;margin-bottom:2.5rem}
@@ -207,6 +207,7 @@
                 <li><a href="/sms-qr-kode">💬 SMS QR</a></li>
                 <li><a href="/kalender-qr-kode">📅 Kalender QR</a></li>
                 <li><a href="/tekst-qr-kode">📝 Tekst QR</a></li>
+                <li><a href="#" data-nav-tab="geo">📍 Lokation QR</a></li>
                 <li class="mobile-nav-divider">Mere</li>
                 <li><a href="/guides/">📚 Guides</a></li>
                 <li><a href="/om-qr-tool">ℹ️ Om QR Tool</a></li>
@@ -259,6 +260,7 @@
                     <button class="tab-button" data-tab="email">✉️ Email</button>
                     <button class="tab-button" data-tab="sms">💬 SMS</button>
                     <button class="tab-button" data-tab="calendar">📅 Kalender</button>
+                    <button class="tab-button" data-tab="geo">📍 Lokation</button>
                 </div>
 
                 <!-- Text/URL Tab Content -->
@@ -386,6 +388,25 @@
                         <label for="calDescription">Beskrivelse:</label>
                         <textarea id="calDescription" rows="3" placeholder="Detaljer om begivenheden..."></textarea>
                     </div>
+                </div>
+
+                <!-- Geo Location Tab Content -->
+                <div class="tab-content" data-content="geo">
+                    <div class="form-group">
+                        <label for="geoLat">Breddegrad (latitude):</label>
+                        <input type="number" id="geoLat" placeholder="55.6761" step="any" min="-90" max="90">
+                        <span class="field-error" id="geoLatError"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="geoLng">Længdegrad (longitude):</label>
+                        <input type="number" id="geoLng" placeholder="12.5683" step="any" min="-180" max="180">
+                        <span class="field-error" id="geoLngError"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="geoLabel">Navn/label (valgfrit):</label>
+                        <input type="text" id="geoLabel" placeholder="Rådhuspladsen, København">
+                    </div>
+                    <button type="button" id="geoLocateBtn" class="btn btn-secondary" style="margin-bottom: 1rem;">📍 Brug min placering</button>
                 </div>
 
                 <div class="settings-accordion">
@@ -642,6 +663,7 @@
                             <option value="email">✉️ Email</option>
                             <option value="sms">💬 SMS</option>
                             <option value="calendar">📅 Kalender</option>
+                            <option value="geo">📍 Lokation</option>
                         </select>
                     </div>
                     <div id="historyList" class="history-list">
@@ -921,7 +943,7 @@
             <div class="shortcut-item"><kbd>D</kbd><span>Download QR-kode</span></div>
             <div class="shortcut-item"><kbd>C</kbd><span>Kopiér QR-kode</span></div>
             <div class="shortcut-item"><kbd>T</kbd><span>Skift tema (lys/mørk)</span></div>
-            <div class="shortcut-item"><kbd>1</kbd>–<kbd>6</kbd><span>Skift QR-type tab</span></div>
+            <div class="shortcut-item"><kbd>1</kbd>–<kbd>7</kbd><span>Skift QR-type tab</span></div>
             <div class="shortcut-item"><kbd>Esc</kbd><span>Luk modal/lightbox</span></div>
         </div>
     </div>

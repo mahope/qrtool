@@ -187,12 +187,12 @@ Tilføj mulighed for at tilføje en dekorativ ramme rundt om QR-koden med call-t
 ### #35 — Upload billede → scan QR (P2)
 Udover kamera-scan: tilføj mulighed for at uploade et screenshot/foto der indeholder en QR-kode. Dekod og vis indholdet.
 
-- [ ] Ikke startet
+- [x] Færdig — allerede implementeret som del af #29 (scanner) med jsQR og file input
 
 ### #36 — Geo-lokation QR-kode (P2)
 Ny QR-type: `geo:lat,long` der åbner en kortapplikation med den angivne lokation. Nyttigt for events, butikker, parkeringspladser.
 
-- [ ] Ikke startet
+- [x] Færdig — ny geo-tab med lat/lng/label felter, geolocation API, Google Maps intent URI med label-support
 
 ### #37 — PayPal/MobilePay QR-kode (P2)
 Ny QR-type for betalingslinks. Generér QR-koder der linker til MobilePay Box-numre eller PayPal.me-links.
