@@ -88,7 +88,7 @@ Tilføj en "Kopiér" knap ved siden af download, der kopierer QR-koden direkte t
 ### #16 — Toast/notification-system (P1)
 Erstat den nuværende success-feedback (grøn knap-farve) med et dedikeret toast-system der viser "QR-kode genereret!", "Kopieret til clipboard!", "Downloadet!" osv.
 
-- [ ] Ikke startet
+- [x] Færdig — toast-system med success/error/info typer, erstatter alle alert() kald
 
 ### #17 — Forbedret farve-picker med presets (P2)
 Tilføj preset farveskemaer (f.eks. "Professionel blå", "Energisk rød", "Naturlig grøn") udover den frie farvevælger. Gør det nemmere for ikke-designere.

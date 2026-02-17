@@ -62,6 +62,29 @@ const clearHistory = document.getElementById('clearHistory');
 let currentQRCanvas = null;
 let currentQRSVG = null;
 
+// Toast notification system
+const toastContainer = document.getElementById('toastContainer');
+
+function showToast(message, type = 'success', duration = 3000) {
+    if (!toastContainer) return;
+    const icons = { success: '\u2705', error: '\u274C', info: '\u2139\uFE0F' };
+    const toast = document.createElement('div');
+    toast.className = `toast toast-${type}`;
+    const iconSpan = document.createElement('span');
+    iconSpan.className = 'toast-icon';
+    iconSpan.textContent = icons[type] || icons.info;
+    const msgSpan = document.createElement('span');
+    msgSpan.textContent = message;
+    toast.appendChild(iconSpan);
+    toast.appendChild(msgSpan);
+    toastContainer.appendChild(toast);
+    requestAnimationFrame(() => toast.classList.add('show'));
+    setTimeout(() => {
+        toast.classList.replace('show', 'hide');
+        setTimeout(() => toast.remove(), 300);
+    }, duration);
+}
+
 // Generer logo QR-kode ved load
 function generateLogoQR() {
     // Vent til qrcode er loaded
@@ -231,7 +254,7 @@ function generateQRCode() {
     const text = getQRData();
 
     if (!text) {
-        alert('Indtast venligst den påkrævede information!');
+        showToast('Indtast venligst den påkrævede information!', 'error');
         return;
     }
 
@@ -271,18 +294,11 @@ function generateQRCode() {
         // Save to history
         saveToHistory(text, currentTab);
 
-        // Vis success feedback
-        generateBtn.textContent = '✓ Genereret!';
-        generateBtn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
-
-        setTimeout(() => {
-            generateBtn.textContent = 'Generer QR-kode';
-            generateBtn.style.background = '';
-        }, 2000);
+        showToast('QR-kode genereret!', 'success');
 
     } catch (error) {
         console.error('Fejl ved generering af QR-kode:', error);
-        alert('Der opstod en fejl ved generering af QR-koden: ' + error.message);
+        showToast('Fejl ved generering: ' + error.message, 'error');
     }
 }
 
@@ -401,7 +417,7 @@ function downloadQRCode() {
         if (format === 'svg') {
             // Download SVG
             if (!currentQRSVG) {
-                alert('Generer venligst en QR-kode først!');
+                showToast('Generer venligst en QR-kode først!', 'info');
                 return;
             }
 
@@ -411,7 +427,7 @@ function downloadQRCode() {
         } else if (format === 'png') {
             // Download PNG
             if (!currentQRCanvas) {
-                alert('Generer venligst en QR-kode først!');
+                showToast('Generer venligst en QR-kode først!', 'info');
                 return;
             }
 
@@ -422,7 +438,7 @@ function downloadQRCode() {
         } else if (format === 'jpg') {
             // Download JPG
             if (!currentQRCanvas) {
-                alert('Generer venligst en QR-kode først!');
+                showToast('Generer venligst en QR-kode først!', 'info');
                 return;
             }
 
@@ -452,33 +468,24 @@ function downloadQRCode() {
         } else if (format === 'webp') {
             // Download WebP
             if (!currentQRCanvas) {
-                alert('Generer venligst en QR-kode først!');
+                showToast('Generer venligst en QR-kode først!', 'info');
                 return;
             }
 
             currentQRCanvas.toBlob((blob) => {
                 if (!blob) {
-                    alert('Din browser understøtter ikke WebP format. Vælg venligst et andet format.');
+                    showToast('Din browser understøtter ikke WebP. Vælg et andet format.', 'error');
                     return;
                 }
                 downloadBlob(blob, filename);
             }, 'image/webp', 0.95);
         }
 
-        // Vis download feedback
-        downloadBtn.textContent = '✓ Downloaded!';
-        downloadBtn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
-        downloadBtn.style.color = 'white';
-
-        setTimeout(() => {
-            downloadBtn.textContent = 'Download';
-            downloadBtn.style.background = '';
-            downloadBtn.style.color = '';
-        }, 2000);
+        showToast('QR-kode downloadet!', 'success');
 
     } catch (error) {
         console.error('Fejl ved download:', error);
-        alert('Der opstod en fejl ved download: ' + error.message);
+        showToast('Fejl ved download: ' + error.message, 'error');
     }
 }
 
@@ -502,7 +509,7 @@ if (copyBtn) {
 async function copyQRCode() {
     // Tjek om Clipboard API er tilgængelig
     if (!navigator.clipboard?.write) {
-        alert('Din browser understøtter ikke kopiering af billeder til udklipsholder. Prøv at bruge Chrome eller Edge.');
+        showToast('Din browser understøtter ikke kopiering af billeder. Prøv Chrome eller Edge.', 'error');
         return;
     }
 
@@ -515,13 +522,13 @@ async function copyQRCode() {
         }
 
         if (!canvas) {
-            alert('Generer venligst en QR-kode først!');
+            showToast('Generer venligst en QR-kode først!', 'info');
             return;
         }
 
         const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
         if (!blob) {
-            alert('Kunne ikke oprette billede til kopiering. Prøv en mindre størrelse.');
+            showToast('Kunne ikke oprette billede. Prøv en mindre størrelse.', 'error');
             return;
         }
 
@@ -529,20 +536,11 @@ async function copyQRCode() {
             new ClipboardItem({ 'image/png': blob })
         ]);
 
-        // Vis success feedback
-        copyBtn.textContent = '✓ Kopieret!';
-        copyBtn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
-        copyBtn.style.color = 'white';
-
-        setTimeout(() => {
-            copyBtn.textContent = 'Kopiér';
-            copyBtn.style.background = '';
-            copyBtn.style.color = '';
-        }, 2000);
+        showToast('Kopieret til udklipsholder!', 'success');
 
     } catch (error) {
         console.error('Fejl ved kopiering:', error);
-        alert('Kunne ikke kopiere til udklipsholder. Sørg for at siden kører over HTTPS, og at din browser tillader clipboard-adgang.');
+        showToast('Kunne ikke kopiere. Sørg for at siden kører over HTTPS.', 'error');
     }
 }
 
@@ -583,18 +581,18 @@ if (batchGenerateBtn && batchInput) {
         const lines = batchInput.value.trim().split('\n').filter(line => line.trim());
 
     if (lines.length === 0) {
-        alert('Indtast venligst mindst én URL/tekst!');
+        showToast('Indtast venligst mindst én URL/tekst!', 'error');
         return;
     }
 
     if (lines.length > 100) {
-        alert('Maksimalt 100 QR-koder ad gangen!');
+        showToast('Maksimalt 100 QR-koder ad gangen!', 'error');
         return;
     }
 
     // Check if JSZip is available (we'll need to add this library)
     if (typeof JSZip === 'undefined') {
-        alert('Batch generering kræver JSZip biblioteket. Genindlæs venligst siden.');
+        showToast('JSZip biblioteket mangler. Genindlæs siden.', 'error');
         return;
     }
 
@@ -633,15 +631,13 @@ if (batchGenerateBtn && batchInput) {
         const zipBlob = await zip.generateAsync({ type: 'blob' });
         downloadBlob(zipBlob, `qr-codes-${Date.now()}.zip`);
 
-        batchGenerateBtn.textContent = '✓ Færdig!';
-        setTimeout(() => {
-            batchGenerateBtn.textContent = originalText;
-            batchGenerateBtn.disabled = false;
-        }, 2000);
+        showToast(`${lines.length} QR-koder downloadet som ZIP!`, 'success');
+        batchGenerateBtn.textContent = originalText;
+        batchGenerateBtn.disabled = false;
 
     } catch (error) {
         console.error('Fejl ved batch generering:', error);
-        alert('Der opstod en fejl: ' + error.message);
+        showToast('Fejl ved batch generering: ' + error.message, 'error');
         batchGenerateBtn.textContent = originalText;
         batchGenerateBtn.disabled = false;
     }
@@ -861,7 +857,7 @@ if (startScanBtn) {
 
 async function startScanner() {
     if (typeof jsQR === 'undefined') {
-        alert('QR-scanner biblioteket er ikke indlæst. Genindlæs venligst siden.');
+        showToast('QR-scanner biblioteket mangler. Genindlæs siden.', 'error');
         return;
     }
 
@@ -878,9 +874,9 @@ async function startScanner() {
     } catch (error) {
         console.error('Kamera fejl:', error);
         if (error.name === 'NotAllowedError') {
-            alert('Kameraadgang blev afvist. Tillad venligst kameraadgang i din browser.');
+            showToast('Kameraadgang blev afvist. Tillad kameraadgang i din browser.', 'error');
         } else {
-            alert('Kunne ikke starte kameraet. Sørg for at din enhed har et kamera.');
+            showToast('Kunne ikke starte kameraet. Har din enhed et kamera?', 'error');
         }
     }
 }
@@ -940,7 +936,7 @@ if (scanFileInput) {
         if (!file) return;
 
         if (typeof jsQR === 'undefined') {
-            alert('QR-scanner biblioteket er ikke indlæst. Genindlæs venligst siden.');
+            showToast('QR-scanner biblioteket mangler. Genindlæs siden.', 'error');
             return;
         }
 
@@ -963,7 +959,7 @@ if (scanFileInput) {
             if (code) {
                 showScanResult(code.data);
             } else {
-                alert('Ingen QR-kode fundet i billedet. Prøv et andet billede.');
+                showToast('Ingen QR-kode fundet i billedet. Prøv et andet billede.', 'info');
             }
 
             // Reset file input
@@ -972,7 +968,7 @@ if (scanFileInput) {
 
         img.onerror = () => {
             URL.revokeObjectURL(url);
-            alert('Kunne ikke indlæse billedet.');
+            showToast('Kunne ikke indlæse billedet.', 'error');
             scanFileInput.value = '';
         };
 
@@ -1008,10 +1004,7 @@ if (scanCopyBtn) {
         const text = scanResultText.textContent;
         try {
             await navigator.clipboard.writeText(text);
-            scanCopyBtn.textContent = '✓ Kopieret!';
-            setTimeout(() => {
-                scanCopyBtn.textContent = 'Kopiér tekst';
-            }, 2000);
+            showToast('Tekst kopieret til udklipsholder!', 'success');
         } catch {
             // Fallback for ældre browsere
             const textarea = document.createElement('textarea');
@@ -1022,10 +1015,7 @@ if (scanCopyBtn) {
             textarea.select();
             document.execCommand('copy');
             document.body.removeChild(textarea);
-            scanCopyBtn.textContent = '✓ Kopieret!';
-            setTimeout(() => {
-                scanCopyBtn.textContent = 'Kopiér tekst';
-            }, 2000);
+            showToast('Tekst kopieret til udklipsholder!', 'success');
         }
     });
 }
