@@ -73,7 +73,7 @@ Sikr at alle sider har korrekte canonical URLs, og at der ikke er duplicate cont
 ### #13 — Onboarding/tooltip-flow for nye brugere (P1)
 Vis korte, diskrete tooltips ved første besøg der guider brugeren: "Vælg type → Udfyld → Download". Kan dismisses permanent.
 
-- [ ] Ikke startet
+- [x] Færdig — 3-trins tooltip-tour med keyboard support og localStorage dismiss
 
 ### #14 — Drag-and-drop logo-upload (P1)
 Erstat standard file-input med en drag-and-drop zone til logo-upload. Vis preview af logo i QR-koden med mulighed for at justere størrelse og position.

@@ -1194,6 +1194,149 @@ header p {
 }
 
 /* ===========================================
+   Onboarding Tooltips
+   =========================================== */
+
+.onboarding-overlay {
+    position: fixed;
+    inset: 0;
+    background: transparent;
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.onboarding-overlay.active {
+    opacity: 1;
+}
+
+.onboarding-tooltip {
+    position: absolute;
+    z-index: 1001;
+    background: var(--card-bg);
+    border: 2px solid var(--primary-color);
+    border-radius: var(--radius-lg);
+    padding: 1.25rem 1.5rem;
+    max-width: 320px;
+    box-shadow: 0 12px 40px rgba(99, 102, 241, 0.3);
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.onboarding-tooltip.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.onboarding-tooltip::before {
+    content: '';
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background: var(--card-bg);
+    border: 2px solid var(--primary-color);
+    border-right: none;
+    border-bottom: none;
+    transform: rotate(45deg);
+    top: -8px;
+    left: 2rem;
+}
+
+.onboarding-tooltip.arrow-bottom::before {
+    top: auto;
+    bottom: -8px;
+    transform: rotate(225deg);
+}
+
+.onboarding-step {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.375rem;
+}
+
+.onboarding-text {
+    font-size: 0.95rem;
+    color: var(--text-color);
+    line-height: 1.5;
+    margin-bottom: 1rem;
+}
+
+.onboarding-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.onboarding-dots {
+    display: flex;
+    gap: 0.375rem;
+}
+
+.onboarding-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--border-color);
+    transition: background 0.2s ease;
+}
+
+.onboarding-dot.active {
+    background: var(--primary-color);
+}
+
+.onboarding-btns {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.onboarding-btn {
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius);
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s ease;
+}
+
+.onboarding-btn-skip {
+    background: transparent;
+    color: var(--text-muted);
+}
+
+.onboarding-btn-skip:hover {
+    color: var(--text-color);
+}
+
+.onboarding-btn-next {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+}
+
+.onboarding-btn-next:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+}
+
+.onboarding-highlight {
+    position: relative;
+    z-index: 1001;
+    border-radius: var(--radius-lg);
+    box-shadow: 0 0 0 4px var(--primary-color), 0 0 0 9999px rgba(0, 0, 0, 0.5);
+}
+
+@media (max-width: 640px) {
+    .onboarding-tooltip {
+        max-width: calc(100vw - 32px);
+    }
+}
+
+/* ===========================================
    Footer
    =========================================== */
 

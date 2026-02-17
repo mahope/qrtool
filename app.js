@@ -1029,3 +1029,137 @@ if (scanCopyBtn) {
         }
     });
 }
+
+// ===========================================
+// Onboarding Tooltip Tour
+// ===========================================
+
+(function initOnboarding() {
+    if (localStorage.getItem('onboarding-done')) return;
+
+    const steps = [
+        {
+            target: '.qr-type-tabs',
+            text: 'Vælg hvilken type QR-kode du vil lave — tekst, WiFi, visitkort og mere.'
+        },
+        {
+            target: '.tab-content.active',
+            text: 'Udfyld oplysningerne for din QR-kode her. Felterne ændrer sig med den valgte type.'
+        },
+        {
+            target: '.button-group',
+            text: 'Tryk Generer for at se din QR-kode, og Download eller Kopiér den bagefter.'
+        }
+    ];
+
+    let current = 0;
+    let overlay = null;
+    let tooltip = null;
+    let stepTimer = null;
+
+    function handleKey(e) {
+        if (e.key === 'Escape') dismiss();
+    }
+
+    function start() {
+        overlay = document.createElement('div');
+        overlay.className = 'onboarding-overlay';
+        overlay.setAttribute('role', 'dialog');
+        overlay.setAttribute('aria-modal', 'true');
+        overlay.setAttribute('aria-label', 'Introduktionsrundvisning');
+        document.body.appendChild(overlay);
+
+        tooltip = document.createElement('div');
+        tooltip.className = 'onboarding-tooltip';
+        document.body.appendChild(tooltip);
+
+        document.addEventListener('keydown', handleKey);
+
+        requestAnimationFrame(() => {
+            overlay.classList.add('active');
+            showStep(0);
+        });
+
+        overlay.addEventListener('click', dismiss);
+    }
+
+    function showStep(index) {
+        current = index;
+        const step = steps[index];
+        const targetEl = document.querySelector(step.target);
+        if (!targetEl) { dismiss(); return; }
+
+        // Remove previous highlight
+        document.querySelectorAll('.onboarding-highlight').forEach(el => el.classList.remove('onboarding-highlight'));
+
+        // Highlight current target
+        targetEl.classList.add('onboarding-highlight');
+
+        // Build tooltip content
+        tooltip.innerHTML = `
+            <div class="onboarding-step">Trin ${index + 1} af ${steps.length}</div>
+            <div class="onboarding-text">${step.text}</div>
+            <div class="onboarding-actions">
+                <div class="onboarding-dots">
+                    ${steps.map((_, i) => `<div class="onboarding-dot${i === index ? ' active' : ''}"></div>`).join('')}
+                </div>
+                <div class="onboarding-btns">
+                    <button class="onboarding-btn onboarding-btn-skip">Spring over</button>
+                    <button class="onboarding-btn onboarding-btn-next">${index === steps.length - 1 ? 'Forstået' : 'Næste'}</button>
+                </div>
+            </div>
+        `;
+
+        // Position tooltip below target
+        const rect = targetEl.getBoundingClientRect();
+        const tooltipWidth = Math.min(320, window.innerWidth - 32);
+        const margin = 16;
+        const maxLeft = window.scrollX + window.innerWidth - tooltipWidth - margin;
+        const tooltipTop = rect.bottom + window.scrollY + 12;
+        const tooltipLeft = Math.max(margin + window.scrollX, Math.min(rect.left + window.scrollX, maxLeft));
+
+        tooltip.style.top = tooltipTop + 'px';
+        tooltip.style.left = tooltipLeft + 'px';
+
+        tooltip.className = 'onboarding-tooltip';
+
+        // Scroll target into view if needed
+        targetEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+        requestAnimationFrame(() => {
+            tooltip.classList.add('active');
+            // Move focus to next button for keyboard accessibility
+            const nextBtn = tooltip.querySelector('.onboarding-btn-next');
+            if (nextBtn) nextBtn.focus();
+        });
+
+        // Bind buttons
+        tooltip.querySelector('.onboarding-btn-skip').addEventListener('click', dismiss);
+        tooltip.querySelector('.onboarding-btn-next').addEventListener('click', next);
+    }
+
+    function next() {
+        if (stepTimer) return;
+        if (current < steps.length - 1) {
+            tooltip.classList.remove('active');
+            stepTimer = setTimeout(() => {
+                stepTimer = null;
+                showStep(current + 1);
+            }, 200);
+        } else {
+            dismiss();
+        }
+    }
+
+    function dismiss() {
+        localStorage.setItem('onboarding-done', '1');
+        document.removeEventListener('keydown', handleKey);
+        if (stepTimer) { clearTimeout(stepTimer); stepTimer = null; }
+        document.querySelectorAll('.onboarding-highlight').forEach(el => el.classList.remove('onboarding-highlight'));
+        if (overlay) { overlay.classList.remove('active'); setTimeout(() => overlay.remove(), 300); }
+        if (tooltip) { tooltip.classList.remove('active'); setTimeout(() => tooltip.remove(), 300); }
+    }
+
+    // Start after a brief delay so the page is fully rendered
+    setTimeout(start, 800);
+})();
