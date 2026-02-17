@@ -1,19 +1,24 @@
-const CACHE_NAME = 'qrtool-v2';
+const CACHE_NAME = 'qrtool-v3';
 const ASSETS = [
     '/',
     '/style.css',
     '/app.js',
     '/icon.svg',
     '/manifest.json',
-    '/om-qr-tool',
-    '/privatlivspolitik',
-    '/wifi-qr-kode',
     '/lib/qrcode.js',
     '/lib/jszip.min.js',
-    '/lib/jsQR.min.js'
+    '/lib/jsQR.min.js',
+    '/wifi-qr-kode',
+    '/vcard-qr-kode',
+    '/email-qr-kode',
+    '/sms-qr-kode',
+    '/kalender-qr-kode',
+    '/tekst-qr-kode',
+    '/om-qr-tool',
+    '/privatlivspolitik'
 ];
 
-// Install: cache alle statiske assets
+// Install: cache all static assets
 self.addEventListener('install', (event) => {
     event.waitUntil(
         caches.open(CACHE_NAME).then((cache) => cache.addAll(ASSETS))
@@ -21,7 +26,7 @@ self.addEventListener('install', (event) => {
     self.skipWaiting();
 });
 
-// Activate: slet gamle caches
+// Activate: delete old caches
 self.addEventListener('activate', (event) => {
     event.waitUntil(
         caches.keys().then((keys) =>
@@ -33,7 +38,7 @@ self.addEventListener('activate', (event) => {
     self.clients.claim();
 });
 
-// Fetch: cache-first for assets, network-first for navigation
+// Fetch: stale-while-revalidate for assets, network-first with cache fallback for navigation
 self.addEventListener('fetch', (event) => {
     const { request } = event;
 
@@ -45,7 +50,7 @@ self.addEventListener('fetch', (event) => {
     event.respondWith(
         caches.match(request).then((cached) => {
             if (cached) {
-                // Returner cache, men opdater i baggrunden
+                // Return cache, update in background
                 event.waitUntil(
                     fetch(request).then((response) => {
                         if (response.ok) {
@@ -56,13 +61,18 @@ self.addEventListener('fetch', (event) => {
                 return cached;
             }
 
-            // Ikke i cache: hent fra netværk
+            // Not in cache: fetch from network
             return fetch(request).then((response) => {
                 if (response.ok && request.url.startsWith(self.location.origin)) {
                     const clone = response.clone();
                     caches.open(CACHE_NAME).then((cache) => cache.put(request, clone));
                 }
                 return response;
+            }).catch(() => {
+                // Offline fallback for navigation requests
+                if (request.mode === 'navigate') {
+                    return caches.match('/');
+                }
             });
         })
     );

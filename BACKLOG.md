@@ -285,7 +285,7 @@ Tilføj en high-contrast farve-variant for synshandicappede brugere. Kan aktiver
 ### #53 — Service Worker + offline-support (P1)
 Cache alle statiske assets. Brugere kan generere QR-koder uden internetforbindelse. Naturlig forlængelse af PWA (#30).
 
-- [ ] Ikke startet
+- [x] Færdig — alle sider precached, offline fallback til hovedside, stale-while-revalidate
 
 ### #54 — Self-host QR-bibliotek (P2)
 Flyt `qrcode-generator` og `jszip` fra CDN til self-hosted. Eliminerer ekstern afhængighed, forbedrer load-tid og eliminerer SPOF.
