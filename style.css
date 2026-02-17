@@ -696,14 +696,35 @@ header p {
     padding: 1rem;
 }
 
-.placeholder svg {
-    color: var(--border-color);
-    margin-bottom: 1rem;
-    opacity: 0.6;
-}
-
 .placeholder p {
     font-size: 0.95rem;
+    margin-top: 1rem;
+}
+
+/* Skeleton QR placeholder */
+.skeleton-qr {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    width: 100px;
+    height: 100px;
+    margin: 0 auto;
+}
+
+.skeleton-block {
+    background: var(--border-color);
+    border-radius: 4px;
+    opacity: 0.4;
+    animation: skeleton-shimmer 1.5s ease-in-out infinite;
+}
+
+.skeleton-block:nth-child(2) { animation-delay: 0.15s; }
+.skeleton-block:nth-child(3) { animation-delay: 0.3s; }
+.skeleton-block:nth-child(4) { animation-delay: 0.45s; }
+
+@keyframes skeleton-shimmer {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.6; }
 }
 
 /* Info Panel */
