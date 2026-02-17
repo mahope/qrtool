@@ -59,7 +59,7 @@ Minificer CSS/JS, tilføj critical CSS inline, lazy-load below-fold indhold. Må
 ### #11 — Tilføj JSON-LD for Organization (P3)
 Tilføj `Organization` schema med logo, social profiles og kontaktinfo til footer/alle sider.
 
-- [ ] Ikke startet
+- [x] Færdig — Organization JSON-LD med logo, founder og sameAs på hovedsiden
 
 ### #12 — Canonical URL-audit (P3)
 Sikr at alle sider har korrekte canonical URLs, og at der ikke er duplicate content mellem .html og clean URL-versioner.
