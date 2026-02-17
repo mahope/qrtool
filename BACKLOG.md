@@ -118,7 +118,7 @@ Vis en skeleton/placeholder for QR-kode preview-området mens den genereres, i s
 ### #22 — Sticky preview-panel på desktop (P2)
 Gør QR-kode preview-panelet sticky (position: sticky) så det altid er synligt mens brugeren scroller ned i indstillinger.
 
-- [ ] Ikke startet
+- [x] Færdig — position: sticky på desktop, static på mobil
 
 ### #23 — Forbedret historik-visning (P2)
 Tilføj filtrering og søgning i historikken. Vis QR-type som badge. Tilføj mulighed for at give QR-koder et navn/label.

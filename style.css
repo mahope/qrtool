@@ -250,6 +250,12 @@ header p {
     transition: box-shadow var(--transition);
 }
 
+.preview-section {
+    position: sticky;
+    top: 1.5rem;
+    align-self: start;
+}
+
 .input-section:hover,
 .preview-section:hover {
     box-shadow: var(--shadow-lg);
@@ -1541,6 +1547,7 @@ header p {
 
     .preview-section {
         order: -1;
+        position: static;
     }
 
     .preview-container {
