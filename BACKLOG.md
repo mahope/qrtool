@@ -133,7 +133,7 @@ Tilføj en `?`-shortcut der viser en modal med alle tilgængelige keyboard short
 ### #25 — Animeret QR-kode generation (P3)
 Subtil animation når QR-koden genereres (fade-in, scale fra 0.95 til 1.0). Giver en mere poleret oplevelse.
 
-- [ ] Ikke startet
+- [x] Færdig — CSS keyframe animation med fade-in og scale (0.3s ease-out)
 
 ### #26 — Forbedret batch-UI med progressbar (P2)
 Vis en progressbar under batch-generation. Tilføj mulighed for at preview individuelle QR-koder i batchen før download.
