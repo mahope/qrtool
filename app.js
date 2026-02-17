@@ -1806,3 +1806,67 @@ if (scanCopyBtn) {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 })();
+
+// ===========================================
+// Keyboard Shortcuts
+// ===========================================
+
+(() => {
+    const overlay = document.getElementById('shortcutsOverlay');
+    if (!overlay) return;
+    const closeBtn = overlay.querySelector('.shortcuts-close');
+
+    function toggleShortcuts() {
+        overlay.classList.toggle('active');
+    }
+
+    function closeShortcuts() {
+        overlay.classList.remove('active');
+    }
+
+    if (closeBtn) closeBtn.addEventListener('click', closeShortcuts);
+    overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) closeShortcuts();
+    });
+
+    document.addEventListener('keydown', (e) => {
+        // Don't trigger shortcuts when typing in form fields
+        const tag = e.target.tagName;
+        const isInput = tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' || e.target.isContentEditable;
+
+        if (e.key === 'Escape') {
+            closeShortcuts();
+            return;
+        }
+
+        if (isInput) return;
+        if (e.ctrlKey || e.metaKey || e.altKey) return;
+
+        switch (e.key) {
+            case '?':
+                e.preventDefault();
+                toggleShortcuts();
+                break;
+            case 'g':
+                e.preventDefault();
+                generateQRCode();
+                break;
+            case 'd':
+                e.preventDefault();
+                if (downloadBtn && !downloadBtn.disabled) downloadBtn.click();
+                break;
+            case 'c':
+                e.preventDefault();
+                if (copyBtn && !copyBtn.disabled) copyBtn.click();
+                break;
+            case 't':
+                e.preventDefault();
+                if (themeToggle) themeToggle.click();
+                break;
+            case '1': case '2': case '3': case '4': case '5': case '6':
+                e.preventDefault();
+                switchToTab(tabOrder[parseInt(e.key) - 1]);
+                break;
+        }
+    });
+})();
