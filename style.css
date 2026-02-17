@@ -1011,6 +1011,8 @@ header p {
     max-width: 1200px;
     margin: 3rem auto 2rem;
     padding: 0;
+    content-visibility: auto;
+    contain-intrinsic-size: 0 2000px;
 }
 
 .content-block {
@@ -1316,6 +1318,8 @@ header p {
 .scanner-section {
     max-width: 600px;
     margin: 2rem auto;
+    content-visibility: auto;
+    contain-intrinsic-size: 0 400px;
     background: var(--card-bg);
     border-radius: var(--radius-xl);
     padding: 2rem;

@@ -54,7 +54,7 @@ Udvid sitemap.xml med alle nye landingssider, guides og billeder (`<image:image>
 ### #10 — Core Web Vitals optimering (P1)
 Minificer CSS/JS, tilføj critical CSS inline, lazy-load below-fold indhold. Mål og optimer LCP, FID og CLS.
 
-- [ ] Ikke startet
+- [x] Færdig — inline critical CSS, content-visibility lazy rendering, fetchpriority, defer non-critical scripts
 
 ### #11 — Tilføj JSON-LD for Organization (P3)
 Tilføj `Organization` schema med logo, social profiles og kontaktinfo til footer/alle sider.
