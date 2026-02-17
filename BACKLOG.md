@@ -44,7 +44,7 @@ Unikke OG-billeder for hver landingsside (WiFi-ikon, vCard-ikon, osv.) i stedet 
 ### #8 — Breadcrumb-navigation (P3)
 Tilføj visuel breadcrumb på undersider (`Hjem > WiFi QR-kode`) med tilhørende `BreadcrumbList` schema.
 
-- [ ] Ikke startet
+- [x] Færdig — BreadcrumbList JSON-LD schema tilføjet på alle 11 undersider
 
 ### #9 — Sitemap udvidelse (P3)
 Udvid sitemap.xml med alle nye landingssider, guides og billeder (`<image:image>`-tags). Tilføj `lastmod`-datoer.
