@@ -170,8 +170,9 @@ function getQRData() {
 
             if (!ssid) return null;
 
-            // WiFi QR format: WIFI:T:WPA;S:mynetwork;P:mypassword;H:false;;
-            return `WIFI:T:${encryption};S:${ssid};P:${password};H:${hidden};;`;
+            // Escape special chars per WiFi QR spec
+            const escWifi = s => s.replace(/\\/g, '\\\\').replace(/;/g, '\\;').replace(/,/g, '\\,').replace(/"/g, '\\"');
+            return `WIFI:T:${encryption};S:${escWifi(ssid)};P:${escWifi(password)};H:${hidden};;`;
 
         case 'vcard':
             const name = document.getElementById('vcardName').value.trim();
@@ -245,18 +246,133 @@ function getQRData() {
     }
 }
 
+// ===========================================
+// Inline Form Validation
+// ===========================================
+
+function setFieldError(fieldId, message) {
+    const errorEl = document.getElementById(fieldId + 'Error');
+    const field = document.getElementById(fieldId);
+    if (!errorEl || !field) return;
+    const group = field.closest('.form-group');
+    if (message) {
+        errorEl.textContent = message;
+        if (group) group.classList.add('has-error');
+        field.setAttribute('aria-invalid', 'true');
+        field.setAttribute('aria-describedby', fieldId + 'Error');
+    } else {
+        errorEl.textContent = '';
+        if (group) group.classList.remove('has-error');
+        field.removeAttribute('aria-invalid');
+        field.removeAttribute('aria-describedby');
+    }
+}
+
+function clearAllErrors() {
+    document.querySelectorAll('.form-group.has-error').forEach(g => g.classList.remove('has-error'));
+    document.querySelectorAll('.field-error').forEach(e => { e.textContent = ''; });
+}
+
+function validateForm() {
+    clearAllErrors();
+    let valid = true;
+
+    switch (currentTab) {
+        case 'text': {
+            const val = qrText.value.trim();
+            if (!val) {
+                setFieldError('qrText', 'Indtast tekst eller en URL.');
+                valid = false;
+            }
+            break;
+        }
+        case 'wifi': {
+            const ssid = document.getElementById('wifiSSID').value.trim();
+            if (!ssid) {
+                setFieldError('wifiSSID', 'Netværksnavn er påkrævet.');
+                valid = false;
+            }
+            break;
+        }
+        case 'vcard': {
+            const name = document.getElementById('vcardName').value.trim();
+            const email = document.getElementById('vcardEmail').value.trim();
+            const website = document.getElementById('vcardWebsite').value.trim();
+            if (!name) {
+                setFieldError('vcardName', 'Navn er påkrævet.');
+                valid = false;
+            }
+            if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                setFieldError('vcardEmail', 'Ugyldig e-mail-adresse.');
+                valid = false;
+            }
+            if (website && !/^https?:\/\/.+/.test(website)) {
+                setFieldError('vcardWebsite', 'URL skal starte med https://');
+                valid = false;
+            }
+            break;
+        }
+        case 'email': {
+            const to = document.getElementById('emailTo').value.trim();
+            if (!to) {
+                setFieldError('emailTo', 'E-mail-adresse er påkrævet.');
+                valid = false;
+            } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(to)) {
+                setFieldError('emailTo', 'Ugyldig e-mail-adresse.');
+                valid = false;
+            }
+            break;
+        }
+        case 'sms': {
+            const phone = document.getElementById('smsPhone').value.trim();
+            if (!phone) {
+                setFieldError('smsPhone', 'Telefonnummer er påkrævet.');
+                valid = false;
+            }
+            break;
+        }
+        case 'calendar': {
+            const title = document.getElementById('calTitle').value.trim();
+            const start = document.getElementById('calStart').value;
+            if (!title) {
+                setFieldError('calTitle', 'Begivenhedsnavn er påkrævet.');
+                valid = false;
+            }
+            if (!start) {
+                setFieldError('calStart', 'Startdato er påkrævet.');
+                valid = false;
+            }
+            break;
+        }
+    }
+    return valid;
+}
+
+// Clear errors on input/change
+['input', 'change'].forEach(eventType => {
+    document.addEventListener(eventType, (e) => {
+        const field = e.target;
+        if (field.id && document.getElementById(field.id + 'Error')) {
+            setFieldError(field.id, '');
+        }
+    });
+});
+
+// Clear errors on tab switch
+tabButtons.forEach(button => {
+    button.addEventListener('click', clearAllErrors);
+});
+
 // Generer QR-kode (with null check for button)
 if (generateBtn) {
     generateBtn.addEventListener('click', generateQRCode);
 }
 
 function generateQRCode() {
+    if (!validateForm()) return;
     const text = getQRData();
 
-    if (!text) {
-        showToast('Indtast venligst den påkrævede information!', 'error');
-        return;
-    }
+    if (!text) return;
 
     try {
         // Fjern eksisterende QR-kode

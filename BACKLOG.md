@@ -108,7 +108,7 @@ På mobil: gør QR-type tabs swipeable (venstre/højre) i stedet for at scrolle 
 ### #20 — Form-validering med inline-fejl (P1)
 Vis fejlmeddelelser direkte ved felterne (f.eks. "Ugyldig e-mail-adresse", "URL mangler https://") i stedet for generiske alerts.
 
-- [ ] Ikke startet
+- [x] Færdig — inline fejlbeskeder med aria-invalid, auto-clear og WiFi special char escaping
 
 ### #21 — Skeleton loading state (P3)
 Vis en skeleton/placeholder for QR-kode preview-området mens den genereres, i stedet for tomt rum.

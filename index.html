@@ -118,6 +118,7 @@
                     <div class="form-group">
                         <label for="qrText">Indtast tekst eller URL:</label>
                         <textarea id="qrText" rows="4" placeholder="https://example.com eller din tekst her..."></textarea>
+                        <span class="field-error" id="qrTextError"></span>
                     </div>
                 </div>
 
@@ -126,6 +127,7 @@
                     <div class="form-group">
                         <label for="wifiSSID">Netværksnavn (SSID):</label>
                         <input type="text" id="wifiSSID" placeholder="Mit WiFi Netværk">
+                        <span class="field-error" id="wifiSSIDError"></span>
                     </div>
                     <div class="form-group">
                         <label for="wifiPassword">Adgangskode:</label>
@@ -152,6 +154,7 @@
                     <div class="form-group">
                         <label for="vcardName">Fulde navn:</label>
                         <input type="text" id="vcardName" placeholder="Anders Andersen">
+                        <span class="field-error" id="vcardNameError"></span>
                     </div>
                     <div class="form-group">
                         <label for="vcardOrg">Organisation:</label>
@@ -168,10 +171,12 @@
                     <div class="form-group">
                         <label for="vcardEmail">Email:</label>
                         <input type="email" id="vcardEmail" placeholder="anders@example.com">
+                        <span class="field-error" id="vcardEmailError"></span>
                     </div>
                     <div class="form-group">
                         <label for="vcardWebsite">Hjemmeside:</label>
                         <input type="url" id="vcardWebsite" placeholder="https://example.com">
+                        <span class="field-error" id="vcardWebsiteError"></span>
                     </div>
                     <div class="form-group">
                         <label for="vcardAddress">Adresse:</label>
@@ -184,6 +189,7 @@
                     <div class="form-group">
                         <label for="emailTo">Til (email adresse):</label>
                         <input type="email" id="emailTo" placeholder="modtager@example.com">
+                        <span class="field-error" id="emailToError"></span>
                     </div>
                     <div class="form-group">
                         <label for="emailSubject">Emne:</label>
@@ -200,6 +206,7 @@
                     <div class="form-group">
                         <label for="smsPhone">Telefonnummer:</label>
                         <input type="tel" id="smsPhone" placeholder="+45 12 34 56 78">
+                        <span class="field-error" id="smsPhoneError"></span>
                     </div>
                     <div class="form-group">
                         <label for="smsMessage">Besked:</label>
@@ -212,6 +219,7 @@
                     <div class="form-group">
                         <label for="calTitle">Begivenhed:</label>
                         <input type="text" id="calTitle" placeholder="Møde med klient">
+                        <span class="field-error" id="calTitleError"></span>
                     </div>
                     <div class="form-group">
                         <label for="calLocation">Lokation:</label>
@@ -220,6 +228,7 @@
                     <div class="form-group">
                         <label for="calStart">Start dato & tid:</label>
                         <input type="datetime-local" id="calStart">
+                        <span class="field-error" id="calStartError"></span>
                     </div>
                     <div class="form-group">
                         <label for="calEnd">Slut dato & tid:</label>
