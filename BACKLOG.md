@@ -24,7 +24,7 @@ Tilføj `hreflang="da"` på alle sider og forbered en `/en/` version. Danmark ha
 ### #4 — Struktureret data for HowTo-schema (P2)
 Tilføj `HowTo` schema markup til guide-sektionerne, så Google kan vise step-by-step rich snippets i søgeresultaterne.
 
-- [ ] Ikke startet
+- [x] Færdig — HowTo JSON-LD schema med 5 trin på hovedsiden
 
 ### #5 — Forbedret intern linking-struktur (P2)
 Tilføj kontekstuelle links mellem landingssider, guides og hovedsiden. Forbedrer crawlability og fordeler link juice.
