@@ -295,7 +295,7 @@ Flyt `qrcode-generator` og `jszip` fra CDN til self-hosted. Eliminerer ekstern a
 ### #55 — CSS/JS minificering og bundling (P2)
 Tilføj en simpel build-step (f.eks. esbuild/lightningcss) der minificerer og bundler assets. Reducerer filstørrelse 30-50%.
 
-- [ ] Ikke startet
+- [x] Færdig — esbuild build-step med multi-stage Dockerfile, style.css -32%, app.js -44%
 
 ### #56 — Lazy-load below-fold sektioner (P2)
 Brug `IntersectionObserver` til at lazy-loade SEO-indhold, FAQ, tips-grid osv. Forbedrer initial load og LCP.

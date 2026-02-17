@@ -9,15 +9,15 @@ node_modules
 README.md
 DEPLOYMENT.md
 PRODUCTION-READY.md
+BACKLOG.md
 
 # IDE files
 .vscode
 .idea
 .DS_Store
 
-# Development files
-package.json
-package-lock.json
+# Build output (rebuilt in Docker)
+dist/
 
 # Apache config (not needed for nginx)
 .htaccess

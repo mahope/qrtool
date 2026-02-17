@@ -5,6 +5,7 @@
   "main": "index.html",
   "scripts": {
     "start": "npx http-server -p 8080 -o",
+    "build": "node build.js",
     "test": "echo \"No tests configured\" && exit 0"
   },
   "keywords": [
@@ -37,6 +38,7 @@
     "qrcode": "^1.5.4"
   },
   "devDependencies": {
+    "esbuild": "^0.27.3",
     "http-server": "^14.1.1"
   },
   "engines": {
