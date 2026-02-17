@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Primary Meta Tags -->
+    <title>SMS QR-Kode Generator - Gratis | QRTool.dk</title>
+    <meta name="title" content="SMS QR-Kode Generator - Gratis | QRTool.dk">
+    <meta name="description" content="Generer SMS QR-koder gratis. Lad modtagere sende forudfyldte SMS-beskeder med et scan - perfekt til kampagner, kundeservice og events.">
+    <meta name="keywords" content="sms qr kode, sms qr generator, besked qr kode, tekst besked qr">
+    <meta name="author" content="Mahope.dk">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://qrtool.dk/sms-qr-kode">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://qrtool.dk/sms-qr-kode">
+    <meta property="og:title" content="SMS QR-Kode Generator - Gratis">
+    <meta property="og:description" content="Generer SMS QR-koder gratis. Lad modtagere sende forudfyldte SMS-beskeder med et scan.">
+    <meta property="og:image" content="https://qrtool.dk/og-image-sms.png">
+    <meta property="og:locale" content="da_DK">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://qrtool.dk/sms-qr-kode">
+    <meta property="twitter:title" content="SMS QR-Kode Generator - Gratis">
+    <meta property="twitter:description" content="Generer SMS QR-koder gratis. Lad modtagere sende forudfyldte SMS-beskeder med et scan.">
+    <meta property="twitter:image" content="https://qrtool.dk/og-image-sms.png">
+
+    <!-- Favicon & PWA -->
+    <link rel="icon" type="image/svg+xml" href="/icon.svg">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#6366f1">
+
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://unpkg.com" crossorigin>
+    <link rel="dns-prefetch" href="https://analytics.holstjensen.eu">
+
+    <!-- Preload critical resources -->
+    <link rel="preload" href="style.css" as="style">
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Schema.org for SMS QR -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "SMS QR-Kode Generator",
+      "url": "https://qrtool.dk/sms-qr-kode",
+      "description": "Gratis SMS QR-kode generator til kampagner, kundeservice og events",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "Any",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "DKK"
+      },
+      "creator": {
+        "@type": "Organization",
+        "name": "Mahope",
+        "url": "https://mahope.dk"
+      }
+    }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-top">
+                <div class="logo">
+                    <a href="/">
+                        <svg id="logoQR" width="50" height="50" viewBox="0 0 100 100"></svg>
+                    </a>
+                </div>
+                <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme">
+                    <svg class="sun-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                    <svg class="moon-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                </button>
+            </div>
+            <h1>💬 SMS QR-Kode Generator</h1>
+            <p>Lad modtagere sende forudfyldte SMS-beskeder med et scan - Helt gratis!</p>
+            <nav class="breadcrumb">
+                <a href="/">Hjem</a> / SMS QR-Kode
+            </nav>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="hero-content">
+                <h2>Send SMS med Et Scan</h2>
+                <p class="hero-text">Gør det nemt for dine kunder at sende SMS-beskeder! Generer en QR-kode med forudfyldt telefonnummer og besked, så modtageren blot skal scanne og trykke send.</p>
+                <div class="hero-benefits">
+                    <div class="benefit">✅ Gratis for evigt</div>
+                    <div class="benefit">✅ Ingen registrering</div>
+                    <div class="benefit">✅ Virker på alle smartphones</div>
+                    <div class="benefit">✅ Download i høj kvalitet</div>
+                </div>
+            </div>
+        </section>
+
+        <div class="main-content">
+            <!-- Quick SMS Form -->
+            <div class="input-section wifi-focused">
+                <h3>Generer Din SMS QR-Kode</h3>
+
+                <div class="form-group">
+                    <label for="smsPhone">Telefonnummer:</label>
+                    <input type="tel" id="smsPhone" placeholder="+45 12345678" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="smsBody">Besked (valgfri):</label>
+                    <textarea id="smsBody" rows="4" placeholder="Skriv den forudfyldte besked her..."></textarea>
+                </div>
+
+                <div class="settings-grid">
+                    <div class="form-group">
+                        <label for="qrColor">QR-kode farve:</label>
+                        <div class="color-picker">
+                            <input type="color" id="qrColor" value="#000000">
+                            <span class="color-value">#000000</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="qrSize">Størrelse:</label>
+                        <select id="qrSize">
+                            <option value="512" selected>512×512 (Medium)</option>
+                            <option value="1024">1024×1024 (Stor)</option>
+                            <option value="2048">2048×2048 (Print)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="fileFormat">Format:</label>
+                        <select id="fileFormat">
+                            <option value="png" selected>PNG</option>
+                            <option value="svg">SVG (Print)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button id="generateBtn" class="btn btn-primary">💬 Generer SMS QR-Kode</button>
+                    <button id="downloadBtn" class="btn btn-secondary" disabled>Download</button>
+                </div>
+            </div>
+
+            <!-- Preview -->
+            <div class="preview-section">
+                <div class="preview-container">
+                    <div id="qrPreview" class="qr-preview">
+                        <div class="placeholder">
+                            <svg width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                            </svg>
+                            <p>Din SMS QR-kode vil blive vist her</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SEO Content -->
+        <section class="seo-content">
+            <article class="content-block">
+                <h2>Hvorfor Bruge SMS QR-Koder?</h2>
+                <p>SMS QR-koder gør det muligt for dine kunder at sende forudfyldte SMS-beskeder med et enkelt scan. I stedet for at bede folk om at huske et telefonnummer og skrive en besked manuelt, kan de blot scanne koden og trykke send.</p>
+
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <h3>📢 Kampagner</h3>
+                        <p>Lad kunder tilmelde sig nyhedsbreve, konkurrencer eller tilbud ved at scanne en QR-kode og sende et nøgleord via SMS.</p>
+                    </div>
+                    <div class="feature-item">
+                        <h3>🛎️ Kundeservice</h3>
+                        <p>Giv kunder mulighed for hurtigt at kontakte din support via SMS med forudfyldt emne og beskrivelse.</p>
+                    </div>
+                    <div class="feature-item">
+                        <h3>🎉 Events</h3>
+                        <p>Brug SMS QR-koder til RSVP, billettilmelding eller eventinformation. Deltagere scanner og sender bekræftelse med et tryk.</p>
+                    </div>
+                    <div class="feature-item">
+                        <h3>📝 Feedback</h3>
+                        <p>Saml kundefeedback ved at lade dem sende en hurtig SMS med deres mening direkte fra en QR-kode på kvitteringen.</p>
+                    </div>
+                </div>
+            </article>
+
+            <article class="content-block">
+                <h2>Sådan Fungerer Det</h2>
+                <ol class="guide-list">
+                    <li><strong>Indtast telefonnummer:</strong> Skriv det telefonnummer SMS'en skal sendes til.</li>
+                    <li><strong>Skriv besked:</strong> Tilføj en valgfri forudfyldt besked som modtageren kan sende.</li>
+                    <li><strong>Generer QR-koden:</strong> Klik på knappen og din SMS QR-kode genereres øjeblikkeligt.</li>
+                    <li><strong>Download & del:</strong> Download som PNG eller SVG og brug den i print eller digitalt.</li>
+                    <li><strong>Scan & send:</strong> Modtageren scanner koden, SMS-appen åbner med forudfyldt besked, og de trykker send.</li>
+                </ol>
+            </article>
+
+            <article class="content-block">
+                <h2>Best Practices for SMS QR-Koder</h2>
+                <ul>
+                    <li><strong>Hold beskeden kort:</strong> Forudfyldte SMS-beskeder bør være korte og klare for bedste resultat</li>
+                    <li><strong>Brug landekode:</strong> Inkluder altid landekode (f.eks. +45) for at sikre korrekt levering</li>
+                    <li><strong>Tilføj instruktioner:</strong> Skriv "Scan for at sende SMS" så folk ved hvad QR-koden gør</li>
+                    <li><strong>Test på begge platforme:</strong> Sørg for at teste QR-koden på både iPhone og Android</li>
+                    <li><strong>Placer synligt:</strong> Brug QR-koden i print, på plakater, visitkort eller emballage</li>
+                </ul>
+            </article>
+
+            <article class="content-block faq-section">
+                <h2>Ofte Stillede Spørgsmål om SMS QR-Koder</h2>
+
+                <div class="faq-item">
+                    <h3>Virker SMS QR-koder på iPhone?</h3>
+                    <p>Ja! Når en iPhone scanner en SMS QR-kode, åbner Beskeder-appen automatisk med det forudfyldte telefonnummer og besked. Brugeren skal blot trykke send.</p>
+                </div>
+
+                <div class="faq-item">
+                    <h3>Virker det på Android telefoner?</h3>
+                    <p>Ja, Android telefoner åbner standard SMS-appen med det forudfyldte nummer og besked, klar til at sende.</p>
+                </div>
+
+                <div class="faq-item">
+                    <h3>Koster det noget at sende SMS via QR-kode?</h3>
+                    <p>Selve QR-koden er gratis at generere. Men den SMS som sendes, afregnes efter modtagerens normale SMS-takst hos sin teleoperatør.</p>
+                </div>
+
+                <div class="faq-item">
+                    <h3>Kan modtageren redigere beskeden før afsendelse?</h3>
+                    <p>Ja, beskeden er kun forudfyldt. Modtageren kan frit redigere teksten i SMS-appen, inden de trykker send.</p>
+                </div>
+
+                <div class="faq-item">
+                    <h3>Hvor mange tegn kan beskeden indeholde?</h3>
+                    <p>Vi anbefaler at holde beskeden under 160 tegn for bedste kompatibilitet. Længere beskeder kan fungere, men kan blive opdelt i flere SMS'er.</p>
+                </div>
+            </article>
+        </section>
+
+        <footer class="footer">
+            <p>Lavet med ❤️ af <a href="https://mahope.dk" target="_blank" rel="noopener">Mahope.dk</a></p>
+            <p class="footer-links">
+                <a href="/">QRTool.dk</a> |
+                <a href="/privatlivspolitik">Privatlivspolitik</a> |
+                <a href="/om-qr-tool">Om QR Tool</a>
+            </p>
+            <div class="footer-tools">
+                <h3>🚀 Andre gratis værktøjer fra Mahope.dk</h3>
+                <div class="footer-tools-grid">
+                    <a href="https://levetidsberegner.dk" target="_blank" rel="noopener" class="footer-tool-card">
+                        <span class="emoji">⏳</span>
+                        <h4>Levetidsberegner.dk</h4>
+                        <p>Beregn din forventede levetid</p>
+                    </a>
+                    <a href="https://pakkeliste.com" target="_blank" rel="noopener" class="footer-tool-card">
+                        <span class="emoji">✈️</span>
+                        <h4>Pakkeliste.com</h4>
+                        <p>Intelligent rejseværktøj til pakkelister</p>
+                    </a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Plausible Analytics -->
+    <script defer data-domain="qrtool.dk" src="https://analytics.holstjensen.eu/js/script.file-downloads.hash.outbound-links.pageview-props.tagged-events.js"></script>
+    <script>window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }</script>
+
+    <script src="https://unpkg.com/qrcode-generator@2.0.4/dist/qrcode.js" crossorigin="anonymous" integrity="sha384-e9EFD6BGC90bkW9aDV5xbbBfzwN7G8YImHao2lfLVKV/hPB0E0go+H3I64h7oHtA"></script>
+    <script>
+        // Standalone SMS QR Generator Script
+        (function() {
+            // Theme management
+            const themeToggle = document.getElementById('themeToggle');
+            const html = document.documentElement;
+            const currentTheme = localStorage.getItem('theme') || 'dark';
+            html.setAttribute('data-theme', currentTheme);
+
+            if (themeToggle) {
+                themeToggle.addEventListener('click', () => {
+                    const theme = html.getAttribute('data-theme');
+                    const newTheme = theme === 'dark' ? 'light' : 'dark';
+                    html.setAttribute('data-theme', newTheme);
+                    localStorage.setItem('theme', newTheme);
+                });
+            }
+
+            // DOM elementer
+            const generateBtn = document.getElementById('generateBtn');
+            const downloadBtn = document.getElementById('downloadBtn');
+            const qrPreview = document.getElementById('qrPreview');
+            const qrColor = document.getElementById('qrColor');
+            const qrSize = document.getElementById('qrSize');
+            const fileFormat = document.getElementById('fileFormat');
+
+            let currentQRCanvas = null;
+            let currentQRSVG = null;
+
+            // Generate logo QR
+            function generateLogoQR() {
+                if (typeof qrcode === 'undefined') {
+                    setTimeout(generateLogoQR, 100);
+                    return;
+                }
+                const logoSvg = document.getElementById('logoQR');
+                if (!logoSvg) return;
+
+                const qr = qrcode(0, 'M');
+                qr.addData('https://qrtool.dk');
+                qr.make();
+
+                const cells = qr.getModuleCount();
+                const size = 100;
+                const scale = size / cells;
+
+                let path = '';
+                for (let y = 0; y < cells; y++) {
+                    for (let x = 0; x < cells; x++) {
+                        if (qr.isDark(y, x)) {
+                            const px = x * scale;
+                            const py = y * scale;
+                            path += `M${px},${py}h${scale}v${scale}h-${scale}z `;
+                        }
+                    }
+                }
+
+                logoSvg.innerHTML = `<path d="${path}" fill="url(#gradient)"/>
+                    <defs>
+                        <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#6366f1;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:1" />
+                        </linearGradient>
+                    </defs>`;
+            }
+
+            // Build SMS URI
+            function getSMSData() {
+                const phone = document.getElementById('smsPhone').value.trim();
+                const body = document.getElementById('smsBody').value.trim();
+
+                if (!phone) return null;
+
+                let smsURI = 'sms:' + encodeURIComponent(phone);
+                if (body) {
+                    smsURI += '?body=' + encodeURIComponent(body);
+                }
+                return smsURI;
+            }
+
+            // Draw QR to canvas
+            function drawCanvas(qr, size, canvas) {
+                const cells = qr.getModuleCount();
+                const scale = size / cells;
+                canvas.width = size;
+                canvas.height = size;
+                const ctx = canvas.getContext('2d');
+
+                ctx.fillStyle = '#ffffff';
+                ctx.fillRect(0, 0, size, size);
+                ctx.fillStyle = qrColor.value;
+
+                for (let y = 0; y < cells; y++) {
+                    for (let x = 0; x < cells; x++) {
+                        if (qr.isDark(y, x)) {
+                            ctx.fillRect(x * scale, y * scale, scale, scale);
+                        }
+                    }
+                }
+            }
+
+            // Generate SVG string
+            function toSvgString(qr, border) {
+                const cells = qr.getModuleCount();
+                const size = cells + border * 2;
+                let parts = [];
+                parts.push(`<?xml version="1.0" encoding="UTF-8"?>`);
+                parts.push(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${size} ${size}">`);
+                parts.push(`<rect width="100%" height="100%" fill="#ffffff"/>`);
+                parts.push(`<path d="`);
+                for (let y = 0; y < cells; y++) {
+                    for (let x = 0; x < cells; x++) {
+                        if (qr.isDark(y, x)) {
+                            parts.push(`M${x + border},${y + border}h1v1h-1z`);
+                        }
+                    }
+                }
+                parts.push(`" fill="${qrColor.value}"/></svg>`);
+                return parts.join('\n');
+            }
+
+            // Generate QR code
+            function generateQRCode() {
+                const text = getSMSData();
+                if (!text) {
+                    alert('Indtast venligst et telefonnummer!');
+                    return;
+                }
+
+                try {
+                    qrPreview.innerHTML = '';
+                    const size = parseInt(qrSize.value);
+                    const format = fileFormat.value;
+                    const qr = qrcode(0, 'M');
+                    qr.addData(text);
+                    qr.make();
+
+                    if (format === 'svg') {
+                        currentQRSVG = toSvgString(qr, 2);
+                        qrPreview.innerHTML = currentQRSVG;
+                        currentQRCanvas = null;
+                    } else {
+                        const canvas = document.createElement('canvas');
+                        drawCanvas(qr, size, canvas);
+                        qrPreview.appendChild(canvas);
+                        currentQRCanvas = canvas;
+                        currentQRSVG = null;
+                    }
+
+                    downloadBtn.disabled = false;
+                    generateBtn.textContent = '✓ Genereret!';
+                    generateBtn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+                    setTimeout(() => {
+                        generateBtn.textContent = '💬 Generer SMS QR-Kode';
+                        generateBtn.style.background = '';
+                    }, 2000);
+                } catch (error) {
+                    alert('Fejl: ' + error.message);
+                }
+            }
+
+            // Download
+            function downloadQRCode() {
+                const format = fileFormat.value;
+                const filename = `sms-qr-${Date.now()}.${format}`;
+
+                function downloadBlob(blob, name) {
+                    const url = URL.createObjectURL(blob);
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.download = name;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    URL.revokeObjectURL(url);
+                }
+
+                if (format === 'svg' && currentQRSVG) {
+                    const blob = new Blob([currentQRSVG], { type: 'image/svg+xml' });
+                    downloadBlob(blob, filename);
+                } else if (currentQRCanvas) {
+                    currentQRCanvas.toBlob((blob) => downloadBlob(blob, filename), 'image/png');
+                }
+
+                downloadBtn.textContent = '✓ Downloaded!';
+                setTimeout(() => { downloadBtn.textContent = 'Download'; }, 2000);
+            }
+
+            // Color picker display
+            if (qrColor) {
+                qrColor.addEventListener('input', (e) => {
+                    const span = e.target.nextElementSibling;
+                    if (span) span.textContent = e.target.value;
+                });
+            }
+
+            // Event listeners
+            if (generateBtn) generateBtn.addEventListener('click', generateQRCode);
+            if (downloadBtn) downloadBtn.addEventListener('click', downloadQRCode);
+
+            // Init logo
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', generateLogoQR);
+            } else {
+                generateLogoQR();
+            }
+        })();
+    </script>
+    <script>if ('serviceWorker' in navigator) { navigator.serviceWorker.register('/sw.js'); }</script>
+</body>
+</html>

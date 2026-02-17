@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Primary Meta Tags -->
+    <title>vCard QR-Kode Generator - Digitalt Visitkort | QRTool.dk</title>
+    <meta name="title" content="vCard QR-Kode Generator - Digitalt Visitkort | QRTool.dk">
+    <meta name="description" content="Opret et digitalt visitkort som QR-kode gratis. Del dine kontaktoplysninger med ét scan - navn, telefon, e-mail og mere. Perfekt til networking og events.">
+    <meta name="keywords" content="vcard qr kode, digitalt visitkort qr, kontaktinfo qr, visitkort qr generator">
+    <meta name="author" content="Mahope.dk">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://qrtool.dk/vcard-qr-kode">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://qrtool.dk/vcard-qr-kode">
+    <meta property="og:title" content="vCard QR-Kode Generator - Digitalt Visitkort">
+    <meta property="og:description" content="Opret et digitalt visitkort som QR-kode gratis. Del dine kontaktoplysninger med ét scan.">
+    <meta property="og:image" content="https://qrtool.dk/og-image-vcard.png">
+    <meta property="og:locale" content="da_DK">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://qrtool.dk/vcard-qr-kode">
+    <meta property="twitter:title" content="vCard QR-Kode Generator - Digitalt Visitkort">
+    <meta property="twitter:description" content="Opret et digitalt visitkort som QR-kode gratis. Del dine kontaktoplysninger med ét scan.">
+    <meta property="twitter:image" content="https://qrtool.dk/og-image-vcard.png">
+
+    <!-- Favicon & PWA -->
+    <link rel="icon" type="image/svg+xml" href="/icon.svg">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#6366f1">
+
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://unpkg.com" crossorigin>
+    <link rel="dns-prefetch" href="https://analytics.holstjensen.eu">
+
+    <!-- Preload critical resources -->
+    <link rel="preload" href="style.css" as="style">
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Schema.org for vCard QR -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "vCard QR-Kode Generator",
+      "url": "https://qrtool.dk/vcard-qr-kode",
+      "description": "Gratis vCard QR-kode generator til digitale visitkort med kontaktoplysninger",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "Any",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "DKK"
+      },
+      "creator": {
+        "@type": "Organization",
+        "name": "Mahope",
+        "url": "https://mahope.dk"
+      }
+    }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-top">
+                <div class="logo">
+                    <a href="/">
+                        <svg id="logoQR" width="50" height="50" viewBox="0 0 100 100"></svg>
+                    </a>
+                </div>
+                <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme">
+                    <svg class="sun-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                    <svg class="moon-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                </button>
+            </div>
+            <h1>👤 vCard QR-Kode Generator</h1>
+            <p>Del dine kontaktoplysninger med ét scan - Helt gratis!</p>
+            <nav class="breadcrumb">
+                <a href="/">Hjem</a> / vCard QR-Kode
+            </nav>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="hero-content">
+                <h2>Digitalt Visitkort med QR-Kode</h2>
+                <p class="hero-text">Slut med at løbe tør for visitkort! Opret en vCard QR-kode med dine kontaktoplysninger, og lad andre gemme dine oplysninger direkte i deres telefonbog med ét scan.</p>
+                <div class="hero-benefits">
+                    <div class="benefit">✅ Gratis for evigt</div>
+                    <div class="benefit">✅ Ingen registrering</div>
+                    <div class="benefit">✅ Virker på alle smartphones</div>
+                    <div class="benefit">✅ Download i høj kvalitet</div>
+                </div>
+            </div>
+        </section>
+
+        <div class="main-content">
+            <!-- vCard Form -->
+            <div class="input-section wifi-focused">
+                <h3>Opret Dit Digitale Visitkort</h3>
+
+                <div class="form-group">
+                    <label for="vcardFirstName">Fornavn:</label>
+                    <input type="text" id="vcardFirstName" placeholder="Anders" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="vcardLastName">Efternavn:</label>
+                    <input type="text" id="vcardLastName" placeholder="Andersen" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="vcardOrg">Virksomhed:</label>
+                    <input type="text" id="vcardOrg" placeholder="Firma A/S">
+                </div>
+
+                <div class="form-group">
+                    <label for="vcardTitle">Titel / Stilling:</label>
+                    <input type="text" id="vcardTitle" placeholder="Marketing Manager">
+                </div>
+
+                <div class="form-group">
+                    <label for="vcardPhone">Telefon:</label>
+                    <input type="tel" id="vcardPhone" placeholder="+45 12 34 56 78">
+                </div>
+
+                <div class="form-group">
+                    <label for="vcardEmail">E-mail:</label>
+                    <input type="email" id="vcardEmail" placeholder="anders@firma.dk">
+                </div>
+
+                <div class="form-group">
+                    <label for="vcardWebsite">Hjemmeside:</label>
+                    <input type="url" id="vcardWebsite" placeholder="https://firma.dk">
+                </div>
+
+                <div class="form-group">
+                    <label for="vcardAddress">Adresse:</label>
+                    <input type="text" id="vcardAddress" placeholder="Vestergade 10, 1456 København K">
+                </div>
+
+                <div class="settings-grid">
+                    <div class="form-group">
+                        <label for="qrColor">QR-kode farve:</label>
+                        <div class="color-picker">
+                            <input type="color" id="qrColor" value="#000000">
+                            <span class="color-value">#000000</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="qrSize">Størrelse:</label>
+                        <select id="qrSize">
+                            <option value="512" selected>512×512 (Medium)</option>
+                            <option value="1024">1024×1024 (Stor)</option>
+                            <option value="2048">2048×2048 (Print)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="fileFormat">Format:</label>
+                        <select id="fileFormat">
+                            <option value="png" selected>PNG</option>
+                            <option value="svg">SVG (Print)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button id="generateBtn" class="btn btn-primary">👤 Generer vCard QR-Kode</button>
+                    <button id="downloadBtn" class="btn btn-secondary" disabled>Download</button>
+                </div>
+            </div>
+
+            <!-- Preview -->
+            <div class="preview-section">
+                <div class="preview-container">
+                    <div id="qrPreview" class="qr-preview">
+                        <div class="placeholder">
+                            <svg width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="12" cy="7" r="4"></circle>
+                            </svg>
+                            <p>Dit digitale visitkort vil blive vist her</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SEO Content -->
+        <section class="seo-content">
+            <article class="content-block">
+                <h2>Hvorfor Bruge vCard QR-Koder?</h2>
+                <p>vCard QR-koder gør det nemt at dele dine kontaktoplysninger digitalt. I stedet for at uddele fysiske visitkort, kan modtageren blot scanne din QR-kode og gemme alle dine oplysninger direkte i telefonbogen med ét tryk.</p>
+
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <h3>🤝 Networking</h3>
+                        <p>Del dine kontaktoplysninger hurtigt ved networking events, konferencer og møder uden at fumle med papirkort.</p>
+                    </div>
+                    <div class="feature-item">
+                        <h3>🎪 Messer & Events</h3>
+                        <p>Giv besøgende på din stand mulighed for at gemme dine oplysninger med ét scan. Ingen visitkort der går tabt.</p>
+                    </div>
+                    <div class="feature-item">
+                        <h3>💼 Sælgere</h3>
+                        <p>Gør det nemt for potentielle kunder at gemme dine kontaktoplysninger direkte efter et salgsmøde.</p>
+                    </div>
+                    <div class="feature-item">
+                        <h3>🎨 Freelancere</h3>
+                        <p>Præsenter dig professionelt med et digitalt visitkort der altid er opdateret og aldrig løber tør.</p>
+                    </div>
+                </div>
+            </article>
+
+            <article class="content-block">
+                <h2>Sådan Opretter Du Dit Digitale Visitkort</h2>
+                <ol class="guide-list">
+                    <li><strong>Indtast dine oplysninger:</strong> Udfyld navn, virksomhed, telefon, e-mail og andre relevante felter.</li>
+                    <li><strong>Tilpas udseendet:</strong> Vælg farve, størrelse og format til din QR-kode.</li>
+                    <li><strong>Generer QR-koden:</strong> Klik på knappen og din vCard QR-kode genereres øjeblikkeligt.</li>
+                    <li><strong>Download & del:</strong> Download som PNG eller SVG og brug den digitalt eller print den.</li>
+                    <li><strong>Del overalt:</strong> Brug den på visitkort, præsentationer, e-mail signaturer eller din hjemmeside.</li>
+                </ol>
+            </article>
+
+            <article class="content-block">
+                <h2>Best Practices for vCard QR-Koder</h2>
+                <ul>
+                    <li><strong>Hold det relevant:</strong> Inkluder kun de kontaktoplysninger du ønsker at dele professionelt</li>
+                    <li><strong>Test altid:</strong> Scan din QR-kode med din egen telefon for at sikre alle oplysninger er korrekte</li>
+                    <li><strong>Brug god kontrast:</strong> Mørk QR-kode på lys baggrund giver bedst scanbarhed</li>
+                    <li><strong>Tilføj på visitkort:</strong> Print QR-koden på bagsiden af dit fysiske visitkort som supplement</li>
+                    <li><strong>Opdater ved ændringer:</strong> Generer en ny QR-kode hvis dine kontaktoplysninger ændrer sig</li>
+                </ul>
+            </article>
+
+            <article class="content-block faq-section">
+                <h2>Ofte Stillede Spørgsmål om vCard QR-Koder</h2>
+
+                <div class="faq-item">
+                    <h3>Hvad er en vCard QR-kode?</h3>
+                    <p>En vCard QR-kode indeholder dine kontaktoplysninger i et standardiseret format. Når nogen scanner koden, kan de gemme dit navn, telefonnummer, e-mail og mere direkte i deres telefonbog.</p>
+                </div>
+
+                <div class="faq-item">
+                    <h3>Virker vCard QR-koder på alle telefoner?</h3>
+                    <p>Ja! vCard QR-koder understøttes af både iPhone (iOS 11+) og Android telefoner. De fleste kamera-apps kan scanne og fortolke vCard data automatisk.</p>
+                </div>
+
+                <div class="faq-item">
+                    <h3>Hvilke oplysninger kan jeg inkludere i en vCard?</h3>
+                    <p>Du kan inkludere navn, virksomhed, titel, telefonnummer, e-mail, hjemmeside og adresse. Jo flere oplysninger, jo større bliver QR-koden.</p>
+                </div>
+
+                <div class="faq-item">
+                    <h3>Kan jeg bruge vCard QR-koden på mit visitkort?</h3>
+                    <p>Absolut! Download QR-koden i SVG-format for den bedste printkvalitet, og placer den på bagsiden af dit visitkort.</p>
+                </div>
+
+                <div class="faq-item">
+                    <h3>Er mine kontaktoplysninger sikre?</h3>
+                    <p>Ja, dine oplysninger behandles kun lokalt i din browser. Ingen data sendes til en server. QR-koden genereres 100% på din egen enhed.</p>
+                </div>
+            </article>
+        </section>
+
+        <footer class="footer">
+            <p>Lavet med ❤️ af <a href="https://mahope.dk" target="_blank" rel="noopener">Mahope.dk</a></p>
+            <p class="footer-links">
+                <a href="/">QRTool.dk</a> |
+                <a href="/privatlivspolitik">Privatlivspolitik</a> |
+                <a href="/om-qr-tool">Om QR Tool</a>
+            </p>
+            <div class="footer-tools">
+                <h3>🚀 Andre gratis værktøjer fra Mahope.dk</h3>
+                <div class="footer-tools-grid">
+                    <a href="https://levetidsberegner.dk" target="_blank" rel="noopener" class="footer-tool-card">
+                        <span class="emoji">⏳</span>
+                        <h4>Levetidsberegner.dk</h4>
+                        <p>Beregn din forventede levetid</p>
+                    </a>
+                    <a href="https://pakkeliste.com" target="_blank" rel="noopener" class="footer-tool-card">
+                        <span class="emoji">✈️</span>
+                        <h4>Pakkeliste.com</h4>
+                        <p>Intelligent rejseværktøj til pakkelister</p>
+                    </a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Plausible Analytics -->
+    <script defer data-domain="qrtool.dk" src="https://analytics.holstjensen.eu/js/script.file-downloads.hash.outbound-links.pageview-props.tagged-events.js"></script>
+    <script>window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }</script>
+
+    <script src="https://unpkg.com/qrcode-generator@2.0.4/dist/qrcode.js" crossorigin="anonymous" integrity="sha384-e9EFD6BGC90bkW9aDV5xbbBfzwN7G8YImHao2lfLVKV/hPB0E0go+H3I64h7oHtA"></script>
+    <script>
+        // Standalone vCard QR Generator Script
+        (function() {
+            // Theme management
+            const themeToggle = document.getElementById('themeToggle');
+            const html = document.documentElement;
+            const currentTheme = localStorage.getItem('theme') || 'dark';
+            html.setAttribute('data-theme', currentTheme);
+
+            if (themeToggle) {
+                themeToggle.addEventListener('click', () => {
+                    const theme = html.getAttribute('data-theme');
+                    const newTheme = theme === 'dark' ? 'light' : 'dark';
+                    html.setAttribute('data-theme', newTheme);
+                    localStorage.setItem('theme', newTheme);
+                });
+            }
+
+            // DOM elementer
+            const generateBtn = document.getElementById('generateBtn');
+            const downloadBtn = document.getElementById('downloadBtn');
+            const qrPreview = document.getElementById('qrPreview');
+            const qrColor = document.getElementById('qrColor');
+            const qrSize = document.getElementById('qrSize');
+            const fileFormat = document.getElementById('fileFormat');
+
+            let currentQRCanvas = null;
+            let currentQRSVG = null;
+
+            // Generate logo QR
+            function generateLogoQR() {
+                if (typeof qrcode === 'undefined') {
+                    setTimeout(generateLogoQR, 100);
+                    return;
+                }
+                const logoSvg = document.getElementById('logoQR');
+                if (!logoSvg) return;
+
+                const qr = qrcode(0, 'M');
+                qr.addData('https://qrtool.dk');
+                qr.make();
+
+                const cells = qr.getModuleCount();
+                const size = 100;
+                const scale = size / cells;
+
+                let path = '';
+                for (let y = 0; y < cells; y++) {
+                    for (let x = 0; x < cells; x++) {
+                        if (qr.isDark(y, x)) {
+                            const px = x * scale;
+                            const py = y * scale;
+                            path += `M${px},${py}h${scale}v${scale}h-${scale}z `;
+                        }
+                    }
+                }
+
+                logoSvg.innerHTML = `<path d="${path}" fill="url(#gradient)"/>
+                    <defs>
+                        <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#6366f1;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:1" />
+                        </linearGradient>
+                    </defs>`;
+            }
+
+            // Build vCard 3.0 data
+            function getVCardData() {
+                const firstName = document.getElementById('vcardFirstName').value.trim();
+                const lastName = document.getElementById('vcardLastName').value.trim();
+                const org = document.getElementById('vcardOrg').value.trim();
+                const title = document.getElementById('vcardTitle').value.trim();
+                const phone = document.getElementById('vcardPhone').value.trim();
+                const email = document.getElementById('vcardEmail').value.trim();
+                const website = document.getElementById('vcardWebsite').value.trim();
+                const address = document.getElementById('vcardAddress').value.trim();
+
+                if (!firstName && !lastName) return null;
+
+                const fullName = [firstName, lastName].filter(Boolean).join(' ');
+                const sortName = [lastName, firstName].filter(Boolean).join(';');
+
+                let vcard = 'BEGIN:VCARD\nVERSION:3.0\n';
+                vcard += `N:${lastName};${firstName};;;\n`;
+                vcard += `FN:${fullName}\n`;
+                if (org) vcard += `ORG:${org}\n`;
+                if (title) vcard += `TITLE:${title}\n`;
+                if (phone) vcard += `TEL;TYPE=CELL:${phone}\n`;
+                if (email) vcard += `EMAIL:${email}\n`;
+                if (website) vcard += `URL:${website}\n`;
+                if (address) vcard += `ADR;TYPE=WORK:;;${address};;;;\n`;
+                vcard += 'END:VCARD';
+
+                return vcard;
+            }
+
+            // Draw QR to canvas
+            function drawCanvas(qr, size, canvas) {
+                const cells = qr.getModuleCount();
+                const scale = size / cells;
+                canvas.width = size;
+                canvas.height = size;
+                const ctx = canvas.getContext('2d');
+
+                ctx.fillStyle = '#ffffff';
+                ctx.fillRect(0, 0, size, size);
+                ctx.fillStyle = qrColor.value;
+
+                for (let y = 0; y < cells; y++) {
+                    for (let x = 0; x < cells; x++) {
+                        if (qr.isDark(y, x)) {
+                            ctx.fillRect(x * scale, y * scale, scale, scale);
+                        }
+                    }
+                }
+            }
+
+            // Generate SVG string
+            function toSvgString(qr, border) {
+                const cells = qr.getModuleCount();
+                const size = cells + border * 2;
+                let parts = [];
+                parts.push(`<?xml version="1.0" encoding="UTF-8"?>`);
+                parts.push(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${size} ${size}">`);
+                parts.push(`<rect width="100%" height="100%" fill="#ffffff"/>`);
+                parts.push(`<path d="`);
+                for (let y = 0; y < cells; y++) {
+                    for (let x = 0; x < cells; x++) {
+                        if (qr.isDark(y, x)) {
+                            parts.push(`M${x + border},${y + border}h1v1h-1z`);
+                        }
+                    }
+                }
+                parts.push(`" fill="${qrColor.value}"/></svg>`);
+                return parts.join('\n');
+            }
+
+            // Generate QR code
+            function generateQRCode() {
+                const text = getVCardData();
+                if (!text) {
+                    alert('Indtast venligst mindst et for- eller efternavn!');
+                    return;
+                }
+
+                try {
+                    qrPreview.innerHTML = '';
+                    const size = parseInt(qrSize.value);
+                    const format = fileFormat.value;
+                    const qr = qrcode(0, 'M');
+                    qr.addData(text);
+                    qr.make();
+
+                    if (format === 'svg') {
+                        currentQRSVG = toSvgString(qr, 2);
+                        qrPreview.innerHTML = currentQRSVG;
+                        currentQRCanvas = null;
+                    } else {
+                        const canvas = document.createElement('canvas');
+                        drawCanvas(qr, size, canvas);
+                        qrPreview.appendChild(canvas);
+                        currentQRCanvas = canvas;
+                        currentQRSVG = null;
+                    }
+
+                    downloadBtn.disabled = false;
+                    generateBtn.textContent = '✓ Genereret!';
+                    generateBtn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+                    setTimeout(() => {
+                        generateBtn.textContent = '👤 Generer vCard QR-Kode';
+                        generateBtn.style.background = '';
+                    }, 2000);
+                } catch (error) {
+                    alert('Fejl: ' + error.message);
+                }
+            }
+
+            // Download
+            function downloadQRCode() {
+                const format = fileFormat.value;
+                const filename = `vcard-qr-${Date.now()}.${format}`;
+
+                function downloadBlob(blob, name) {
+                    const url = URL.createObjectURL(blob);
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.download = name;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    URL.revokeObjectURL(url);
+                }
+
+                if (format === 'svg' && currentQRSVG) {
+                    const blob = new Blob([currentQRSVG], { type: 'image/svg+xml' });
+                    downloadBlob(blob, filename);
+                } else if (currentQRCanvas) {
+                    currentQRCanvas.toBlob((blob) => downloadBlob(blob, filename), 'image/png');
+                }
+
+                downloadBtn.textContent = '✓ Downloaded!';
+                setTimeout(() => { downloadBtn.textContent = 'Download'; }, 2000);
+            }
+
+            // Color picker display
+            if (qrColor) {
+                qrColor.addEventListener('input', (e) => {
+                    const span = e.target.nextElementSibling;
+                    if (span) span.textContent = e.target.value;
+                });
+            }
+
+            // Event listeners
+            if (generateBtn) generateBtn.addEventListener('click', generateQRCode);
+            if (downloadBtn) downloadBtn.addEventListener('click', downloadQRCode);
+
+            // Init logo
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', generateLogoQR);
+            } else {
+                generateLogoQR();
+            }
+        })();
+    </script>
+    <script>if ('serviceWorker' in navigator) { navigator.serviceWorker.register('/sw.js'); }</script>
+</body>
+</html>

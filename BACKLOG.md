@@ -9,7 +9,7 @@
 ### #1 — Dedikerede landingssider for alle QR-typer (P0)
 Der findes kun `/wifi-qr-kode`. Opret tilsvarende sider for `/vcard-qr-kode`, `/email-qr-kode`, `/sms-qr-kode`, `/kalender-qr-kode` og `/tekst-qr-kode` med unik SEO-indhold, FAQ og schema markup. Øger organisk trafik markant.
 
-- [ ] Ikke startet
+- [x] Færdig — alle 5 landingssider oprettet med SEO, schema, FAQ og QR-generering
 
 ### #2 — Blog/guide-sektion (P1)
 Opret `/guides` med artikler som "Sådan bruger du QR-koder i din restaurant", "QR-koder til events", "Visitkort med QR-kode". Drevet af statiske HTML-filer. Giver long-tail keyword-trafik.
@@ -162,7 +162,7 @@ Tilføj en "Scan QR-kode" funktion der bruger enhedens kamera via WebRTC/`getUse
 ### #30 — PWA (Progressive Web App) (P0)
 Tilføj `manifest.json` og service worker. Gør det muligt at installere appen på hjemmeskærmen og bruge den offline. Alle QR-koder genereres allerede client-side.
 
-- [ ] Ikke startet
+- [x] Færdig (28049e8)
 
 ### #31 — QR-kode skabeloner (P1)
 Foruddefinerede skabeloner for typiske use-cases: "Restaurant menu", "WiFi til gæster", "Visitkort", "Event invitation". Udfyld kun de relevante felter.

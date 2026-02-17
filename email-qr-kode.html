@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Primary Meta Tags -->
+    <title>Email QR-Kode Generator - Gratis | QRTool.dk</title>
+    <meta name="title" content="Email QR-Kode Generator - Gratis | QRTool.dk">
+    <meta name="description" content="Generer email QR-koder gratis. Lad kunder og kontakter sende forudfyldte emails med ét scan - ingen manuel indtastning. Perfekt til kundeservice, marketing og events.">
+    <meta name="keywords" content="email qr kode, mailto qr, email qr generator, kontakt email qr">
+    <meta name="author" content="Mahope.dk">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://qrtool.dk/email-qr-kode">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://qrtool.dk/email-qr-kode">
+    <meta property="og:title" content="Email QR-Kode Generator - Gratis">
+    <meta property="og:description" content="Generer email QR-koder gratis. Lad kunder og kontakter sende forudfyldte emails med ét scan.">
+    <meta property="og:image" content="https://qrtool.dk/og-image-email.png">
+    <meta property="og:locale" content="da_DK">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://qrtool.dk/email-qr-kode">
+    <meta property="twitter:title" content="Email QR-Kode Generator - Gratis">
+    <meta property="twitter:description" content="Generer email QR-koder gratis. Lad kunder og kontakter sende forudfyldte emails med ét scan.">
+    <meta property="twitter:image" content="https://qrtool.dk/og-image-email.png">
+
+    <!-- Favicon & PWA -->
+    <link rel="icon" type="image/svg+xml" href="/icon.svg">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#6366f1">
+
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://unpkg.com" crossorigin>
+    <link rel="dns-prefetch" href="https://analytics.holstjensen.eu">
+
+    <!-- Preload critical resources -->
+    <link rel="preload" href="style.css" as="style">
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Schema.org for Email QR -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Email QR-Kode Generator",
+      "url": "https://qrtool.dk/email-qr-kode",
+      "description": "Gratis email QR-kode generator til kundeservice, marketing og events",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "Any",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "DKK"
+      },
+      "creator": {
+        "@type": "Organization",
+        "name": "Mahope",
+        "url": "https://mahope.dk"
+      }
+    }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-top">
+                <div class="logo">
+                    <a href="/">
+                        <svg id="logoQR" width="50" height="50" viewBox="0 0 100 100"></svg>
+                    </a>
+                </div>
+                <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme">
+                    <svg class="sun-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                    <svg class="moon-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                </button>
+            </div>
+            <h1>✉️ Email QR-Kode Generator</h1>
+            <p>Lad kunder og kontakter sende forudfyldte emails med ét scan - Helt gratis!</p>
+            <nav class="breadcrumb">
+                <a href="/">Hjem</a> / Email QR-Kode
+            </nav>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="hero-content">
+                <h2>Send Emails med Et Scan</h2>
+                <p class="hero-text">Slut med at diktere emailadresser! Generer en email QR-kode på 30 sekunder, og lad dine kunder sende forudfyldte emails blot ved at scanne koden.</p>
+                <div class="hero-benefits">
+                    <div class="benefit">✅ Gratis for evigt</div>
+                    <div class="benefit">✅ Ingen registrering</div>
+                    <div class="benefit">✅ Virker på alle smartphones</div>
+                    <div class="benefit">✅ Download i høj kvalitet</div>
+                </div>
+            </div>
+        </section>
+
+        <div class="main-content">
+            <!-- Quick Email Form -->
+            <div class="input-section wifi-focused">
+                <h3>Generer Din Email QR-Kode</h3>
+
+                <div class="form-group">
+                    <label for="emailTo">Modtager (email):</label>
+                    <input type="email" id="emailTo" placeholder="kontakt@dinvirksomhed.dk" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="emailSubject">Emne (valgfrit):</label>
+                    <input type="text" id="emailSubject" placeholder="Forespørgsel fra QR-kode">
+                </div>
+
+                <div class="form-group">
+                    <label for="emailBody">Besked (valgfrit):</label>
+                    <textarea id="emailBody" rows="4" placeholder="Skriv en forudfyldt besked her..."></textarea>
+                </div>
+
+                <div class="settings-grid">
+                    <div class="form-group">
+                        <label for="qrColor">QR-kode farve:</label>
+                        <div class="color-picker">
+                            <input type="color" id="qrColor" value="#000000">
+                            <span class="color-value">#000000</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="qrSize">Størrelse:</label>
+                        <select id="qrSize">
+                            <option value="512" selected>512×512 (Medium)</option>
+                            <option value="1024">1024×1024 (Stor)</option>
+                            <option value="2048">2048×2048 (Print)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="fileFormat">Format:</label>
+                        <select id="fileFormat">
+                            <option value="png" selected>PNG</option>
+                            <option value="svg">SVG (Print)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button id="generateBtn" class="btn btn-primary">✉️ Generer Email QR-Kode</button>
+                    <button id="downloadBtn" class="btn btn-secondary" disabled>Download</button>
+                </div>
+            </div>
+
+            <!-- Preview -->
+            <div class="preview-section">
+                <div class="preview-container">
+                    <div id="qrPreview" class="qr-preview">
+                        <div class="placeholder">
+                            <svg width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                <polyline points="22,6 12,13 2,6"></polyline>
+                            </svg>
+                            <p>Din email QR-kode vil blive vist her</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SEO Content -->
+        <section class="seo-content">
+            <article class="content-block">
+                <h2>Hvorfor Bruge Email QR-Koder?</h2>
+                <p>Email QR-koder gør det utroligt nemt for kunder, gæster og kontakter at sende emails til dig. I stedet for at skrive en emailadresse manuelt, kan de blot scanne en QR-kode og få en forudfyldt email klar til afsendelse.</p>
+
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <h3>📞 Kundeservice</h3>
+                        <p>Gør det nemt for kunder at kontakte din support. Placer QR-koden på produkter, kvitteringer eller i butikken.</p>
+                    </div>
+                    <div class="feature-item">
+                        <h3>📢 Marketing</h3>
+                        <p>Tilføj email QR-koder til flyers, plakater og visitkort. Øg antallet af henvendelser med forudfyldte emails.</p>
+                    </div>
+                    <div class="feature-item">
+                        <h3>🎪 Events</h3>
+                        <p>Lad deltagere tilmelde sig, give feedback eller stille spørgsmål ved at scanne en QR-kode på stedet.</p>
+                    </div>
+                    <div class="feature-item">
+                        <h3>🛠️ Support</h3>
+                        <p>Placer QR-koden på hardware, manualer eller emballage, så brugere hurtigt kan rapportere fejl eller bede om hjælp.</p>
+                    </div>
+                </div>
+            </article>
+
+            <article class="content-block">
+                <h2>Sådan Fungerer Det</h2>
+                <ol class="guide-list">
+                    <li><strong>Indtast emailinfo:</strong> Skriv modtagerens emailadresse og eventuelt emne og besked.</li>
+                    <li><strong>Tilpas udseendet:</strong> Vælg farve, størrelse og filformat til din QR-kode.</li>
+                    <li><strong>Generer QR-koden:</strong> Klik på knappen og din email QR-kode genereres øjeblikkeligt.</li>
+                    <li><strong>Download & print:</strong> Download som PNG eller SVG og brug den hvor du vil.</li>
+                    <li><strong>Del med verden:</strong> Placer QR-koden på visitkort, plakater, produkter eller hjemmesider.</li>
+                </ol>
+            </article>
+
+            <article class="content-block">
+                <h2>Best Practices for Email QR-Koder</h2>
+                <ul>
+                    <li><strong>Hold emnet kort:</strong> Et klart og kort emne gør det lettere for modtageren at sortere emails</li>
+                    <li><strong>Forudfyld beskeden:</strong> Giv brugeren en skabelon de kan redigere, så de ikke starter fra bunden</li>
+                    <li><strong>Placer strategisk:</strong> Sæt QR-koden på visitkort, produktemballage eller i butiksvinduer</li>
+                    <li><strong>Test inden brug:</strong> Scan QR-koden med din egen telefon for at sikre at emailen ser korrekt ud</li>
+                    <li><strong>Tilføj instruktioner:</strong> Skriv "Scan for at sende email" så folk ved hvad QR-koden gør</li>
+                </ul>
+            </article>
+
+            <article class="content-block faq-section">
+                <h2>Ofte Stillede Spørgsmål om Email QR-Koder</h2>
+
+                <div class="faq-item">
+                    <h3>Hvordan virker en email QR-kode?</h3>
+                    <p>Når en bruger scanner QR-koden, åbnes deres standard email-app med modtager, emne og besked forudfyldt. Brugeren skal blot trykke "Send".</p>
+                </div>
+
+                <div class="faq-item">
+                    <h3>Virker email QR-koder på både iPhone og Android?</h3>
+                    <p>Ja! Email QR-koder bruger mailto-protokollen, som understøttes af alle smartphones. Koden åbner den email-app brugeren har installeret.</p>
+                </div>
+
+                <div class="faq-item">
+                    <h3>Kan modtageren redigere emailen inden afsendelse?</h3>
+                    <p>Ja, QR-koden forudfylder blot felterne. Brugeren kan frit redigere emne, besked og tilføje vedhæftninger inden de sender.</p>
+                </div>
+
+                <div class="faq-item">
+                    <h3>Er der en grænse for beskedens længde?</h3>
+                    <p>QR-koder har en kapacitetsbegrænsning. Vi anbefaler at holde den samlede tekst under 300 tegn for optimal scanbarhed.</p>
+                </div>
+
+                <div class="faq-item">
+                    <h3>Kan jeg bruge email QR-koder til nyhedsbreve?</h3>
+                    <p>Ja, du kan oprette en QR-kode der forudfylder en tilmeldingsmail til dit nyhedsbrev. Angiv emnet som "Tilmeld nyhedsbrev" og en kort besked.</p>
+                </div>
+            </article>
+        </section>
+
+        <footer class="footer">
+            <p>Lavet med ❤️ af <a href="https://mahope.dk" target="_blank" rel="noopener">Mahope.dk</a></p>
+            <p class="footer-links">
+                <a href="/">QRTool.dk</a> |
+                <a href="/privatlivspolitik">Privatlivspolitik</a> |
+                <a href="/om-qr-tool">Om QR Tool</a>
+            </p>
+            <div class="footer-tools">
+                <h3>🚀 Andre gratis værktøjer fra Mahope.dk</h3>
+                <div class="footer-tools-grid">
+                    <a href="https://levetidsberegner.dk" target="_blank" rel="noopener" class="footer-tool-card">
+                        <span class="emoji">⏳</span>
+                        <h4>Levetidsberegner.dk</h4>
+                        <p>Beregn din forventede levetid</p>
+                    </a>
+                    <a href="https://pakkeliste.com" target="_blank" rel="noopener" class="footer-tool-card">
+                        <span class="emoji">✈️</span>
+                        <h4>Pakkeliste.com</h4>
+                        <p>Intelligent rejseværktøj til pakkelister</p>
+                    </a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Plausible Analytics -->
+    <script defer data-domain="qrtool.dk" src="https://analytics.holstjensen.eu/js/script.file-downloads.hash.outbound-links.pageview-props.tagged-events.js"></script>
+    <script>window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }</script>
+
+    <script src="https://unpkg.com/qrcode-generator@2.0.4/dist/qrcode.js" crossorigin="anonymous" integrity="sha384-e9EFD6BGC90bkW9aDV5xbbBfzwN7G8YImHao2lfLVKV/hPB0E0go+H3I64h7oHtA"></script>
+    <script>
+        // Standalone Email QR Generator Script
+        (function() {
+            // Theme management
+            const themeToggle = document.getElementById('themeToggle');
+            const html = document.documentElement;
+            const currentTheme = localStorage.getItem('theme') || 'dark';
+            html.setAttribute('data-theme', currentTheme);
+
+            if (themeToggle) {
+                themeToggle.addEventListener('click', () => {
+                    const theme = html.getAttribute('data-theme');
+                    const newTheme = theme === 'dark' ? 'light' : 'dark';
+                    html.setAttribute('data-theme', newTheme);
+                    localStorage.setItem('theme', newTheme);
+                });
+            }
+
+            // DOM elementer
+            const generateBtn = document.getElementById('generateBtn');
+            const downloadBtn = document.getElementById('downloadBtn');
+            const qrPreview = document.getElementById('qrPreview');
+            const qrColor = document.getElementById('qrColor');
+            const qrSize = document.getElementById('qrSize');
+            const fileFormat = document.getElementById('fileFormat');
+
+            let currentQRCanvas = null;
+            let currentQRSVG = null;
+
+            // Generate logo QR
+            function generateLogoQR() {
+                if (typeof qrcode === 'undefined') {
+                    setTimeout(generateLogoQR, 100);
+                    return;
+                }
+                const logoSvg = document.getElementById('logoQR');
+                if (!logoSvg) return;
+
+                const qr = qrcode(0, 'M');
+                qr.addData('https://qrtool.dk');
+                qr.make();
+
+                const cells = qr.getModuleCount();
+                const size = 100;
+                const scale = size / cells;
+
+                let path = '';
+                for (let y = 0; y < cells; y++) {
+                    for (let x = 0; x < cells; x++) {
+                        if (qr.isDark(y, x)) {
+                            const px = x * scale;
+                            const py = y * scale;
+                            path += `M${px},${py}h${scale}v${scale}h-${scale}z `;
+                        }
+                    }
+                }
+
+                logoSvg.innerHTML = `<path d="${path}" fill="url(#gradient)"/>
+                    <defs>
+                        <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#6366f1;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:1" />
+                        </linearGradient>
+                    </defs>`;
+            }
+
+            // Build mailto URL
+            function getMailtoURL() {
+                const to = document.getElementById('emailTo').value.trim();
+                if (!to) return null;
+
+                const subject = document.getElementById('emailSubject').value.trim();
+                const body = document.getElementById('emailBody').value.trim();
+
+                const params = [];
+                if (subject) params.push('subject=' + encodeURIComponent(subject));
+                if (body) params.push('body=' + encodeURIComponent(body));
+
+                const query = params.length > 0 ? '?' + params.join('&') : '';
+                return 'mailto:' + encodeURIComponent(to) + query;
+            }
+
+            // Draw QR to canvas
+            function drawCanvas(qr, size, canvas) {
+                const cells = qr.getModuleCount();
+                const scale = size / cells;
+                canvas.width = size;
+                canvas.height = size;
+                const ctx = canvas.getContext('2d');
+
+                ctx.fillStyle = '#ffffff';
+                ctx.fillRect(0, 0, size, size);
+                ctx.fillStyle = qrColor.value;
+
+                for (let y = 0; y < cells; y++) {
+                    for (let x = 0; x < cells; x++) {
+                        if (qr.isDark(y, x)) {
+                            ctx.fillRect(x * scale, y * scale, scale, scale);
+                        }
+                    }
+                }
+            }
+
+            // Generate SVG string
+            function toSvgString(qr, border) {
+                const cells = qr.getModuleCount();
+                const size = cells + border * 2;
+                let parts = [];
+                parts.push(`<?xml version="1.0" encoding="UTF-8"?>`);
+                parts.push(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${size} ${size}">`);
+                parts.push(`<rect width="100%" height="100%" fill="#ffffff"/>`);
+                parts.push(`<path d="`);
+                for (let y = 0; y < cells; y++) {
+                    for (let x = 0; x < cells; x++) {
+                        if (qr.isDark(y, x)) {
+                            parts.push(`M${x + border},${y + border}h1v1h-1z`);
+                        }
+                    }
+                }
+                parts.push(`" fill="${qrColor.value}"/></svg>`);
+                return parts.join('\n');
+            }
+
+            // Generate QR code
+            function generateQRCode() {
+                const text = getMailtoURL();
+                if (!text) {
+                    alert('Indtast venligst en emailadresse!');
+                    return;
+                }
+
+                try {
+                    qrPreview.innerHTML = '';
+                    const size = parseInt(qrSize.value);
+                    const format = fileFormat.value;
+                    const qr = qrcode(0, 'M');
+                    qr.addData(text);
+                    qr.make();
+
+                    if (format === 'svg') {
+                        currentQRSVG = toSvgString(qr, 2);
+                        qrPreview.innerHTML = currentQRSVG;
+                        currentQRCanvas = null;
+                    } else {
+                        const canvas = document.createElement('canvas');
+                        drawCanvas(qr, size, canvas);
+                        qrPreview.appendChild(canvas);
+                        currentQRCanvas = canvas;
+                        currentQRSVG = null;
+                    }
+
+                    downloadBtn.disabled = false;
+                    generateBtn.textContent = '✓ Genereret!';
+                    generateBtn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+                    setTimeout(() => {
+                        generateBtn.textContent = '✉️ Generer Email QR-Kode';
+                        generateBtn.style.background = '';
+                    }, 2000);
+                } catch (error) {
+                    alert('Fejl: ' + error.message);
+                }
+            }
+
+            // Download
+            function downloadQRCode() {
+                const format = fileFormat.value;
+                const filename = `email-qr-${Date.now()}.${format}`;
+
+                function downloadBlob(blob, name) {
+                    const url = URL.createObjectURL(blob);
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.download = name;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    URL.revokeObjectURL(url);
+                }
+
+                if (format === 'svg' && currentQRSVG) {
+                    const blob = new Blob([currentQRSVG], { type: 'image/svg+xml' });
+                    downloadBlob(blob, filename);
+                } else if (currentQRCanvas) {
+                    currentQRCanvas.toBlob((blob) => downloadBlob(blob, filename), 'image/png');
+                }
+
+                downloadBtn.textContent = '✓ Downloaded!';
+                setTimeout(() => { downloadBtn.textContent = 'Download'; }, 2000);
+            }
+
+            // Color picker display
+            if (qrColor) {
+                qrColor.addEventListener('input', (e) => {
+                    const span = e.target.nextElementSibling;
+                    if (span) span.textContent = e.target.value;
+                });
+            }
+
+            // Event listeners
+            if (generateBtn) generateBtn.addEventListener('click', generateQRCode);
+            if (downloadBtn) downloadBtn.addEventListener('click', downloadQRCode);
+
+            // Init logo
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', generateLogoQR);
+            } else {
+                generateLogoQR();
+            }
+        })();
+    </script>
+    <script>if ('serviceWorker' in navigator) { navigator.serviceWorker.register('/sw.js'); }</script>
+</body>
+</html>
