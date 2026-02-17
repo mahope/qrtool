@@ -47,6 +47,7 @@ const fileFormat = document.getElementById('fileFormat');
 const qrStyle = document.getElementById('qrStyle');
 const generateBtn = document.getElementById('generateBtn');
 const downloadBtn = document.getElementById('downloadBtn');
+const copyBtn = document.getElementById('copyBtn');
 const qrPreview = document.getElementById('qrPreview');
 
 // Batch elements
@@ -263,8 +264,9 @@ function generateQRCode() {
             currentQRSVG = null;
         }
 
-        // Aktiver download knap
+        // Aktiver download og kopiér knapper
         downloadBtn.disabled = false;
+        if (copyBtn) copyBtn.disabled = false;
 
         // Save to history
         saveToHistory(text, currentTab);
@@ -490,6 +492,89 @@ function downloadBlob(blob, filename) {
     link.click();
     document.body.removeChild(link);
     URL.revokeObjectURL(url);
+}
+
+// Kopiér QR-kode til clipboard
+if (copyBtn) {
+    copyBtn.addEventListener('click', copyQRCode);
+}
+
+async function copyQRCode() {
+    // Tjek om Clipboard API er tilgængelig
+    if (!navigator.clipboard?.write) {
+        alert('Din browser understøtter ikke kopiering af billeder til udklipsholder. Prøv at bruge Chrome eller Edge.');
+        return;
+    }
+
+    try {
+        let canvas = currentQRCanvas;
+
+        // Hvis SVG: render til et midlertidigt canvas
+        if (!canvas && currentQRSVG) {
+            canvas = await svgToCanvas(currentQRSVG);
+        }
+
+        if (!canvas) {
+            alert('Generer venligst en QR-kode først!');
+            return;
+        }
+
+        const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
+        if (!blob) {
+            alert('Kunne ikke oprette billede til kopiering. Prøv en mindre størrelse.');
+            return;
+        }
+
+        await navigator.clipboard.write([
+            new ClipboardItem({ 'image/png': blob })
+        ]);
+
+        // Vis success feedback
+        copyBtn.textContent = '✓ Kopieret!';
+        copyBtn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+        copyBtn.style.color = 'white';
+
+        setTimeout(() => {
+            copyBtn.textContent = 'Kopiér';
+            copyBtn.style.background = '';
+            copyBtn.style.color = '';
+        }, 2000);
+
+    } catch (error) {
+        console.error('Fejl ved kopiering:', error);
+        alert('Kunne ikke kopiere til udklipsholder. Sørg for at siden kører over HTTPS, og at din browser tillader clipboard-adgang.');
+    }
+}
+
+// Hjælpefunktion: konverter SVG-streng til canvas
+function svgToCanvas(svgString) {
+    return new Promise((resolve, reject) => {
+        const size = parseInt(qrSize.value);
+        const canvas = document.createElement('canvas');
+        canvas.width = size;
+        canvas.height = size;
+        const ctx = canvas.getContext('2d');
+        const img = new Image();
+
+        // Tilføj eksplicit width/height til SVG for korrekt rasterisering
+        const sizedSvg = svgString.replace(
+            /<svg([^>]*)>/,
+            `<svg$1 width="${size}" height="${size}">`
+        );
+        const blob = new Blob([sizedSvg], { type: 'image/svg+xml;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+
+        img.onload = () => {
+            ctx.drawImage(img, 0, 0, size, size);
+            URL.revokeObjectURL(url);
+            resolve(canvas);
+        };
+        img.onerror = () => {
+            URL.revokeObjectURL(url);
+            reject(new Error('SVG-billede kunne ikke indlæses'));
+        };
+        img.src = url;
+    });
 }
 
 // Batch generation with JSZip (with null check)
