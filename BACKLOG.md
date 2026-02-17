@@ -143,7 +143,7 @@ Vis en progressbar under batch-generation. Tilføj mulighed for at preview indiv
 ### #27 — Scroll-to-top knap (P3)
 Vis en diskret "scroll til top" knap når brugeren har scrollet ned i indholdet under folden.
 
-- [ ] Ikke startet
+- [x] Færdig — fixed knap nederst til højre, vises efter 400px scroll, smooth scroll til top
 
 ### #28 — Forbedret mobilmenu/navigation (P2)
 Tilføj en kompakt hamburger-menu på mobil med links til alle undersider, guides og QR-typer.

@@ -1578,3 +1578,20 @@ if (scanCopyBtn) {
     // Start after a brief delay so the page is fully rendered
     setTimeout(start, 800);
 })();
+
+// ===========================================
+// Scroll to Top Button
+// ===========================================
+
+(function initScrollToTop() {
+    const btn = document.getElementById('scrollToTop');
+    if (!btn) return;
+
+    window.addEventListener('scroll', () => {
+        btn.classList.toggle('visible', window.scrollY > 400);
+    }, { passive: true });
+
+    btn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+})();
