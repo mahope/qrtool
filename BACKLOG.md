@@ -29,7 +29,7 @@ Tilføj `HowTo` schema markup til guide-sektionerne, så Google kan vise step-by
 ### #5 — Forbedret intern linking-struktur (P2)
 Tilføj kontekstuelle links mellem landingssider, guides og hovedsiden. Forbedrer crawlability og fordeler link juice.
 
-- [ ] Ikke startet
+- [x] Færdig — kontekstuelle links i SEO-indhold til alle landingssider og guides, footer med alle QR-typer
 
 ### #6 — Meta description A/B-optimering (P2)
 Omskriv meta descriptions til at være mere action-orienterede med CTA ("Lav din gratis QR-kode på 10 sekunder"). Øg CTR fra søgeresultater.
