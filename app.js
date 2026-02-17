@@ -1109,6 +1109,21 @@ function downloadQRCode() {
                 }
                 downloadBlob(blob, filename);
             }, 'image/webp', 0.95);
+
+        } else if (format === 'pdf') {
+            // Download PDF (A4)
+            if (!currentQRCanvas) {
+                showToast('Generer venligst en QR-kode først!', 'info');
+                return;
+            }
+
+            currentQRCanvas.toBlob((blob) => {
+                if (!blob) return;
+                blob.arrayBuffer().then(buf => {
+                    const pdfBlob = buildPDF(new Uint8Array(buf), currentQRCanvas.width, currentQRCanvas.height);
+                    downloadBlob(pdfBlob, `qr-code-${Date.now()}.pdf`);
+                });
+            }, 'image/jpeg', 0.95);
         }
 
         showToast('QR-kode downloadet!', 'success');
@@ -1117,6 +1132,52 @@ function downloadQRCode() {
         console.error('Fejl ved download:', error);
         showToast('Fejl ved download: ' + error.message, 'error');
     }
+}
+
+// Build a minimal PDF with a centered JPEG image on A4
+function buildPDF(jpegBytes, imgW, imgH) {
+    const pageW = 595.28, pageH = 841.89;
+    const maxDim = 400;
+    const scale = Math.min(maxDim / imgW, maxDim / imgH);
+    const w = Math.round(imgW * scale);
+    const h = Math.round(imgH * scale);
+    const x = Math.round((pageW - w) / 2);
+    const y = Math.round((pageH - h) / 2);
+
+    const objs = [];
+    const offsets = [];
+    let pos = 0;
+
+    function add(s) { const b = new TextEncoder().encode(s); objs.push(b); pos += b.length; return b; }
+    function addObj(n, s) { offsets[n] = pos; return add(`${n} 0 obj\n${s}\nendobj\n`); }
+
+    add('%PDF-1.4\n%\xE2\xE3\xCF\xD3\n');
+    addObj(1, '<< /Type /Catalog /Pages 2 0 R >>');
+    addObj(2, '<< /Type /Pages /Kids [3 0 R] /Count 1 >>');
+    addObj(3, `<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ${pageW} ${pageH}] /Contents 4 0 R /Resources << /XObject << /Im0 5 0 R >> >> >>`);
+
+    const stream = `q ${w} 0 0 ${h} ${x} ${y} cm /Im0 Do Q`;
+    addObj(4, `<< /Length ${stream.length} >>\nstream\n${stream}\nendstream`);
+
+    // Image object header (binary stream follows)
+    const imgHead = `5 0 obj\n<< /Type /XObject /Subtype /Image /Width ${imgW} /Height ${imgH} /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length ${jpegBytes.length} >>\nstream\n`;
+    const imgTail = '\nendstream\nendobj\n';
+    offsets[5] = pos;
+    objs.push(new TextEncoder().encode(imgHead));
+    pos += imgHead.length;
+    objs.push(jpegBytes);
+    pos += jpegBytes.length;
+    objs.push(new TextEncoder().encode(imgTail));
+    pos += imgTail.length;
+
+    const xrefPos = pos;
+    add(`xref\n0 6\n0000000000 65535 f \n`);
+    for (let i = 1; i <= 5; i++) {
+        add(`${String(offsets[i]).padStart(10, '0')} 00000 n \n`);
+    }
+    add(`trailer\n<< /Size 6 /Root 1 0 R >>\nstartxref\n${xrefPos}\n%%EOF\n`);
+
+    return new Blob(objs, { type: 'application/pdf' });
 }
 
 // Hjælpefunktion til at downloade blob

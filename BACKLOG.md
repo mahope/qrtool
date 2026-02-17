@@ -202,7 +202,7 @@ Ny QR-type for betalingslinks. Generér QR-koder der linker til MobilePay Box-nu
 ### #38 — Eksporter som PDF (P2)
 Tilføj PDF som eksportformat. Generér en A4-side med QR-koden centreret, valgfri titel og beskrivelse. Ideel til print.
 
-- [ ] Ikke startet
+- [x] Færdig — PDF (A4) som eksportformat med centreret QR-kode, ingen ekstern afhængighed
 
 ### #39 — Bulk import fra CSV (P2)
 Batch-generation via CSV-upload. Upload en fil med URL'er, kontakter, WiFi-netværk osv. og generér QR-koder for alle rækker.
