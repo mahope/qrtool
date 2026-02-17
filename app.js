@@ -30,9 +30,14 @@ tabButtons.forEach(button => {
         tabContents.forEach(content => content.classList.remove('active'));
 
         button.classList.add('active');
-        document.querySelector(`[data-content="${tabName}"]`).classList.add('active');
+        const activeContent = document.querySelector(`[data-content="${tabName}"]`);
+        activeContent.classList.add('active');
 
         currentTab = tabName;
+
+        // Focus first input in the new tab
+        const firstInput = activeContent.querySelector('input, select, textarea');
+        if (firstInput) firstInput.focus();
     });
 });
 
@@ -636,6 +641,10 @@ function generateQRCode() {
 
         // Save to history
         saveToHistory(text, currentTab);
+
+        // Focus preview for keyboard users
+        qrPreview.setAttribute('tabindex', '-1');
+        qrPreview.focus({ preventScroll: true });
 
         // Announce to screen readers
         if (qrAnnouncement) {

@@ -324,7 +324,7 @@ Tilføj `aria-live` region der annoncerer QR-kodens indhold til screen readers n
 ### #60 — Forbedret fokus-management (P2)
 Ved tab-skift: flyt fokus automatisk til første input-felt i den nye tab. Ved QR-generation: flyt fokus til preview/download-området.
 
-- [ ] Ikke startet
+- [x] Færdig — auto-fokus på første input ved tab-skift og fokus til QR preview efter generering
 
 ### #61 — Tekststørrelses-kontrol (P3)
 Tilføj en A/A+/A++ kontrol i headeren der justerer base font-size. Nyttigt for ældre brugere og synshæmmede.
