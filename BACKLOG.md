@@ -197,7 +197,7 @@ Ny QR-type: `geo:lat,long` der åbner en kortapplikation med den angivne lokatio
 ### #37 — PayPal/MobilePay QR-kode (P2)
 Ny QR-type for betalingslinks. Generér QR-koder der linker til MobilePay Box-numre eller PayPal.me-links.
 
-- [ ] Ikke startet
+- [x] Færdig — ny betaling-tab med PayPal.me og MobilePay deep link support, beløb og kommentar
 
 ### #38 — Eksporter som PDF (P2)
 Tilføj PDF som eksportformat. Generér en A4-side med QR-koden centreret, valgfri titel og beskrivelse. Ideel til print.

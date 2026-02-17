@@ -71,7 +71,7 @@ if (contrastToggle) {
 // Tab management
 const tabButtons = document.querySelectorAll('.tab-button');
 const tabContents = document.querySelectorAll('.tab-content');
-const tabOrder = ['text', 'wifi', 'vcard', 'email', 'sms', 'calendar', 'geo'];
+const tabOrder = ['text', 'wifi', 'vcard', 'email', 'sms', 'calendar', 'geo', 'payment'];
 let currentTab = 'text';
 
 function switchToTab(tabName, { autoFocus = true } = {}) {
@@ -670,6 +670,26 @@ function getQRData() {
             }
             return `geo:${geoLat},${geoLng}`;
 
+        case 'payment':
+            const paymentType = document.getElementById('paymentType').value;
+            if (paymentType === 'paypal') {
+                const username = document.getElementById('paypalUsername').value.trim();
+                if (!username) return null;
+                const amount = document.getElementById('paypalAmount').value.trim();
+                let url = `https://paypal.me/${username}`;
+                if (amount && parseFloat(amount) > 0) url += `/${amount}`;
+                return url;
+            } else {
+                const phone = document.getElementById('mobilepayPhone').value.trim();
+                if (!phone) return null;
+                const amount = document.getElementById('mobilepayAmount').value.trim();
+                const comment = document.getElementById('mobilepayComment').value.trim();
+                let params = `phone=${encodeURIComponent(phone)}`;
+                if (amount && parseFloat(amount) > 0) params += `&amount=${amount}`;
+                if (comment) params += `&comment=${encodeURIComponent(comment)}`;
+                return `mobilepay://send?${params}`;
+            }
+
         default:
             return null;
     }
@@ -794,6 +814,23 @@ function validateForm() {
             }
             break;
         }
+        case 'payment': {
+            const pType = document.getElementById('paymentType').value;
+            if (pType === 'paypal') {
+                const usr = document.getElementById('paypalUsername').value.trim();
+                if (!usr) {
+                    setFieldError('paypalUsername', 'PayPal brugernavn er påkrævet.');
+                    valid = false;
+                }
+            } else {
+                const ph = document.getElementById('mobilepayPhone').value.trim();
+                if (!ph) {
+                    setFieldError('mobilepayPhone', 'Telefonnummer er påkrævet.');
+                    valid = false;
+                }
+            }
+            break;
+        }
     }
     return valid;
 }
@@ -876,7 +913,7 @@ function generateQRCode() {
 
         // Announce to screen readers
         if (qrAnnouncement) {
-            const typeLabels = { text: 'URL/tekst', wifi: 'WiFi', vcard: 'visitkort', email: 'e-mail', sms: 'SMS', calendar: 'kalender', geo: 'lokation' };
+            const typeLabels = { text: 'URL/tekst', wifi: 'WiFi', vcard: 'visitkort', email: 'e-mail', sms: 'SMS', calendar: 'kalender', geo: 'lokation', payment: 'betaling' };
             const label = typeLabels[currentTab] || currentTab;
             const preview = text.length > 80 ? text.substring(0, 80) + '...' : text;
             qrAnnouncement.textContent = 'QR-kode genereret for ' + label + ': ' + preview;
@@ -1377,7 +1414,8 @@ const typeLabels = {
     'email': 'Email',
     'sms': 'SMS',
     'calendar': 'Kalender',
-    'geo': 'Lokation'
+    'geo': 'Lokation',
+    'payment': 'Betaling'
 };
 
 function saveToHistory(text, type) {
@@ -1653,6 +1691,25 @@ if (geoLocateBtn) {
             },
             { enableHighAccuracy: true, timeout: 10000, maximumAge: 60000 }
         );
+    });
+}
+
+// ===========================================
+// Payment type toggle (PayPal / MobilePay)
+// ===========================================
+const paymentTypeSelect = document.getElementById('paymentType');
+if (paymentTypeSelect) {
+    paymentTypeSelect.addEventListener('change', () => {
+        const paypalFields = document.getElementById('paypalFields');
+        const mobilepayFields = document.getElementById('mobilepayFields');
+        if (paymentTypeSelect.value === 'paypal') {
+            if (paypalFields) paypalFields.style.display = '';
+            if (mobilepayFields) mobilepayFields.style.display = 'none';
+        } else {
+            if (paypalFields) paypalFields.style.display = 'none';
+            if (mobilepayFields) mobilepayFields.style.display = '';
+        }
+        clearAllErrors();
     });
 }
 
@@ -2182,7 +2239,7 @@ document.addEventListener('click', (e) => {
                 e.preventDefault();
                 if (themeToggle) themeToggle.click();
                 break;
-            case '1': case '2': case '3': case '4': case '5': case '6': case '7':
+            case '1': case '2': case '3': case '4': case '5': case '6': case '7': case '8':
                 e.preventDefault();
                 switchToTab(tabOrder[parseInt(e.key) - 1]);
                 break;

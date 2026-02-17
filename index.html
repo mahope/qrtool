@@ -261,6 +261,7 @@
                     <button class="tab-button" data-tab="sms">💬 SMS</button>
                     <button class="tab-button" data-tab="calendar">📅 Kalender</button>
                     <button class="tab-button" data-tab="geo">📍 Lokation</button>
+                    <button class="tab-button" data-tab="payment">💳 Betaling</button>
                 </div>
 
                 <!-- Text/URL Tab Content -->
@@ -407,6 +408,43 @@
                         <input type="text" id="geoLabel" placeholder="Rådhuspladsen, København">
                     </div>
                     <button type="button" id="geoLocateBtn" class="btn btn-secondary" style="margin-bottom: 1rem;">📍 Brug min placering</button>
+                </div>
+
+                <!-- Payment Tab Content -->
+                <div class="tab-content" data-content="payment">
+                    <div class="form-group">
+                        <label for="paymentType">Betalingstype:</label>
+                        <select id="paymentType">
+                            <option value="paypal">PayPal.me</option>
+                            <option value="mobilepay">MobilePay</option>
+                        </select>
+                    </div>
+                    <div id="paypalFields">
+                        <div class="form-group">
+                            <label for="paypalUsername">PayPal.me brugernavn:</label>
+                            <input type="text" id="paypalUsername" placeholder="ditbrugernavn">
+                            <span class="field-error" id="paypalUsernameError"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="paypalAmount">Beløb (valgfrit):</label>
+                            <input type="number" id="paypalAmount" placeholder="100.00" step="0.01" min="0">
+                        </div>
+                    </div>
+                    <div id="mobilepayFields" style="display: none;">
+                        <div class="form-group">
+                            <label for="mobilepayPhone">Telefonnummer:</label>
+                            <input type="tel" id="mobilepayPhone" placeholder="+45 12 34 56 78">
+                            <span class="field-error" id="mobilepayPhoneError"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="mobilepayAmount">Beløb (valgfrit):</label>
+                            <input type="number" id="mobilepayAmount" placeholder="100" step="0.01" min="0">
+                        </div>
+                        <div class="form-group">
+                            <label for="mobilepayComment">Kommentar (valgfrit):</label>
+                            <input type="text" id="mobilepayComment" placeholder="Betaling for...">
+                        </div>
+                    </div>
                 </div>
 
                 <div class="settings-accordion">
@@ -664,6 +702,7 @@
                             <option value="sms">💬 SMS</option>
                             <option value="calendar">📅 Kalender</option>
                             <option value="geo">📍 Lokation</option>
+                            <option value="payment">💳 Betaling</option>
                         </select>
                     </div>
                     <div id="historyList" class="history-list">
@@ -943,7 +982,7 @@
             <div class="shortcut-item"><kbd>D</kbd><span>Download QR-kode</span></div>
             <div class="shortcut-item"><kbd>C</kbd><span>Kopiér QR-kode</span></div>
             <div class="shortcut-item"><kbd>T</kbd><span>Skift tema (lys/mørk)</span></div>
-            <div class="shortcut-item"><kbd>1</kbd>–<kbd>7</kbd><span>Skift QR-type tab</span></div>
+            <div class="shortcut-item"><kbd>1</kbd>–<kbd>8</kbd><span>Skift QR-type tab</span></div>
             <div class="shortcut-item"><kbd>Esc</kbd><span>Luk modal/lightbox</span></div>
         </div>
     </div>
