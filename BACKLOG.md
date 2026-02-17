@@ -271,7 +271,7 @@ Gruppér indstillinger (Stil, Farver, Størrelse, Format) i collapsible accordio
 ### #51 — Forbedret error correction level-UI (P3)
 Vis fejlkorrektionsniveauer visuelt med en slider og en kort forklaring af hvad hvert niveau betyder i praksis ("Lav: til rene overflader", "Høj: til print med logo").
 
-- [ ] Ikke startet
+- [x] Færdig — segmenteret L/M/Q/H kontrol med kontekstuelle hinttekster
 
 ### #52 — High-contrast mode (P3)
 Tilføj en high-contrast farve-variant for synshandicappede brugere. Kan aktiveres via en tilgængeligheds-toggle i headeren.

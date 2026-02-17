@@ -279,6 +279,55 @@ header p {
 }
 
 /* Theme Toggle */
+/* Contrast toggle */
+.contrast-toggle {
+    background: var(--card-bg);
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius);
+    padding: 0.5rem;
+    cursor: pointer;
+    transition: all var(--transition);
+    display: flex;
+    align-items: center;
+    color: var(--text-muted);
+}
+
+.contrast-toggle:hover {
+    border-color: var(--primary-color);
+    color: var(--text-color);
+}
+
+.contrast-toggle.active {
+    background: var(--text-color);
+    color: var(--bg-color);
+    border-color: var(--text-color);
+}
+
+/* High contrast mode */
+[data-contrast="high"] {
+    --bg-color: #000000;
+    --bg-gradient: #000000;
+    --card-bg: #111111;
+    --text-color: #ffffff;
+    --text-muted: #cccccc;
+    --border-color: #ffffff;
+    --primary-color: #ffff00;
+    --secondary-color: #00ffff;
+    --primary-light: rgba(255, 255, 0, 0.15);
+}
+
+[data-contrast="high"][data-theme="light"] {
+    --bg-color: #ffffff;
+    --bg-gradient: #ffffff;
+    --card-bg: #ffffff;
+    --text-color: #000000;
+    --text-muted: #333333;
+    --border-color: #000000;
+    --primary-color: #0000cc;
+    --secondary-color: #cc0000;
+    --primary-light: rgba(0, 0, 204, 0.1);
+}
+
 .theme-toggle {
     background: var(--card-bg);
     border: 2px solid var(--border-color);

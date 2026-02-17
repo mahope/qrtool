@@ -23,6 +23,28 @@ if (themeToggle) {
     });
 }
 
+// High contrast toggle
+const contrastToggle = document.getElementById('contrastToggle');
+if (contrastToggle) {
+    const savedContrast = localStorage.getItem('contrast');
+    if (savedContrast === 'high') {
+        html.setAttribute('data-contrast', 'high');
+        contrastToggle.classList.add('active');
+    }
+    contrastToggle.addEventListener('click', () => {
+        const isHigh = html.getAttribute('data-contrast') === 'high';
+        if (isHigh) {
+            html.removeAttribute('data-contrast');
+            localStorage.removeItem('contrast');
+            contrastToggle.classList.remove('active');
+        } else {
+            html.setAttribute('data-contrast', 'high');
+            localStorage.setItem('contrast', 'high');
+            contrastToggle.classList.add('active');
+        }
+    });
+}
+
 // Tab management
 const tabButtons = document.querySelectorAll('.tab-button');
 const tabContents = document.querySelectorAll('.tab-content');
