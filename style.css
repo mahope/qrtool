@@ -471,6 +471,65 @@ header p {
 }
 
 /* Settings Grid */
+.settings-accordion {
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.settings-section {
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    overflow: hidden;
+}
+
+.settings-section summary {
+    padding: 0.75rem 1rem;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--text-color);
+    background: var(--primary-light);
+    user-select: none;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: background var(--transition);
+}
+
+.settings-section summary:hover {
+    background: rgba(99, 102, 241, 0.1);
+}
+
+.settings-section summary::-webkit-details-marker {
+    display: none;
+}
+
+.settings-section summary::after {
+    content: '▶';
+    margin-left: auto;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    transition: transform 0.2s ease;
+}
+
+.settings-section[open] summary::after {
+    transform: rotate(90deg);
+}
+
+.settings-section-content {
+    padding: 1rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.settings-grid-inner {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+
 .settings-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -2242,7 +2301,8 @@ header p {
         grid-template-columns: 1fr;
     }
 
-    .settings-grid {
+    .settings-grid,
+    .settings-grid-inner {
         grid-template-columns: 1fr;
     }
 

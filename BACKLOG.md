@@ -251,7 +251,7 @@ Redesign footer med columns: Links, QR-typer, Om os, Juridisk. Tilføj social me
 ### #47 — QR-kode style-preview grid (P2)
 Vis de tre QR-stilarter (standard, rundet, dots) som visuelle previews i stedet for en dropdown. Brugeren klikker på den stil de vil have.
 
-- [ ] Ikke startet
+- [x] Færdig — 3 SVG-preview cards der erstatter dropdown, synkroniseret med hidden select
 
 ### #48 — Forbedret farvevælger-UI (P2)
 Vis forgrund- og baggrundsfarve som et lille preview-swatch ved siden af color-input. Tilføj "byt farver" knap (swap foreground/background).

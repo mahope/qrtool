@@ -366,8 +366,10 @@
                     </div>
                 </div>
 
-                <div class="settings-grid">
-                    <!-- Style Selector -->
+                <div class="settings-accordion">
+                    <details class="settings-section" open>
+                        <summary>🎨 Stil</summary>
+                        <div class="settings-section-content">
                     <div class="form-group style-selector-group">
                         <label>QR-kode stil:</label>
                         <select id="qrStyle" class="visually-hidden">
@@ -390,7 +392,12 @@
                             </button>
                         </div>
                     </div>
+                        </div>
+                    </details>
 
+                    <details class="settings-section" open>
+                        <summary>🎨 Farver</summary>
+                        <div class="settings-section-content">
                     <!-- Farveindstillinger -->
                     <div class="color-controls">
                         <div class="form-group">
@@ -460,7 +467,12 @@
                             <span>Transparent baggrund</span>
                         </label>
                     </div>
+                        </div>
+                    </details>
 
+                    <details class="settings-section" open>
+                        <summary>⚙️ Størrelse & Format</summary>
+                        <div class="settings-section-content settings-grid-inner">
                     <!-- Størrelse -->
                     <div class="form-group">
                         <label for="qrSize">Størrelse (px):</label>
@@ -493,6 +505,8 @@
                             <option value="webp">WebP</option>
                         </select>
                     </div>
+                        </div>
+                    </details>
                 </div>
 
                 <!-- CTA Frame Text -->
