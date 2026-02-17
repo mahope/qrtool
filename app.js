@@ -26,27 +26,68 @@ if (themeToggle) {
 // Tab management
 const tabButtons = document.querySelectorAll('.tab-button');
 const tabContents = document.querySelectorAll('.tab-content');
+const tabOrder = ['text', 'wifi', 'vcard', 'email', 'sms', 'calendar'];
 let currentTab = 'text';
 
-tabButtons.forEach(button => {
-    button.addEventListener('click', () => {
-        const tabName = button.dataset.tab;
+function switchToTab(tabName, { autoFocus = true } = {}) {
+    tabButtons.forEach(btn => btn.classList.remove('active'));
+    tabContents.forEach(content => content.classList.remove('active'));
 
-        // Update active states
-        tabButtons.forEach(btn => btn.classList.remove('active'));
-        tabContents.forEach(content => content.classList.remove('active'));
-
-        button.classList.add('active');
-        const activeContent = document.querySelector(`[data-content="${tabName}"]`);
+    const btn = document.querySelector(`.tab-button[data-tab="${tabName}"]`);
+    if (btn) btn.classList.add('active');
+    const activeContent = document.querySelector(`[data-content="${tabName}"]`);
+    if (activeContent) {
         activeContent.classList.add('active');
-
         currentTab = tabName;
+        if (autoFocus) {
+            const firstInput = activeContent.querySelector('input, select, textarea');
+            if (firstInput) firstInput.focus();
+        }
+    }
+}
 
-        // Focus first input in the new tab
-        const firstInput = activeContent.querySelector('input, select, textarea');
-        if (firstInput) firstInput.focus();
-    });
+tabButtons.forEach(button => {
+    button.addEventListener('click', () => switchToTab(button.dataset.tab));
 });
+
+// Swipe between tabs on touch devices
+(() => {
+    const formArea = document.querySelector('.qr-type-tabs')?.parentElement;
+    if (!formArea) return;
+    let startX = 0, startY = 0;
+    const MIN_SWIPE = 50;
+
+    formArea.addEventListener('touchstart', (e) => {
+        startX = e.touches[0].clientX;
+        startY = e.touches[0].clientY;
+    }, { passive: true });
+
+    formArea.addEventListener('touchend', (e) => {
+        const dx = e.changedTouches[0].clientX - startX;
+        const dy = e.changedTouches[0].clientY - startY;
+        // Only trigger if horizontal swipe is dominant
+        if (Math.abs(dx) < MIN_SWIPE || Math.abs(dy) > Math.abs(dx)) return;
+        const idx = tabOrder.indexOf(currentTab);
+        let newTab = null;
+        if (dx < 0 && idx < tabOrder.length - 1) {
+            newTab = tabOrder[idx + 1];
+        } else if (dx > 0 && idx > 0) {
+            newTab = tabOrder[idx - 1];
+        }
+        if (newTab) {
+            if (typeof clearAllErrors === 'function') clearAllErrors();
+            switchToTab(newTab, { autoFocus: false });
+            const content = document.querySelector(`[data-content="${newTab}"]`);
+            if (content) {
+                content.classList.remove('swipe-left', 'swipe-right');
+                content.classList.add(dx < 0 ? 'swipe-right' : 'swipe-left');
+                content.addEventListener('animationend', () => {
+                    content.classList.remove('swipe-left', 'swipe-right');
+                }, { once: true });
+            }
+        }
+    }, { passive: true });
+})();
 
 // ===========================================
 // Quick Templates

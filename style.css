@@ -632,6 +632,24 @@ header p {
     to { opacity: 1; transform: translateY(0); }
 }
 
+@keyframes slideInLeft {
+    from { opacity: 0; transform: translateX(-20px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideInRight {
+    from { opacity: 0; transform: translateX(20px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+.tab-content.swipe-left {
+    animation: slideInLeft 0.2s ease;
+}
+
+.tab-content.swipe-right {
+    animation: slideInRight 0.2s ease;
+}
+
 /* ===========================================
    Preview Section
    =========================================== */
