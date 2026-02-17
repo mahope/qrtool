@@ -182,7 +182,7 @@ Tilføj mulighed for at tilføje en dekorativ ramme rundt om QR-koden med call-t
 ### #34 — Print-optimeret visning (P2)
 "Print" knap der åbner en print-venlig version med QR-koden i høj opløsning, valgfri label-tekst, og korrekte print-margins. Bruger `@media print`.
 
-- [ ] Ikke startet
+- [x] Færdig — Print-knap med clean @media print layout, skjuler alt undtagen QR preview
 
 ### #35 — Upload billede → scan QR (P2)
 Udover kamera-scan: tilføj mulighed for at uploade et screenshot/foto der indeholder en QR-kode. Dekod og vis indholdet.

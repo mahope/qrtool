@@ -49,6 +49,7 @@ const generateBtn = document.getElementById('generateBtn');
 const downloadBtn = document.getElementById('downloadBtn');
 const copyBtn = document.getElementById('copyBtn');
 const shareBtn = document.getElementById('shareBtn');
+const printBtn = document.getElementById('printBtn');
 const qrPreview = document.getElementById('qrPreview');
 const ctaText = document.getElementById('ctaText');
 
@@ -560,6 +561,7 @@ function generateQRCode() {
         downloadBtn.disabled = false;
         if (copyBtn) copyBtn.disabled = false;
         if (shareBtn) shareBtn.disabled = false;
+        if (printBtn) printBtn.disabled = false;
 
         // Save to history
         saveToHistory(text, currentTab);
@@ -817,6 +819,17 @@ async function copyQRCode() {
         console.error('Fejl ved kopiering:', error);
         showToast('Kunne ikke kopiere. Sørg for at siden kører over HTTPS.', 'error');
     }
+}
+
+// Print QR-kode
+if (printBtn) {
+    printBtn.addEventListener('click', () => {
+        if (!currentQRCanvas && !currentQRSVG) {
+            showToast('Generer venligst en QR-kode først!', 'info');
+            return;
+        }
+        window.print();
+    });
 }
 
 // Del QR-kode via Web Share API

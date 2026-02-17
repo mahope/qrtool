@@ -1781,16 +1781,54 @@ header p {
 /* Print styles */
 @media print {
     body {
-        background: white;
-        color: black;
+        background: white !important;
+        color: black !important;
+        padding: 0 !important;
     }
 
-    .theme-toggle,
-    .btn,
+    .container {
+        max-width: 100%;
+    }
+
+    header,
+    .input-section,
+    .info-panel,
     .history-section,
+    .scanner-section,
+    .seo-content,
+    .footer,
+    .theme-toggle,
     .batch-section,
-    .footer-tools {
+    .footer-tools,
+    .button-group,
+    .toast-container,
+    .onboarding-overlay,
+    .onboarding-tooltip,
+    .skip-link,
+    [data-seo-explainer],
+    #cookie-consent-banner {
         display: none !important;
+    }
+
+    .main-content {
+        display: block !important;
+    }
+
+    .preview-section {
+        position: static !important;
+        box-shadow: none !important;
+        border: none !important;
+        background: white !important;
+        padding: 0 !important;
+        text-align: center;
+    }
+
+    .preview-container {
+        border: none !important;
+        box-shadow: none !important;
+        background: white !important;
+        padding: 2rem 0 !important;
+        min-height: auto !important;
     }
 
     .qr-preview canvas,
