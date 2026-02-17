@@ -14,7 +14,7 @@ Der findes kun `/wifi-qr-kode`. Opret tilsvarende sider for `/vcard-qr-kode`, `/
 ### #2 — Blog/guide-sektion (P1)
 Opret `/guides` med artikler som "Sådan bruger du QR-koder i din restaurant", "QR-koder til events", "Visitkort med QR-kode". Drevet af statiske HTML-filer. Giver long-tail keyword-trafik.
 
-- [ ] Ikke startet
+- [x] Færdig — 3 guides (restauranter, events, visitkort) + indeksside med schema markup
 
 ### #3 — Hreflang-tags og engelsk version (P1)
 Tilføj `hreflang="da"` på alle sider og forbered en `/en/` version. Danmark har mange engelsktalende brugere og turister. Dobler potentiel trafik.

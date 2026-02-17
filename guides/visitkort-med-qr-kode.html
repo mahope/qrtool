@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Primary Meta Tags -->
+    <title>Visitkort med QR-kode — Guide | QRTool.dk</title>
+    <meta name="title" content="Visitkort med QR-kode — Guide | QRTool.dk">
+    <meta name="description" content="Komplet guide til visitkort med QR-kode. Lav dit eget digitale visitkort med vCard QR, og del kontaktoplysninger med et enkelt scan. Trin-for-trin vejledning.">
+    <meta name="keywords" content="visitkort qr kode, digitalt visitkort, vcard qr, visitkort med qr, qr kode visitkort design, networking qr kode">
+    <meta name="author" content="Mahope.dk">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://qrtool.dk/guides/visitkort-med-qr-kode">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://qrtool.dk/guides/visitkort-med-qr-kode">
+    <meta property="og:title" content="Visitkort med QR-kode — Guide | QRTool.dk">
+    <meta property="og:description" content="Komplet guide til visitkort med QR-kode. Lav dit eget digitale visitkort med vCard QR, og del kontaktoplysninger med et enkelt scan.">
+    <meta property="og:image" content="https://qrtool.dk/og-image.png">
+    <meta property="og:locale" content="da_DK">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://qrtool.dk/guides/visitkort-med-qr-kode">
+    <meta name="twitter:title" content="Visitkort med QR-kode — Guide | QRTool.dk">
+    <meta name="twitter:description" content="Komplet guide til visitkort med QR-kode. Lav dit eget digitale visitkort med vCard QR, og del kontaktoplysninger med et enkelt scan.">
+    <meta name="twitter:image" content="https://qrtool.dk/og-image.png">
+
+    <!-- Favicon & PWA -->
+    <link rel="icon" type="image/svg+xml" href="/icon.svg">
+    <link rel="apple-touch-icon" href="/icon.svg">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#6366f1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://unpkg.com" crossorigin>
+    <link rel="dns-prefetch" href="https://analytics.holstjensen.eu">
+
+    <!-- Preload critical resources -->
+    <link rel="preload" href="/style.css" as="style">
+
+    <link rel="stylesheet" href="/style.css">
+
+    <!-- Schema.org Article structured data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Visitkort med QR-kode \u2014 Komplet Guide",
+      "description": "Komplet guide til visitkort med QR-kode. Lav dit eget digitale visitkort med vCard QR, og del kontaktoplysninger med et enkelt scan.",
+      "url": "https://qrtool.dk/guides/visitkort-med-qr-kode",
+      "datePublished": "2025-06-01",
+      "dateModified": "2026-02-17",
+      "author": {
+        "@type": "Organization",
+        "name": "Mahope",
+        "url": "https://mahope.dk"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "QRTool.dk",
+        "url": "https://qrtool.dk",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://qrtool.dk/icon.svg"
+        }
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://qrtool.dk/guides/visitkort-med-qr-kode"
+      },
+      "image": "https://qrtool.dk/og-image.png",
+      "inLanguage": "da"
+    }
+    </script>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Spring til indhold</a>
+    <div class="container" role="main" id="main-content">
+        <header>
+            <div class="header-top">
+                <div class="logo">
+                    <a href="/">
+                        <svg id="logoQR" width="50" height="50" viewBox="0 0 100 100"></svg>
+                    </a>
+                </div>
+                <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme">
+                    <svg class="sun-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                    <svg class="moon-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                </button>
+            </div>
+            <h1>Visitkort med QR-kode</h1>
+            <p>Den komplette guide til digitale visitkort med QR-koder</p>
+            <nav class="breadcrumb" aria-label="Breadcrumb">
+                <a href="/">Hjem</a> / <a href="/guides/">Guides</a> / Visitkort med QR-kode
+            </nav>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="hero-content">
+                <h2>Digitale visitkort med QR-kode: Fremtidens networking</h2>
+                <p class="hero-text">Fysiske visitkort ender ofte i skraldespanden eller bliver glemt i en skuffe. Med en QR-kode p&#229; dit visitkort giver du modtageren mulighed for at gemme dine kontaktoplysninger direkte i telefonbogen &#8211; hurtigt, fejlfrit og uden manuelt besv&#230;r. I denne guide gennemg&#229;r vi alt fra vCard-standarden til design, print og praktisk brug.</p>
+                <div class="hero-benefits">
+                    <div class="benefit">Kontaktinfo gemmes med &#233;t scan</div>
+                    <div class="benefit">Ingen tastefejl i telefonnumre</div>
+                    <div class="benefit">Fungerer p&#229; alle smartphones</div>
+                    <div class="benefit">Gratis at oprette hos QRTool.dk</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Article Content -->
+        <section class="seo-content">
+
+            <!-- Fordele ved digitale visitkort -->
+            <article class="content-block">
+                <h2>Fordele ved digitale visitkort med QR-kode</h2>
+                <p>Et traditionelt visitkort indeholder som regel navn, titel, telefon og e-mail. Problemet er, at modtageren selv skal taste oplysningerne ind &#8211; og det sker sj&#230;ldent. Unders&#248;gelser viser, at op mod 88&nbsp;% af alle fysiske visitkort bliver smidt ud inden for en uge. Et <strong>visitkort med QR-kode</strong> l&#248;ser dette problem fundamentalt.</p>
+
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <h3>&#216;jeblikkelig kontaktdeling</h3>
+                        <p>Modtageren scanner QR-koden, og alle dine oplysninger &#8211; navn, telefon, e-mail, hjemmeside og adresse &#8211; vises klar til at blive gemt i telefonbogen. Det tager under fem sekunder.</p>
+                    </div>
+                    <div class="feature-item">
+                        <h3>Ingen tastefejl</h3>
+                        <p>N&#229;r kontaktoplysninger overf&#248;res digitalt, undg&#229;r du stavefejl i e-mailadresser eller forkerte cifre i telefonnumre. Dine data er altid pr&#230;cise.</p>
+                    </div>
+                    <div class="feature-item">
+                        <h3>Professionelt f&#248;rsteindtryk</h3>
+                        <p>En QR-kode p&#229; visitkortet signalerer, at du er teknologisk opdateret og g&#248;r det nemt for samarbejdspartnere. Det viser omtanke for modtagerens tid.</p>
+                    </div>
+                    <div class="feature-item">
+                        <h3>Milj&#248;venligt supplement</h3>
+                        <p>Selvom du stadig printer fysiske visitkort, reducerer QR-koden behovet for at uddele store m&#230;ngder. Mange v&#230;lger ogs&#229; et rent digitalt visitkort p&#229; telefonen.</p>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Hvad er et vCard? -->
+            <article class="content-block">
+                <h2>Hvad er et vCard?</h2>
+                <p>En <strong>vCard</strong> (Virtual Contact File) er en international standard til udveksling af kontaktoplysninger. Formatet bruges af alle store platforme &#8211; iOS, Android, Windows og macOS &#8211; og underst&#248;tter felter som:</p>
+                <ul>
+                    <li><strong>Fulde navn</strong> (fornavn og efternavn)</li>
+                    <li><strong>Organisation</strong> og jobtitel</li>
+                    <li><strong>Telefonnumre</strong> (mobil, arbejde, privat)</li>
+                    <li><strong>E-mailadresser</strong></li>
+                    <li><strong>Hjemmeside-URL</strong></li>
+                    <li><strong>Fysisk adresse</strong></li>
+                </ul>
+                <p>N&#229;r en vCard pakkes ind i en QR-kode, kan enhver smartphone l&#230;se og fortolke dataene automatisk. De fleste kameraapps p&#229; moderne telefoner genkender vCard-formatet uden behov for en s&#230;rskilt app. Resultatet er, at modtageren f&#229;r en popup med mulighed for at gemme kontakten direkte.</p>
+                <p>QRTool.dk genererer vCards i version 3.0, som er den bredest underst&#248;ttede standard. Det betyder maksimal kompatibilitet p&#229; tv&#230;rs af enheder og operativsystemer.</p>
+            </article>
+
+            <!-- Trin-for-trin guide -->
+            <article class="content-block">
+                <h2>S&#229;dan laver du et visitkort med QR-kode</h2>
+                <p>F&#248;lg disse trin for at oprette din egen vCard QR-kode p&#229; QRTool.dk:</p>
+                <ol class="guide-list">
+                    <li><strong>G&#229; til vCard-generatoren:</strong> &#197;bn <a href="/vcard-qr-kode">vCard QR-kode generatoren</a> p&#229; QRTool.dk. Du beh&#248;ver ikke oprette en konto eller logge ind.</li>
+                    <li><strong>Udfyld dine kontaktoplysninger:</strong> Indtast fornavn, efternavn, virksomhed, titel, telefonnummer, e-mail, hjemmeside og adresse. Du beh&#248;ver kun udfylde de felter, der er relevante for dig.</li>
+                    <li><strong>V&#230;lg design og farve:</strong> Tilpas QR-kodens farve, s&#229; den matcher dit brand eller visitkortets design. Husk at bevare h&#248;j kontrast for god scanbarhed.</li>
+                    <li><strong>V&#230;lg st&#248;rrelse og format:</strong> Til print anbefales SVG (vektorformat) eller PNG i h&#248;j opl&#248;sning (1024px+). Til digital brug er 512px tilstr&#230;kkeligt.</li>
+                    <li><strong>Generer og test:</strong> Klik p&#229; &#8220;Generer&#8221; og scan QR-koden med din egen telefon. Tjek at alle oplysninger er korrekte, og at kontakten kan gemmes i telefonbogen.</li>
+                    <li><strong>Download og brug:</strong> Download filen og send den til dit trykkeri, eller brug den digitalt i din e-mailsignatur, p&#229; LinkedIn eller p&#229; din hjemmeside.</li>
+                </ol>
+            </article>
+
+            <!-- Design tips -->
+            <article class="content-block">
+                <h2>Design-tips til QR-koder p&#229; visitkort</h2>
+                <p>En QR-kode p&#229; et visitkort skal b&#229;de v&#230;re funktionel og &#230;stetisk. Her er de vigtigste designprincipper:</p>
+
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <h3>Kontrast er altafg&#248;rende</h3>
+                        <p>QR-koden skal have h&#248;j kontrast mod baggrunden. Sort p&#229; hvid er standarden, men du kan bruge m&#248;rke brandfarver p&#229; lys baggrund. Undg&#229; lyse farver som gul eller lysegr&#229; til selve QR-modulerne.</p>
+                    </div>
+                    <div class="feature-item">
+                        <h3>Bevar &#8220;quiet zone&#8221;</h3>
+                        <p>Der skal v&#230;re mindst 4 modulers bredde af tom plads (quiet zone) omkring QR-koden. Uden denne zone kan scannere have sv&#230;rt ved at genkende kodens gr&#230;nser.</p>
+                    </div>
+                    <div class="feature-item">
+                        <h3>Tilf&#248;j en call-to-action</h3>
+                        <p>Skriv &#8220;Scan mig&#8221; eller &#8220;Gem kontakt&#8221; under QR-koden. Mange mennesker ved endnu ikke automatisk, hvad de skal g&#248;re med en QR-kode p&#229; et visitkort.</p>
+                    </div>
+                    <div class="feature-item">
+                        <h3>Plac&#233;r koden strategisk</h3>
+                        <p>Bagsiden af visitkortet er det mest popul&#230;re valg. Alternativt kan QR-koden placeres i et hj&#248;rne p&#229; forsiden, s&#229; den ikke dominerer designet.</p>
+                    </div>
+                </div>
+            </article>
+
+            <!-- St&#248;rrelse og placering -->
+            <article class="content-block">
+                <h2>St&#248;rrelse og placering af QR-koden</h2>
+                <p>St&#248;rrelsen p&#229; QR-koden er afg&#248;rende for, om den kan scannes p&#229;lideligt. Her er retningslinjer for visitkort:</p>
+                <ul>
+                    <li><strong>Minimum 2 &#215; 2 cm:</strong> For et standardvisitkort (85 &#215; 55 mm) anbefaler vi en QR-kode p&#229; mindst 20 &#215; 20 mm. St&#248;rre er bedre.</li>
+                    <li><strong>Optimal st&#248;rrelse: 2,5&#8211;3 cm:</strong> Denne st&#248;rrelse giver god scanbarhed, selv med &#230;ldre telefoner eller i d&#229;rligt lys.</li>
+                    <li><strong>Placering p&#229; bagsiden:</strong> Det giver mest plads til QR-koden og holder forsiden ren. Tilf&#248;j teksten &#8220;Scan for kontaktinfo&#8221; som ledetekst.</li>
+                    <li><strong>Placering p&#229; forsiden:</strong> V&#230;lg et hj&#248;rne (typisk h&#248;jre bund) og hold QR-koden kompakt. S&#248;rg for, at den ikke overlapper med tekst eller logo.</li>
+                </ul>
+                <p>Husk: Jo flere data QR-koden indeholder, desto t&#230;ttere bliver modulerne. Hvis du inkluderer alle kontaktfelter plus adresse, bliver koden mere kompleks og kr&#230;ver st&#248;rre fysisk st&#248;rrelse. Overvej kun at inkludere de vigtigste felter.</p>
+            </article>
+
+            <!-- Fejlkorrektion for print -->
+            <article class="content-block">
+                <h2>Fejlkorrektion: Vigtigt for trykte visitkort</h2>
+                <p>QR-koder har en indbygget fejlkorrektionsmekanisme baseret p&#229; Reed-Solomon-algoritmen. Det betyder, at selv en delvist beskadiget eller tilsmudset kode stadig kan l&#230;ses. Der er fire niveauer:</p>
+                <ol class="guide-list">
+                    <li><strong>L (Low, ~7&nbsp;%):</strong> Minimal fejlkorrektion. Giver den mindste og enkleste QR-kode. Bedst til digitale flader, hvor koden ikke slides.</li>
+                    <li><strong>M (Medium, ~15&nbsp;%):</strong> Standardvalget og en god balance mellem st&#248;rrelse og p&#229;lidelighed. Fint til de fleste visitkort.</li>
+                    <li><strong>Q (Quartile, ~25&nbsp;%):</strong> Anbefalet til trykte visitkort. Tolererer ridser, fingeraftryk og let slid fra en lomme eller pung.</li>
+                    <li><strong>H (High, ~30&nbsp;%):</strong> H&#248;jeste fejlkorrektion. N&#248;dvendig, hvis du vil placere et logo henover QR-koden, eller hvis kortet bruges i barske omgivelser.</li>
+                </ol>
+                <p>Til trykte visitkort anbefaler vi <strong>niveau Q eller H</strong>. Et visitkort bliver ofte opbevaret i en lomme eller pung, og koden kan blive lettere beskadiget over tid. Med h&#248;j fejlkorrektion sikrer du, at koden stadig kan scannes, selv efter lidt slid.</p>
+                <p>P&#229; QRTool.dk kan du v&#230;lge fejlkorrektionsniveau direkte, n&#229;r du genererer din vCard QR-kode.</p>
+            </article>
+
+            <!-- Networking i praksis -->
+            <article class="content-block">
+                <h2>Networking i praksis: S&#229;dan bruger du dit QR-visitkort</h2>
+                <p>At have en QR-kode p&#229; visitkortet er kun halvdelen &#8211; den anden halvdel er at bruge den effektivt. Her er konkrete situationer, hvor QR-visitkortet g&#248;r en forskel:</p>
+
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <h3>Konferencer og messer</h3>
+                        <p>P&#229; en travl konference m&#248;der du mange mennesker p&#229; kort tid. I stedet for at uddele bunker af visitkort kan du vise QR-koden p&#229; dit fysiske kort eller direkte p&#229; telefonen. Modtageren scanner og har dine oplysninger med det samme.</p>
+                    </div>
+                    <div class="feature-item">
+                        <h3>Salgsm&#248;der</h3>
+                        <p>Efter et salgsm&#248;de vil du gerne v&#230;re nem at kontakte. Giv dit visitkort med QR-kode, og forklar kort, at kunden bare skal scanne for at gemme dine oplysninger. Det fjerner friktion fra opf&#248;lgningen.</p>
+                    </div>
+                    <div class="feature-item">
+                        <h3>Uformelle m&#248;der</h3>
+                        <p>Du m&#248;der en potentiel samarbejdspartner til en middag eller et arrangement. I stedet for at lede efter papir og kuglepen fremviser du QR-koden p&#229; din telefon. Elegant og hurtigt.</p>
+                    </div>
+                    <div class="feature-item">
+                        <h3>Digital signatur og LinkedIn</h3>
+                        <p>Tilf&#248;j QR-koden til din e-mailsignatur eller dit LinkedIn-baggrundsbillede. S&#229; kan folk gemme dine oplysninger, selv n&#229;r I ikke er i samme rum.</p>
+                    </div>
+                </div>
+
+                <p>Et godt tip er at have QR-koden gemt som billede p&#229; din telefon, s&#229; du altid kan vise den &#8211; ogs&#229; n&#229;r du ikke har fysiske visitkort ved h&#229;nden. P&#229; den m&#229;de er du altid klar til at netv&#230;rke.</p>
+            </article>
+
+            <!-- FAQ Section -->
+            <article class="content-block faq-section">
+                <h2>Ofte stillede sp&#248;rgsm&#229;l om visitkort med QR-kode</h2>
+
+                <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+                    <h3 itemprop="name">Kan alle smartphones scanne en vCard QR-kode?</h3>
+                    <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                        <p itemprop="text">Ja, b&#229;de iPhone (iOS 11 og nyere) og Android-telefoner (version 8 og nyere) kan scanne vCard QR-koder direkte med kameraappen. Der er ikke behov for at installere en s&#230;rskilt app. &#198;ldre telefoner kan bruge en gratis QR-scanner fra app-butikken.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+                    <h3 itemprop="name">Koster det noget at lave en vCard QR-kode?</h3>
+                    <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                        <p itemprop="text">Nej, p&#229; QRTool.dk er det helt gratis at oprette vCard QR-koder. Du kan generere s&#229; mange du vil, uden registrering eller begr&#230;nsninger. QR-koden behandles lokalt i din browser, og ingen data sendes til en server.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+                    <h3 itemprop="name">Hvilket filformat er bedst til print p&#229; visitkort?</h3>
+                    <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                        <p itemprop="text">Vi anbefaler SVG-format til print. SVG er vektorbaseret og kan skaleres til enhver st&#248;rrelse uden tab af kvalitet. Alternativt kan du bruge PNG i h&#248;j opl&#248;sning (mindst 1024 &#215; 1024 pixels). Undg&#229; JPG, da kompressionen kan g&#248;re modulerne uskarpe.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+                    <h3 itemprop="name">Kan QR-koden have min virksomheds farve?</h3>
+                    <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                        <p itemprop="text">Ja, du kan frit v&#230;lge farve p&#229; QR-kodens moduler. Det vigtige er, at farven er m&#248;rk nok til at skabe h&#248;j kontrast mod en lys baggrund. M&#248;rkebl&#229;, m&#248;rkegr&#248;n eller bordeaux fungerer fint. Undg&#229; lyse eller pastelfarvede QR-moduler.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+                    <h3 itemprop="name">Udl&#248;ber QR-koden p&#229; mit visitkort?</h3>
+                    <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                        <p itemprop="text">Nej, en vCard QR-kode udl&#248;ber aldrig. Dataene er indkodet direkte i QR-kodens m&#248;nstre, s&#229; den fungerer uafh&#230;ngigt af servere eller internetforbindelse. S&#229; l&#230;nge koden er fysisk intakt og kan scannes, vil den altid virke.</p>
+                    </div>
+                </div>
+            </article>
+
+            <!-- CTA Section -->
+            <article class="content-block">
+                <h2>Klar til at lave dit visitkort med QR-kode?</h2>
+                <p>Nu har du viden om vCard-standarden, design, st&#248;rrelse, fejlkorrektion og praktisk brug. N&#230;ste skridt er at oprette din egen QR-kode. Med QRTool.dk&#8217;s gratis vCard-generator tager det under et minut.</p>
+                <div class="hero-benefits" style="margin-bottom: 1.5rem;">
+                    <div class="benefit">100&nbsp;% gratis, ingen registrering</div>
+                    <div class="benefit">Download som SVG til print</div>
+                    <div class="benefit">Data behandles lokalt i din browser</div>
+                </div>
+                <p><a href="/vcard-qr-kode" class="btn btn-primary" style="display:inline-block; text-decoration:none;">Opret din vCard QR-kode nu</a></p>
+            </article>
+
+            <!-- Related links -->
+            <article class="content-block">
+                <h2>Flere guides og v&#230;rkt&#248;jer</h2>
+                <p>Udforsk vores andre QR-kode v&#230;rkt&#248;jer og guides:</p>
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <h3><a href="/vcard-qr-kode">vCard QR-Kode Generator</a></h3>
+                        <p>Opret dit digitale visitkort som QR-kode. Indtast dine kontaktoplysninger og download klar til print.</p>
+                    </div>
+                    <div class="feature-item">
+                        <h3><a href="/wifi-qr-kode">WiFi QR-Kode Generator</a></h3>
+                        <p>Lad g&#230;ster forbinde til dit WiFi med &#233;t scan. Perfekt til kontoret, restauranten eller hjemmet.</p>
+                    </div>
+                    <div class="feature-item">
+                        <h3><a href="/email-qr-kode">Email QR-Kode Generator</a></h3>
+                        <p>Generer QR-koder der &#229;bner en forudfyldt e-mail. Ideel til kundeservice og feedback.</p>
+                    </div>
+                    <div class="feature-item">
+                        <h3><a href="/">QR Tool &#8211; Komplet Generator</a></h3>
+                        <p>Den fulde QR-kode generator med alle funktioner: tekst, URL, WiFi, vCard, e-mail, SMS og kalender.</p>
+                    </div>
+                </div>
+            </article>
+
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Lavet med &#10084;&#65039; af <a href="https://mahope.dk" target="_blank" rel="noopener">Mahope.dk</a></p>
+            <p class="footer-links">
+                <a href="/">QRTool.dk</a> |
+                <a href="/privatlivspolitik">Privatlivspolitik</a> |
+                <a href="/om-qr-tool">Om QR Tool</a>
+            </p>
+            <div class="footer-tools">
+                <h3>Andre gratis v&#230;rkt&#248;jer fra Mahope.dk</h3>
+                <div class="footer-tools-grid">
+                    <a href="https://levetidsberegner.dk" target="_blank" rel="noopener" class="footer-tool-card">
+                        <span class="emoji">&#9203;</span>
+                        <h4>Levetidsberegner.dk</h4>
+                        <p>Beregn din forventede levetid</p>
+                    </a>
+                    <a href="https://pakkeliste.com" target="_blank" rel="noopener" class="footer-tool-card">
+                        <span class="emoji">&#9992;&#65039;</span>
+                        <h4>Pakkeliste.com</h4>
+                        <p>Intelligent rejsev&#230;rkt&#248;j til pakkelister</p>
+                    </a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Plausible Analytics -->
+    <script defer data-domain="qrtool.dk" src="https://analytics.holstjensen.eu/js/script.file-downloads.hash.outbound-links.pageview-props.tagged-events.js"></script>
+    <script>window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }</script>
+
+    <!-- Theme toggle and logo script -->
+    <script src="https://unpkg.com/qrcode-generator@2.0.4/dist/qrcode.js" crossorigin="anonymous" integrity="sha384-e9EFD6BGC90bkW9aDV5xbbBfzwN7G8YImHao2lfLVKV/hPB0E0go+H3I64h7oHtA"></script>
+    <script>
+        (function() {
+            // Theme management
+            const themeToggle = document.getElementById('themeToggle');
+            const html = document.documentElement;
+            const currentTheme = localStorage.getItem('theme') || 'dark';
+            html.setAttribute('data-theme', currentTheme);
+
+            if (themeToggle) {
+                themeToggle.addEventListener('click', () => {
+                    const theme = html.getAttribute('data-theme');
+                    const newTheme = theme === 'dark' ? 'light' : 'dark';
+                    html.setAttribute('data-theme', newTheme);
+                    localStorage.setItem('theme', newTheme);
+                });
+            }
+
+            // Generate logo QR
+            function generateLogoQR() {
+                if (typeof qrcode === 'undefined') {
+                    setTimeout(generateLogoQR, 100);
+                    return;
+                }
+                const logoSvg = document.getElementById('logoQR');
+                if (!logoSvg) return;
+
+                const qr = qrcode(0, 'M');
+                qr.addData('https://qrtool.dk');
+                qr.make();
+
+                const cells = qr.getModuleCount();
+                const size = 100;
+                const scale = size / cells;
+
+                let path = '';
+                for (let y = 0; y < cells; y++) {
+                    for (let x = 0; x < cells; x++) {
+                        if (qr.isDark(y, x)) {
+                            const px = x * scale;
+                            const py = y * scale;
+                            path += `M${px},${py}h${scale}v${scale}h-${scale}z `;
+                        }
+                    }
+                }
+
+                logoSvg.innerHTML = `<path d="${path}" fill="url(#gradient)"/>
+                    <defs>
+                        <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#6366f1;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:1" />
+                        </linearGradient>
+                    </defs>`;
+            }
+
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', generateLogoQR);
+            } else {
+                generateLogoQR();
+            }
+        })();
+    </script>
+    <script>if ('serviceWorker' in navigator) { navigator.serviceWorker.register('/sw.js'); }</script>
+</body>
+</html>
