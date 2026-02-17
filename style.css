@@ -295,8 +295,12 @@ header p {
 
 .theme-toggle:hover {
     border-color: var(--primary-color);
-    transform: scale(1.05);
+    transform: scale(1.05) rotate(15deg);
     box-shadow: var(--shadow-sm);
+}
+
+.theme-toggle:active {
+    transform: scale(0.95) rotate(-15deg);
 }
 
 .theme-toggle svg {
@@ -641,6 +645,8 @@ header p {
 }
 
 .btn {
+    position: relative;
+    overflow: hidden;
     flex: 1;
     padding: 1rem 1.5rem;
     border: none;
@@ -654,6 +660,20 @@ header p {
     justify-content: center;
     gap: 0.5rem;
     min-height: 52px;
+}
+
+/* Ripple effect */
+.btn .ripple {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(0);
+    animation: ripple-expand 0.6s ease-out;
+    pointer-events: none;
+}
+
+@keyframes ripple-expand {
+    to { transform: scale(4); opacity: 0; }
 }
 
 .btn-primary {
@@ -714,12 +734,35 @@ header p {
     transition: all var(--transition);
     border: 2px solid transparent;
     white-space: nowrap;
+    position: relative;
+    overflow: hidden;
+}
+
+.tab-button::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: var(--primary-color);
+    transition: width 0.3s ease, left 0.3s ease;
+}
+
+.tab-button:hover::after {
+    width: 80%;
+    left: 10%;
 }
 
 .tab-button:hover {
     background: var(--primary-light);
     border-color: var(--primary-color);
     color: var(--primary-color);
+    transform: translateY(-1px);
+}
+
+.tab-button:active {
+    transform: translateY(0) scale(0.97);
 }
 
 .tab-button.active {
