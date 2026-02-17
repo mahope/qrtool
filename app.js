@@ -835,3 +835,197 @@ if (transparentBg) {
         }
     });
 }
+
+// ===========================================
+// QR Scanner
+// ===========================================
+
+const startScanBtn = document.getElementById('startScanBtn');
+const stopScanBtn = document.getElementById('stopScanBtn');
+const scannerVideo = document.getElementById('scannerVideo');
+const scannerCanvas = document.getElementById('scannerCanvas');
+const scannerViewport = document.getElementById('scannerViewport');
+const scanResult = document.getElementById('scanResult');
+const scanResultText = document.getElementById('scanResultText');
+const scanCopyBtn = document.getElementById('scanCopyBtn');
+const scanOpenLink = document.getElementById('scanOpenLink');
+const scanFileInput = document.getElementById('scanFileInput');
+
+let scannerStream = null;
+let scannerAnimationId = null;
+
+// Start kamera-scanning
+if (startScanBtn) {
+    startScanBtn.addEventListener('click', startScanner);
+}
+
+async function startScanner() {
+    if (typeof jsQR === 'undefined') {
+        alert('QR-scanner biblioteket er ikke indlæst. Genindlæs venligst siden.');
+        return;
+    }
+
+    try {
+        scannerStream = await navigator.mediaDevices.getUserMedia({
+            video: { facingMode: 'environment' }
+        });
+        scannerVideo.srcObject = scannerStream;
+        await scannerVideo.play();
+        scannerViewport.style.display = 'block';
+        startScanBtn.style.display = 'none';
+        scanResult.style.display = 'none';
+        scanFrame();
+    } catch (error) {
+        console.error('Kamera fejl:', error);
+        if (error.name === 'NotAllowedError') {
+            alert('Kameraadgang blev afvist. Tillad venligst kameraadgang i din browser.');
+        } else {
+            alert('Kunne ikke starte kameraet. Sørg for at din enhed har et kamera.');
+        }
+    }
+}
+
+function scanFrame() {
+    if (!scannerStream) return;
+
+    const video = scannerVideo;
+    if (video.readyState !== video.HAVE_ENOUGH_DATA) {
+        scannerAnimationId = requestAnimationFrame(scanFrame);
+        return;
+    }
+
+    const canvas = scannerCanvas;
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    const ctx = canvas.getContext('2d');
+    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    const code = jsQR(imageData.data, imageData.width, imageData.height, {
+        inversionAttempts: 'dontInvert'
+    });
+
+    if (code) {
+        stopScanner();
+        showScanResult(code.data);
+        return;
+    }
+
+    scannerAnimationId = requestAnimationFrame(scanFrame);
+}
+
+// Stop kamera
+if (stopScanBtn) {
+    stopScanBtn.addEventListener('click', stopScanner);
+}
+
+function stopScanner() {
+    if (scannerAnimationId) {
+        cancelAnimationFrame(scannerAnimationId);
+        scannerAnimationId = null;
+    }
+    if (scannerStream) {
+        scannerStream.getTracks().forEach(track => track.stop());
+        scannerStream = null;
+    }
+    scannerVideo.srcObject = null;
+    scannerViewport.style.display = 'none';
+    if (startScanBtn) startScanBtn.style.display = '';
+}
+
+// Upload billede til scanning
+if (scanFileInput) {
+    scanFileInput.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        if (typeof jsQR === 'undefined') {
+            alert('QR-scanner biblioteket er ikke indlæst. Genindlæs venligst siden.');
+            return;
+        }
+
+        const img = new Image();
+        const url = URL.createObjectURL(file);
+
+        img.onload = () => {
+            const canvas = document.createElement('canvas');
+            canvas.width = img.width;
+            canvas.height = img.height;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0);
+            URL.revokeObjectURL(url);
+
+            const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            const code = jsQR(imageData.data, imageData.width, imageData.height, {
+                inversionAttempts: 'attemptBoth'
+            });
+
+            if (code) {
+                showScanResult(code.data);
+            } else {
+                alert('Ingen QR-kode fundet i billedet. Prøv et andet billede.');
+            }
+
+            // Reset file input
+            scanFileInput.value = '';
+        };
+
+        img.onerror = () => {
+            URL.revokeObjectURL(url);
+            alert('Kunne ikke indlæse billedet.');
+            scanFileInput.value = '';
+        };
+
+        img.src = url;
+    });
+}
+
+// Vis scanningsresultat
+function showScanResult(data) {
+    scanResult.style.display = 'block';
+    scanResultText.textContent = data;
+
+    // Vis "Åbn link" knap hvis resultatet er en URL
+    try {
+        const url = new URL(data);
+        if (url.protocol === 'http:' || url.protocol === 'https:') {
+            scanOpenLink.href = data;
+            scanOpenLink.style.display = '';
+        } else {
+            scanOpenLink.style.display = 'none';
+        }
+    } catch {
+        scanOpenLink.style.display = 'none';
+    }
+
+    // Scroll til resultatet
+    scanResult.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+// Kopiér scanningsresultat
+if (scanCopyBtn) {
+    scanCopyBtn.addEventListener('click', async () => {
+        const text = scanResultText.textContent;
+        try {
+            await navigator.clipboard.writeText(text);
+            scanCopyBtn.textContent = '✓ Kopieret!';
+            setTimeout(() => {
+                scanCopyBtn.textContent = 'Kopiér tekst';
+            }, 2000);
+        } catch {
+            // Fallback for ældre browsere
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.style.position = 'fixed';
+            textarea.style.opacity = '0';
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+            scanCopyBtn.textContent = '✓ Kopieret!';
+            setTimeout(() => {
+                scanCopyBtn.textContent = 'Kopiér tekst';
+            }, 2000);
+        }
+    });
+}

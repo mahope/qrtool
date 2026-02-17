@@ -83,7 +83,7 @@ Erstat standard file-input med en drag-and-drop zone til logo-upload. Vis previe
 ### #15 — Kopiér QR-kode til clipboard (P0)
 Tilføj en "Kopiér" knap ved siden af download, der kopierer QR-koden direkte til clipboard som billede. Meget efterspurgt feature.
 
-- [ ] Ikke startet
+- [x] Færdig (b672e36)
 
 ### #16 — Toast/notification-system (P1)
 Erstat den nuværende success-feedback (grøn knap-farve) med et dedikeret toast-system der viser "QR-kode genereret!", "Kopieret til clipboard!", "Downloadet!" osv.

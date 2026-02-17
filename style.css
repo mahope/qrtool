@@ -1077,6 +1077,123 @@ header p {
 }
 
 /* ===========================================
+   QR Scanner Section
+   =========================================== */
+
+.scanner-section {
+    max-width: 600px;
+    margin: 2rem auto;
+    background: var(--card-bg);
+    border-radius: var(--radius-xl);
+    padding: 2rem;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border-color);
+    text-align: center;
+}
+
+.scanner-section h2 {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    margin-bottom: 0.5rem;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.scanner-section > p {
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+}
+
+.scanner-controls {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+}
+
+.scanner-upload-label {
+    cursor: pointer;
+}
+
+.scanner-viewport {
+    position: relative;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background: #000;
+    margin-bottom: 1rem;
+}
+
+.scanner-viewport video {
+    width: 100%;
+    display: block;
+    border-radius: var(--radius-lg);
+}
+
+.scanner-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 200px;
+    height: 200px;
+    border: 3px solid var(--primary-color);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.4);
+    pointer-events: none;
+}
+
+.scanner-stop-btn {
+    position: absolute;
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+}
+
+.scan-result {
+    background: var(--primary-light);
+    border: 1px solid rgba(99, 102, 241, 0.2);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    text-align: left;
+    margin-top: 1rem;
+}
+
+.scan-result h3 {
+    color: var(--text-color);
+    font-size: 1rem;
+    margin-bottom: 0.75rem;
+}
+
+.scan-result p {
+    color: var(--text-color);
+    word-break: break-all;
+    font-family: 'SF Mono', 'Consolas', 'Monaco', monospace;
+    font-size: 0.9rem;
+    background: var(--bg-color);
+    padding: 0.75rem 1rem;
+    border-radius: var(--radius);
+    margin-bottom: 1rem;
+    line-height: 1.5;
+}
+
+.scan-result-actions {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.scan-result-actions .btn {
+    flex: none;
+    padding: 0.625rem 1.25rem;
+    font-size: 0.9rem;
+    min-height: auto;
+    text-decoration: none;
+}
+
+/* ===========================================
    Footer
    =========================================== */
 
