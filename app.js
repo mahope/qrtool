@@ -294,6 +294,24 @@ if (swapColorsBtn) {
     });
 }
 
+// QR Style preview cards
+const styleCards = document.querySelectorAll('.style-preview-card');
+styleCards.forEach(card => {
+    card.addEventListener('click', () => {
+        const style = card.dataset.style;
+        if (qrStyle) {
+            qrStyle.value = style;
+            qrStyle.dispatchEvent(new Event('change'));
+        }
+        styleCards.forEach(c => {
+            c.classList.remove('active');
+            c.setAttribute('aria-pressed', 'false');
+        });
+        card.classList.add('active');
+        card.setAttribute('aria-pressed', 'true');
+    });
+});
+
 // Color presets
 const colorPresets = document.querySelectorAll('.color-preset');
 colorPresets.forEach(preset => {

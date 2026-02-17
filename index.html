@@ -367,14 +367,28 @@
                 </div>
 
                 <div class="settings-grid">
-                    <!-- Style Template -->
-                    <div class="form-group">
-                        <label for="qrStyle">QR-kode stil:</label>
-                        <select id="qrStyle">
-                            <option value="square">■ Standard (Firkanter)</option>
-                            <option value="rounded">● Afrundet</option>
-                            <option value="dots">⚫ Prikker</option>
+                    <!-- Style Selector -->
+                    <div class="form-group style-selector-group">
+                        <label>QR-kode stil:</label>
+                        <select id="qrStyle" class="visually-hidden">
+                            <option value="square">Standard</option>
+                            <option value="rounded">Afrundet</option>
+                            <option value="dots">Prikker</option>
                         </select>
+                        <div class="style-preview-grid" role="group" aria-label="Vælg QR-kode stil">
+                            <button type="button" class="style-preview-card active" data-style="square" aria-pressed="true" title="Standard (Firkanter)">
+                                <svg width="48" height="48" viewBox="0 0 48 48"><rect x="4" y="4" width="12" height="12" fill="currentColor"/><rect x="18" y="4" width="12" height="12" fill="currentColor"/><rect x="32" y="4" width="12" height="12" fill="currentColor"/><rect x="4" y="18" width="12" height="12" fill="currentColor"/><rect x="32" y="18" width="12" height="12" fill="currentColor"/><rect x="4" y="32" width="12" height="12" fill="currentColor"/><rect x="18" y="32" width="12" height="12" fill="currentColor"/><rect x="32" y="32" width="12" height="12" fill="currentColor"/></svg>
+                                <span>Standard</span>
+                            </button>
+                            <button type="button" class="style-preview-card" data-style="rounded" aria-pressed="false" title="Afrundet">
+                                <svg width="48" height="48" viewBox="0 0 48 48"><rect x="4" y="4" width="12" height="12" rx="4" fill="currentColor"/><rect x="18" y="4" width="12" height="12" rx="4" fill="currentColor"/><rect x="32" y="4" width="12" height="12" rx="4" fill="currentColor"/><rect x="4" y="18" width="12" height="12" rx="4" fill="currentColor"/><rect x="32" y="18" width="12" height="12" rx="4" fill="currentColor"/><rect x="4" y="32" width="12" height="12" rx="4" fill="currentColor"/><rect x="18" y="32" width="12" height="12" rx="4" fill="currentColor"/><rect x="32" y="32" width="12" height="12" rx="4" fill="currentColor"/></svg>
+                                <span>Afrundet</span>
+                            </button>
+                            <button type="button" class="style-preview-card" data-style="dots" aria-pressed="false" title="Prikker">
+                                <svg width="48" height="48" viewBox="0 0 48 48"><circle cx="10" cy="10" r="6" fill="currentColor"/><circle cx="24" cy="10" r="6" fill="currentColor"/><circle cx="38" cy="10" r="6" fill="currentColor"/><circle cx="10" cy="24" r="6" fill="currentColor"/><circle cx="38" cy="24" r="6" fill="currentColor"/><circle cx="10" cy="38" r="6" fill="currentColor"/><circle cx="24" cy="38" r="6" fill="currentColor"/><circle cx="38" cy="38" r="6" fill="currentColor"/></svg>
+                                <span>Prikker</span>
+                            </button>
+                        </div>
                     </div>
 
                     <!-- Farveindstillinger -->

@@ -231,7 +231,7 @@ Udover historik: lad brugere markere QR-koder som favoritter der ikke automatisk
 ### #43 — Micro-interaktioner (P2)
 Tilføj subtile hover-animationer på tabs (underline slide), knapper (ripple-effekt), og toggle switches. Giver en mere premium følelse.
 
-- [ ] Ikke startet
+- [x] Færdig — tab underline slide, button ripple, theme toggle rotation, tab press-down scale
 
 ### #44 — Forbedret dark/light mode transition (P3)
 Tilføj en smooth `view-transition` ved theme-skift i stedet for den nuværende instant-switch. Moderne browsers understøtter `document.startViewTransition()`.
