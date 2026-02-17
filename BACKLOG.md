@@ -93,7 +93,7 @@ Erstat den nuværende success-feedback (grøn knap-farve) med et dedikeret toast
 ### #17 — Forbedret farve-picker med presets (P2)
 Tilføj preset farveskemaer (f.eks. "Professionel blå", "Energisk rød", "Naturlig grøn") udover den frie farvevælger. Gør det nemmere for ikke-designere.
 
-- [ ] Ikke startet
+- [x] Færdig — 6 preset farveskemaer (Standard, Blå, Rød, Grøn, Guld, Lilla) med auto-regenerering
 
 ### #18 — Preview i fuld størrelse (lightbox) (P2)
 Klik på QR-kode preview for at se den i en lightbox/modal i fuld størrelse. Nyttigt til at verificere scannability.
@@ -103,7 +103,7 @@ Klik på QR-kode preview for at se den i en lightbox/modal i fuld størrelse. Ny
 ### #19 — Responsiv tab-navigation som swipeable (P2)
 På mobil: gør QR-type tabs swipeable (venstre/højre) i stedet for at scrolle horisontalt. Mere naturlig mobil-interaktion.
 
-- [ ] Ikke startet
+- [x] Færdig — touch swipe med slide-animation, 50px threshold, diagonal gesture filtering
 
 ### #20 — Form-validering med inline-fejl (P1)
 Vis fejlmeddelelser direkte ved felterne (f.eks. "Ugyldig e-mail-adresse", "URL mangler https://") i stedet for generiske alerts.
@@ -113,7 +113,7 @@ Vis fejlmeddelelser direkte ved felterne (f.eks. "Ugyldig e-mail-adresse", "URL 
 ### #21 — Skeleton loading state (P3)
 Vis en skeleton/placeholder for QR-kode preview-området mens den genereres, i stedet for tomt rum.
 
-- [ ] Ikke startet
+- [x] Færdig — animeret skeleton med shimmer-effekt som placeholder før QR-generering
 
 ### #22 — Sticky preview-panel på desktop (P2)
 Gør QR-kode preview-panelet sticky (position: sticky) så det altid er synligt mens brugeren scroller ned i indstillinger.
@@ -123,12 +123,12 @@ Gør QR-kode preview-panelet sticky (position: sticky) så det altid er synligt 
 ### #23 — Forbedret historik-visning (P2)
 Tilføj filtrering og søgning i historikken. Vis QR-type som badge. Tilføj mulighed for at give QR-koder et navn/label.
 
-- [ ] Ikke startet
+- [x] Færdig — søgning, typefilter, farvede badges, omdøbning af historik-entries
 
 ### #24 — Keyboard shortcuts overlay (P3)
 Tilføj en `?`-shortcut der viser en modal med alle tilgængelige keyboard shortcuts.
 
-- [ ] Ikke startet
+- [x] Færdig — ? åbner modal med G/D/C/T/1-6/Esc genveje, deaktiveres i form-felter
 
 ### #25 — Animeret QR-kode generation (P3)
 Subtil animation når QR-koden genereres (fade-in, scale fra 0.95 til 1.0). Giver en mere poleret oplevelse.
@@ -138,7 +138,7 @@ Subtil animation når QR-koden genereres (fade-in, scale fra 0.95 til 1.0). Give
 ### #26 — Forbedret batch-UI med progressbar (P2)
 Vis en progressbar under batch-generation. Tilføj mulighed for at preview individuelle QR-koder i batchen før download.
 
-- [ ] Ikke startet
+- [x] Færdig — animeret progressbar, forhåndsvis-knap med thumbnail-grid
 
 ### #27 — Scroll-to-top knap (P3)
 Vis en diskret "scroll til top" knap når brugeren har scrollet ned i indholdet under folden.
@@ -148,7 +148,7 @@ Vis en diskret "scroll til top" knap når brugeren har scrollet ned i indholdet 
 ### #28 — Forbedret mobilmenu/navigation (P2)
 Tilføj en kompakt hamburger-menu på mobil med links til alle undersider, guides og QR-typer.
 
-- [ ] Ikke startet
+- [x] Færdig — hamburger-knap med slide-in drawer, overlay, Escape-luk og scroll-lock
 
 ---
 
