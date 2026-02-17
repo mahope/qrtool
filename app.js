@@ -1580,6 +1580,46 @@ if (scanCopyBtn) {
 })();
 
 // ===========================================
+// QR Lightbox
+// ===========================================
+
+(function initLightbox() {
+    const lightbox = document.getElementById('qrLightbox');
+    if (!lightbox) return;
+    const content = lightbox.querySelector('.lightbox-content');
+    const closeBtn = lightbox.querySelector('.lightbox-close');
+
+    function open() {
+        if (!currentQRCanvas && !currentQRSVG) return;
+        content.innerHTML = '';
+        if (currentQRCanvas) {
+            const clone = document.createElement('canvas');
+            clone.width = currentQRCanvas.width;
+            clone.height = currentQRCanvas.height;
+            clone.getContext('2d').drawImage(currentQRCanvas, 0, 0);
+            content.appendChild(clone);
+        } else if (currentQRSVG) {
+            content.innerHTML = currentQRSVG;
+        }
+        lightbox.classList.add('active');
+        closeBtn.focus();
+    }
+
+    function close() {
+        lightbox.classList.remove('active');
+    }
+
+    qrPreview.addEventListener('click', open);
+    closeBtn.addEventListener('click', close);
+    lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox) close();
+    });
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && lightbox.classList.contains('active')) close();
+    });
+})();
+
+// ===========================================
 // Scroll to Top Button
 // ===========================================
 

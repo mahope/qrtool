@@ -98,7 +98,7 @@ Tilføj preset farveskemaer (f.eks. "Professionel blå", "Energisk rød", "Natur
 ### #18 — Preview i fuld størrelse (lightbox) (P2)
 Klik på QR-kode preview for at se den i en lightbox/modal i fuld størrelse. Nyttigt til at verificere scannability.
 
-- [ ] Ikke startet
+- [x] Færdig — klik på QR preview åbner fullscreen lightbox med Escape/klik-luk
 
 ### #19 — Responsiv tab-navigation som swipeable (P2)
 På mobil: gør QR-type tabs swipeable (venstre/højre) i stedet for at scrolle horisontalt. Mere naturlig mobil-interaktion.
