@@ -37,14 +37,12 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
     <!-- Preconnect for performance -->
-    <link rel="preconnect" href="https://unpkg.com" crossorigin>
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
     <link rel="dns-prefetch" href="https://analytics.holstjensen.eu">
 
     <!-- Preload critical resources -->
     <link rel="preload" href="style.css" as="style">
     <link rel="preload" href="app.js" as="script">
-    <link rel="preload" href="https://unpkg.com/qrcode-generator@2.0.4/dist/qrcode.js" as="script" crossorigin fetchpriority="high">
+    <link rel="preload" href="/lib/qrcode.js" as="script" fetchpriority="high">
 
     <!-- Schema.org structured data -->
     <script type="application/ld+json">
@@ -684,9 +682,9 @@
     <script defer data-domain="qrtool.dk" src="https://analytics.holstjensen.eu/js/script.file-downloads.hash.outbound-links.pageview-props.tagged-events.js"></script>
     <script>window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }</script>
 
-    <script src="https://unpkg.com/qrcode-generator@2.0.4/dist/qrcode.js" crossorigin="anonymous" integrity="sha384-e9EFD6BGC90bkW9aDV5xbbBfzwN7G8YImHao2lfLVKV/hPB0E0go+H3I64h7oHtA"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js" crossorigin="anonymous" integrity="sha384-+mbV2IY1Zk/X1p/nWllGySJSUN8uMs+gUAN10Or95UBH0fpj6GfKgPmgC5EXieXG" referrerpolicy="no-referrer"></script>
-    <script defer src="https://unpkg.com/jsqr@1.4.0/dist/jsQR.min.js" crossorigin="anonymous" integrity="sha384-og4kISw31o7a5lPTrPnzeLIoy1UcLbpSyK8Erf3sG5kHkTp07gnLuPx18mNEzyag"></script>
+    <script src="/lib/qrcode.js"></script>
+    <script src="/lib/jszip.min.js"></script>
+    <script defer src="/lib/jsQR.min.js"></script>
     <script src="app.js"></script>
     <script>if ('serviceWorker' in navigator) { navigator.serviceWorker.register('/sw.js'); }</script>
 <div id="cookie-consent-banner" style="position:fixed;left:0;right:0;bottom:0;background:#111827;color:#fff;padding:12px 16px;display:none;z-index:9999;font-family:system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif">

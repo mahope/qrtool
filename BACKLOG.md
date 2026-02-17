@@ -290,7 +290,7 @@ Cache alle statiske assets. Brugere kan generere QR-koder uden internetforbindel
 ### #54 — Self-host QR-bibliotek (P2)
 Flyt `qrcode-generator` og `jszip` fra CDN til self-hosted. Eliminerer ekstern afhængighed, forbedrer load-tid og eliminerer SPOF.
 
-- [ ] Ikke startet
+- [x] Færdig — alle 3 biblioteker (qrcode, jszip, jsQR) self-hosted i /lib/, CSP opdateret, preconnect fjernet
 
 ### #55 — CSS/JS minificering og bundling (P2)
 Tilføj en simpel build-step (f.eks. esbuild/lightningcss) der minificerer og bundler assets. Reducerer filstørrelse 30-50%.

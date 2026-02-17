@@ -1,4 +1,4 @@
-const CACHE_NAME = 'qrtool-v1';
+const CACHE_NAME = 'qrtool-v2';
 const ASSETS = [
     '/',
     '/style.css',
@@ -8,9 +8,9 @@ const ASSETS = [
     '/om-qr-tool',
     '/privatlivspolitik',
     '/wifi-qr-kode',
-    'https://unpkg.com/qrcode-generator@2.0.4/dist/qrcode.js',
-    'https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js',
-    'https://unpkg.com/jsqr@1.4.0/dist/jsQR.min.js'
+    '/lib/qrcode.js',
+    '/lib/jszip.min.js',
+    '/lib/jsQR.min.js'
 ];
 
 // Install: cache alle statiske assets
