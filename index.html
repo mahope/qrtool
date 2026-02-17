@@ -521,6 +521,18 @@
                 <!-- History Section -->
                 <div class="history-section">
                     <h3>📜 Tidligere QR-koder</h3>
+                    <div class="history-controls" id="historyControls" style="display: none;">
+                        <input type="search" id="historySearch" class="history-search" placeholder="Søg i historik..." aria-label="Søg i historik">
+                        <select id="historyFilter" class="history-filter" aria-label="Filtrer efter type">
+                            <option value="all">Alle typer</option>
+                            <option value="text">📝 Tekst/URL</option>
+                            <option value="wifi">📶 WiFi</option>
+                            <option value="vcard">👤 vCard</option>
+                            <option value="email">✉️ Email</option>
+                            <option value="sms">💬 SMS</option>
+                            <option value="calendar">📅 Kalender</option>
+                        </select>
+                    </div>
                     <div id="historyList" class="history-list">
                         <p class="history-empty">Ingen tidligere QR-koder</p>
                     </div>

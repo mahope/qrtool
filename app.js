@@ -1176,11 +1176,25 @@ if (batchGenerateBtn && batchInput) {
 }
 
 // History management
+const historyControls = document.getElementById('historyControls');
+const historySearch = document.getElementById('historySearch');
+const historyFilter = document.getElementById('historyFilter');
+
+const typeLabels = {
+    'text': 'Tekst/URL',
+    'wifi': 'WiFi',
+    'vcard': 'vCard',
+    'email': 'Email',
+    'sms': 'SMS',
+    'calendar': 'Kalender'
+};
+
 function saveToHistory(text, type) {
     const history = getHistory();
     const entry = {
-        text: text.substring(0, 100), // Limit text length
+        text: text.substring(0, 200),
         type: type,
+        label: '',
         timestamp: Date.now()
     };
 
@@ -1195,43 +1209,51 @@ function saveToHistory(text, type) {
 }
 
 function getHistory() {
-    const stored = localStorage.getItem('qr-history');
-    return stored ? JSON.parse(stored) : [];
-}
-
-// Sanitize text for safe HTML display (XSS prevention)
-function escapeHtml(text) {
-    const div = document.createElement('div');
-    div.textContent = text;
-    return div.innerHTML;
+    try {
+        const stored = localStorage.getItem('qr-history');
+        return stored ? JSON.parse(stored) : [];
+    } catch {
+        return [];
+    }
 }
 
 function renderHistory() {
     const history = getHistory();
+    const search = historySearch ? historySearch.value.toLowerCase() : '';
+    const filter = historyFilter ? historyFilter.value : 'all';
 
     if (history.length === 0) {
         historyList.innerHTML = '<p class="history-empty">Ingen tidligere QR-koder</p>';
         clearHistory.style.display = 'none';
+        if (historyControls) historyControls.style.display = 'none';
         return;
     }
 
     clearHistory.style.display = 'block';
+    if (historyControls) historyControls.style.display = 'flex';
 
-    // Clear existing content
+    // Filter and search
+    const filtered = history
+        .map((entry, index) => ({ ...entry, type: entry.type || 'text', originalIndex: index }))
+        .filter(entry => {
+            if (filter !== 'all' && entry.type !== filter) return false;
+            if (search) {
+                const haystack = ((entry.label || '') + ' ' + entry.text + ' ' + (typeLabels[entry.type] || '')).toLowerCase();
+                if (!haystack.includes(search)) return false;
+            }
+            return true;
+        });
+
     historyList.innerHTML = '';
 
-    history.forEach((entry, index) => {
-        const date = new Date(entry.timestamp);
-        const typeIcon = {
-            'text': '📝',
-            'wifi': '📶',
-            'vcard': '👤',
-            'email': '✉️',
-            'sms': '💬',
-            'calendar': '📅'
-        }[entry.type] || '📝';
+    if (filtered.length === 0) {
+        historyList.innerHTML = '<p class="history-empty">Ingen resultater</p>';
+        return;
+    }
 
-        // Create elements safely (XSS prevention)
+    filtered.forEach((entry) => {
+        const date = new Date(entry.timestamp);
+
         const item = document.createElement('div');
         item.className = 'history-item';
 
@@ -1240,32 +1262,56 @@ function renderHistory() {
 
         const textDiv = document.createElement('div');
         textDiv.className = 'history-item-text';
-        textDiv.textContent = `${typeIcon} ${entry.text}`;
+
+        // Type badge
+        const badge = document.createElement('span');
+        badge.className = `history-type-badge badge-${entry.type}`;
+        badge.textContent = typeLabels[entry.type] || entry.type;
+        textDiv.appendChild(badge);
+        textDiv.appendChild(document.createTextNode(entry.text));
+
+        // Label (editable name)
+        if (entry.label) {
+            const labelDiv = document.createElement('div');
+            labelDiv.className = 'history-item-label';
+            labelDiv.textContent = entry.label;
+            info.appendChild(textDiv);
+            info.appendChild(labelDiv);
+        } else {
+            info.appendChild(textDiv);
+        }
 
         const dateDiv = document.createElement('div');
         dateDiv.className = 'history-item-date';
         dateDiv.textContent = date.toLocaleString('da-DK');
-
-        info.appendChild(textDiv);
         info.appendChild(dateDiv);
 
         const actions = document.createElement('div');
         actions.className = 'history-item-actions';
+
+        // Rename button
+        const renameBtn = document.createElement('button');
+        renameBtn.className = 'btn-history-action';
+        renameBtn.title = 'Omdøb';
+        renameBtn.textContent = '✏️';
+        renameBtn.setAttribute('aria-label', 'Giv denne QR-kode et navn');
+        renameBtn.addEventListener('click', () => renameHistoryEntry(entry.originalIndex));
 
         const loadBtn = document.createElement('button');
         loadBtn.className = 'btn-history-action';
         loadBtn.title = 'Genindlæs';
         loadBtn.textContent = '🔄';
         loadBtn.setAttribute('aria-label', 'Genindlæs denne QR-kode');
-        loadBtn.addEventListener('click', () => loadFromHistory(index));
+        loadBtn.addEventListener('click', () => loadFromHistory(entry.originalIndex));
 
         const deleteBtn = document.createElement('button');
         deleteBtn.className = 'btn-history-action';
         deleteBtn.title = 'Slet';
         deleteBtn.textContent = '🗑️';
         deleteBtn.setAttribute('aria-label', 'Slet denne QR-kode fra historik');
-        deleteBtn.addEventListener('click', () => deleteFromHistory(index));
+        deleteBtn.addEventListener('click', () => deleteFromHistory(entry.originalIndex));
 
+        actions.appendChild(renameBtn);
         actions.appendChild(loadBtn);
         actions.appendChild(deleteBtn);
 
@@ -1304,9 +1350,28 @@ function deleteFromHistory(index) {
     renderHistory();
 }
 
-// Expose functions globally for backward compatibility
-window.loadFromHistory = loadFromHistory;
-window.deleteFromHistory = deleteFromHistory;
+function renameHistoryEntry(index) {
+    const history = getHistory();
+    const entry = history[index];
+    if (!entry) return;
+    const name = prompt('Giv QR-koden et navn:', entry.label || '');
+    if (name === null) return; // Cancelled
+    entry.label = name.trim();
+    localStorage.setItem('qr-history', JSON.stringify(history));
+    renderHistory();
+}
+
+// Search and filter listeners
+if (historySearch) {
+    let historySearchTimer;
+    historySearch.addEventListener('input', () => {
+        clearTimeout(historySearchTimer);
+        historySearchTimer = setTimeout(renderHistory, 200);
+    });
+}
+if (historyFilter) {
+    historyFilter.addEventListener('change', renderHistory);
+}
 
 // Clear history button (with null check)
 if (clearHistory) {
