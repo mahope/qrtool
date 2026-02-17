@@ -49,7 +49,7 @@ Tilføj visuel breadcrumb på undersider (`Hjem > WiFi QR-kode`) med tilhørende
 ### #9 — Sitemap udvidelse (P3)
 Udvid sitemap.xml med alle nye landingssider, guides og billeder (`<image:image>`-tags). Tilføj `lastmod`-datoer.
 
-- [ ] Ikke startet
+- [x] Færdig — image:image namespace, billedtags for alle QR-typer, opdaterede lastmod-datoer
 
 ### #10 — Core Web Vitals optimering (P1)
 Minificer CSS/JS, tilføj critical CSS inline, lazy-load below-fold indhold. Mål og optimer LCP, FID og CLS.
