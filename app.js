@@ -36,6 +36,76 @@ tabButtons.forEach(button => {
     });
 });
 
+// ===========================================
+// Quick Templates
+// ===========================================
+
+const templates = {
+    'restaurant-menu': {
+        tab: 'text',
+        fields: { qrText: 'https://dinrestaurant.dk/menu' },
+        cta: 'Se vores menu'
+    },
+    'wifi-guest': {
+        tab: 'wifi',
+        fields: { wifiSSID: 'GuestWiFi', wifiPassword: '', wifiEncryption: 'WPA' },
+        cta: 'Forbind til WiFi'
+    },
+    'business-card': {
+        tab: 'vcard',
+        fields: { vcardName: '', vcardOrg: '', vcardTitle: '', vcardPhone: '', vcardEmail: '' },
+        cta: 'Scan for kontaktinfo'
+    },
+    'event-invite': {
+        tab: 'calendar',
+        fields: { calTitle: '', calLocation: '' },
+        cta: 'Tilføj til kalender'
+    },
+    'social-link': {
+        tab: 'text',
+        fields: { qrText: 'https://instagram.com/ditbrugernavn' },
+        cta: 'Følg os'
+    },
+    'feedback': {
+        tab: 'text',
+        fields: { qrText: 'https://forms.gle/dit-formular-link' },
+        cta: 'Giv os feedback'
+    }
+};
+
+document.querySelectorAll('.template-card').forEach(card => {
+    card.addEventListener('click', () => {
+        const key = card.dataset.template;
+        const tmpl = templates[key];
+        if (!tmpl) return;
+
+        // Switch tab
+        const tabBtn = document.querySelector(`[data-tab="${tmpl.tab}"]`);
+        if (tabBtn) tabBtn.click();
+
+        // Fill fields
+        for (const [id, value] of Object.entries(tmpl.fields)) {
+            const el = document.getElementById(id);
+            if (el) {
+                if (el.tagName === 'SELECT') el.value = value;
+                else el.value = value;
+            }
+        }
+
+        // Set CTA text
+        const ctaEl = document.getElementById('ctaText');
+        if (tmpl.cta && ctaEl) {
+            ctaEl.value = tmpl.cta;
+        }
+
+        // Close the details
+        const details = card.closest('details');
+        if (details) details.removeAttribute('open');
+
+        showToast(`Skabelon "${card.querySelector('.template-name').textContent}" indlæst.`, 'info');
+    });
+});
+
 // DOM elementer
 const qrText = document.getElementById('qrText');
 const qrColor = document.getElementById('qrColor');

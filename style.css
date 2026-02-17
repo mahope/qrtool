@@ -617,6 +617,101 @@ header p {
     flex-shrink: 0;
 }
 
+/* ===========================================
+   Templates Section
+   =========================================== */
+
+.templates-section {
+    margin-bottom: 1.25rem;
+}
+
+.templates-section details {
+    background: var(--primary-light);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    overflow: hidden;
+}
+
+.templates-section summary {
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--text-color);
+    user-select: none;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+    transition: background var(--transition);
+}
+
+.templates-section summary:hover {
+    background: rgba(99, 102, 241, 0.08);
+}
+
+.templates-section summary::-webkit-details-marker {
+    display: none;
+}
+
+.templates-section summary::before {
+    content: '\25B6';
+    display: inline-block;
+    transition: transform var(--transition);
+    font-size: 0.7rem;
+    color: var(--primary-color);
+}
+
+.templates-section details[open] summary::before {
+    transform: rotate(90deg);
+}
+
+.templates-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+    padding: 0.75rem 1rem 1rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.template-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.75rem 0.5rem;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: all var(--transition);
+    font-family: inherit;
+    color: var(--text-color);
+}
+
+.template-card:hover {
+    border-color: var(--primary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.15);
+}
+
+.template-icon {
+    font-size: 1.5rem;
+}
+
+.template-name {
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-align: center;
+    line-height: 1.2;
+}
+
+@media (max-width: 640px) {
+    .templates-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
 /* CTA Text Hint */
 .cta-hint {
     display: block;

@@ -167,7 +167,7 @@ Tilføj `manifest.json` og service worker. Gør det muligt at installere appen p
 ### #31 — QR-kode skabeloner (P1)
 Foruddefinerede skabeloner for typiske use-cases: "Restaurant menu", "WiFi til gæster", "Visitkort", "Event invitation". Udfyld kun de relevante felter.
 
-- [ ] Ikke startet
+- [x] Færdig — 6 skabeloner i collapsible sektion med auto-udfyldning og CTA-tekst
 
 ### #32 — Del QR-kode direkte (Web Share API) (P1)
 Integrer Web Share API (`navigator.share`) så brugere kan dele QR-koden direkte til SMS, mail, WhatsApp osv. med ét klik.
