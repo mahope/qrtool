@@ -236,7 +236,7 @@ Tilføj subtile hover-animationer på tabs (underline slide), knapper (ripple-ef
 ### #44 — Forbedret dark/light mode transition (P3)
 Tilføj en smooth `view-transition` ved theme-skift i stedet for den nuværende instant-switch. Moderne browsers understøtter `document.startViewTransition()`.
 
-- [ ] Ikke startet
+- [x] Færdig — document.startViewTransition() med graceful fallback for ældre browsere
 
 ### #45 — Ikon-konsistens (SVG ikoner) (P2)
 Erstat emoji-ikoner (📱, 📧, osv.) med et konsistent SVG-ikonsæt (f.eks. inline Lucide/Heroicons). Giver et mere professionelt udtryk.

@@ -11,7 +11,14 @@ if (themeToggle) {
     themeToggle.addEventListener('click', () => {
         const theme = html.getAttribute('data-theme');
         const newTheme = theme === 'dark' ? 'light' : 'dark';
-        html.setAttribute('data-theme', newTheme);
+
+        if (document.startViewTransition) {
+            document.startViewTransition(() => {
+                html.setAttribute('data-theme', newTheme);
+            });
+        } else {
+            html.setAttribute('data-theme', newTheme);
+        }
         localStorage.setItem('theme', newTheme);
     });
 }

@@ -8,6 +8,12 @@
     box-sizing: border-box;
 }
 
+/* View Transition for theme switch */
+::view-transition-old(root),
+::view-transition-new(root) {
+    animation-duration: 0.3s;
+}
+
 /* Accessibility: Visually hidden but accessible to screen readers */
 .visually-hidden,
 .sr-only {
