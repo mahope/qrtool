@@ -23,6 +23,29 @@ if (themeToggle) {
     });
 }
 
+// Font size toggle
+const fontSizeToggle = document.getElementById('fontSizeToggle');
+if (fontSizeToggle) {
+    const sizes = [null, 'large', 'x-large'];
+    const labels = ['A', 'A+', 'A++'];
+    let sizeIdx = sizes.indexOf(localStorage.getItem('fontSize'));
+    if (sizeIdx < 0) sizeIdx = 0;
+    if (sizes[sizeIdx]) html.setAttribute('data-font-size', sizes[sizeIdx]);
+    fontSizeToggle.querySelector('span').textContent = labels[sizeIdx];
+
+    fontSizeToggle.addEventListener('click', () => {
+        sizeIdx = (sizeIdx + 1) % sizes.length;
+        if (sizes[sizeIdx]) {
+            html.setAttribute('data-font-size', sizes[sizeIdx]);
+            localStorage.setItem('fontSize', sizes[sizeIdx]);
+        } else {
+            html.removeAttribute('data-font-size');
+            localStorage.removeItem('fontSize');
+        }
+        fontSizeToggle.querySelector('span').textContent = labels[sizeIdx];
+    });
+}
+
 // High contrast toggle
 const contrastToggle = document.getElementById('contrastToggle');
 if (contrastToggle) {

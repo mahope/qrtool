@@ -305,7 +305,7 @@ Brug `IntersectionObserver` til at lazy-loade SEO-indhold, FAQ, tips-grid osv. F
 ### #57 — Prerender populære ruter (P3)
 Tilføj `<link rel="prerender">` eller speculation rules for de mest besøgte undersider. Giver instant navigation.
 
-- [ ] Ikke startet
+- [x] Færdig — Speculation Rules API med prerender for top 3 sider, prefetch for resten
 
 ### #58 — Automated Lighthouse CI (P3)
 Opsæt GitHub Action der kører Lighthouse på hver PR og blokerer merge hvis score falder under threshold (Performance > 90, A11y > 95, SEO > 95).

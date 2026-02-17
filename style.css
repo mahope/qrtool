@@ -279,6 +279,37 @@ header p {
 }
 
 /* Theme Toggle */
+/* Font size toggle */
+.font-size-toggle {
+    background: var(--card-bg);
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius);
+    padding: 0.5rem 0.6rem;
+    cursor: pointer;
+    transition: all var(--transition);
+    display: flex;
+    align-items: center;
+    color: var(--text-muted);
+    font-weight: 700;
+    font-size: 0.85rem;
+    font-family: inherit;
+    line-height: 1;
+}
+
+.font-size-toggle:hover {
+    border-color: var(--primary-color);
+    color: var(--text-color);
+}
+
+/* Font size levels */
+[data-font-size="large"] {
+    font-size: 112.5%;
+}
+
+[data-font-size="x-large"] {
+    font-size: 125%;
+}
+
 /* Contrast toggle */
 .contrast-toggle {
     background: var(--card-bg);
