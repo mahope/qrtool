@@ -300,7 +300,7 @@ Tilføj en simpel build-step (f.eks. esbuild/lightningcss) der minificerer og bu
 ### #56 — Lazy-load below-fold sektioner (P2)
 Brug `IntersectionObserver` til at lazy-loade SEO-indhold, FAQ, tips-grid osv. Forbedrer initial load og LCP.
 
-- [ ] Ikke startet
+- [x] Færdig — IntersectionObserver fade-in på SEO-content og footer, fallback for ældre browsere
 
 ### #57 — Prerender populære ruter (P3)
 Tilføj `<link rel="prerender">` eller speculation rules for de mest besøgte undersider. Giver instant navigation.

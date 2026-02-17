@@ -136,6 +136,22 @@
     </style>
 
     <link rel="stylesheet" href="style.css">
+
+    <!-- Speculation Rules for instant navigation -->
+    <script type="speculationrules">
+    {
+      "prerender": [
+        {
+          "urls": ["/wifi-qr-kode", "/vcard-qr-kode", "/guides/"]
+        }
+      ],
+      "prefetch": [
+        {
+          "urls": ["/email-qr-kode", "/sms-qr-kode", "/kalender-qr-kode", "/tekst-qr-kode", "/om-qr-tool"]
+        }
+      ]
+    }
+    </script>
 </head>
 <body>
     <a href="#main-content" class="skip-link">Spring til indhold</a>
