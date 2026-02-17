@@ -50,6 +50,7 @@ const downloadBtn = document.getElementById('downloadBtn');
 const copyBtn = document.getElementById('copyBtn');
 const shareBtn = document.getElementById('shareBtn');
 const qrPreview = document.getElementById('qrPreview');
+const ctaText = document.getElementById('ctaText');
 
 // Batch elements
 const batchInput = document.getElementById('batchInput');
@@ -262,6 +263,19 @@ function removeLogo() {
     logoSizeGroup.style.display = 'none';
     logoFileInput.value = '';
     if (currentQRCanvas || currentQRSVG) generateQRCode();
+}
+
+function drawCTAOnCanvas(canvas, qrSize) {
+    const text = ctaText?.value.trim();
+    if (!text) return;
+    const ctx = canvas.getContext('2d');
+    const fontSize = Math.max(16, qrSize * 0.06);
+    ctx.font = `bold ${fontSize}px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif`;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillStyle = qrColor.value;
+    const ctaY = qrSize + (canvas.height - qrSize) / 2;
+    ctx.fillText(text, canvas.width / 2, ctaY);
 }
 
 function drawLogoOnCanvas(canvas) {
@@ -520,16 +534,23 @@ function generateQRCode() {
         qr.addData(text);
         qr.make();
 
-        if (format === 'svg' && !currentLogoImage) {
-            // Generer SVG (kun uden logo — logo kræver canvas)
+        const hasCTA = ctaText && ctaText.value.trim();
+        const needsCanvas = currentLogoImage || hasCTA;
+
+        if (format === 'svg' && !needsCanvas) {
+            // Generer SVG (kun uden logo/CTA — de kræver canvas)
             currentQRSVG = toSvgString(qr, 2, style);
             qrPreview.innerHTML = currentQRSVG;
             currentQRCanvas = null;
         } else {
-            // Generer Canvas (eller SVG med logo falder back til canvas)
+            // Generer Canvas
             const canvas = document.createElement('canvas');
+            const ctaExtra = hasCTA ? Math.max(40, size * 0.1) : 0;
+            canvas.width = size;
+            canvas.height = size + ctaExtra;
             drawCanvas(qr, size, canvas, style);
             drawLogoOnCanvas(canvas);
+            if (hasCTA) drawCTAOnCanvas(canvas, size);
             qrPreview.appendChild(canvas);
             currentQRCanvas = canvas;
             currentQRSVG = null;
@@ -556,15 +577,16 @@ function drawCanvas(qr, size, canvas, style = 'square') {
     const cells = qr.getModuleCount();
     const scale = size / cells;
 
-    canvas.width = size;
-    canvas.height = size;
+    // Set dimensions only if not already set (CTA may extend height)
+    if (!canvas.width || canvas.width < size) canvas.width = size;
+    if (!canvas.height || canvas.height < size) canvas.height = size;
 
     const ctx = canvas.getContext('2d');
 
-    // Fyld baggrund
+    // Fyld baggrund (hele canvas inkl. CTA-område)
     if (!transparentBg.checked) {
         ctx.fillStyle = bgColor.value;
-        ctx.fillRect(0, 0, size, size);
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
     }
 
     // Tegn QR-kode baseret på stil
@@ -1116,7 +1138,7 @@ if (qrText) {
 }
 
 // Generer automatisk ved ændring af indstillinger
-[qrColor, bgColor, qrSize, errorCorrection, fileFormat, qrStyle].forEach(element => {
+[qrColor, bgColor, qrSize, errorCorrection, fileFormat, qrStyle, ctaText].forEach(element => {
     if (element) {
         element.addEventListener('change', () => {
             if (currentQRCanvas || currentQRSVG) {

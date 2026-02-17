@@ -177,7 +177,7 @@ Integrer Web Share API (`navigator.share`) så brugere kan dele QR-koden direkte
 ### #33 — QR-kode med frame/ramme og CTA-tekst (P2)
 Tilføj mulighed for at tilføje en dekorativ ramme rundt om QR-koden med call-to-action tekst (f.eks. "Scan mig!", "Forbind til WiFi").
 
-- [ ] Ikke startet
+- [x] Færdig — CTA-tekst felt der tegnes under QR-koden på canvas med auto-regenerering
 
 ### #34 — Print-optimeret visning (P2)
 "Print" knap der åbner en print-venlig version med QR-koden i høj opløsning, valgfri label-tekst, og korrekte print-margins. Bruger `@media print`.
