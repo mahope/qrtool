@@ -447,6 +447,56 @@ header p {
     border: 2px solid var(--border-color);
 }
 
+/* Color Presets */
+.color-presets-group {
+    grid-column: 1 / -1;
+}
+
+.color-presets {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.25rem;
+}
+
+.color-preset {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 0.35rem 0.6rem;
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius);
+    background: var(--card-bg);
+    cursor: pointer;
+    transition: border-color var(--transition), transform var(--transition), box-shadow var(--transition);
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-family: inherit;
+}
+
+.color-preset:hover,
+.color-preset:focus-visible {
+    border-color: var(--primary-color);
+    transform: translateY(-1px);
+}
+
+.color-preset.active {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 1px var(--primary-color);
+}
+
+.color-preset .preset-swatch {
+    width: 16px;
+    height: 16px;
+    border-radius: 3px;
+    border: 1px solid var(--border-color);
+    flex-shrink: 0;
+}
+
+.color-preset .preset-label {
+    margin-left: 2px;
+}
+
 /* Checkbox Group */
 .checkbox-group {
     display: flex;
@@ -1908,6 +1958,11 @@ header p {
     .btn,
     .tab-button {
         min-height: 48px;
+    }
+
+    .color-preset {
+        min-height: 44px;
+        padding: 0.5rem 0.75rem;
     }
 
     .checkbox-group input[type="checkbox"] {

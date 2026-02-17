@@ -248,15 +248,48 @@ if (swapColorsBtn) {
         qrColor.nextElementSibling.textContent = qrColor.value;
         bgColor.nextElementSibling.textContent = bgColor.value;
         updateColorSwatches();
+        clearPresetActive();
         if (currentQRCanvas || currentQRSVG) generateQRCode();
     });
 }
+
+// Color presets
+const colorPresets = document.querySelectorAll('.color-preset');
+colorPresets.forEach(preset => {
+    preset.addEventListener('click', () => {
+        const fg = preset.dataset.fg;
+        const bg = preset.dataset.bg;
+        qrColor.value = fg;
+        bgColor.value = bg;
+        qrColor.nextElementSibling.textContent = fg;
+        bgColor.nextElementSibling.textContent = bg;
+        updateColorSwatches();
+        colorPresets.forEach(p => {
+            p.classList.remove('active');
+            p.setAttribute('aria-pressed', 'false');
+        });
+        preset.classList.add('active');
+        preset.setAttribute('aria-pressed', 'true');
+        if (currentQRCanvas || currentQRSVG) generateQRCode();
+    });
+});
+
+// Clear active preset when manually picking a color
+function clearPresetActive() {
+    colorPresets.forEach(p => {
+        p.classList.remove('active');
+        p.setAttribute('aria-pressed', 'false');
+    });
+}
+qrColor.addEventListener('input', clearPresetActive);
+bgColor.addEventListener('input', clearPresetActive);
 
 // Håndter transparent baggrund checkbox
 transparentBg.addEventListener('change', (e) => {
     if (e.target.checked) {
         bgColor.disabled = true;
         bgColor.parentElement.style.opacity = '0.5';
+        clearPresetActive();
         // Hvis JPG er valgt, skift til PNG
         if (fileFormat.value === 'jpg') {
             fileFormat.value = 'png';
