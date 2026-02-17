@@ -404,6 +404,49 @@ header p {
     border-radius: var(--radius-sm);
 }
 
+/* Color Controls Layout */
+.color-controls {
+    display: flex;
+    align-items: flex-end;
+    gap: 0.5rem;
+}
+
+.color-controls .form-group {
+    flex: 1;
+    min-width: 0;
+}
+
+.swap-colors-btn {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-muted);
+    padding: 0.5rem;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: color var(--transition), border-color var(--transition);
+    margin-bottom: 0.25rem;
+    flex-shrink: 0;
+}
+
+.swap-colors-btn:hover {
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.color-preview-swatch {
+    display: flex;
+    gap: 4px;
+    margin: 0.5rem 0 1rem;
+}
+
+.color-preview-swatch .swatch-fg,
+.color-preview-swatch .swatch-bg {
+    width: 24px;
+    height: 24px;
+    border-radius: 4px;
+    border: 2px solid var(--border-color);
+}
+
 /* Checkbox Group */
 .checkbox-group {
     display: flex;

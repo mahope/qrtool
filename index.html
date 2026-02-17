@@ -294,20 +294,28 @@
                     </div>
 
                     <!-- Farveindstillinger -->
-                    <div class="form-group">
-                        <label for="qrColor">QR-kode farve:</label>
-                        <div class="color-picker">
-                            <input type="color" id="qrColor" value="#000000">
-                            <span class="color-value">#000000</span>
+                    <div class="color-controls">
+                        <div class="form-group">
+                            <label for="qrColor">QR-kode farve:</label>
+                            <div class="color-picker">
+                                <input type="color" id="qrColor" value="#000000">
+                                <span class="color-value">#000000</span>
+                            </div>
+                        </div>
+                        <button type="button" id="swapColors" class="swap-colors-btn" aria-label="Byt farver" title="Byt forgrund og baggrund">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+                        </button>
+                        <div class="form-group">
+                            <label for="bgColor">Baggrundsfarve:</label>
+                            <div class="color-picker">
+                                <input type="color" id="bgColor" value="#ffffff">
+                                <span class="color-value">#ffffff</span>
+                            </div>
                         </div>
                     </div>
-
-                    <div class="form-group">
-                        <label for="bgColor">Baggrundsfarve:</label>
-                        <div class="color-picker">
-                            <input type="color" id="bgColor" value="#ffffff">
-                            <span class="color-value">#ffffff</span>
-                        </div>
+                    <div id="colorPreview" class="color-preview-swatch" aria-hidden="true">
+                        <span class="swatch-fg" style="background:#000000"></span>
+                        <span class="swatch-bg" style="background:#ffffff"></span>
                     </div>
 
                     <!-- Transparent baggrund -->

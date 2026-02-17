@@ -256,7 +256,7 @@ Vis de tre QR-stilarter (standard, rundet, dots) som visuelle previews i stedet 
 ### #48 — Forbedret farvevælger-UI (P2)
 Vis forgrund- og baggrundsfarve som et lille preview-swatch ved siden af color-input. Tilføj "byt farver" knap (swap foreground/background).
 
-- [ ] Ikke startet
+- [x] Færdig — farveswatch preview, swap-knap mellem forgrund/baggrund med auto-regenerering
 
 ### #49 — Responsiv illustration/hero (P3)
 Tilføj en simpel SVG-illustration i hero-sektionen der viser en telefon der scanner en QR-kode. Animér med CSS.

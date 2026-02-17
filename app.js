@@ -218,14 +218,39 @@ if (document.readyState === 'loading') {
     generateLogoQR();
 }
 
+// Color swatch preview
+const swatchFg = document.querySelector('.swatch-fg');
+const swatchBg = document.querySelector('.swatch-bg');
+
+function updateColorSwatches() {
+    if (swatchFg) swatchFg.style.background = qrColor.value;
+    if (swatchBg) swatchBg.style.background = bgColor.value;
+}
+
 // Opdater farveværdi display
 qrColor.addEventListener('input', (e) => {
     e.target.nextElementSibling.textContent = e.target.value;
+    updateColorSwatches();
 });
 
 bgColor.addEventListener('input', (e) => {
     e.target.nextElementSibling.textContent = e.target.value;
+    updateColorSwatches();
 });
+
+// Swap colors button
+const swapColorsBtn = document.getElementById('swapColors');
+if (swapColorsBtn) {
+    swapColorsBtn.addEventListener('click', () => {
+        const temp = qrColor.value;
+        qrColor.value = bgColor.value;
+        bgColor.value = temp;
+        qrColor.nextElementSibling.textContent = qrColor.value;
+        bgColor.nextElementSibling.textContent = bgColor.value;
+        updateColorSwatches();
+        if (currentQRCanvas || currentQRSVG) generateQRCode();
+    });
+}
 
 // Håndter transparent baggrund checkbox
 transparentBg.addEventListener('change', (e) => {
