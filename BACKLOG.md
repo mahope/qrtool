@@ -34,7 +34,7 @@ Tilføj kontekstuelle links mellem landingssider, guides og hovedsiden. Forbedre
 ### #6 — Meta description A/B-optimering (P2)
 Omskriv meta descriptions til at være mere action-orienterede med CTA ("Lav din gratis QR-kode på 10 sekunder"). Øg CTR fra søgeresultater.
 
-- [ ] Ikke startet
+- [x] Færdig — action-orienterede meta descriptions med CTA på hovedsiden
 
 ### #7 — Open Graph-billeder pr. QR-type (P2)
 Unikke OG-billeder for hver landingsside (WiFi-ikon, vCard-ikon, osv.) i stedet for et generisk billede. Bedre synlighed på sociale medier.
