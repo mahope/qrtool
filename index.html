@@ -128,7 +128,11 @@
                 <div class="logo">
                     <svg id="logoQR" width="50" height="50" viewBox="0 0 100 100"></svg>
                 </div>
-                <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme">
+                <div class="header-actions">
+                    <button id="menuToggle" class="menu-toggle" aria-label="Åbn menu" aria-expanded="false">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+                    </button>
+                    <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme">
                     <svg class="sun-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <circle cx="12" cy="12" r="5"></circle>
                         <line x1="12" y1="1" x2="12" y2="3"></line>
@@ -144,10 +148,33 @@
                         <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
                     </svg>
                 </button>
+                </div>
             </div>
             <h1>QR Tool - QR-Kode Generator</h1>
             <p>Generer og download dine QR-koder med avancerede tilpasningsmuligheder</p>
         </header>
+
+        <nav id="mobileNav" class="mobile-nav" aria-label="Mobilnavigation">
+            <div class="mobile-nav-header">
+                <span class="mobile-nav-title">Navigation</span>
+                <button id="menuClose" class="mobile-nav-close" aria-label="Luk menu">&times;</button>
+            </div>
+            <ul class="mobile-nav-links">
+                <li><a href="/">🏠 Forside</a></li>
+                <li class="mobile-nav-divider">QR-typer</li>
+                <li><a href="/wifi-qr-kode">📶 WiFi QR</a></li>
+                <li><a href="/vcard-qr-kode">👤 Visitkort QR</a></li>
+                <li><a href="/email-qr-kode">✉️ Email QR</a></li>
+                <li><a href="/sms-qr-kode">💬 SMS QR</a></li>
+                <li><a href="/kalender-qr-kode">📅 Kalender QR</a></li>
+                <li><a href="/tekst-qr-kode">📝 Tekst QR</a></li>
+                <li class="mobile-nav-divider">Mere</li>
+                <li><a href="/guides/">📚 Guides</a></li>
+                <li><a href="/om-qr-tool">ℹ️ Om QR Tool</a></li>
+                <li><a href="/privatlivspolitik">🔒 Privatlivspolitik</a></li>
+            </ul>
+        </nav>
+        <div id="mobileNavOverlay" class="mobile-nav-overlay"></div>
 
         <div class="main-content">
             <!-- Input sektion -->

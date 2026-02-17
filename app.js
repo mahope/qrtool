@@ -1876,6 +1876,50 @@ if (scanCopyBtn) {
 })();
 
 // ===========================================
+// Mobile Navigation
+// ===========================================
+
+(() => {
+    const menuToggle = document.getElementById('menuToggle');
+    const mobileNav = document.getElementById('mobileNav');
+    const mobileNavOverlay = document.getElementById('mobileNavOverlay');
+    const menuClose = document.getElementById('menuClose');
+    if (!menuToggle || !mobileNav) return;
+
+    function openMenu() {
+        mobileNav.classList.add('active');
+        if (mobileNavOverlay) mobileNavOverlay.classList.add('active');
+        menuToggle.setAttribute('aria-expanded', 'true');
+        document.body.style.overflow = 'hidden';
+        if (menuClose) menuClose.focus();
+    }
+
+    function closeMenu() {
+        mobileNav.classList.remove('active');
+        if (mobileNavOverlay) mobileNavOverlay.classList.remove('active');
+        menuToggle.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+        menuToggle.focus();
+    }
+
+    menuToggle.addEventListener('click', openMenu);
+    if (menuClose) menuClose.addEventListener('click', closeMenu);
+    if (mobileNavOverlay) mobileNavOverlay.addEventListener('click', closeMenu);
+
+    // Close on Escape
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && mobileNav.classList.contains('active')) {
+            closeMenu();
+        }
+    });
+
+    // Close when clicking a nav link
+    mobileNav.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', closeMenu);
+    });
+})();
+
+// ===========================================
 // Keyboard Shortcuts
 // ===========================================
 
