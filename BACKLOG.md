@@ -78,7 +78,7 @@ Vis korte, diskrete tooltips ved første besøg der guider brugeren: "Vælg type
 ### #14 — Drag-and-drop logo-upload (P1)
 Erstat standard file-input med en drag-and-drop zone til logo-upload. Vis preview af logo i QR-koden med mulighed for at justere størrelse og position.
 
-- [ ] Ikke startet
+- [x] Færdig — drag-and-drop zone med preview, size slider, auto-høj fejlkorrektion
 
 ### #15 — Kopiér QR-kode til clipboard (P0)
 Tilføj en "Kopiér" knap ved siden af download, der kopierer QR-koden direkte til clipboard som billede. Meget efterspurgt feature.

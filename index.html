@@ -310,6 +310,31 @@
                     </div>
                 </div>
 
+                <!-- Logo Upload -->
+                <div class="logo-upload-section">
+                    <label>Logo i QR-kode (valgfrit):</label>
+                    <div class="logo-dropzone" id="logoDropzone">
+                        <div class="logo-dropzone-content" id="logoDropzoneContent">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                <polyline points="17 8 12 3 7 8"/>
+                                <line x1="12" y1="3" x2="12" y2="15"/>
+                            </svg>
+                            <p>Træk logo hertil eller <span class="logo-browse">vælg fil</span></p>
+                            <span class="logo-hint">PNG, JPG eller SVG</span>
+                        </div>
+                        <div class="logo-preview-wrap" id="logoPreviewWrap" style="display:none;">
+                            <img id="logoPreviewImg" alt="Logo preview">
+                            <button type="button" class="logo-remove-btn" id="logoRemoveBtn" aria-label="Fjern logo">&times;</button>
+                        </div>
+                        <input type="file" id="logoFileInput" accept="image/png,image/jpeg,image/svg+xml,image/webp" class="visually-hidden">
+                    </div>
+                    <div class="form-group logo-size-group" id="logoSizeGroup" style="display:none;">
+                        <label for="logoSize">Logo størrelse: <span id="logoSizeValue">25</span>%</label>
+                        <input type="range" id="logoSize" min="10" max="35" value="25">
+                    </div>
+                </div>
+
                 <!-- Batch Generation Section -->
                 <div class="batch-section">
                     <details>

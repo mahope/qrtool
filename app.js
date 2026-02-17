@@ -156,6 +156,136 @@ transparentBg.addEventListener('change', (e) => {
     }
 });
 
+// ===========================================
+// Logo Upload
+// ===========================================
+
+const logoDropzone = document.getElementById('logoDropzone');
+const logoFileInput = document.getElementById('logoFileInput');
+const logoDropzoneContent = document.getElementById('logoDropzoneContent');
+const logoPreviewWrap = document.getElementById('logoPreviewWrap');
+const logoPreviewImg = document.getElementById('logoPreviewImg');
+const logoRemoveBtn = document.getElementById('logoRemoveBtn');
+const logoSizeInput = document.getElementById('logoSize');
+const logoSizeValue = document.getElementById('logoSizeValue');
+const logoSizeGroup = document.getElementById('logoSizeGroup');
+
+let currentLogoImage = null; // Stores loaded Image object
+let currentLogoObjectUrl = null;
+
+if (logoDropzone) {
+    // Click to browse
+    logoDropzone.addEventListener('click', (e) => {
+        if (e.target === logoRemoveBtn || e.target.closest('.logo-remove-btn')) return;
+        logoFileInput.click();
+    });
+
+    // Drag events
+    logoDropzone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        logoDropzone.classList.add('dragover');
+    });
+    logoDropzone.addEventListener('dragleave', (e) => {
+        if (!logoDropzone.contains(e.relatedTarget)) {
+            logoDropzone.classList.remove('dragover');
+        }
+    });
+    logoDropzone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        logoDropzone.classList.remove('dragover');
+        const file = e.dataTransfer.files[0];
+        if (file && file.type.startsWith('image/')) handleLogoFile(file);
+    });
+
+    // File input change
+    logoFileInput.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (file) handleLogoFile(file);
+    });
+
+    // Remove logo
+    logoRemoveBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        removeLogo();
+    });
+
+    // Logo size slider
+    if (logoSizeInput) {
+        logoSizeInput.addEventListener('input', () => {
+            logoSizeValue.textContent = logoSizeInput.value;
+            if (currentQRCanvas || currentQRSVG) generateQRCode();
+        });
+    }
+}
+
+function handleLogoFile(file) {
+    if (currentLogoObjectUrl) {
+        URL.revokeObjectURL(currentLogoObjectUrl);
+        currentLogoObjectUrl = null;
+    }
+    const url = URL.createObjectURL(file);
+    currentLogoObjectUrl = url;
+    const img = new Image();
+    img.onload = () => {
+        currentLogoImage = img;
+        logoPreviewImg.src = url;
+        logoDropzoneContent.style.display = 'none';
+        logoPreviewWrap.style.display = '';
+        logoSizeGroup.style.display = '';
+
+        // Auto-switch to high error correction for logo QR codes
+        if (errorCorrection.value === 'L' || errorCorrection.value === 'M') {
+            errorCorrection.value = 'H';
+            showToast('Fejlkorrektion sat til Meget høj for bedre logo-kompatibilitet.', 'info');
+        }
+
+        if (currentQRCanvas || currentQRSVG) generateQRCode();
+    };
+    img.onerror = () => {
+        URL.revokeObjectURL(url);
+        currentLogoObjectUrl = null;
+        showToast('Kunne ikke indlæse billedet.', 'error');
+    };
+    img.src = url;
+}
+
+function removeLogo() {
+    if (currentLogoObjectUrl) {
+        URL.revokeObjectURL(currentLogoObjectUrl);
+        currentLogoObjectUrl = null;
+    }
+    currentLogoImage = null;
+    logoPreviewImg.src = '';
+    logoDropzoneContent.style.display = '';
+    logoPreviewWrap.style.display = 'none';
+    logoSizeGroup.style.display = 'none';
+    logoFileInput.value = '';
+    if (currentQRCanvas || currentQRSVG) generateQRCode();
+}
+
+function drawLogoOnCanvas(canvas) {
+    if (!currentLogoImage) return;
+    const ctx = canvas.getContext('2d');
+    const sizePercent = parseInt(logoSizeInput?.value || 25) / 100;
+    const logoW = canvas.width * sizePercent;
+    const logoH = canvas.height * sizePercent;
+    const x = (canvas.width - logoW) / 2;
+    const y = (canvas.height - logoH) / 2;
+
+    // White background behind logo for readability
+    const padding = logoW * 0.1;
+    ctx.fillStyle = '#ffffff';
+    ctx.beginPath();
+    if (typeof ctx.roundRect === 'function') {
+        ctx.roundRect(x - padding, y - padding, logoW + padding * 2, logoH + padding * 2, logoW * 0.08);
+    } else {
+        ctx.rect(x - padding, y - padding, logoW + padding * 2, logoH + padding * 2);
+    }
+    ctx.fill();
+
+    ctx.drawImage(currentLogoImage, x, y, logoW, logoH);
+}
+
 // Get QR data based on current tab
 function getQRData() {
     switch (currentTab) {
@@ -389,15 +519,16 @@ function generateQRCode() {
         qr.addData(text);
         qr.make();
 
-        if (format === 'svg') {
-            // Generer SVG
+        if (format === 'svg' && !currentLogoImage) {
+            // Generer SVG (kun uden logo — logo kræver canvas)
             currentQRSVG = toSvgString(qr, 2, style);
             qrPreview.innerHTML = currentQRSVG;
             currentQRCanvas = null;
         } else {
-            // Generer Canvas
+            // Generer Canvas (eller SVG med logo falder back til canvas)
             const canvas = document.createElement('canvas');
             drawCanvas(qr, size, canvas, style);
+            drawLogoOnCanvas(canvas);
             qrPreview.appendChild(canvas);
             currentQRCanvas = canvas;
             currentQRSVG = null;
@@ -452,7 +583,11 @@ function drawCanvas(qr, size, canvas, style = 'square') {
                     // Tegn afrundede firkanter
                     const radius = scale * 0.3;
                     ctx.beginPath();
-                    ctx.roundRect(px, py, scale, scale, radius);
+                    if (typeof ctx.roundRect === 'function') {
+                        ctx.roundRect(px, py, scale, scale, radius);
+                    } else {
+                        ctx.rect(px, py, scale, scale);
+                    }
                     ctx.fill();
                 } else {
                     // Standard firkanter
