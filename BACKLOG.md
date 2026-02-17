@@ -157,7 +157,7 @@ Tilføj en kompakt hamburger-menu på mobil med links til alle undersider, guide
 ### #29 — QR-kode scanner (kamera) (P0)
 Tilføj en "Scan QR-kode" funktion der bruger enhedens kamera via WebRTC/`getUserMedia`. Kan aflæse og vise indholdet af enhver QR-kode. Gør sitet til et komplet QR-værktøj.
 
-- [ ] Ikke startet
+- [x] Færdig (50a90b3)
 
 ### #30 — PWA (Progressive Web App) (P0)
 Tilføj `manifest.json` og service worker. Gør det muligt at installere appen på hjemmeskærmen og bruge den offline. Alle QR-koder genereres allerede client-side.

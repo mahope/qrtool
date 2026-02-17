@@ -28,8 +28,13 @@
     <meta name="twitter:description" content="Generer professionelle QR-koder gratis med farvetilpasning og WiFi/vCard support.">
     <meta name="twitter:image" content="https://qrtool.dk/og-image.png">
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📱</text></svg>">
+    <!-- Favicon & PWA -->
+    <link rel="icon" type="image/svg+xml" href="/icon.svg">
+    <link rel="apple-touch-icon" href="/icon.svg">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#6366f1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
     <!-- Preconnect for performance -->
     <link rel="preconnect" href="https://unpkg.com" crossorigin>
@@ -594,6 +599,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js" crossorigin="anonymous" integrity="sha384-+mbV2IY1Zk/X1p/nWllGySJSUN8uMs+gUAN10Or95UBH0fpj6GfKgPmgC5EXieXG" referrerpolicy="no-referrer"></script>
     <script src="https://unpkg.com/jsqr@1.4.0/dist/jsQR.min.js" crossorigin="anonymous" integrity="sha384-og4kISw31o7a5lPTrPnzeLIoy1UcLbpSyK8Erf3sG5kHkTp07gnLuPx18mNEzyag"></script>
     <script src="app.js"></script>
+    <script>if ('serviceWorker' in navigator) { navigator.serviceWorker.register('/sw.js'); }</script>
 <div id="cookie-consent-banner" style="position:fixed;left:0;right:0;bottom:0;background:#111827;color:#fff;padding:12px 16px;display:none;z-index:9999;font-family:system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif">
   <div style="max-width:960px;margin:0 auto;display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap">
     <span style="font-size:14px;line-height:1.4">Vi bruger kun nødvendige cookies til at huske dine indstillinger. Valgfrie cookies bruges kun med samtykke.</span>

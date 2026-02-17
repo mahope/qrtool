@@ -45,7 +45,7 @@
     Header always set Referrer-Policy "strict-origin-when-cross-origin"
 
     # Permissions Policy
-    Header always set Permissions-Policy "geolocation=(), microphone=(), camera=(), payment=(), usb=()"
+    Header always set Permissions-Policy "geolocation=(), microphone=(), camera=(self), payment=(), usb=()"
 
     # Content Security Policy
     Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://cdnjs.cloudflare.com https://analytics.holstjensen.eu; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self' https://analytics.holstjensen.eu; form-action 'self'; frame-ancestors 'self'; base-uri 'self'; object-src 'none';"
@@ -140,6 +140,13 @@ Options -Indexes
     Deny from all
 </Files>
 
+# Service Worker: no caching
+<Files "sw.js">
+    <IfModule mod_headers.c>
+        Header set Cache-Control "no-cache, no-store, must-revalidate"
+    </IfModule>
+</Files>
+
 # MIME types
 <IfModule mod_mime.c>
     AddType application/javascript js
@@ -148,6 +155,7 @@ Options -Indexes
     AddType image/webp webp
     AddType font/woff woff
     AddType font/woff2 woff2
+    AddType application/manifest+json json
 </IfModule>
 
 # UTF-8 encoding

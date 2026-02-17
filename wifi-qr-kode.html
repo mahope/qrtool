@@ -28,8 +28,10 @@
     <meta property="twitter:description" content="Generer WiFi QR-koder gratis. Lad dine gæster forbinde til dit WiFi med ét scan.">
     <meta property="twitter:image" content="https://qrtool.dk/og-image-wifi.png">
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📶</text></svg>">
+    <!-- Favicon & PWA -->
+    <link rel="icon" type="image/svg+xml" href="/icon.svg">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#6366f1">
 
     <!-- Preconnect for performance -->
     <link rel="preconnect" href="https://unpkg.com" crossorigin>
@@ -505,5 +507,6 @@
             }
         })();
     </script>
+    <script>if ('serviceWorker' in navigator) { navigator.serviceWorker.register('/sw.js'); }</script>
 </body>
 </html>
