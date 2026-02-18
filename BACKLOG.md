@@ -212,7 +212,7 @@ Batch-generation via CSV-upload. Upload en fil med URL'er, kontakter, WiFi-netv�
 ### #40 — Social media QR-profiler (P3)
 Ny QR-type: "Social profil" der samler links til Instagram, Facebook, LinkedIn, TikTok osv. i én QR-kode (linktree-style landing).
 
-- [ ] Ikke startet
+- [x] Færdig — ny social-tab med 8 platforme (Instagram, Facebook, LinkedIn, TikTok, YouTube, X, Snapchat, GitHub) og live URL-preview
 
 ### #41 — QR-kode sammenligning (P3)
 Vis to QR-koder side om side med forskellige indstillinger (størrelse, fejlkorrektion, stil) så brugeren kan vælge den bedste.

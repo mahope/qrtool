@@ -71,7 +71,7 @@ if (contrastToggle) {
 // Tab management
 const tabButtons = document.querySelectorAll('.tab-button');
 const tabContents = document.querySelectorAll('.tab-content');
-const tabOrder = ['text', 'wifi', 'vcard', 'email', 'sms', 'calendar', 'geo', 'payment'];
+const tabOrder = ['text', 'wifi', 'vcard', 'email', 'sms', 'calendar', 'geo', 'payment', 'social'];
 let currentTab = 'text';
 
 function switchToTab(tabName, { autoFocus = true } = {}) {
@@ -691,6 +691,23 @@ function getQRData() {
                 return `mobilepay://send?${params}`;
             }
 
+        case 'social':
+            const socialPlatform = document.getElementById('socialPlatform').value;
+            const socialUsername = document.getElementById('socialUsername').value.trim();
+            if (!socialUsername) return null;
+
+            const socialUrls = {
+                instagram: `https://instagram.com/${socialUsername}`,
+                facebook: `https://facebook.com/${socialUsername}`,
+                linkedin: `https://linkedin.com/in/${socialUsername}`,
+                tiktok: `https://tiktok.com/@${socialUsername}`,
+                youtube: `https://youtube.com/@${socialUsername}`,
+                x: `https://x.com/${socialUsername}`,
+                snapchat: `https://snapchat.com/add/${socialUsername}`,
+                github: `https://github.com/${socialUsername}`
+            };
+            return socialUrls[socialPlatform] || null;
+
         default:
             return null;
     }
@@ -815,6 +832,14 @@ function validateForm() {
             }
             break;
         }
+        case 'social': {
+            const sUser = document.getElementById('socialUsername').value.trim();
+            if (!sUser) {
+                setFieldError('socialUsername', 'Brugernavn er påkrævet.');
+                valid = false;
+            }
+            break;
+        }
         case 'payment': {
             const pType = document.getElementById('paymentType').value;
             if (pType === 'paypal') {
@@ -915,7 +940,7 @@ function generateQRCode() {
 
         // Announce to screen readers
         if (qrAnnouncement) {
-            const typeLabels = { text: 'URL/tekst', wifi: 'WiFi', vcard: 'visitkort', email: 'e-mail', sms: 'SMS', calendar: 'kalender', geo: 'lokation', payment: 'betaling' };
+            const typeLabels = { text: 'URL/tekst', wifi: 'WiFi', vcard: 'visitkort', email: 'e-mail', sms: 'SMS', calendar: 'kalender', geo: 'lokation', payment: 'betaling', social: 'social' };
             const label = typeLabels[currentTab] || currentTab;
             const preview = text.length > 80 ? text.substring(0, 80) + '...' : text;
             qrAnnouncement.textContent = 'QR-kode genereret for ' + label + ': ' + preview;
@@ -1574,7 +1599,8 @@ const typeLabels = {
     'sms': 'SMS',
     'calendar': 'Kalender',
     'geo': 'Lokation',
-    'payment': 'Betaling'
+    'payment': 'Betaling',
+    'social': 'Social'
 };
 
 function saveToHistory(text, type) {
@@ -1875,6 +1901,33 @@ if (geoLocateBtn) {
         );
     });
 }
+
+// ===========================================
+// Social media URL preview
+// ===========================================
+const socialPlatform = document.getElementById('socialPlatform');
+const socialUsername = document.getElementById('socialUsername');
+const socialPreviewUrl = document.getElementById('socialPreviewUrl');
+
+function updateSocialPreview() {
+    if (!socialPlatform || !socialUsername || !socialPreviewUrl) return;
+    const user = socialUsername.value.trim();
+    if (!user) { socialPreviewUrl.textContent = ''; return; }
+    const urls = {
+        instagram: `instagram.com/${user}`,
+        facebook: `facebook.com/${user}`,
+        linkedin: `linkedin.com/in/${user}`,
+        tiktok: `tiktok.com/@${user}`,
+        youtube: `youtube.com/@${user}`,
+        x: `x.com/${user}`,
+        snapchat: `snapchat.com/add/${user}`,
+        github: `github.com/${user}`
+    };
+    socialPreviewUrl.textContent = urls[socialPlatform.value] || '';
+}
+
+if (socialPlatform) socialPlatform.addEventListener('change', updateSocialPreview);
+if (socialUsername) socialUsername.addEventListener('input', updateSocialPreview);
 
 // ===========================================
 // Payment type toggle (PayPal / MobilePay)
@@ -2421,7 +2474,7 @@ document.addEventListener('click', (e) => {
                 e.preventDefault();
                 if (themeToggle) themeToggle.click();
                 break;
-            case '1': case '2': case '3': case '4': case '5': case '6': case '7': case '8':
+            case '1': case '2': case '3': case '4': case '5': case '6': case '7': case '8': case '9':
                 e.preventDefault();
                 switchToTab(tabOrder[parseInt(e.key) - 1]);
                 break;

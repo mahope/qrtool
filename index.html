@@ -262,6 +262,7 @@
                     <button class="tab-button" data-tab="calendar">📅 Kalender</button>
                     <button class="tab-button" data-tab="geo">📍 Lokation</button>
                     <button class="tab-button" data-tab="payment">💳 Betaling</button>
+                    <button class="tab-button" data-tab="social">🔗 Social</button>
                 </div>
 
                 <!-- Text/URL Tab Content -->
@@ -389,6 +390,29 @@
                         <label for="calDescription">Beskrivelse:</label>
                         <textarea id="calDescription" rows="3" placeholder="Detaljer om begivenheden..."></textarea>
                     </div>
+                </div>
+
+                <!-- Social Media Tab Content -->
+                <div class="tab-content" data-content="social">
+                    <div class="form-group">
+                        <label for="socialPlatform">Platform:</label>
+                        <select id="socialPlatform">
+                            <option value="instagram">Instagram</option>
+                            <option value="facebook">Facebook</option>
+                            <option value="linkedin">LinkedIn</option>
+                            <option value="tiktok">TikTok</option>
+                            <option value="youtube">YouTube</option>
+                            <option value="x">X (Twitter)</option>
+                            <option value="snapchat">Snapchat</option>
+                            <option value="github">GitHub</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="socialUsername">Brugernavn / profil-ID:</label>
+                        <input type="text" id="socialUsername" placeholder="ditbrugernavn">
+                        <span class="field-error" id="socialUsernameError"></span>
+                    </div>
+                    <p class="cta-hint" id="socialPreviewUrl"></p>
                 </div>
 
                 <!-- Geo Location Tab Content -->
@@ -717,6 +741,7 @@
                             <option value="calendar">📅 Kalender</option>
                             <option value="geo">📍 Lokation</option>
                             <option value="payment">💳 Betaling</option>
+                            <option value="social">🔗 Social</option>
                         </select>
                     </div>
                     <div id="historyList" class="history-list">
@@ -996,7 +1021,7 @@
             <div class="shortcut-item"><kbd>D</kbd><span>Download QR-kode</span></div>
             <div class="shortcut-item"><kbd>C</kbd><span>Kopiér QR-kode</span></div>
             <div class="shortcut-item"><kbd>T</kbd><span>Skift tema (lys/mørk)</span></div>
-            <div class="shortcut-item"><kbd>1</kbd>–<kbd>8</kbd><span>Skift QR-type tab</span></div>
+            <div class="shortcut-item"><kbd>1</kbd>–<kbd>9</kbd><span>Skift QR-type tab</span></div>
             <div class="shortcut-item"><kbd>Esc</kbd><span>Luk modal/lightbox</span></div>
         </div>
     </div>
