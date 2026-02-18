@@ -1157,6 +1157,60 @@ header p {
 }
 
 /* ===========================================
+   Compare Section
+   =========================================== */
+
+.compare-section {
+    margin-top: 1.5rem;
+    padding: 1.25rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    background: var(--card-bg);
+}
+
+.compare-section h3 {
+    margin-bottom: 1rem;
+    font-size: 1rem;
+}
+
+.compare-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+}
+
+.compare-item {
+    text-align: center;
+    padding: 0.75rem;
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius);
+    transition: border-color var(--transition);
+}
+
+.compare-item:hover {
+    border-color: var(--primary-color);
+}
+
+.compare-item canvas {
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--radius-sm);
+}
+
+.compare-item-label {
+    margin-top: 0.5rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+@media (max-width: 500px) {
+    .compare-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ===========================================
    Templates Section
    =========================================== */
 

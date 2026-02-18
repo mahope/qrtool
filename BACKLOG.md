@@ -217,7 +217,7 @@ Ny QR-type: "Social profil" der samler links til Instagram, Facebook, LinkedIn, 
 ### #41 — QR-kode sammenligning (P3)
 Vis to QR-koder side om side med forskellige indstillinger (størrelse, fejlkorrektion, stil) så brugeren kan vælge den bedste.
 
-- [ ] Ikke startet
+- [x] Færdig — sammenlign-knap der viser alle 3 stilarter (Standard, Afrundet, Prikker) side om side
 
 ### #42 — Favoritter/gemte QR-koder (P3)
 Udover historik: lad brugere markere QR-koder som favoritter der ikke automatisk slettes fra listen. Persisteres i localStorage.

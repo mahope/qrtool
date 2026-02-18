@@ -218,6 +218,7 @@ const downloadBtn = document.getElementById('downloadBtn');
 const copyBtn = document.getElementById('copyBtn');
 const shareBtn = document.getElementById('shareBtn');
 const printBtn = document.getElementById('printBtn');
+const compareBtn = document.getElementById('compareBtn');
 const qrPreview = document.getElementById('qrPreview');
 const qrAnnouncement = document.getElementById('qrAnnouncement');
 const ctaText = document.getElementById('ctaText');
@@ -903,6 +904,7 @@ function generateQRCode() {
         if (copyBtn) copyBtn.disabled = false;
         if (shareBtn) shareBtn.disabled = false;
         if (printBtn) printBtn.disabled = false;
+        if (compareBtn) compareBtn.disabled = false;
 
         // Save to history
         saveToHistory(text, currentTab);
@@ -1243,6 +1245,56 @@ if (printBtn) {
             return;
         }
         window.print();
+    });
+}
+
+// Compare QR styles
+if (compareBtn) {
+    compareBtn.addEventListener('click', () => {
+        const text = getQRData();
+        if (!text) {
+            showToast('Generer venligst en QR-kode først!', 'info');
+            return;
+        }
+
+        const compareSection = document.getElementById('compareSection');
+        const compareGrid = document.getElementById('compareGrid');
+        if (!compareSection || !compareGrid) return;
+
+        const ecLevel = errorCorrection.value;
+        const styles = [
+            { key: 'square', label: 'Standard' },
+            { key: 'rounded', label: 'Afrundet' },
+            { key: 'dots', label: 'Prikker' }
+        ];
+
+        compareGrid.innerHTML = '';
+        const compSize = 200;
+
+        styles.forEach(({ key, label }) => {
+            const qr = qrcode(0, ecLevel);
+            qr.addData(text);
+            qr.make();
+
+            const canvas = document.createElement('canvas');
+            canvas.width = compSize;
+            canvas.height = compSize;
+            drawCanvas(qr, compSize, canvas, key);
+
+            const item = document.createElement('div');
+            item.className = 'compare-item';
+            item.appendChild(canvas);
+
+            const labelEl = document.createElement('div');
+            labelEl.className = 'compare-item-label';
+            labelEl.textContent = label;
+            item.appendChild(labelEl);
+
+            compareGrid.appendChild(item);
+        });
+
+        compareSection.style.display = '';
+        compareSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     });
 }
 
