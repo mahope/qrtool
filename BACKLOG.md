@@ -246,7 +246,7 @@ Erstat emoji-ikoner (📱, 📧, osv.) med et konsistent SVG-ikonsæt (f.eks. in
 ### #46 — Forbedret footer-design (P3)
 Redesign footer med columns: Links, QR-typer, Om os, Juridisk. Tilføj social media-links og "Bygget med ❤️ i Danmark".
 
-- [ ] Ikke startet
+- [x] Færdig — 4-kolonne footer (QR-typer, Guides, Om os, Andre værktøjer) med responsivt grid layout
 
 ### #47 — QR-kode style-preview grid (P2)
 Vis de tre QR-stilarter (standard, rundet, dots) som visuelle previews i stedet for en dropdown. Brugeren klikker på den stil de vil have.

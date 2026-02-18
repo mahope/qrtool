@@ -2394,15 +2394,10 @@ header p {
    =========================================== */
 
 .footer {
-    text-align: center;
     margin-top: 3rem;
     padding: 2rem 1rem;
     border-top: 1px solid var(--border-color);
     color: var(--text-muted);
-}
-
-.footer p {
-    margin: 0.5rem 0;
 }
 
 .footer a {
@@ -2416,16 +2411,63 @@ header p {
     text-decoration: underline;
 }
 
-.footer-links {
-    font-size: 0.9rem;
-    margin-top: 0.5rem;
+.footer-columns {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    margin-bottom: 2rem;
 }
 
-.footer-links a {
-    margin: 0 0.5rem;
+.footer-col h4 {
+    color: var(--text-color);
+    font-size: 0.95rem;
+    margin-bottom: 0.75rem;
 }
 
-/* Footer Tools Section */
+.footer-col ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-col li {
+    margin-bottom: 0.4rem;
+}
+
+.footer-col a {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+}
+
+.footer-col a:hover {
+    color: var(--primary-color);
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border-color);
+    font-size: 0.875rem;
+}
+
+.footer-bottom p {
+    margin: 0;
+}
+
+@media (max-width: 640px) {
+    .footer-columns {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+}
+
+@media (max-width: 380px) {
+    .footer-columns {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Footer Tools Section (used on subpages) */
 .footer-tools {
     margin-top: 1.5rem;
     padding: 1.5rem;
