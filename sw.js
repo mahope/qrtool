@@ -1,4 +1,4 @@
-const CACHE_NAME = 'qrtool-v6';
+const CACHE_NAME = 'qrtool-v8';
 const ASSETS = [
     '/',
     '/style.css',
@@ -15,7 +15,16 @@ const ASSETS = [
     '/kalender-qr-kode',
     '/tekst-qr-kode',
     '/om-qr-tool',
-    '/privatlivspolitik'
+    '/privatlivspolitik',
+    '/en/',
+    '/en/wifi-qr-code',
+    '/en/vcard-qr-code',
+    '/en/email-qr-code',
+    '/en/sms-qr-code',
+    '/en/calendar-qr-code',
+    '/en/text-qr-code',
+    '/en/about',
+    '/en/privacy-policy'
 ];
 
 // Install: cache all static assets

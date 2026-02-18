@@ -1,0 +1,1063 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Primary Meta Tags -->
+    <title>QR Tool - Free QR Code Generator | QRTool.dk</title>
+    <meta name="title" content="QR Tool - Free QR Code Generator | QRTool.dk">
+    <meta name="description" content="Create your free QR code in 10 seconds. WiFi, business cards, email, SMS and more. Add your logo, choose colors and download as PNG or SVG. No login required.">
+    <meta name="keywords" content="qr code, qr generator, free qr code, qr code generator, wifi qr code, vcard qr, batch qr codes, online qr generator">
+    <meta name="author" content="Mahope.dk">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://qrtool.dk/en/">
+    <link rel="alternate" hreflang="da" href="https://qrtool.dk">
+    <link rel="alternate" hreflang="en" href="https://qrtool.dk/en/">
+    <link rel="alternate" hreflang="x-default" href="https://qrtool.dk">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://qrtool.dk/en/">
+    <meta property="og:title" content="QR Tool - Free QR Code Generator">
+    <meta property="og:description" content="Create your free QR code in 10 seconds. WiFi, business cards, email and more. Add logo and download as PNG/SVG.">
+    <meta property="og:image" content="https://qrtool.dk/og-image.png">
+    <meta property="og:locale" content="en_US">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://qrtool.dk/en/">
+    <meta name="twitter:title" content="QR Tool - Free QR Code Generator">
+    <meta name="twitter:description" content="Create your free QR code in 10 seconds. WiFi, business cards, email and more. No login required.">
+    <meta name="twitter:image" content="https://qrtool.dk/og-image.png">
+
+    <!-- Favicon & PWA -->
+    <link rel="icon" type="image/svg+xml" href="/icon.svg">
+    <link rel="apple-touch-icon" href="/icon.svg">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#6366f1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <!-- Preconnect for performance -->
+    <link rel="dns-prefetch" href="https://analytics.holstjensen.eu">
+
+    <!-- Preload critical resources -->
+    <link rel="preload" href="/style.css" as="style">
+    <link rel="preload" href="/app.js" as="script">
+    <link rel="preload" href="/lib/qrcode.js" as="script" fetchpriority="high">
+
+    <!-- Schema.org structured data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "QR Tool",
+      "url": "https://qrtool.dk/en/",
+      "description": "Professional QR code generator with advanced features",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "Any",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "creator": {
+        "@type": "Organization",
+        "name": "Mahope",
+        "url": "https://mahope.dk"
+      }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "HowTo",
+      "name": "How to create a QR code with QR Tool",
+      "description": "Step-by-step guide to creating professional QR codes for free with QR Tool.",
+      "step": [
+        {
+          "@type": "HowToStep",
+          "position": 1,
+          "name": "Choose QR type",
+          "text": "Start by choosing what type of QR code you need - from simple URLs to advanced WiFi or vCard codes."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 2,
+          "name": "Customize the design",
+          "text": "Choose colors that match your brand, and select between different styles (squares, rounded, dots) for a unique look."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 3,
+          "name": "Optimize error correction",
+          "text": "If the QR code will be used outdoors or printed, choose higher error correction (Q or H) for better scannability."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 4,
+          "name": "Choose format and download",
+          "text": "PNG for web and print, SVG for vector-based scaling, or WebP for modern websites with small file size."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 5,
+          "name": "Test your QR code",
+          "text": "Always scan your QR code with multiple different devices before printing or sharing it."
+        }
+      ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "QR Tool",
+      "url": "https://qrtool.dk/en/",
+      "logo": "https://qrtool.dk/icon.svg",
+      "description": "Free QR code generator with WiFi, vCard, email, SMS and calendar support.",
+      "founder": {
+        "@type": "Person",
+        "name": "Mahope.dk"
+      },
+      "sameAs": [
+        "https://mahope.dk"
+      ]
+    }
+    </script>
+
+    <!-- Critical CSS inline for fast first paint -->
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        :root{--primary-color:#6366f1;--bg-color:#0f172a;--bg-gradient:#1e293b;--card-bg:#1e293b;--text-color:#f1f5f9;--text-muted:#acb7c6;--border-color:#334155}
+        [data-theme="light"]{--bg-color:#f8fafc;--bg-gradient:#e2e8f0;--card-bg:#ffffff;--text-color:#0f172a;--text-muted:#475569;--border-color:#e2e8f0}
+        body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:linear-gradient(135deg,var(--bg-color),var(--bg-gradient));color:var(--text-color);min-height:100vh;padding:2rem 1rem}
+        .container{max-width:1400px;margin:0 auto}
+        header{text-align:center;margin-bottom:2.5rem}
+        header h1{font-size:clamp(1.75rem,5vw,3rem);background:linear-gradient(135deg,#6366f1,#8b5cf6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    </style>
+
+    <link rel="stylesheet" href="/style.css">
+
+    <!-- Speculation Rules for instant navigation -->
+    <script type="speculationrules">
+    {
+      "prerender": [
+        {
+          "urls": ["/en/wifi-qr-code", "/en/vcard-qr-code", "/en/guides/"]
+        }
+      ],
+      "prefetch": [
+        {
+          "urls": ["/en/email-qr-code", "/en/sms-qr-code", "/en/calendar-qr-code", "/en/text-qr-code", "/en/about"]
+        }
+      ]
+    }
+    </script>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to Content</a>
+    <div class="container" role="main" id="main-content">
+        <header>
+            <div class="header-top">
+                <div class="logo">
+                    <svg id="logoQR" width="50" height="50" viewBox="0 0 100 100"></svg>
+                </div>
+                <div class="header-actions">
+                    <button id="menuToggle" class="menu-toggle" aria-label="Open menu" aria-expanded="false">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+                    </button>
+                    <a id="langSwitcher" class="lang-switcher" href="/" aria-label="Skift til dansk"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>DA</a>
+                    <button id="fontSizeToggle" class="font-size-toggle" aria-label="Change text size" title="Text size">
+                        <span>A</span>
+                    </button>
+                    <button id="contrastToggle" class="contrast-toggle" aria-label="Toggle high contrast" title="High contrast">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 1 0 20z" fill="currentColor"/></svg>
+                    </button>
+                    <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme">
+                    <svg class="sun-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                    <svg class="moon-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                </button>
+                </div>
+            </div>
+            <h1>QR Tool - QR Code Generator</h1>
+            <p>Generate and download your QR codes with advanced customization options</p>
+        </header>
+
+        <nav id="mobileNav" class="mobile-nav" aria-label="Mobile navigation">
+            <div class="mobile-nav-header">
+                <span class="mobile-nav-title">Navigation</span>
+                <button id="menuClose" class="mobile-nav-close" aria-label="Close menu">&times;</button>
+            </div>
+            <ul class="mobile-nav-links">
+                <li><a href="/en/"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg> Home</a></li>
+                <li class="mobile-nav-divider">QR Types</li>
+                <li><a href="/en/wifi-qr-code"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><circle cx="12" cy="20" r="1"/></svg> WiFi QR</a></li>
+                <li><a href="/en/vcard-qr-code"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> Business Card QR</a></li>
+                <li><a href="/en/email-qr-code"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg> Email QR</a></li>
+                <li><a href="/en/sms-qr-code"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> SMS QR</a></li>
+                <li><a href="/en/calendar-qr-code"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> Calendar QR</a></li>
+                <li><a href="/en/text-qr-code"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg> Text QR</a></li>
+                <li><a href="#" data-nav-tab="geo"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Location QR</a></li>
+                <li class="mobile-nav-divider">More</li>
+                <li><a href="/en/guides/"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg> Guides</a></li>
+                <li><a href="/en/about"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg> About QR Tool</a></li>
+                <li><a href="/en/privacy-policy"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Privacy Policy</a></li>
+            </ul>
+        </nav>
+        <div id="mobileNavOverlay" class="mobile-nav-overlay"></div>
+
+        <div class="main-content">
+            <!-- Input section -->
+            <div class="input-section">
+                <!-- Quick Templates -->
+                <div class="templates-section">
+                    <details>
+                        <summary>Quick Templates</summary>
+                        <div class="templates-grid">
+                            <button class="template-card" data-template="restaurant-menu">
+                                <span class="template-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3zm0 0v7"/></svg></span>
+                                <span class="template-name">Restaurant menu</span>
+                            </button>
+                            <button class="template-card" data-template="wifi-guest">
+                                <span class="template-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><circle cx="12" cy="20" r="1"/></svg></span>
+                                <span class="template-name">Guest WiFi</span>
+                            </button>
+                            <button class="template-card" data-template="business-card">
+                                <span class="template-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></span>
+                                <span class="template-name">Business Card</span>
+                            </button>
+                            <button class="template-card" data-template="event-invite">
+                                <span class="template-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/><circle cx="12" cy="12" r="10"/></svg></span>
+                                <span class="template-name">Event invitation</span>
+                            </button>
+                            <button class="template-card" data-template="social-link">
+                                <span class="template-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></span>
+                                <span class="template-name">Social media link</span>
+                            </button>
+                            <button class="template-card" data-template="feedback">
+                                <span class="template-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/></svg></span>
+                                <span class="template-name">Feedback form</span>
+                            </button>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- QR Type Tabs -->
+                <div class="qr-type-tabs">
+                    <button class="tab-button active" data-tab="text"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg> Text/URL</button>
+                    <button class="tab-button" data-tab="wifi"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><circle cx="12" cy="20" r="1"/></svg> WiFi</button>
+                    <button class="tab-button" data-tab="vcard"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> vCard</button>
+                    <button class="tab-button" data-tab="email"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg> Email</button>
+                    <button class="tab-button" data-tab="sms"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> SMS</button>
+                    <button class="tab-button" data-tab="calendar"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> Calendar</button>
+                    <button class="tab-button" data-tab="geo"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Location</button>
+                    <button class="tab-button" data-tab="payment"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg> Payment</button>
+                    <button class="tab-button" data-tab="social"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg> Social</button>
+                </div>
+
+                <!-- Text/URL Tab Content -->
+                <div class="tab-content active" data-content="text">
+                    <div class="form-group">
+                        <label for="qrText">Enter text or URL:</label>
+                        <textarea id="qrText" rows="4" placeholder="https://example.com or your text here..."></textarea>
+                        <span class="field-error" id="qrTextError"></span>
+                    </div>
+                </div>
+
+                <!-- WiFi Tab Content -->
+                <div class="tab-content" data-content="wifi">
+                    <div class="form-group">
+                        <label for="wifiSSID">Network Name (SSID):</label>
+                        <input type="text" id="wifiSSID" placeholder="My WiFi Network">
+                        <span class="field-error" id="wifiSSIDError"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="wifiPassword">Password:</label>
+                        <input type="text" id="wifiPassword" placeholder="enter password">
+                    </div>
+                    <div class="form-group">
+                        <label for="wifiEncryption">Encryption:</label>
+                        <select id="wifiEncryption">
+                            <option value="WPA">WPA/WPA2</option>
+                            <option value="WEP">WEP</option>
+                            <option value="nopass">None (Open network)</option>
+                        </select>
+                    </div>
+                    <div class="form-group checkbox-group">
+                        <label>
+                            <input type="checkbox" id="wifiHidden">
+                            <span>Hidden Network</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- vCard Tab Content -->
+                <div class="tab-content" data-content="vcard">
+                    <div class="form-group">
+                        <label for="vcardName">Full Name:</label>
+                        <input type="text" id="vcardName" placeholder="John Smith">
+                        <span class="field-error" id="vcardNameError"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="vcardOrg">Organization:</label>
+                        <input type="text" id="vcardOrg" placeholder="My Company Inc.">
+                    </div>
+                    <div class="form-group">
+                        <label for="vcardTitle">Title:</label>
+                        <input type="text" id="vcardTitle" placeholder="Director">
+                    </div>
+                    <div class="form-group">
+                        <label for="vcardPhone">Phone:</label>
+                        <input type="tel" id="vcardPhone" placeholder="+1 555 123 4567">
+                    </div>
+                    <div class="form-group">
+                        <label for="vcardEmail">Email:</label>
+                        <input type="email" id="vcardEmail" placeholder="john@example.com">
+                        <span class="field-error" id="vcardEmailError"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="vcardWebsite">Website:</label>
+                        <input type="url" id="vcardWebsite" placeholder="https://example.com">
+                        <span class="field-error" id="vcardWebsiteError"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="vcardAddress">Address:</label>
+                        <textarea id="vcardAddress" rows="2" placeholder="123 Main Street, New York, NY 10001"></textarea>
+                    </div>
+                </div>
+
+                <!-- Email Tab Content -->
+                <div class="tab-content" data-content="email">
+                    <div class="form-group">
+                        <label for="emailTo">To (email address):</label>
+                        <input type="email" id="emailTo" placeholder="recipient@example.com">
+                        <span class="field-error" id="emailToError"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="emailSubject">Subject:</label>
+                        <input type="text" id="emailSubject" placeholder="Hello!">
+                    </div>
+                    <div class="form-group">
+                        <label for="emailBody">Message:</label>
+                        <textarea id="emailBody" rows="4" placeholder="Write your message here..."></textarea>
+                    </div>
+                </div>
+
+                <!-- SMS Tab Content -->
+                <div class="tab-content" data-content="sms">
+                    <div class="form-group">
+                        <label for="smsPhone">Phone Number:</label>
+                        <input type="tel" id="smsPhone" placeholder="+1 555 123 4567">
+                        <span class="field-error" id="smsPhoneError"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="smsMessage">Message:</label>
+                        <textarea id="smsMessage" rows="4" placeholder="Your SMS message here..."></textarea>
+                    </div>
+                </div>
+
+                <!-- Calendar Tab Content -->
+                <div class="tab-content" data-content="calendar">
+                    <div class="form-group">
+                        <label for="calTitle">Event:</label>
+                        <input type="text" id="calTitle" placeholder="Meeting with client">
+                        <span class="field-error" id="calTitleError"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="calLocation">Location:</label>
+                        <input type="text" id="calLocation" placeholder="Office, New York">
+                    </div>
+                    <div class="form-group">
+                        <label for="calStart">Start Date & Time:</label>
+                        <input type="datetime-local" id="calStart">
+                        <span class="field-error" id="calStartError"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="calEnd">End Date & Time:</label>
+                        <input type="datetime-local" id="calEnd">
+                    </div>
+                    <div class="form-group">
+                        <label for="calDescription">Description:</label>
+                        <textarea id="calDescription" rows="3" placeholder="Details about the event..."></textarea>
+                    </div>
+                </div>
+
+                <!-- Social Media Tab Content -->
+                <div class="tab-content" data-content="social">
+                    <div class="form-group">
+                        <label for="socialPlatform">Platform:</label>
+                        <select id="socialPlatform">
+                            <option value="instagram">Instagram</option>
+                            <option value="facebook">Facebook</option>
+                            <option value="linkedin">LinkedIn</option>
+                            <option value="tiktok">TikTok</option>
+                            <option value="youtube">YouTube</option>
+                            <option value="x">X (Twitter)</option>
+                            <option value="snapchat">Snapchat</option>
+                            <option value="github">GitHub</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="socialUsername">Username / Profile ID:</label>
+                        <input type="text" id="socialUsername" placeholder="yourusername">
+                        <span class="field-error" id="socialUsernameError"></span>
+                    </div>
+                    <p class="cta-hint" id="socialPreviewUrl"></p>
+                </div>
+
+                <!-- Geo Location Tab Content -->
+                <div class="tab-content" data-content="geo">
+                    <div class="form-group">
+                        <label for="geoLat">Latitude:</label>
+                        <input type="number" id="geoLat" placeholder="40.7128" step="any" min="-90" max="90">
+                        <span class="field-error" id="geoLatError"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="geoLng">Longitude:</label>
+                        <input type="number" id="geoLng" placeholder="-74.0060" step="any" min="-180" max="180">
+                        <span class="field-error" id="geoLngError"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="geoLabel">Name/label (optional):</label>
+                        <input type="text" id="geoLabel" placeholder="Times Square, New York">
+                    </div>
+                    <button type="button" id="geoLocateBtn" class="btn btn-secondary" style="margin-bottom: 1rem;"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Use My Location</button>
+                </div>
+
+                <!-- Payment Tab Content -->
+                <div class="tab-content" data-content="payment">
+                    <div class="form-group">
+                        <label for="paymentType">Payment Type:</label>
+                        <select id="paymentType">
+                            <option value="paypal">PayPal.me</option>
+                            <option value="mobilepay">MobilePay</option>
+                        </select>
+                    </div>
+                    <div id="paypalFields">
+                        <div class="form-group">
+                            <label for="paypalUsername">PayPal.me username:</label>
+                            <input type="text" id="paypalUsername" placeholder="yourusername">
+                            <span class="field-error" id="paypalUsernameError"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="paypalAmount">Amount (optional):</label>
+                            <input type="number" id="paypalAmount" placeholder="100.00" step="0.01" min="0">
+                        </div>
+                    </div>
+                    <div id="mobilepayFields" style="display: none;">
+                        <div class="form-group">
+                            <label for="mobilepayPhone">Phone Number:</label>
+                            <input type="tel" id="mobilepayPhone" placeholder="+1 555 123 4567">
+                            <span class="field-error" id="mobilepayPhoneError"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="mobilepayAmount">Amount (optional):</label>
+                            <input type="number" id="mobilepayAmount" placeholder="100" step="0.01" min="0">
+                        </div>
+                        <div class="form-group">
+                            <label for="mobilepayComment">Comment (optional):</label>
+                            <input type="text" id="mobilepayComment" placeholder="Payment for...">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="settings-accordion">
+                    <details class="settings-section" open>
+                        <summary><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg> Style</summary>
+                        <div class="settings-section-content">
+                    <div class="form-group style-selector-group">
+                        <label>QR code style:</label>
+                        <select id="qrStyle" class="visually-hidden">
+                            <option value="square">Standard</option>
+                            <option value="rounded">Rounded</option>
+                            <option value="dots">Dots</option>
+                        </select>
+                        <div class="style-preview-grid" role="group" aria-label="Choose QR code style">
+                            <button type="button" class="style-preview-card active" data-style="square" aria-pressed="true" title="Standard (Squares)">
+                                <svg width="48" height="48" viewBox="0 0 48 48"><rect x="4" y="4" width="12" height="12" fill="currentColor"/><rect x="18" y="4" width="12" height="12" fill="currentColor"/><rect x="32" y="4" width="12" height="12" fill="currentColor"/><rect x="4" y="18" width="12" height="12" fill="currentColor"/><rect x="32" y="18" width="12" height="12" fill="currentColor"/><rect x="4" y="32" width="12" height="12" fill="currentColor"/><rect x="18" y="32" width="12" height="12" fill="currentColor"/><rect x="32" y="32" width="12" height="12" fill="currentColor"/></svg>
+                                <span>Standard</span>
+                            </button>
+                            <button type="button" class="style-preview-card" data-style="rounded" aria-pressed="false" title="Rounded">
+                                <svg width="48" height="48" viewBox="0 0 48 48"><rect x="4" y="4" width="12" height="12" rx="4" fill="currentColor"/><rect x="18" y="4" width="12" height="12" rx="4" fill="currentColor"/><rect x="32" y="4" width="12" height="12" rx="4" fill="currentColor"/><rect x="4" y="18" width="12" height="12" rx="4" fill="currentColor"/><rect x="32" y="18" width="12" height="12" rx="4" fill="currentColor"/><rect x="4" y="32" width="12" height="12" rx="4" fill="currentColor"/><rect x="18" y="32" width="12" height="12" rx="4" fill="currentColor"/><rect x="32" y="32" width="12" height="12" rx="4" fill="currentColor"/></svg>
+                                <span>Rounded</span>
+                            </button>
+                            <button type="button" class="style-preview-card" data-style="dots" aria-pressed="false" title="Dots">
+                                <svg width="48" height="48" viewBox="0 0 48 48"><circle cx="10" cy="10" r="6" fill="currentColor"/><circle cx="24" cy="10" r="6" fill="currentColor"/><circle cx="38" cy="10" r="6" fill="currentColor"/><circle cx="10" cy="24" r="6" fill="currentColor"/><circle cx="38" cy="24" r="6" fill="currentColor"/><circle cx="10" cy="38" r="6" fill="currentColor"/><circle cx="24" cy="38" r="6" fill="currentColor"/><circle cx="38" cy="38" r="6" fill="currentColor"/></svg>
+                                <span>Dots</span>
+                            </button>
+                        </div>
+                    </div>
+                        </div>
+                    </details>
+
+                    <details class="settings-section" open>
+                        <summary><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="10.5" r="2.5"/><circle cx="8.5" cy="7.5" r="2.5"/><circle cx="6.5" cy="12.5" r="2.5"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.93 0 1.5-.67 1.5-1.5 0-.39-.15-.74-.39-1.02-.24-.28-.39-.63-.39-1.02 0-.83.67-1.5 1.5-1.5H16c3.31 0 6-2.69 6-6 0-5.5-4.5-9.96-10-9.96z"/></svg> Colors</summary>
+                        <div class="settings-section-content">
+                    <!-- Color settings -->
+                    <div class="color-controls">
+                        <div class="form-group">
+                            <label for="qrColor">QR Code Color:</label>
+                            <div class="color-picker">
+                                <input type="color" id="qrColor" value="#000000">
+                                <span class="color-value">#000000</span>
+                            </div>
+                        </div>
+                        <button type="button" id="swapColors" class="swap-colors-btn" aria-label="Swap colors" title="Swap foreground and background">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+                        </button>
+                        <div class="form-group">
+                            <label for="bgColor">Background Color:</label>
+                            <div class="color-picker">
+                                <input type="color" id="bgColor" value="#ffffff">
+                                <span class="color-value">#ffffff</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="colorPreview" class="color-preview-swatch" aria-hidden="true">
+                        <span class="swatch-fg" style="background:#000000"></span>
+                        <span class="swatch-bg" style="background:#ffffff"></span>
+                    </div>
+
+                    <!-- Color presets -->
+                    <div class="form-group color-presets-group">
+                        <label>Color Scheme:</label>
+                        <div class="color-presets" role="group" aria-label="Choose color scheme">
+                            <button type="button" class="color-preset active" data-fg="#000000" data-bg="#ffffff" aria-pressed="true" title="Standard">
+                                <span class="preset-swatch" style="background:#000000"></span>
+                                <span class="preset-swatch" style="background:#ffffff"></span>
+                                <span class="preset-label">Standard</span>
+                            </button>
+                            <button type="button" class="color-preset" data-fg="#1a365d" data-bg="#ffffff" aria-pressed="false" title="Professional blue">
+                                <span class="preset-swatch" style="background:#1a365d"></span>
+                                <span class="preset-swatch" style="background:#ffffff"></span>
+                                <span class="preset-label">Blue</span>
+                            </button>
+                            <button type="button" class="color-preset" data-fg="#c53030" data-bg="#fff5f5" aria-pressed="false" title="Energetic red">
+                                <span class="preset-swatch" style="background:#c53030"></span>
+                                <span class="preset-swatch" style="background:#fff5f5"></span>
+                                <span class="preset-label">Red</span>
+                            </button>
+                            <button type="button" class="color-preset" data-fg="#276749" data-bg="#f0fff4" aria-pressed="false" title="Natural green">
+                                <span class="preset-swatch" style="background:#276749"></span>
+                                <span class="preset-swatch" style="background:#f0fff4"></span>
+                                <span class="preset-label">Green</span>
+                            </button>
+                            <button type="button" class="color-preset" data-fg="#744210" data-bg="#fffff0" aria-pressed="false" title="Elegant gold">
+                                <span class="preset-swatch" style="background:#744210"></span>
+                                <span class="preset-swatch" style="background:#fffff0"></span>
+                                <span class="preset-label">Gold</span>
+                            </button>
+                            <button type="button" class="color-preset" data-fg="#553c9a" data-bg="#faf5ff" aria-pressed="false" title="Modern purple">
+                                <span class="preset-swatch" style="background:#553c9a"></span>
+                                <span class="preset-swatch" style="background:#faf5ff"></span>
+                                <span class="preset-label">Purple</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Transparent background -->
+                    <div class="form-group checkbox-group">
+                        <label>
+                            <input type="checkbox" id="transparentBg">
+                            <span>Transparent Background</span>
+                        </label>
+                    </div>
+                        </div>
+                    </details>
+
+                    <details class="settings-section" open>
+                        <summary><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg> Size & Format</summary>
+                        <div class="settings-section-content settings-grid-inner">
+                    <!-- Size -->
+                    <div class="form-group">
+                        <label for="qrSize">Size (px):</label>
+                        <select id="qrSize">
+                            <option value="256">256×256 (Small)</option>
+                            <option value="512" selected>512×512 (Medium)</option>
+                            <option value="1024">1024×1024 (Large)</option>
+                            <option value="2048">2048×2048 (Very large)</option>
+                        </select>
+                    </div>
+
+                    <!-- Error Correction -->
+                    <div class="form-group ec-group">
+                        <label>Error Correction:</label>
+                        <select id="errorCorrection" class="visually-hidden">
+                            <option value="L">Low</option>
+                            <option value="M" selected>Medium</option>
+                            <option value="Q">High</option>
+                            <option value="H">Very high</option>
+                        </select>
+                        <div class="ec-segmented" role="group" aria-label="Error correction level">
+                            <button type="button" class="ec-option" data-ec="L" aria-pressed="false">L</button>
+                            <button type="button" class="ec-option active" data-ec="M" aria-pressed="true">M</button>
+                            <button type="button" class="ec-option" data-ec="Q" aria-pressed="false">Q</button>
+                            <button type="button" class="ec-option" data-ec="H" aria-pressed="false">H</button>
+                        </div>
+                        <p class="ec-hint" id="ecHint">Medium (~15%) — Recommended for most purposes</p>
+                    </div>
+
+                    <!-- File format -->
+                    <div class="form-group">
+                        <label for="fileFormat">File Format:</label>
+                        <select id="fileFormat">
+                            <option value="png" selected>PNG</option>
+                            <option value="jpg">JPG</option>
+                            <option value="svg">SVG</option>
+                            <option value="webp">WebP</option>
+                            <option value="pdf">PDF (A4)</option>
+                        </select>
+                    </div>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- CTA Frame Text -->
+                <div class="form-group">
+                    <label for="ctaText">Text Below QR Code (optional):</label>
+                    <input type="text" id="ctaText" placeholder="Scan me!">
+                    <span class="cta-hint">Displayed as text below the QR code in your download</span>
+                </div>
+
+                <!-- Logo Upload -->
+                <div class="logo-upload-section">
+                    <label>Logo in QR Code (optional):</label>
+                    <div class="logo-dropzone" id="logoDropzone">
+                        <div class="logo-dropzone-content" id="logoDropzoneContent">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                <polyline points="17 8 12 3 7 8"/>
+                                <line x1="12" y1="3" x2="12" y2="15"/>
+                            </svg>
+                            <p>Drag logo here or <span class="logo-browse">choose file</span></p>
+                            <span class="logo-hint">PNG, JPG or SVG</span>
+                        </div>
+                        <div class="logo-preview-wrap" id="logoPreviewWrap" style="display:none;">
+                            <img id="logoPreviewImg" alt="Logo preview">
+                            <button type="button" class="logo-remove-btn" id="logoRemoveBtn" aria-label="Remove logo">&times;</button>
+                        </div>
+                        <input type="file" id="logoFileInput" accept="image/png,image/jpeg,image/svg+xml,image/webp" class="visually-hidden">
+                    </div>
+                    <div class="form-group logo-size-group" id="logoSizeGroup" style="display:none;">
+                        <label for="logoSize">Logo size: <span id="logoSizeValue">25</span>%</label>
+                        <input type="range" id="logoSize" min="10" max="35" value="25">
+                    </div>
+                </div>
+
+                <!-- Batch Generation Section -->
+                <div class="batch-section">
+                    <details>
+                        <summary><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg> Batch Generation (multiple QR codes)</summary>
+                        <div class="batch-content">
+                            <div class="form-group">
+                                <label for="batchInput">Enter URLs/texts (one per line):</label>
+                                <textarea id="batchInput" rows="5" placeholder="https://example1.com&#10;https://example2.com&#10;https://example3.com"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label class="btn btn-secondary" for="csvFileInput" style="display:inline-block;cursor:pointer;"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg> Import from CSV</label>
+                                <input type="file" id="csvFileInput" accept=".csv,.txt,.tsv" class="visually-hidden">
+                                <span class="cta-hint">Upload a CSV file — the first column is used as QR content</span>
+                            </div>
+                            <div class="batch-actions">
+                                <button id="batchPreviewBtn" class="btn btn-secondary">Preview</button>
+                                <button id="batchGenerateBtn" class="btn btn-primary">Generate all & download as ZIP</button>
+                            </div>
+                            <div id="batchProgress" class="batch-progress" style="display: none;">
+                                <div class="batch-progress-bar">
+                                    <div class="batch-progress-fill" id="batchProgressFill"></div>
+                                </div>
+                                <span class="batch-progress-text" id="batchProgressText">0/0</span>
+                            </div>
+                            <div id="batchPreviewGrid" class="batch-preview-grid"></div>
+                        </div>
+                    </details>
+                </div>
+
+                <div class="button-group">
+                    <button id="generateBtn" class="btn btn-primary" aria-label="Generate your QR code now">Generate QR Code</button>
+                    <button id="downloadBtn" class="btn btn-secondary" disabled aria-label="Download your generated QR code">Download</button>
+                    <button id="copyBtn" class="btn btn-secondary" disabled aria-label="Copy QR code to clipboard">Copy</button>
+                    <button id="shareBtn" class="btn btn-secondary" disabled aria-label="Share QR code">Share</button>
+                    <button id="printBtn" class="btn btn-secondary" disabled aria-label="Print QR code">Print</button>
+                    <button id="compareBtn" class="btn btn-secondary" disabled aria-label="Compare QR styles">Compare</button>
+                </div>
+            </div>
+
+            <!-- Preview section -->
+            <div class="preview-section">
+                <div class="preview-container">
+                    <div id="qrAnnouncement" class="sr-only" aria-live="assertive" aria-atomic="true"></div>
+                    <div id="qrPreview" class="qr-preview" role="img" aria-labelledby="qrAnnouncement">
+                        <div class="placeholder">
+                            <div class="skeleton-qr" aria-hidden="true">
+                                <div class="skeleton-block"></div>
+                                <div class="skeleton-block"></div>
+                                <div class="skeleton-block"></div>
+                                <div class="skeleton-block"></div>
+                            </div>
+                            <p>Your QR code will be displayed here</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="info-panel">
+                    <p><strong>Info:</strong></p>
+                    <ul>
+                        <li>Higher error correction = more robust QR code</li>
+                        <li>Transparent background only available for PNG</li>
+                        <li>SVG format is vector-based and scalable</li>
+                        <li>Always test your QR code before use</li>
+                    </ul>
+                </div>
+
+                <!-- Compare Section -->
+                <div class="compare-section" id="compareSection" style="display: none;">
+                    <h3><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg> Compare Styles</h3>
+                    <div class="compare-grid" id="compareGrid"></div>
+                </div>
+
+                <!-- History Section -->
+                <div class="history-section">
+                    <h3><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Previous QR Codes</h3>
+                    <div class="history-controls" id="historyControls" style="display: none;">
+                        <input type="search" id="historySearch" class="history-search" placeholder="Search history..." aria-label="Search history">
+                        <select id="historyFilter" class="history-filter" aria-label="Filter by type">
+                            <option value="all">All types</option>
+                            <option value="favorites">Favorites</option>
+                            <option value="text">Text/URL</option>
+                            <option value="wifi">WiFi</option>
+                            <option value="vcard">vCard</option>
+                            <option value="email">Email</option>
+                            <option value="sms">SMS</option>
+                            <option value="calendar">Calendar</option>
+                            <option value="geo">Location</option>
+                            <option value="payment">Payment</option>
+                            <option value="social">Social</option>
+                        </select>
+                    </div>
+                    <div id="historyList" class="history-list">
+                        <p class="history-empty">No previous QR codes</p>
+                    </div>
+                    <button id="clearHistory" class="btn-clear-history" style="display: none;">Clear history</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- QR Scanner Section -->
+        <section class="scanner-section" id="scanner-section">
+            <h2>Scan QR Code</h2>
+            <p>Use your camera to scan a QR code, or upload an image.</p>
+            <div class="scanner-controls">
+                <button id="startScanBtn" class="btn btn-primary">Start camera</button>
+                <label class="btn btn-secondary scanner-upload-label" for="scanFileInput">Upload image</label>
+                <input type="file" id="scanFileInput" accept="image/*" class="visually-hidden">
+            </div>
+            <div class="scanner-viewport" id="scannerViewport" style="display:none;">
+                <video id="scannerVideo" playsinline></video>
+                <canvas id="scannerCanvas" style="display:none;"></canvas>
+                <div class="scanner-overlay"></div>
+                <button id="stopScanBtn" class="btn btn-secondary scanner-stop-btn">Stop camera</button>
+            </div>
+            <div id="scanResult" class="scan-result" style="display:none;">
+                <h3>Result:</h3>
+                <p id="scanResultText"></p>
+                <div class="scan-result-actions">
+                    <button id="scanCopyBtn" class="btn btn-secondary">Copy text</button>
+                    <a id="scanOpenLink" class="btn btn-primary" href="#" target="_blank" rel="noopener" style="display:none;">Open link</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEO Content Section -->
+        <section class="seo-content lazy-section">
+            <article class="content-block">
+                <h2>Why use QR Tool for your QR codes?</h2>
+                <p>QR Tool is an advanced <strong>free QR code generator</strong> with professional features for both personal and business use. Our platform gives you full control over your QR codes with unique features like color customization, different styles and specialized QR types.</p>
+
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <h3><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l1.5 5H19l-4 3 1.5 5-4.5-3.5L7.5 15l1.5-5-4-3h5.5z"/></svg> Professional Design</h3>
+                        <p>Create unique QR codes with custom colors and choose between different styles (squares, rounded, dots). Perfect for branding and marketing.</p>
+                    </div>
+                    <div class="feature-item">
+                        <h3><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><circle cx="12" cy="20" r="1"/></svg> WiFi QR Codes</h3>
+                        <p>Let your guests connect to WiFi with a single scan. No manual entry of long passwords - perfect for <a href="/en/guides/qr-codes-for-restaurants">restaurants</a>, hotels and <a href="/en/guides/qr-codes-for-events">events</a>.</p>
+                    </div>
+                    <div class="feature-item">
+                        <h3><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> Digital Business Cards</h3>
+                        <p>Generate <a href="/en/vcard-qr-code">vCard QR codes</a> that automatically save your contact information to the recipient's phone. <a href="/en/guides/business-cards-with-qr-code">Modern networking</a> made easy.</p>
+                    </div>
+                    <div class="feature-item">
+                        <h3><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg> Batch Generation</h3>
+                        <p>Need many QR codes? Generate up to 100 QR codes at once and download them as a ZIP file.</p>
+                    </div>
+                </div>
+            </article>
+
+            <article class="content-block">
+                <h2>How to use QR Tool effectively</h2>
+                <ol class="guide-list">
+                    <li><strong>Choose your QR type:</strong> Start by choosing what type of QR code you need - from simple URLs to advanced WiFi or vCard codes.</li>
+                    <li><strong>Customize the design:</strong> Choose colors that match your brand, and select between different styles (squares, rounded, dots) for a unique look.</li>
+                    <li><strong>Optimize error correction:</strong> If the QR code will be used outdoors or printed, choose higher error correction (Q or H) for better scannability.</li>
+                    <li><strong>Choose the right format:</strong> PNG for web and print, SVG for vector-based scaling, or WebP for modern websites with small file size.</li>
+                    <li><strong>Test your QR code:</strong> Always scan your QR code with multiple different devices before printing or sharing it.</li>
+                </ol>
+            </article>
+
+            <article class="content-block">
+                <h2>What is a QR code?</h2>
+                <p>A <strong>QR code (Quick Response code)</strong> is a two-dimensional barcode that can be scanned with a camera on a smartphone or tablet. QR codes were originally developed in 1994 by the Japanese company Denso Wave for use in the automotive industry, but have today become a universal way to share information.</p>
+
+                <p>Unlike traditional barcodes, QR codes can contain much more data - up to 4,296 alphanumeric characters. This makes them ideal for sharing:</p>
+                <ul>
+                    <li><a href="/en/text-qr-code">URLs to websites</a> and landing pages</li>
+                    <li><a href="/en/wifi-qr-code">WiFi login credentials</a></li>
+                    <li><a href="/en/vcard-qr-code">Contact information (vCard)</a></li>
+                    <li><a href="/en/email-qr-code">Email addresses</a> and messages</li>
+                    <li><a href="/en/sms-qr-code">SMS messages</a></li>
+                    <li><a href="/en/calendar-qr-code">Calendar events</a></li>
+                    <li>Payment information</li>
+                    <li>App download links</li>
+                </ul>
+            </article>
+
+            <article class="content-block">
+                <h2>Use cases for QR codes</h2>
+
+                <div class="use-cases">
+                    <div class="use-case">
+                        <h3><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01"/><path d="M16 6h.01"/><path d="M12 6h.01"/><path d="M12 10h.01"/><path d="M12 14h.01"/><path d="M16 10h.01"/><path d="M16 14h.01"/><path d="M8 10h.01"/><path d="M8 14h.01"/></svg> Business & Marketing</h3>
+                        <ul>
+                            <li>Product packaging with links to product info</li>
+                            <li><a href="/en/guides/business-cards-with-qr-code">Business cards with vCard QR code</a></li>
+                            <li><a href="/en/guides/qr-codes-for-events">Posters and flyers for events</a></li>
+                            <li><a href="/en/guides/qr-codes-for-restaurants">Restaurant menus</a></li>
+                            <li>Feedback forms</li>
+                            <li>Discount coupons and offers</li>
+                        </ul>
+                    </div>
+
+                    <div class="use-case">
+                        <h3><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg> Personal use</h3>
+                        <ul>
+                            <li>Share WiFi access with guests</li>
+                            <li>Wedding invitations with RSVP</li>
+                            <li>Digital gift cards</li>
+                            <li>Links to photo albums</li>
+                            <li>Contact info for networking</li>
+                        </ul>
+                    </div>
+
+                    <div class="use-case">
+                        <h3><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"/></svg> Education</h3>
+                        <ul>
+                            <li>Links to online learning materials</li>
+                            <li>Attendance registration</li>
+                            <li>Exam results</li>
+                            <li>Library book system</li>
+                            <li>Campus maps and wayfinding</li>
+                        </ul>
+                    </div>
+                </div>
+            </article>
+
+            <!-- FAQ Section -->
+            <article class="content-block faq-section" id="faq">
+                <h2>Frequently Asked Questions (FAQ)</h2>
+
+                <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+                    <h3 itemprop="name">Is QR Tool free to use?</h3>
+                    <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                        <p itemprop="text">Yes, QR Tool is 100% free to use. You can generate an unlimited number of QR codes without registration or payment. All features, including logo upload, batch generation and specialized QR types, are freely available.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+                    <h3 itemprop="name">Do my QR codes expire?</h3>
+                    <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                        <p itemprop="text">No, QR codes generated with QR Tool never expire. When you download a QR code, it is static and will work forever. However, note that if the QR code links to a URL, that URL must still be active for the QR code to work.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+                    <h3 itemprop="name">Which format should I choose for printing?</h3>
+                    <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                        <p itemprop="text">For printing, we recommend SVG format as it is vector-based and can be scaled to any size without loss of quality. Alternatively, you can use PNG at high resolution (1024px or 2048px). Avoid JPG for printing as the compression can make the QR code difficult to scan.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+                    <h3 itemprop="name">Can I customize the colors of my QR code?</h3>
+                    <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                        <p itemprop="text">Yes! You can choose any color for both the QR code and the background. We recommend high contrast (e.g., black on white) for best scannability. You can also choose a transparent background for PNG and SVG formats.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+                    <h3 itemprop="name">How do WiFi QR codes work?</h3>
+                    <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                        <p itemprop="text">WiFi QR codes contain your network name (SSID), password and encryption type. When someone scans the QR code with their smartphone, the phone automatically connects to the WiFi network without manual entry. This works on most modern Android and iOS devices.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+                    <h3 itemprop="name">What is error correction and which should I choose?</h3>
+                    <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                        <p itemprop="text">Error correction determines how much of the QR code can be damaged and still be scannable. L (~7%) is fastest to scan, M (~15%) is standard, Q (~25%) is good for printing, and H (~30%) should be used when adding a logo or when the QR code will be used outdoors.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+                    <h3 itemprop="name">Can I track how many people scan my QR code?</h3>
+                    <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                        <p itemprop="text">QR codes generated with QR Tool are static and do not include tracking. To track scans, you should use a URL shortener service like bit.ly or Google Analytics campaign URLs, and then create a QR code for the shortened URL.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+                    <h3 itemprop="name">How large should my QR code be?</h3>
+                    <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                        <p itemprop="text">It depends on the scanning distance. As a rule of thumb: the QR code should be at least 1/10 of the scanning distance. This means if people scan from 1 meter away, the QR code should be at least 10cm. For business cards, 2-3cm is often sufficient.</p>
+                    </div>
+                </div>
+            </article>
+
+            <article class="content-block">
+                <h2>Tips for effective QR codes</h2>
+                <div class="tips-grid">
+                    <div class="tip-card">
+                        <h4><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Do</h4>
+                        <ul>
+                            <li>Test the QR code on multiple devices</li>
+                            <li>Use high contrast (black on white is best)</li>
+                            <li>Give the QR code enough white space around it</li>
+                            <li>Use higher error correction for outdoor use</li>
+                            <li>Add a "Scan me" text for context</li>
+                        </ul>
+                    </div>
+                    <div class="tip-card">
+                        <h4><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> Avoid</h4>
+                        <ul>
+                            <li>Low contrast colors (gray on white)</li>
+                            <li>Making the QR code too small</li>
+                            <li>Inverting colors (white on black)</li>
+                            <li>Placing on curved surfaces</li>
+                            <li>JPG format with high compression</li>
+                        </ul>
+                    </div>
+                </div>
+            </article>
+        </section>
+
+        <!-- Footer with branding -->
+        <footer class="footer lazy-section">
+            <div class="footer-columns">
+                <div class="footer-col">
+                    <h4>QR Types</h4>
+                    <ul>
+                        <li><a href="/en/wifi-qr-code">WiFi QR</a></li>
+                        <li><a href="/en/vcard-qr-code">Business Card QR</a></li>
+                        <li><a href="/en/email-qr-code">Email QR</a></li>
+                        <li><a href="/en/sms-qr-code">SMS QR</a></li>
+                        <li><a href="/en/calendar-qr-code">Calendar QR</a></li>
+                        <li><a href="/en/text-qr-code">Text QR</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Guides</h4>
+                    <ul>
+                        <li><a href="/en/guides/">All guides</a></li>
+                        <li><a href="/en/guides/qr-codes-for-restaurants">QR for restaurants</a></li>
+                        <li><a href="/en/guides/qr-codes-for-events">QR for events</a></li>
+                        <li><a href="/en/guides/business-cards-with-qr-code">Business cards with QR</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>About</h4>
+                    <ul>
+                        <li><a href="/en/about">About QR Tool</a></li>
+                        <li><a href="/en/privacy-policy">Privacy Policy</a></li>
+                        <li><a href="/en/cookie-policy">Cookie Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Other Tools</h4>
+                    <ul>
+                        <li><a href="https://levetidsberegner.dk" target="_blank" rel="noopener">Levetidsberegner.dk</a></li>
+                        <li><a href="https://pakkeliste.com" target="_blank" rel="noopener">Pakkeliste.com</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>Built with love in Denmark by <a href="https://mahope.dk" target="_blank" rel="noopener">Mahope.dk</a></p>
+            </div>
+        </footer>
+    </div>
+
+    <div class="toast-container" id="toastContainer" aria-live="polite" aria-atomic="true"></div>
+
+    <!-- Plausible Analytics -->
+    <script defer data-domain="qrtool.dk" src="https://analytics.holstjensen.eu/js/script.file-downloads.hash.outbound-links.pageview-props.tagged-events.js"></script>
+    <script>window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }</script>
+
+    <script src="/lib/qrcode.js"></script>
+    <script src="/lib/jszip.min.js"></script>
+    <script defer src="/lib/jsQR.min.js"></script>
+    <script src="/app.js"></script>
+    <script>if ('serviceWorker' in navigator) { navigator.serviceWorker.register('/sw.js'); }</script>
+<div id="qrLightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="QR code full size">
+    <button class="lightbox-close" aria-label="Close">&times;</button>
+    <div class="lightbox-content"></div>
+</div>
+<div id="shortcutsOverlay" class="shortcuts-overlay" role="dialog" aria-modal="true" aria-label="Keyboard shortcuts">
+    <div class="shortcuts-modal">
+        <div class="shortcuts-header">
+            <h2>Keyboard Shortcuts</h2>
+            <button class="shortcuts-close" aria-label="Close">&times;</button>
+        </div>
+        <div class="shortcuts-list">
+            <div class="shortcut-item"><kbd>?</kbd><span>Show/hide shortcuts</span></div>
+            <div class="shortcut-item"><kbd>G</kbd><span>Generate QR code</span></div>
+            <div class="shortcut-item"><kbd>D</kbd><span>Download QR code</span></div>
+            <div class="shortcut-item"><kbd>C</kbd><span>Copy QR code</span></div>
+            <div class="shortcut-item"><kbd>T</kbd><span>Toggle theme (light/dark)</span></div>
+            <div class="shortcut-item"><kbd>1</kbd>–<kbd>9</kbd><span>Switch QR type tab</span></div>
+            <div class="shortcut-item"><kbd>Esc</kbd><span>Close modal/lightbox</span></div>
+        </div>
+    </div>
+</div>
+<button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top" title="Scroll to top">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
+</button>
+<div id="cookie-consent-banner" style="position:fixed;left:0;right:0;bottom:0;background:#111827;color:#fff;padding:12px 16px;display:none;z-index:9999;font-family:system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif">
+  <div style="max-width:960px;margin:0 auto;display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap">
+    <span style="font-size:14px;line-height:1.4">We only use necessary cookies to remember your settings. Optional cookies are only used with consent.</span>
+    <div style="display:flex;gap:8px">
+      <button id="cookie-accept" style="background:#10b981;color:#fff;border:none;padding:8px 12px;border-radius:6px;cursor:pointer">Accept</button>
+      <button id="cookie-decline" style="background:#374151;color:#fff;border:none;padding:8px 12px;border-radius:6px;cursor:pointer">Decline</button>
+    </div>
+  </div>
+</div>
+<script>(function(){try{var k=consent:v1;var s=localStorage.getItem(k);var b=document.getElementById(cookie-consent-banner);function hide(){b&&(b.style.display=none)}function show(){b&&(b.style.display=block)}if(!s){show()}document.getElementById(cookie-accept)?.addEventListener(click,function(){localStorage.setItem(k,accepted);hide()});document.getElementById(cookie-decline)?.addEventListener(click,function(){localStorage.setItem(k,declined);hide()});}catch(e){console.warn(e)}})();</script>
+<section data-seo-explainer style="max-width:960px;margin:2rem auto;padding:0 1rem;font-family:system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:#374151">
+  <h2 style="font-size:1.25rem;margin-bottom:.5rem">About this tool</h2>
+  <p>This free online tool is made to make everyday life a little easier. On this page you can quickly and without installation solve a specific task directly in your browser. Everything runs locally on your device - we do not store your input, and you are free to use the result however you like.</p>
+  <p>The tool is developed with a focus on simplicity, speed and reliability. We explain how the calculation works, provide tips for better results and link to relevant sources. This way you can both understand the method and use it safely in practice. If you have suggestions for improvements or new features, we would love to hear from you.</p>
+  <p>The purpose is to gather small, useful tools in one place, so you don't need to install apps or create an account. We prioritize accessibility, so the site works on mobile, tablet and computer. If you need to share the result, you can often copy it directly or download a file.</p>
+</section>
+</body>
+</html>

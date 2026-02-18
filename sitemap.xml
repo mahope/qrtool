@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
     <url>
         <loc>https://qrtool.dk/</loc>
+        <xhtml:link rel="alternate" hreflang="da" href="https://qrtool.dk/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://qrtool.dk/en/"/>
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://qrtool.dk/"/>
         <lastmod>2026-02-18</lastmod>
         <changefreq>weekly</changefreq>
         <priority>1.0</priority>
@@ -12,97 +16,242 @@
         </image:image>
     </url>
     <url>
+        <loc>https://qrtool.dk/en/</loc>
+        <xhtml:link rel="alternate" hreflang="da" href="https://qrtool.dk/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://qrtool.dk/en/"/>
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://qrtool.dk/"/>
+        <lastmod>2026-02-18</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>1.0</priority>
+    </url>
+    <url>
         <loc>https://qrtool.dk/wifi-qr-kode</loc>
+        <xhtml:link rel="alternate" hreflang="da" href="https://qrtool.dk/wifi-qr-kode"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://qrtool.dk/en/wifi-qr-code"/>
         <lastmod>2026-02-18</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.9</priority>
         <image:image>
             <image:loc>https://qrtool.dk/icon.svg</image:loc>
-            <image:title>WiFi QR-Kode Generator</image:title>
+            <image:title>WiFi QR Code Generator</image:title>
         </image:image>
+    </url>
+    <url>
+        <loc>https://qrtool.dk/en/wifi-qr-code</loc>
+        <xhtml:link rel="alternate" hreflang="da" href="https://qrtool.dk/wifi-qr-kode"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://qrtool.dk/en/wifi-qr-code"/>
+        <lastmod>2026-02-18</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
     </url>
     <url>
         <loc>https://qrtool.dk/vcard-qr-kode</loc>
+        <xhtml:link rel="alternate" hreflang="da" href="https://qrtool.dk/vcard-qr-kode"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://qrtool.dk/en/vcard-qr-code"/>
         <lastmod>2026-02-18</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.9</priority>
         <image:image>
             <image:loc>https://qrtool.dk/icon.svg</image:loc>
-            <image:title>vCard QR-Kode Generator</image:title>
+            <image:title>vCard QR Code Generator</image:title>
         </image:image>
+    </url>
+    <url>
+        <loc>https://qrtool.dk/en/vcard-qr-code</loc>
+        <xhtml:link rel="alternate" hreflang="da" href="https://qrtool.dk/vcard-qr-kode"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://qrtool.dk/en/vcard-qr-code"/>
+        <lastmod>2026-02-18</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
     </url>
     <url>
         <loc>https://qrtool.dk/email-qr-kode</loc>
+        <xhtml:link rel="alternate" hreflang="da" href="https://qrtool.dk/email-qr-kode"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://qrtool.dk/en/email-qr-code"/>
         <lastmod>2026-02-18</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.9</priority>
         <image:image>
             <image:loc>https://qrtool.dk/icon.svg</image:loc>
-            <image:title>Email QR-Kode Generator</image:title>
+            <image:title>Email QR Code Generator</image:title>
         </image:image>
+    </url>
+    <url>
+        <loc>https://qrtool.dk/en/email-qr-code</loc>
+        <xhtml:link rel="alternate" hreflang="da" href="https://qrtool.dk/email-qr-kode"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://qrtool.dk/en/email-qr-code"/>
+        <lastmod>2026-02-18</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
     </url>
     <url>
         <loc>https://qrtool.dk/sms-qr-kode</loc>
+        <xhtml:link rel="alternate" hreflang="da" href="https://qrtool.dk/sms-qr-kode"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://qrtool.dk/en/sms-qr-code"/>
         <lastmod>2026-02-18</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.9</priority>
         <image:image>
             <image:loc>https://qrtool.dk/icon.svg</image:loc>
-            <image:title>SMS QR-Kode Generator</image:title>
+            <image:title>SMS QR Code Generator</image:title>
         </image:image>
+    </url>
+    <url>
+        <loc>https://qrtool.dk/en/sms-qr-code</loc>
+        <xhtml:link rel="alternate" hreflang="da" href="https://qrtool.dk/sms-qr-kode"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://qrtool.dk/en/sms-qr-code"/>
+        <lastmod>2026-02-18</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
     </url>
     <url>
         <loc>https://qrtool.dk/kalender-qr-kode</loc>
+        <xhtml:link rel="alternate" hreflang="da" href="https://qrtool.dk/kalender-qr-kode"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://qrtool.dk/en/calendar-qr-code"/>
         <lastmod>2026-02-18</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.9</priority>
         <image:image>
             <image:loc>https://qrtool.dk/icon.svg</image:loc>
-            <image:title>Kalender QR-Kode Generator</image:title>
+            <image:title>Calendar QR Code Generator</image:title>
         </image:image>
+    </url>
+    <url>
+        <loc>https://qrtool.dk/en/calendar-qr-code</loc>
+        <xhtml:link rel="alternate" hreflang="da" href="https://qrtool.dk/kalender-qr-kode"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://qrtool.dk/en/calendar-qr-code"/>
+        <lastmod>2026-02-18</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
     </url>
     <url>
         <loc>https://qrtool.dk/tekst-qr-kode</loc>
+        <xhtml:link rel="alternate" hreflang="da" href="https://qrtool.dk/tekst-qr-kode"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://qrtool.dk/en/text-qr-code"/>
         <lastmod>2026-02-18</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.9</priority>
         <image:image>
             <image:loc>https://qrtool.dk/icon.svg</image:loc>
-            <image:title>Tekst &amp; URL QR-Kode Generator</image:title>
+            <image:title>Text &amp; URL QR Code Generator</image:title>
         </image:image>
     </url>
     <url>
+        <loc>https://qrtool.dk/en/text-qr-code</loc>
+        <xhtml:link rel="alternate" hreflang="da" href="https://qrtool.dk/tekst-qr-kode"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://qrtool.dk/en/text-qr-code"/>
+        <lastmod>2026-02-18</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    <url>
         <loc>https://qrtool.dk/guides/</loc>
+        <xhtml:link rel="alternate" hreflang="da" href="https://qrtool.dk/guides/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://qrtool.dk/en/guides/"/>
+        <lastmod>2026-02-18</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://qrtool.dk/en/guides/</loc>
+        <xhtml:link rel="alternate" hreflang="da" href="https://qrtool.dk/guides/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://qrtool.dk/en/guides/"/>
         <lastmod>2026-02-18</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
         <loc>https://qrtool.dk/guides/qr-koder-til-restauranter</loc>
+        <xhtml:link rel="alternate" hreflang="da" href="https://qrtool.dk/guides/qr-koder-til-restauranter"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://qrtool.dk/en/guides/qr-codes-for-restaurants"/>
+        <lastmod>2026-02-18</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://qrtool.dk/en/guides/qr-codes-for-restaurants</loc>
+        <xhtml:link rel="alternate" hreflang="da" href="https://qrtool.dk/guides/qr-koder-til-restauranter"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://qrtool.dk/en/guides/qr-codes-for-restaurants"/>
         <lastmod>2026-02-18</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
         <loc>https://qrtool.dk/guides/qr-koder-til-events</loc>
+        <xhtml:link rel="alternate" hreflang="da" href="https://qrtool.dk/guides/qr-koder-til-events"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://qrtool.dk/en/guides/qr-codes-for-events"/>
+        <lastmod>2026-02-18</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://qrtool.dk/en/guides/qr-codes-for-events</loc>
+        <xhtml:link rel="alternate" hreflang="da" href="https://qrtool.dk/guides/qr-koder-til-events"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://qrtool.dk/en/guides/qr-codes-for-events"/>
         <lastmod>2026-02-18</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
         <loc>https://qrtool.dk/guides/visitkort-med-qr-kode</loc>
+        <xhtml:link rel="alternate" hreflang="da" href="https://qrtool.dk/guides/visitkort-med-qr-kode"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://qrtool.dk/en/guides/business-cards-with-qr-code"/>
+        <lastmod>2026-02-18</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://qrtool.dk/en/guides/business-cards-with-qr-code</loc>
+        <xhtml:link rel="alternate" hreflang="da" href="https://qrtool.dk/guides/visitkort-med-qr-kode"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://qrtool.dk/en/guides/business-cards-with-qr-code"/>
         <lastmod>2026-02-18</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
         <loc>https://qrtool.dk/om-qr-tool</loc>
+        <xhtml:link rel="alternate" hreflang="da" href="https://qrtool.dk/om-qr-tool"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://qrtool.dk/en/about"/>
+        <lastmod>2026-02-18</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://qrtool.dk/en/about</loc>
+        <xhtml:link rel="alternate" hreflang="da" href="https://qrtool.dk/om-qr-tool"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://qrtool.dk/en/about"/>
         <lastmod>2026-02-18</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
         <loc>https://qrtool.dk/privatlivspolitik</loc>
+        <xhtml:link rel="alternate" hreflang="da" href="https://qrtool.dk/privatlivspolitik"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://qrtool.dk/en/privacy-policy"/>
+        <lastmod>2026-02-18</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.5</priority>
+    </url>
+    <url>
+        <loc>https://qrtool.dk/en/privacy-policy</loc>
+        <xhtml:link rel="alternate" hreflang="da" href="https://qrtool.dk/privatlivspolitik"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://qrtool.dk/en/privacy-policy"/>
+        <lastmod>2026-02-18</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.5</priority>
+    </url>
+    <url>
+        <loc>https://qrtool.dk/cookiepolitik</loc>
+        <xhtml:link rel="alternate" hreflang="da" href="https://qrtool.dk/cookiepolitik"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://qrtool.dk/en/cookie-policy"/>
+        <lastmod>2026-02-18</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.5</priority>
+    </url>
+    <url>
+        <loc>https://qrtool.dk/en/cookie-policy</loc>
+        <xhtml:link rel="alternate" hreflang="da" href="https://qrtool.dk/cookiepolitik"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://qrtool.dk/en/cookie-policy"/>
         <lastmod>2026-02-18</lastmod>
         <changefreq>yearly</changefreq>
         <priority>0.5</priority>

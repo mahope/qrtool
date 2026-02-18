@@ -16,13 +16,19 @@
     # Custom 404 page
     ErrorDocument 404 /404.html
 
+    # Serve directory index files for /en/ and /en/guides/
+    RewriteRule ^en/?$ /en/index.html [NC,L]
+    RewriteRule ^en/guides/?$ /en/guides/index.html [NC,L]
+
     # Remove .html extension
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteRule ^([^\.]+)$ $1.html [NC,L]
 
-    # Remove trailing slash
+    # Remove trailing slash (except /en/ and /en/guides/)
     RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_URI} !^/en/?$
+    RewriteCond %{REQUEST_URI} !^/en/guides/?$
     RewriteCond %{REQUEST_URI} (.+)/$
     RewriteRule ^ %1 [R=301,L]
 </IfModule>

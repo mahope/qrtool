@@ -1,34 +1,34 @@
 <!DOCTYPE html>
-<html lang="da">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Primary Meta Tags -->
-    <title>vCard QR-Kode Generator - Digitalt Visitkort | QRTool.dk</title>
-    <meta name="title" content="vCard QR-Kode Generator - Digitalt Visitkort | QRTool.dk">
-    <meta name="description" content="Opret et digitalt visitkort som QR-kode gratis. Del dine kontaktoplysninger med ét scan - navn, telefon, e-mail og mere. Perfekt til networking og events.">
-    <meta name="keywords" content="vcard qr kode, digitalt visitkort qr, kontaktinfo qr, visitkort qr generator">
+    <title>vCard QR Code Generator - Digital Business Card | QRTool.dk</title>
+    <meta name="title" content="vCard QR Code Generator - Digital Business Card | QRTool.dk">
+    <meta name="description" content="Create a digital business card as a QR code for free. Share your contact information with one scan - name, phone, email and more. Perfect for networking and events.">
+    <meta name="keywords" content="vcard qr code, digital business card qr, contact info qr, business card qr generator">
     <meta name="author" content="Mahope.dk">
     <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://qrtool.dk/vcard-qr-kode">
+    <link rel="canonical" href="https://qrtool.dk/en/vcard-qr-code">
     <link rel="alternate" hreflang="da" href="https://qrtool.dk/vcard-qr-kode">
     <link rel="alternate" hreflang="en" href="https://qrtool.dk/en/vcard-qr-code">
     <link rel="alternate" hreflang="x-default" href="https://qrtool.dk/vcard-qr-kode">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://qrtool.dk/vcard-qr-kode">
-    <meta property="og:title" content="vCard QR-Kode Generator - Digitalt Visitkort">
-    <meta property="og:description" content="Opret et digitalt visitkort som QR-kode gratis. Del dine kontaktoplysninger med ét scan.">
+    <meta property="og:url" content="https://qrtool.dk/en/vcard-qr-code">
+    <meta property="og:title" content="vCard QR Code Generator - Digital Business Card">
+    <meta property="og:description" content="Create a digital business card as a QR code for free. Share your contact information with one scan.">
     <meta property="og:image" content="https://qrtool.dk/og-image-vcard.png">
-    <meta property="og:locale" content="da_DK">
+    <meta property="og:locale" content="en_US">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://qrtool.dk/vcard-qr-kode">
-    <meta property="twitter:title" content="vCard QR-Kode Generator - Digitalt Visitkort">
-    <meta property="twitter:description" content="Opret et digitalt visitkort som QR-kode gratis. Del dine kontaktoplysninger med ét scan.">
+    <meta property="twitter:url" content="https://qrtool.dk/en/vcard-qr-code">
+    <meta property="twitter:title" content="vCard QR Code Generator - Digital Business Card">
+    <meta property="twitter:description" content="Create a digital business card as a QR code for free. Share your contact information with one scan.">
     <meta property="twitter:image" content="https://qrtool.dk/og-image-vcard.png">
 
     <!-- Favicon & PWA -->
@@ -41,24 +41,24 @@
     <link rel="dns-prefetch" href="https://analytics.holstjensen.eu">
 
     <!-- Preload critical resources -->
-    <link rel="preload" href="style.css" as="style">
+    <link rel="preload" href="/style.css" as="style">
 
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/style.css">
 
     <!-- Schema.org for vCard QR -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
-      "name": "vCard QR-Kode Generator",
-      "url": "https://qrtool.dk/vcard-qr-kode",
-      "description": "Gratis vCard QR-kode generator til digitale visitkort med kontaktoplysninger",
+      "name": "vCard QR Code Generator",
+      "url": "https://qrtool.dk/en/vcard-qr-code",
+      "description": "Free vCard QR code generator for digital business cards with contact information",
       "applicationCategory": "UtilityApplication",
       "operatingSystem": "Any",
       "offers": {
         "@type": "Offer",
         "price": "0",
-        "priceCurrency": "DKK"
+        "priceCurrency": "USD"
       },
       "creator": {
         "@type": "Organization",
@@ -72,8 +72,8 @@
       "@context": "https://schema.org",
       "@type": "BreadcrumbList",
       "itemListElement": [
-        {"@type": "ListItem", "position": 1, "name": "Hjem", "item": "https://qrtool.dk/"},
-        {"@type": "ListItem", "position": 2, "name": "vCard QR-Kode", "item": "https://qrtool.dk/vcard-qr-kode"}
+        {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://qrtool.dk/en/"},
+        {"@type": "ListItem", "position": 2, "name": "vCard QR Code", "item": "https://qrtool.dk/en/vcard-qr-code"}
       ]
     }
     </script>
@@ -83,11 +83,11 @@
         <header>
             <div class="header-top">
                 <div class="logo">
-                    <a href="/">
+                    <a href="/en/">
                         <svg id="logoQR" width="50" height="50" viewBox="0 0 100 100"></svg>
                     </a>
                 </div>
-                    <a id="langSwitcher" class="lang-switcher" href="/en/" aria-label="Switch to English"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>EN</a>
+                    <a id="langSwitcher" class="lang-switcher" href="/" aria-label="Skift til dansk"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>DA</a>
                 <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme">
                     <svg class="sun-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <circle cx="12" cy="12" r="5"></circle>
@@ -105,23 +105,23 @@
                     </svg>
                 </button>
             </div>
-            <h1><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> vCard QR-Kode Generator</h1>
-            <p>Del dine kontaktoplysninger med ét scan - Helt gratis!</p>
+            <h1><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> vCard QR Code Generator</h1>
+            <p>Share your contact information with one scan - Completely free!</p>
             <nav class="breadcrumb">
-                <a href="/">Hjem</a> / vCard QR-Kode
+                <a href="/en/">Home</a> / vCard QR Code
             </nav>
         </header>
 
         <!-- Hero Section -->
         <section class="hero-section">
             <div class="hero-content">
-                <h2>Digitalt Visitkort med QR-Kode</h2>
-                <p class="hero-text">Slut med at løbe tør for visitkort! Opret en vCard QR-kode med dine kontaktoplysninger, og lad andre gemme dine oplysninger direkte i deres telefonbog med ét scan.</p>
+                <h2>Digital Business Card with QR Code</h2>
+                <p class="hero-text">No more running out of business cards! Create a vCard QR code with your contact information, and let others save your details directly to their phone contacts with one scan.</p>
                 <div class="hero-benefits">
-                    <div class="benefit"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> Gratis for evigt</div>
-                    <div class="benefit"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> Ingen registrering</div>
-                    <div class="benefit"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> Virker på alle smartphones</div>
-                    <div class="benefit"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> Download i høj kvalitet</div>
+                    <div class="benefit"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> Free forever</div>
+                    <div class="benefit"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> No registration</div>
+                    <div class="benefit"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> Works on all smartphones</div>
+                    <div class="benefit"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> High quality download</div>
                 </div>
             </div>
         </section>
@@ -129,51 +129,51 @@
         <div class="main-content">
             <!-- vCard Form -->
             <div class="input-section wifi-focused">
-                <h3>Opret Dit Digitale Visitkort</h3>
+                <h3>Create Your Digital Business Card</h3>
 
                 <div class="form-group">
-                    <label for="vcardFirstName">Fornavn:</label>
-                    <input type="text" id="vcardFirstName" placeholder="Anders" required>
+                    <label for="vcardFirstName">First Name:</label>
+                    <input type="text" id="vcardFirstName" placeholder="John" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="vcardLastName">Efternavn:</label>
-                    <input type="text" id="vcardLastName" placeholder="Andersen" required>
+                    <label for="vcardLastName">Last Name:</label>
+                    <input type="text" id="vcardLastName" placeholder="Smith" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="vcardOrg">Virksomhed:</label>
-                    <input type="text" id="vcardOrg" placeholder="Firma A/S">
+                    <label for="vcardOrg">Company:</label>
+                    <input type="text" id="vcardOrg" placeholder="Acme Inc.">
                 </div>
 
                 <div class="form-group">
-                    <label for="vcardTitle">Titel / Stilling:</label>
+                    <label for="vcardTitle">Title / Position:</label>
                     <input type="text" id="vcardTitle" placeholder="Marketing Manager">
                 </div>
 
                 <div class="form-group">
-                    <label for="vcardPhone">Telefon:</label>
-                    <input type="tel" id="vcardPhone" placeholder="+45 12 34 56 78">
+                    <label for="vcardPhone">Phone:</label>
+                    <input type="tel" id="vcardPhone" placeholder="+1 555 123 4567">
                 </div>
 
                 <div class="form-group">
-                    <label for="vcardEmail">E-mail:</label>
-                    <input type="email" id="vcardEmail" placeholder="anders@firma.dk">
+                    <label for="vcardEmail">Email:</label>
+                    <input type="email" id="vcardEmail" placeholder="john@company.com">
                 </div>
 
                 <div class="form-group">
-                    <label for="vcardWebsite">Hjemmeside:</label>
-                    <input type="url" id="vcardWebsite" placeholder="https://firma.dk">
+                    <label for="vcardWebsite">Website:</label>
+                    <input type="url" id="vcardWebsite" placeholder="https://company.com">
                 </div>
 
                 <div class="form-group">
-                    <label for="vcardAddress">Adresse:</label>
-                    <input type="text" id="vcardAddress" placeholder="Vestergade 10, 1456 København K">
+                    <label for="vcardAddress">Address:</label>
+                    <input type="text" id="vcardAddress" placeholder="123 Main Street, New York, NY 10001">
                 </div>
 
                 <div class="settings-grid">
                     <div class="form-group">
-                        <label for="qrColor">QR-kode farve:</label>
+                        <label for="qrColor">QR code color:</label>
                         <div class="color-picker">
                             <input type="color" id="qrColor" value="#000000">
                             <span class="color-value">#000000</span>
@@ -181,11 +181,11 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="qrSize">Størrelse:</label>
+                        <label for="qrSize">Size:</label>
                         <select id="qrSize">
-                            <option value="512" selected>512×512 (Medium)</option>
-                            <option value="1024">1024×1024 (Stor)</option>
-                            <option value="2048">2048×2048 (Print)</option>
+                            <option value="512" selected>512x512 (Medium)</option>
+                            <option value="1024">1024x1024 (Large)</option>
+                            <option value="2048">2048x2048 (Print)</option>
                         </select>
                     </div>
 
@@ -199,7 +199,7 @@
                 </div>
 
                 <div class="button-group">
-                    <button id="generateBtn" class="btn btn-primary"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> Generer vCard QR-Kode</button>
+                    <button id="generateBtn" class="btn btn-primary"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> Generate vCard QR Code</button>
                     <button id="downloadBtn" class="btn btn-secondary" disabled>Download</button>
                 </div>
             </div>
@@ -213,7 +213,7 @@
                                 <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                                 <circle cx="12" cy="7" r="4"></circle>
                             </svg>
-                            <p>Dit digitale visitkort vil blive vist her</p>
+                            <p>Your digital business card will be displayed here</p>
                         </div>
                     </div>
                 </div>
@@ -223,100 +223,100 @@
         <!-- SEO Content -->
         <section class="seo-content">
             <article class="content-block">
-                <h2>Hvorfor Bruge vCard QR-Koder?</h2>
-                <p>vCard QR-koder gør det nemt at dele dine kontaktoplysninger digitalt. I stedet for at uddele fysiske visitkort, kan modtageren blot scanne din QR-kode og gemme alle dine oplysninger direkte i telefonbogen med ét tryk.</p>
+                <h2>Why Use vCard QR Codes?</h2>
+                <p>vCard QR codes make it easy to share your contact information digitally. Instead of handing out physical business cards, the recipient can simply scan your QR code and save all your information directly to their phone contacts with one tap.</p>
 
                 <div class="feature-grid">
                     <div class="feature-item">
                         <h3><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> Networking</h3>
-                        <p>Del dine kontaktoplysninger hurtigt ved networking events, konferencer og møder uden at fumle med papirkort.</p>
+                        <p>Share your contact information quickly at networking events, conferences and meetings without fumbling with paper cards.</p>
                     </div>
                     <div class="feature-item">
-                        <h3><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg> Messer & Events</h3>
-                        <p>Giv besøgende på din stand mulighed for at gemme dine oplysninger med ét scan. Ingen visitkort der går tabt.</p>
+                        <h3><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg> Trade Shows & Events</h3>
+                        <p>Give visitors at your booth the ability to save your information with one scan. No business cards getting lost.</p>
                     </div>
                     <div class="feature-item">
-                        <h3><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg> Sælgere</h3>
-                        <p>Gør det nemt for potentielle kunder at gemme dine kontaktoplysninger direkte efter et salgsmøde.</p>
+                        <h3><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg> Sales Professionals</h3>
+                        <p>Make it easy for potential customers to save your contact information right after a sales meeting.</p>
                     </div>
                     <div class="feature-item">
-                        <h3><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="10.5" r="2.5"/><circle cx="8.5" cy="7.5" r="2.5"/><circle cx="6.5" cy="12.5" r="2.5"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.93 0 1.5-.67 1.5-1.5 0-.39-.15-.74-.39-1.02-.24-.28-.39-.63-.39-1.02 0-.83.67-1.5 1.5-1.5H16c3.31 0 6-2.69 6-6 0-5.5-4.5-9.96-10-9.96z"/></svg> Freelancere</h3>
-                        <p>Præsenter dig professionelt med et digitalt visitkort der altid er opdateret og aldrig løber tør.</p>
+                        <h3><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="10.5" r="2.5"/><circle cx="8.5" cy="7.5" r="2.5"/><circle cx="6.5" cy="12.5" r="2.5"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.93 0 1.5-.67 1.5-1.5 0-.39-.15-.74-.39-1.02-.24-.28-.39-.63-.39-1.02 0-.83.67-1.5 1.5-1.5H16c3.31 0 6-2.69 6-6 0-5.5-4.5-9.96-10-9.96z"/></svg> Freelancers</h3>
+                        <p>Present yourself professionally with a digital business card that is always up to date and never runs out.</p>
                     </div>
                 </div>
             </article>
 
             <article class="content-block">
-                <h2>Sådan Opretter Du Dit Digitale Visitkort</h2>
+                <h2>How to Create Your Digital Business Card</h2>
                 <ol class="guide-list">
-                    <li><strong>Indtast dine oplysninger:</strong> Udfyld navn, virksomhed, telefon, e-mail og andre relevante felter.</li>
-                    <li><strong>Tilpas udseendet:</strong> Vælg farve, størrelse og format til din QR-kode.</li>
-                    <li><strong>Generer QR-koden:</strong> Klik på knappen og din vCard QR-kode genereres øjeblikkeligt.</li>
-                    <li><strong>Download & del:</strong> Download som PNG eller SVG og brug den digitalt eller print den.</li>
-                    <li><strong>Del overalt:</strong> Brug den på visitkort, præsentationer, e-mail signaturer eller din hjemmeside.</li>
+                    <li><strong>Enter your information:</strong> Fill in name, company, phone, email and other relevant fields.</li>
+                    <li><strong>Customize the look:</strong> Choose color, size and format for your QR code.</li>
+                    <li><strong>Generate the QR code:</strong> Click the button and your vCard QR code is generated instantly.</li>
+                    <li><strong>Download & share:</strong> Download as PNG or SVG and use it digitally or print it.</li>
+                    <li><strong>Share everywhere:</strong> Use it on business cards, presentations, email signatures or your website.</li>
                 </ol>
             </article>
 
             <article class="content-block">
-                <h2>Best Practices for vCard QR-Koder</h2>
+                <h2>Best Practices for vCard QR Codes</h2>
                 <ul>
-                    <li><strong>Hold det relevant:</strong> Inkluder kun de kontaktoplysninger du ønsker at dele professionelt</li>
-                    <li><strong>Test altid:</strong> Scan din QR-kode med din egen telefon for at sikre alle oplysninger er korrekte</li>
-                    <li><strong>Brug god kontrast:</strong> Mørk QR-kode på lys baggrund giver bedst scanbarhed</li>
-                    <li><strong>Tilføj på visitkort:</strong> Print QR-koden på bagsiden af dit fysiske visitkort som supplement</li>
-                    <li><strong>Opdater ved ændringer:</strong> Generer en ny QR-kode hvis dine kontaktoplysninger ændrer sig</li>
+                    <li><strong>Keep it relevant:</strong> Only include the contact information you want to share professionally</li>
+                    <li><strong>Always test:</strong> Scan your QR code with your own phone to make sure all information is correct</li>
+                    <li><strong>Use good contrast:</strong> A dark QR code on a light background provides the best scannability</li>
+                    <li><strong>Add to business cards:</strong> Print the QR code on the back of your physical business card as a supplement</li>
+                    <li><strong>Update when changed:</strong> Generate a new QR code if your contact information changes</li>
                 </ul>
             </article>
 
             <article class="content-block faq-section">
-                <h2>Ofte Stillede Spørgsmål om vCard QR-Koder</h2>
+                <h2>Frequently Asked Questions About vCard QR Codes</h2>
 
                 <div class="faq-item">
-                    <h3>Hvad er en vCard QR-kode?</h3>
-                    <p>En vCard QR-kode indeholder dine kontaktoplysninger i et standardiseret format. Når nogen scanner koden, kan de gemme dit navn, telefonnummer, e-mail og mere direkte i deres telefonbog.</p>
+                    <h3>What is a vCard QR code?</h3>
+                    <p>A vCard QR code contains your contact information in a standardized format. When someone scans the code, they can save your name, phone number, email and more directly to their phone contacts.</p>
                 </div>
 
                 <div class="faq-item">
-                    <h3>Virker vCard QR-koder på alle telefoner?</h3>
-                    <p>Ja! vCard QR-koder understøttes af både iPhone (iOS 11+) og Android telefoner. De fleste kamera-apps kan scanne og fortolke vCard data automatisk.</p>
+                    <h3>Do vCard QR codes work on all phones?</h3>
+                    <p>Yes! vCard QR codes are supported by both iPhone (iOS 11+) and Android phones. Most camera apps can scan and interpret vCard data automatically.</p>
                 </div>
 
                 <div class="faq-item">
-                    <h3>Hvilke oplysninger kan jeg inkludere i en vCard?</h3>
-                    <p>Du kan inkludere navn, virksomhed, titel, telefonnummer, e-mail, hjemmeside og adresse. Jo flere oplysninger, jo større bliver QR-koden.</p>
+                    <h3>What information can I include in a vCard?</h3>
+                    <p>You can include name, company, title, phone number, email, website and address. The more information you include, the larger the QR code becomes.</p>
                 </div>
 
                 <div class="faq-item">
-                    <h3>Kan jeg bruge vCard QR-koden på mit visitkort?</h3>
-                    <p>Absolut! Download QR-koden i SVG-format for den bedste printkvalitet, og placer den på bagsiden af dit visitkort.</p>
+                    <h3>Can I use the vCard QR code on my business card?</h3>
+                    <p>Absolutely! Download the QR code in SVG format for the best print quality, and place it on the back of your business card.</p>
                 </div>
 
                 <div class="faq-item">
-                    <h3>Er mine kontaktoplysninger sikre?</h3>
-                    <p>Ja, dine oplysninger behandles kun lokalt i din browser. Ingen data sendes til en server. QR-koden genereres 100% på din egen enhed.</p>
+                    <h3>Is my contact information secure?</h3>
+                    <p>Yes, your information is only processed locally in your browser. No data is sent to a server. The QR code is generated 100% on your own device.</p>
                 </div>
             </article>
         </section>
 
         <footer class="footer">
-            <p>Lavet med <svg class="icon" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> af <a href="https://mahope.dk" target="_blank" rel="noopener">Mahope.dk</a></p>
+            <p>Made with <svg class="icon" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> by <a href="https://mahope.dk" target="_blank" rel="noopener">Mahope.dk</a></p>
             <p class="footer-links">
-                <a href="/">QRTool.dk</a> |
-                <a href="/privatlivspolitik">Privatlivspolitik</a> |
-                <a href="/om-qr-tool">Om QR Tool</a>
+                <a href="/en/">QRTool.dk</a> |
+                <a href="/en/privacy-policy">Privacy Policy</a> |
+                <a href="/en/about">About QR Tool</a>
             </p>
             <div class="footer-tools">
-                <h3><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg> Andre gratis værktøjer fra Mahope.dk</h3>
+                <h3><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg> Other free tools from Mahope.dk</h3>
                 <div class="footer-tools-grid">
                     <a href="https://levetidsberegner.dk" target="_blank" rel="noopener" class="footer-tool-card">
                         <span class="emoji"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 22h14"/><path d="M5 2h14"/><path d="M17 22v-4.172a2 2 0 0 0-.586-1.414L12 12l-4.414 4.414A2 2 0 0 0 7 17.828V22"/><path d="M7 2v4.172a2 2 0 0 0 .586 1.414L12 12l4.414-4.414A2 2 0 0 0 17 6.172V2"/></svg></span>
                         <h4>Levetidsberegner.dk</h4>
-                        <p>Beregn din forventede levetid</p>
+                        <p>Calculate your life expectancy</p>
                     </a>
                     <a href="https://pakkeliste.com" target="_blank" rel="noopener" class="footer-tool-card">
                         <span class="emoji"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg></span>
                         <h4>Pakkeliste.com</h4>
-                        <p>Intelligent rejseværktøj til pakkelister</p>
+                        <p>Intelligent travel packing list tool</p>
                     </a>
                 </div>
             </div>
@@ -346,7 +346,7 @@
                 });
             }
 
-            // DOM elementer
+            // DOM elements
             const generateBtn = document.getElementById('generateBtn');
             const downloadBtn = document.getElementById('downloadBtn');
             const qrPreview = document.getElementById('qrPreview');
@@ -469,7 +469,7 @@
             function generateQRCode() {
                 const text = getVCardData();
                 if (!text) {
-                    alert('Indtast venligst mindst et for- eller efternavn!');
+                    alert('Please enter at least a first or last name!');
                     return;
                 }
 
@@ -494,14 +494,14 @@
                     }
 
                     downloadBtn.disabled = false;
-                    generateBtn.textContent = '✓ Genereret!';
+                    generateBtn.textContent = '✓ Generated!';
                     generateBtn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
                     setTimeout(() => {
-                        generateBtn.innerHTML = '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> Generer vCard QR-Kode';
+                        generateBtn.innerHTML = '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> Generate vCard QR Code';
                         generateBtn.style.background = '';
                     }, 2000);
                 } catch (error) {
-                    alert('Fejl: ' + error.message);
+                    alert('Error: ' + error.message);
                 }
             }
 

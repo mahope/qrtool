@@ -136,9 +136,13 @@ header {
 
 .header-top {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    gap: 0.5rem;
     margin-bottom: 1.5rem;
+}
+
+.header-top .logo {
+    margin-right: auto;
 }
 
 .header-actions {
@@ -288,6 +292,37 @@ header p {
 
 /* Theme Toggle */
 /* Font size toggle */
+/* Language switcher */
+.lang-switcher {
+    background: var(--card-bg);
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius);
+    padding: 0.35rem 0.55rem;
+    cursor: pointer;
+    transition: all var(--transition);
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    color: var(--text-muted);
+    font-weight: 700;
+    font-size: 0.8rem;
+    font-family: inherit;
+    line-height: 1;
+    text-decoration: none;
+    letter-spacing: 0.02em;
+}
+
+.lang-switcher:hover {
+    border-color: var(--primary-color);
+    color: var(--text-color);
+}
+
+.lang-switcher svg {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+}
+
 .font-size-toggle {
     background: var(--card-bg);
     border: 2px solid var(--border-color);

@@ -18,7 +18,7 @@ const copyItems = [
     'style.css', 'app.js', 'sw.js',
     'sitemap.xml', 'robots.txt', 'manifest.json', 'icon.svg', 'ads.txt',
     '.htaccess',
-    'lib', 'guides'
+    'lib', 'guides', 'en'
 ];
 
 function copyRecursive(src, dest) {

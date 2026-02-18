@@ -19,7 +19,7 @@ Opret `/guides` med artikler som "Sådan bruger du QR-koder i din restaurant", "
 ### #3 — Hreflang-tags og engelsk version (P1)
 Tilføj `hreflang="da"` på alle sider og forbered en `/en/` version. Danmark har mange engelsktalende brugere og turister. Dobler potentiel trafik.
 
-- [ ] Ikke startet
+- [x] Færdig — 14 engelske sider i /en/, hreflang-tags, sitemap, i18n i app.js (~60 strenge), sprogswitcher i header
 
 ### #4 — Struktureret data for HowTo-schema (P2)
 Tilføj `HowTo` schema markup til guide-sektionerne, så Google kan vise step-by-step rich snippets i søgeresultaterne.

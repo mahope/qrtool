@@ -1,3 +1,311 @@
+// ===========================================
+// i18n — Language detection & translations
+// ===========================================
+
+const LANG = document.documentElement.lang || 'da';
+const T = {
+    da: {
+        // Templates
+        'tpl.loaded': 'Skabelon "{name}" indlæst.',
+        'tpl.restaurant': 'Se vores menu',
+        'tpl.wifi': 'Forbind til WiFi',
+        'tpl.vcard': 'Scan for kontaktinfo',
+        'tpl.event': 'Tilføj til kalender',
+        'tpl.social': 'Følg os',
+        'tpl.feedback': 'Giv os feedback',
+        'tpl.restaurantUrl': 'https://dinrestaurant.dk/menu',
+        'tpl.socialUrl': 'https://instagram.com/ditbrugernavn',
+        'tpl.feedbackUrl': 'https://forms.gle/dit-formular-link',
+
+        // Error correction hints
+        'ec.L': 'Lav (~7%) — Til rene overflader og digitale skærme',
+        'ec.M': 'Medium (~15%) — Anbefalet til de fleste formål',
+        'ec.Q': 'Høj (~25%) — Til print og overflader med lidt slid',
+        'ec.H': 'Meget høj (~30%) — Til print med logo eller udendørs brug',
+
+        // Compare style labels
+        'style.square': 'Standard',
+        'style.rounded': 'Afrundet',
+        'style.dots': 'Prikker',
+
+        // Validation errors
+        'err.textRequired': 'Indtast tekst eller en URL.',
+        'err.ssidRequired': 'Netværksnavn er påkrævet.',
+        'err.nameRequired': 'Navn er påkrævet.',
+        'err.invalidEmail': 'Ugyldig e-mail-adresse.',
+        'err.urlHttps': 'URL skal starte med https://',
+        'err.emailRequired': 'E-mail-adresse er påkrævet.',
+        'err.phoneRequired': 'Telefonnummer er påkrævet.',
+        'err.eventNameRequired': 'Begivenhedsnavn er påkrævet.',
+        'err.startDateRequired': 'Startdato er påkrævet.',
+        'err.latRequired': 'Breddegrad er påkrævet.',
+        'err.latRange': 'Breddegrad skal være mellem -90 og 90.',
+        'err.lngRequired': 'Længdegrad er påkrævet.',
+        'err.lngRange': 'Længdegrad skal være mellem -180 og 180.',
+        'err.usernameRequired': 'Brugernavn er påkrævet.',
+        'err.paypalRequired': 'PayPal brugernavn er påkrævet.',
+        'err.mobilepayRequired': 'Telefonnummer er påkrævet.',
+
+        // Toast messages
+        'toast.generated': 'QR-kode genereret!',
+        'toast.downloaded': 'QR-kode downloadet!',
+        'toast.copied': 'Kopieret til udklipsholder!',
+        'toast.shared': 'QR-kode delt!',
+        'toast.generateFirst': 'Generer venligst en QR-kode først!',
+        'toast.generateError': 'Fejl ved generering: ',
+        'toast.downloadError': 'Fejl ved download: ',
+        'toast.copyError': 'Kunne ikke kopiere. Sørg for at siden kører over HTTPS.',
+        'toast.copyUnsupported': 'Din browser understøtter ikke kopiering af billeder. Prøv Chrome eller Edge.',
+        'toast.blobError': 'Kunne ikke oprette billede. Prøv en mindre størrelse.',
+        'toast.shareUnsupported': 'Deling er ikke understøttet i din browser. Prøv at kopiere i stedet.',
+        'toast.shareImageUnsupported': 'Din browser understøtter ikke deling af billeder.',
+        'toast.shareError': 'Kunne ikke dele QR-koden.',
+        'toast.shareImageError': 'Kunne ikke oprette billede til deling.',
+        'toast.webpUnsupported': 'Din browser understøtter ikke WebP. Vælg et andet format.',
+        'toast.logoEcBoosted': 'Fejlkorrektion sat til Meget høj for bedre logo-kompatibilitet.',
+        'toast.logoLoadError': 'Kunne ikke indlæse billedet.',
+        'toast.textCopied': 'Tekst kopieret til udklipsholder!',
+
+        // Batch
+        'batch.enterText': 'Indtast venligst mindst én URL/tekst!',
+        'batch.max100': 'Maksimalt 100 QR-koder ad gangen!',
+        'batch.jszipMissing': 'JSZip biblioteket mangler. Genindlæs siden.',
+        'batch.generating': 'Genererer...',
+        'batch.downloaded': '{n} QR-koder downloadet som ZIP!',
+        'batch.error': 'Fejl ved batch generering: ',
+        'batch.preview': '{n} QR-koder vist i forhåndsvisning',
+
+        // CSV
+        'csv.empty': 'CSV-filen er tom.',
+        'csv.noData': 'Ingen data fundet i CSV-filen.',
+        'csv.imported': '{n} rækker importeret fra CSV.',
+
+        // History
+        'history.empty': 'Ingen tidligere QR-koder',
+        'history.noResults': 'Ingen resultater',
+        'history.confirmClear': 'Er du sikker på at du vil slette hele historikken?',
+        'history.addedFav': 'Tilføjet til favoritter',
+        'history.removedFav': 'Fjernet fra favoritter',
+        'history.rename': 'Giv QR-koden et navn:',
+
+        // Type labels
+        'type.text': 'Tekst/URL',
+        'type.wifi': 'WiFi',
+        'type.vcard': 'vCard',
+        'type.email': 'Email',
+        'type.sms': 'SMS',
+        'type.calendar': 'Kalender',
+        'type.geo': 'Lokation',
+        'type.payment': 'Betaling',
+        'type.social': 'Social',
+
+        // Aria / Announcements
+        'aria.qrGenerated': 'QR-kode genereret for {type}: {preview}',
+        'aria.removeFav': 'Fjern fra favoritter',
+        'aria.addFav': 'Tilføj til favoritter',
+        'aria.rename': 'Giv denne QR-kode et navn',
+        'aria.reload': 'Genindlæs denne QR-kode',
+        'aria.delete': 'Slet denne QR-kode fra historik',
+        'aria.removeFavTitle': 'Fjern favorit',
+        'aria.addFavTitle': 'Tilføj favorit',
+        'aria.renameTitle': 'Omdøb',
+        'aria.reloadTitle': 'Genindlæs',
+        'aria.deleteTitle': 'Slet',
+
+        // Share
+        'share.title': 'QR-kode fra QRTool.dk',
+        'share.filename': 'qr-kode.png',
+
+        // Scanner
+        'scanner.libMissing': 'QR-scanner biblioteket mangler. Genindlæs siden.',
+        'scanner.camDenied': 'Kameraadgang blev afvist. Tillad kameraadgang i din browser.',
+        'scanner.camError': 'Kunne ikke starte kameraet. Har din enhed et kamera?',
+        'scanner.noQR': 'Ingen QR-kode fundet i billedet. Prøv et andet billede.',
+        'scanner.imgError': 'Kunne ikke indlæse billedet.',
+
+        // Geo
+        'geo.unsupported': 'Geolokation understøttes ikke i denne browser.',
+        'geo.fetching': 'Henter placering...',
+        'geo.useMyLocation': 'Brug min placering',
+        'geo.fetched': 'Placering hentet!',
+        'geo.denied': 'Adgang til placering blev nægtet.',
+        'geo.unavailable': 'Placering ikke tilgængelig.',
+        'geo.timeout': 'Anmodning udløb.',
+        'geo.error': 'Kunne ikke hente placering.',
+
+        // Onboarding
+        'onboard.step': 'Trin {n} af {total}',
+        'onboard.skip': 'Spring over',
+        'onboard.next': 'Næste',
+        'onboard.done': 'Forstået',
+        'onboard.ariaLabel': 'Introduktionsrundvisning',
+        'onboard.step1': 'Vælg hvilken type QR-kode du vil lave — tekst, WiFi, visitkort og mere.',
+        'onboard.step2': 'Udfyld oplysningerne for din QR-kode her. Felterne ændrer sig med den valgte type.',
+        'onboard.step3': 'Tryk Generer for at se din QR-kode, og Download eller Kopiér den bagefter.',
+
+        // Date locale
+        'locale': 'da-DK',
+
+        // History date
+        'history.dateLocale': 'da-DK',
+    },
+    en: {
+        // Templates
+        'tpl.loaded': 'Template "{name}" loaded.',
+        'tpl.restaurant': 'See our menu',
+        'tpl.wifi': 'Connect to WiFi',
+        'tpl.vcard': 'Scan for contact info',
+        'tpl.event': 'Add to calendar',
+        'tpl.social': 'Follow us',
+        'tpl.feedback': 'Give us feedback',
+        'tpl.restaurantUrl': 'https://yourrestaurant.com/menu',
+        'tpl.socialUrl': 'https://instagram.com/yourusername',
+        'tpl.feedbackUrl': 'https://forms.gle/your-form-link',
+
+        // Error correction hints
+        'ec.L': 'Low (~7%) — For clean surfaces and digital screens',
+        'ec.M': 'Medium (~15%) — Recommended for most purposes',
+        'ec.Q': 'High (~25%) — For print and surfaces with some wear',
+        'ec.H': 'Very high (~30%) — For print with logo or outdoor use',
+
+        // Compare style labels
+        'style.square': 'Standard',
+        'style.rounded': 'Rounded',
+        'style.dots': 'Dots',
+
+        // Validation errors
+        'err.textRequired': 'Please enter text or a URL.',
+        'err.ssidRequired': 'Network name is required.',
+        'err.nameRequired': 'Name is required.',
+        'err.invalidEmail': 'Invalid email address.',
+        'err.urlHttps': 'URL must start with https://',
+        'err.emailRequired': 'Email address is required.',
+        'err.phoneRequired': 'Phone number is required.',
+        'err.eventNameRequired': 'Event name is required.',
+        'err.startDateRequired': 'Start date is required.',
+        'err.latRequired': 'Latitude is required.',
+        'err.latRange': 'Latitude must be between -90 and 90.',
+        'err.lngRequired': 'Longitude is required.',
+        'err.lngRange': 'Longitude must be between -180 and 180.',
+        'err.usernameRequired': 'Username is required.',
+        'err.paypalRequired': 'PayPal username is required.',
+        'err.mobilepayRequired': 'Phone number is required.',
+
+        // Toast messages
+        'toast.generated': 'QR code generated!',
+        'toast.downloaded': 'QR code downloaded!',
+        'toast.copied': 'Copied to clipboard!',
+        'toast.shared': 'QR code shared!',
+        'toast.generateFirst': 'Please generate a QR code first!',
+        'toast.generateError': 'Generation error: ',
+        'toast.downloadError': 'Download error: ',
+        'toast.copyError': 'Could not copy. Make sure the page runs over HTTPS.',
+        'toast.copyUnsupported': 'Your browser does not support image copying. Try Chrome or Edge.',
+        'toast.blobError': 'Could not create image. Try a smaller size.',
+        'toast.shareUnsupported': 'Sharing is not supported in your browser. Try copying instead.',
+        'toast.shareImageUnsupported': 'Your browser does not support sharing images.',
+        'toast.shareError': 'Could not share the QR code.',
+        'toast.shareImageError': 'Could not create image for sharing.',
+        'toast.webpUnsupported': 'Your browser does not support WebP. Choose another format.',
+        'toast.logoEcBoosted': 'Error correction set to Very High for better logo compatibility.',
+        'toast.logoLoadError': 'Could not load the image.',
+        'toast.textCopied': 'Text copied to clipboard!',
+
+        // Batch
+        'batch.enterText': 'Please enter at least one URL/text!',
+        'batch.max100': 'Maximum 100 QR codes at a time!',
+        'batch.jszipMissing': 'JSZip library is missing. Reload the page.',
+        'batch.generating': 'Generating...',
+        'batch.downloaded': '{n} QR codes downloaded as ZIP!',
+        'batch.error': 'Batch generation error: ',
+        'batch.preview': '{n} QR codes shown in preview',
+
+        // CSV
+        'csv.empty': 'The CSV file is empty.',
+        'csv.noData': 'No data found in the CSV file.',
+        'csv.imported': '{n} rows imported from CSV.',
+
+        // History
+        'history.empty': 'No previous QR codes',
+        'history.noResults': 'No results',
+        'history.confirmClear': 'Are you sure you want to delete the entire history?',
+        'history.addedFav': 'Added to favorites',
+        'history.removedFav': 'Removed from favorites',
+        'history.rename': 'Give the QR code a name:',
+
+        // Type labels
+        'type.text': 'Text/URL',
+        'type.wifi': 'WiFi',
+        'type.vcard': 'vCard',
+        'type.email': 'Email',
+        'type.sms': 'SMS',
+        'type.calendar': 'Calendar',
+        'type.geo': 'Location',
+        'type.payment': 'Payment',
+        'type.social': 'Social',
+
+        // Aria / Announcements
+        'aria.qrGenerated': 'QR code generated for {type}: {preview}',
+        'aria.removeFav': 'Remove from favorites',
+        'aria.addFav': 'Add to favorites',
+        'aria.rename': 'Give this QR code a name',
+        'aria.reload': 'Reload this QR code',
+        'aria.delete': 'Delete this QR code from history',
+        'aria.removeFavTitle': 'Remove favorite',
+        'aria.addFavTitle': 'Add favorite',
+        'aria.renameTitle': 'Rename',
+        'aria.reloadTitle': 'Reload',
+        'aria.deleteTitle': 'Delete',
+
+        // Share
+        'share.title': 'QR code from QRTool.dk',
+        'share.filename': 'qr-code.png',
+
+        // Scanner
+        'scanner.libMissing': 'QR scanner library is missing. Reload the page.',
+        'scanner.camDenied': 'Camera access was denied. Allow camera access in your browser.',
+        'scanner.camError': 'Could not start the camera. Does your device have a camera?',
+        'scanner.noQR': 'No QR code found in the image. Try another image.',
+        'scanner.imgError': 'Could not load the image.',
+
+        // Geo
+        'geo.unsupported': 'Geolocation is not supported in this browser.',
+        'geo.fetching': 'Fetching location...',
+        'geo.useMyLocation': 'Use my location',
+        'geo.fetched': 'Location fetched!',
+        'geo.denied': 'Location access was denied.',
+        'geo.unavailable': 'Location not available.',
+        'geo.timeout': 'Request timed out.',
+        'geo.error': 'Could not fetch location.',
+
+        // Onboarding
+        'onboard.step': 'Step {n} of {total}',
+        'onboard.skip': 'Skip',
+        'onboard.next': 'Next',
+        'onboard.done': 'Got it',
+        'onboard.ariaLabel': 'Introductory guided tour',
+        'onboard.step1': 'Choose what type of QR code you want to create — text, WiFi, business card and more.',
+        'onboard.step2': 'Fill in the details for your QR code here. The fields change with the selected type.',
+        'onboard.step3': 'Press Generate to see your QR code, then Download or Copy it.',
+
+        // Date locale
+        'locale': 'en-US',
+
+        // History date
+        'history.dateLocale': 'en-US',
+    }
+};
+
+function t(key, params) {
+    let str = T[LANG]?.[key] || T.da[key] || key;
+    if (params) {
+        for (const [k, v] of Object.entries(params)) {
+            str = str.replace(`{${k}}`, v);
+        }
+    }
+    return str;
+}
+
 // Theme management
 const themeToggle = document.getElementById('themeToggle');
 const html = document.documentElement;
@@ -141,33 +449,33 @@ tabButtons.forEach(button => {
 const templates = {
     'restaurant-menu': {
         tab: 'text',
-        fields: { qrText: 'https://dinrestaurant.dk/menu' },
-        cta: 'Se vores menu'
+        fields: { qrText: t('tpl.restaurantUrl') },
+        cta: t('tpl.restaurant')
     },
     'wifi-guest': {
         tab: 'wifi',
         fields: { wifiSSID: 'GuestWiFi', wifiPassword: '', wifiEncryption: 'WPA' },
-        cta: 'Forbind til WiFi'
+        cta: t('tpl.wifi')
     },
     'business-card': {
         tab: 'vcard',
         fields: { vcardName: '', vcardOrg: '', vcardTitle: '', vcardPhone: '', vcardEmail: '' },
-        cta: 'Scan for kontaktinfo'
+        cta: t('tpl.vcard')
     },
     'event-invite': {
         tab: 'calendar',
         fields: { calTitle: '', calLocation: '' },
-        cta: 'Tilføj til kalender'
+        cta: t('tpl.event')
     },
     'social-link': {
         tab: 'text',
-        fields: { qrText: 'https://instagram.com/ditbrugernavn' },
-        cta: 'Følg os'
+        fields: { qrText: t('tpl.socialUrl') },
+        cta: t('tpl.social')
     },
     'feedback': {
         tab: 'text',
-        fields: { qrText: 'https://forms.gle/dit-formular-link' },
-        cta: 'Giv os feedback'
+        fields: { qrText: t('tpl.feedbackUrl') },
+        cta: t('tpl.feedback')
     }
 };
 
@@ -200,7 +508,7 @@ document.querySelectorAll('.template-card').forEach(card => {
         const details = card.closest('details');
         if (details) details.removeAttribute('open');
 
-        showToast(`Skabelon "${card.querySelector('.template-name').textContent}" indlæst.`, 'info');
+        showToast(t('tpl.loaded', { name: card.querySelector('.template-name').textContent }), 'info');
     });
 });
 
@@ -344,10 +652,10 @@ if (swapColorsBtn) {
 const ecOptions = document.querySelectorAll('.ec-option');
 const ecHint = document.getElementById('ecHint');
 const ecHints = {
-    L: 'Lav (~7%) — Til rene overflader og digitale skærme',
-    M: 'Medium (~15%) — Anbefalet til de fleste formål',
-    Q: 'Høj (~25%) — Til print og overflader med lidt slid',
-    H: 'Meget høj (~30%) — Til print med logo eller udendørs brug'
+    L: t('ec.L'),
+    M: t('ec.M'),
+    Q: t('ec.Q'),
+    H: t('ec.H')
 };
 ecOptions.forEach(opt => {
     opt.addEventListener('click', () => {
@@ -511,7 +819,7 @@ function handleLogoFile(file) {
         // Auto-switch to high error correction for logo QR codes
         if (errorCorrection.value === 'L' || errorCorrection.value === 'M') {
             errorCorrection.value = 'H';
-            showToast('Fejlkorrektion sat til Meget høj for bedre logo-kompatibilitet.', 'info');
+            showToast(t('toast.logoEcBoosted'), 'info');
         }
 
         if (currentQRCanvas || currentQRSVG) generateQRCode();
@@ -519,7 +827,7 @@ function handleLogoFile(file) {
     img.onerror = () => {
         URL.revokeObjectURL(url);
         currentLogoObjectUrl = null;
-        showToast('Kunne ikke indlæse billedet.', 'error');
+        showToast(t('toast.logoLoadError'), 'error');
     };
     img.src = url;
 }
@@ -748,7 +1056,7 @@ function validateForm() {
         case 'text': {
             const val = qrText.value.trim();
             if (!val) {
-                setFieldError('qrText', 'Indtast tekst eller en URL.');
+                setFieldError('qrText', t('err.textRequired'));
                 valid = false;
             }
             break;
@@ -756,7 +1064,7 @@ function validateForm() {
         case 'wifi': {
             const ssid = document.getElementById('wifiSSID').value.trim();
             if (!ssid) {
-                setFieldError('wifiSSID', 'Netværksnavn er påkrævet.');
+                setFieldError('wifiSSID', t('err.ssidRequired'));
                 valid = false;
             }
             break;
@@ -766,15 +1074,15 @@ function validateForm() {
             const email = document.getElementById('vcardEmail').value.trim();
             const website = document.getElementById('vcardWebsite').value.trim();
             if (!name) {
-                setFieldError('vcardName', 'Navn er påkrævet.');
+                setFieldError('vcardName', t('err.nameRequired'));
                 valid = false;
             }
             if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-                setFieldError('vcardEmail', 'Ugyldig e-mail-adresse.');
+                setFieldError('vcardEmail', t('err.invalidEmail'));
                 valid = false;
             }
             if (website && !/^https?:\/\/.+/.test(website)) {
-                setFieldError('vcardWebsite', 'URL skal starte med https://');
+                setFieldError('vcardWebsite', t('err.urlHttps'));
                 valid = false;
             }
             break;
@@ -782,10 +1090,10 @@ function validateForm() {
         case 'email': {
             const to = document.getElementById('emailTo').value.trim();
             if (!to) {
-                setFieldError('emailTo', 'E-mail-adresse er påkrævet.');
+                setFieldError('emailTo', t('err.emailRequired'));
                 valid = false;
             } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(to)) {
-                setFieldError('emailTo', 'Ugyldig e-mail-adresse.');
+                setFieldError('emailTo', t('err.invalidEmail'));
                 valid = false;
             }
             break;
@@ -793,7 +1101,7 @@ function validateForm() {
         case 'sms': {
             const phone = document.getElementById('smsPhone').value.trim();
             if (!phone) {
-                setFieldError('smsPhone', 'Telefonnummer er påkrævet.');
+                setFieldError('smsPhone', t('err.phoneRequired'));
                 valid = false;
             }
             break;
@@ -802,11 +1110,11 @@ function validateForm() {
             const title = document.getElementById('calTitle').value.trim();
             const start = document.getElementById('calStart').value;
             if (!title) {
-                setFieldError('calTitle', 'Begivenhedsnavn er påkrævet.');
+                setFieldError('calTitle', t('err.eventNameRequired'));
                 valid = false;
             }
             if (!start) {
-                setFieldError('calStart', 'Startdato er påkrævet.');
+                setFieldError('calStart', t('err.startDateRequired'));
                 valid = false;
             }
             break;
@@ -817,17 +1125,17 @@ function validateForm() {
             const latNum = parseFloat(latStr);
             const lngNum = parseFloat(lngStr);
             if (!latStr) {
-                setFieldError('geoLat', 'Breddegrad er påkrævet.');
+                setFieldError('geoLat', t('err.latRequired'));
                 valid = false;
             } else if (isNaN(latNum) || latNum < -90 || latNum > 90) {
-                setFieldError('geoLat', 'Breddegrad skal være mellem -90 og 90.');
+                setFieldError('geoLat', t('err.latRange'));
                 valid = false;
             }
             if (!lngStr) {
-                setFieldError('geoLng', 'Længdegrad er påkrævet.');
+                setFieldError('geoLng', t('err.lngRequired'));
                 valid = false;
             } else if (isNaN(lngNum) || lngNum < -180 || lngNum > 180) {
-                setFieldError('geoLng', 'Længdegrad skal være mellem -180 og 180.');
+                setFieldError('geoLng', t('err.lngRange'));
                 valid = false;
             }
             break;
@@ -835,7 +1143,7 @@ function validateForm() {
         case 'social': {
             const sUser = document.getElementById('socialUsername').value.trim();
             if (!sUser) {
-                setFieldError('socialUsername', 'Brugernavn er påkrævet.');
+                setFieldError('socialUsername', t('err.usernameRequired'));
                 valid = false;
             }
             break;
@@ -845,13 +1153,13 @@ function validateForm() {
             if (pType === 'paypal') {
                 const usr = document.getElementById('paypalUsername').value.trim();
                 if (!usr) {
-                    setFieldError('paypalUsername', 'PayPal brugernavn er påkrævet.');
+                    setFieldError('paypalUsername', t('err.paypalRequired'));
                     valid = false;
                 }
             } else {
                 const ph = document.getElementById('mobilepayPhone').value.trim();
                 if (!ph) {
-                    setFieldError('mobilepayPhone', 'Telefonnummer er påkrævet.');
+                    setFieldError('mobilepayPhone', t('err.mobilepayRequired'));
                     valid = false;
                 }
             }
@@ -940,17 +1248,16 @@ function generateQRCode() {
 
         // Announce to screen readers
         if (qrAnnouncement) {
-            const typeLabels = { text: 'URL/tekst', wifi: 'WiFi', vcard: 'visitkort', email: 'e-mail', sms: 'SMS', calendar: 'kalender', geo: 'lokation', payment: 'betaling', social: 'social' };
-            const label = typeLabels[currentTab] || currentTab;
+            const label = t('type.' + currentTab) || currentTab;
             const preview = text.length > 80 ? text.substring(0, 80) + '...' : text;
-            qrAnnouncement.textContent = 'QR-kode genereret for ' + label + ': ' + preview;
+            qrAnnouncement.textContent = t('aria.qrGenerated', { type: label, preview });
         }
 
-        showToast('QR-kode genereret!', 'success');
+        showToast(t('toast.generated'), 'success');
 
     } catch (error) {
         console.error('Fejl ved generering af QR-kode:', error);
-        showToast('Fejl ved generering: ' + error.message, 'error');
+        showToast(t('toast.generateError') + error.message, 'error');
     }
 }
 
@@ -1074,7 +1381,7 @@ function downloadQRCode() {
         if (format === 'svg') {
             // Download SVG
             if (!currentQRSVG) {
-                showToast('Generer venligst en QR-kode først!', 'info');
+                showToast(t('toast.generateFirst'), 'info');
                 return;
             }
 
@@ -1084,7 +1391,7 @@ function downloadQRCode() {
         } else if (format === 'png') {
             // Download PNG
             if (!currentQRCanvas) {
-                showToast('Generer venligst en QR-kode først!', 'info');
+                showToast(t('toast.generateFirst'), 'info');
                 return;
             }
 
@@ -1095,7 +1402,7 @@ function downloadQRCode() {
         } else if (format === 'jpg') {
             // Download JPG
             if (!currentQRCanvas) {
-                showToast('Generer venligst en QR-kode først!', 'info');
+                showToast(t('toast.generateFirst'), 'info');
                 return;
             }
 
@@ -1125,13 +1432,13 @@ function downloadQRCode() {
         } else if (format === 'webp') {
             // Download WebP
             if (!currentQRCanvas) {
-                showToast('Generer venligst en QR-kode først!', 'info');
+                showToast(t('toast.generateFirst'), 'info');
                 return;
             }
 
             currentQRCanvas.toBlob((blob) => {
                 if (!blob) {
-                    showToast('Din browser understøtter ikke WebP. Vælg et andet format.', 'error');
+                    showToast(t('toast.webpUnsupported'), 'error');
                     return;
                 }
                 downloadBlob(blob, filename);
@@ -1140,7 +1447,7 @@ function downloadQRCode() {
         } else if (format === 'pdf') {
             // Download PDF (A4)
             if (!currentQRCanvas) {
-                showToast('Generer venligst en QR-kode først!', 'info');
+                showToast(t('toast.generateFirst'), 'info');
                 return;
             }
 
@@ -1153,11 +1460,11 @@ function downloadQRCode() {
             }, 'image/jpeg', 0.95);
         }
 
-        showToast('QR-kode downloadet!', 'success');
+        showToast(t('toast.downloaded'), 'success');
 
     } catch (error) {
         console.error('Fejl ved download:', error);
-        showToast('Fejl ved download: ' + error.message, 'error');
+        showToast(t('toast.downloadError') + error.message, 'error');
     }
 }
 
@@ -1227,7 +1534,7 @@ if (copyBtn) {
 async function copyQRCode() {
     // Tjek om Clipboard API er tilgængelig
     if (!navigator.clipboard?.write) {
-        showToast('Din browser understøtter ikke kopiering af billeder. Prøv Chrome eller Edge.', 'error');
+        showToast(t('toast.copyUnsupported'), 'error');
         return;
     }
 
@@ -1240,13 +1547,13 @@ async function copyQRCode() {
         }
 
         if (!canvas) {
-            showToast('Generer venligst en QR-kode først!', 'info');
+            showToast(t('toast.generateFirst'), 'info');
             return;
         }
 
         const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
         if (!blob) {
-            showToast('Kunne ikke oprette billede. Prøv en mindre størrelse.', 'error');
+            showToast(t('toast.blobError'), 'error');
             return;
         }
 
@@ -1254,11 +1561,11 @@ async function copyQRCode() {
             new ClipboardItem({ 'image/png': blob })
         ]);
 
-        showToast('Kopieret til udklipsholder!', 'success');
+        showToast(t('toast.copied'), 'success');
 
     } catch (error) {
         console.error('Fejl ved kopiering:', error);
-        showToast('Kunne ikke kopiere. Sørg for at siden kører over HTTPS.', 'error');
+        showToast(t('toast.copyError'), 'error');
     }
 }
 
@@ -1266,7 +1573,7 @@ async function copyQRCode() {
 if (printBtn) {
     printBtn.addEventListener('click', () => {
         if (!currentQRCanvas && !currentQRSVG) {
-            showToast('Generer venligst en QR-kode først!', 'info');
+            showToast(t('toast.generateFirst'), 'info');
             return;
         }
         window.print();
@@ -1278,7 +1585,7 @@ if (compareBtn) {
     compareBtn.addEventListener('click', () => {
         const text = getQRData();
         if (!text) {
-            showToast('Generer venligst en QR-kode først!', 'info');
+            showToast(t('toast.generateFirst'), 'info');
             return;
         }
 
@@ -1288,9 +1595,9 @@ if (compareBtn) {
 
         const ecLevel = errorCorrection.value;
         const styles = [
-            { key: 'square', label: 'Standard' },
-            { key: 'rounded', label: 'Afrundet' },
-            { key: 'dots', label: 'Prikker' }
+            { key: 'square', label: t('style.square') },
+            { key: 'rounded', label: t('style.rounded') },
+            { key: 'dots', label: t('style.dots') }
         ];
 
         compareGrid.innerHTML = '';
@@ -1330,7 +1637,7 @@ if (shareBtn) {
 
 async function shareQRCode() {
     if (!navigator.share) {
-        showToast('Deling er ikke understøttet i din browser. Prøv at kopiere i stedet.', 'info');
+        showToast(t('toast.shareUnsupported'), 'info');
         return;
     }
 
@@ -1340,34 +1647,34 @@ async function shareQRCode() {
             canvas = await svgToCanvas(currentQRSVG);
         }
         if (!canvas) {
-            showToast('Generer venligst en QR-kode først!', 'info');
+            showToast(t('toast.generateFirst'), 'info');
             return;
         }
 
         const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
         if (!blob) {
-            showToast('Kunne ikke oprette billede til deling.', 'error');
+            showToast(t('toast.shareImageError'), 'error');
             return;
         }
 
-        const file = new File([blob], 'qr-kode.png', { type: 'image/png' });
+        const file = new File([blob], t('share.filename'), { type: 'image/png' });
 
         if (navigator.canShare && !navigator.canShare({ files: [file] })) {
-            showToast('Din browser understøtter ikke deling af billeder.', 'info');
+            showToast(t('toast.shareImageUnsupported'), 'info');
             return;
         }
 
         await navigator.share({
-            title: 'QR-kode fra QRTool.dk',
+            title: t('share.title'),
             files: [file]
         });
 
-        showToast('QR-kode delt!', 'success');
+        showToast(t('toast.shared'), 'success');
     } catch (error) {
         // User cancelled the share dialog — not an error
         if (error.name !== 'AbortError') {
             console.error('Fejl ved deling:', error);
-            showToast('Kunne ikke dele QR-koden.', 'error');
+            showToast(t('toast.shareError'), 'error');
         }
     }
 }
@@ -1433,11 +1740,11 @@ if (batchPreviewBtn && batchInput) {
     batchPreviewBtn.addEventListener('click', () => {
         const lines = getBatchLines();
         if (lines.length === 0) {
-            showToast('Indtast venligst mindst én URL/tekst!', 'error');
+            showToast(t('batch.enterText'), 'error');
             return;
         }
         if (lines.length > 100) {
-            showToast('Maksimalt 100 QR-koder ad gangen!', 'error');
+            showToast(t('batch.max100'), 'error');
             return;
         }
 
@@ -1466,7 +1773,7 @@ if (batchPreviewBtn && batchInput) {
             if (batchPreviewGrid) batchPreviewGrid.appendChild(item);
         });
 
-        showToast(`${lines.length} QR-koder vist i forhåndsvisning`, 'success');
+        showToast(t('batch.preview', { n: lines.length }), 'success');
     });
 }
 
@@ -1476,22 +1783,22 @@ if (batchGenerateBtn && batchInput) {
         const lines = getBatchLines();
 
         if (lines.length === 0) {
-            showToast('Indtast venligst mindst én URL/tekst!', 'error');
+            showToast(t('batch.enterText'), 'error');
             return;
         }
 
         if (lines.length > 100) {
-            showToast('Maksimalt 100 QR-koder ad gangen!', 'error');
+            showToast(t('batch.max100'), 'error');
             return;
         }
 
         if (typeof JSZip === 'undefined') {
-            showToast('JSZip biblioteket mangler. Genindlæs siden.', 'error');
+            showToast(t('batch.jszipMissing'), 'error');
             return;
         }
 
         const originalText = batchGenerateBtn.textContent;
-        batchGenerateBtn.textContent = 'Genererer...';
+        batchGenerateBtn.textContent = t('batch.generating');
         batchGenerateBtn.disabled = true;
 
         try {
@@ -1525,14 +1832,14 @@ if (batchGenerateBtn && batchInput) {
             const zipBlob = await zip.generateAsync({ type: 'blob' });
             downloadBlob(zipBlob, `qr-codes-${Date.now()}.zip`);
 
-            showToast(`${lines.length} QR-koder downloadet som ZIP!`, 'success');
+            showToast(t('batch.downloaded', { n: lines.length }), 'success');
             batchGenerateBtn.textContent = originalText;
             batchGenerateBtn.disabled = false;
             hideBatchProgress();
 
         } catch (error) {
             console.error('Fejl ved batch generering:', error);
-            showToast('Fejl ved batch generering: ' + error.message, 'error');
+            showToast(t('batch.error') + error.message, 'error');
             batchGenerateBtn.textContent = originalText;
             batchGenerateBtn.disabled = false;
             hideBatchProgress();
@@ -1552,7 +1859,7 @@ if (csvFileInput) {
             const text = ev.target.result;
             const lines = text.split(/\r?\n/).filter(l => l.trim());
             if (lines.length === 0) {
-                showToast('CSV-filen er tom.', 'error');
+                showToast(t('csv.empty'), 'error');
                 return;
             }
 
@@ -1571,7 +1878,7 @@ if (csvFileInput) {
             }
 
             if (values.length === 0) {
-                showToast('Ingen data fundet i CSV-filen.', 'error');
+                showToast(t('csv.noData'), 'error');
                 return;
             }
 
@@ -1579,7 +1886,7 @@ if (csvFileInput) {
                 batchInput.value = values.join('\n');
             }
 
-            showToast(`${values.length} rækker importeret fra CSV.`, 'success');
+            showToast(t('csv.imported', { n: values.length }), 'success');
             csvFileInput.value = '';
         };
         reader.readAsText(file, 'UTF-8');
@@ -1592,15 +1899,15 @@ const historySearch = document.getElementById('historySearch');
 const historyFilter = document.getElementById('historyFilter');
 
 const typeLabels = {
-    'text': 'Tekst/URL',
-    'wifi': 'WiFi',
-    'vcard': 'vCard',
-    'email': 'Email',
-    'sms': 'SMS',
-    'calendar': 'Kalender',
-    'geo': 'Lokation',
-    'payment': 'Betaling',
-    'social': 'Social'
+    'text': t('type.text'),
+    'wifi': t('type.wifi'),
+    'vcard': t('type.vcard'),
+    'email': t('type.email'),
+    'sms': t('type.sms'),
+    'calendar': t('type.calendar'),
+    'geo': t('type.geo'),
+    'payment': t('type.payment'),
+    'social': t('type.social')
 };
 
 function saveToHistory(text, type) {
@@ -1640,7 +1947,7 @@ function renderHistory() {
     const filter = historyFilter ? historyFilter.value : 'all';
 
     if (history.length === 0) {
-        historyList.innerHTML = '<p class="history-empty">Ingen tidligere QR-koder</p>';
+        historyList.innerHTML = '<p class="history-empty">' + t('history.empty') + '</p>';
         clearHistory.style.display = 'none';
         if (historyControls) historyControls.style.display = 'none';
         return;
@@ -1665,7 +1972,7 @@ function renderHistory() {
     historyList.innerHTML = '';
 
     if (filtered.length === 0) {
-        historyList.innerHTML = '<p class="history-empty">Ingen resultater</p>';
+        historyList.innerHTML = '<p class="history-empty">' + t('history.noResults') + '</p>';
         return;
     }
 
@@ -1701,7 +2008,7 @@ function renderHistory() {
 
         const dateDiv = document.createElement('div');
         dateDiv.className = 'history-item-date';
-        dateDiv.textContent = date.toLocaleString('da-DK');
+        dateDiv.textContent = date.toLocaleString(t('history.dateLocale'));
         info.appendChild(dateDiv);
 
         const actions = document.createElement('div');
@@ -1710,33 +2017,33 @@ function renderHistory() {
         // Favorite toggle
         const favBtn = document.createElement('button');
         favBtn.className = 'btn-history-action';
-        favBtn.title = entry.favorite ? 'Fjern favorit' : 'Tilføj favorit';
+        favBtn.title = entry.favorite ? t('aria.removeFavTitle') : t('aria.addFavTitle');
         favBtn.innerHTML = entry.favorite
             ? '<svg class="icon" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>'
             : '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>';
-        favBtn.setAttribute('aria-label', entry.favorite ? 'Fjern fra favoritter' : 'Tilføj til favoritter');
+        favBtn.setAttribute('aria-label', entry.favorite ? t('aria.removeFav') : t('aria.addFav'));
         favBtn.addEventListener('click', () => toggleFavorite(entry.originalIndex));
 
         // Rename button
         const renameBtn = document.createElement('button');
         renameBtn.className = 'btn-history-action';
-        renameBtn.title = 'Omdøb';
+        renameBtn.title = t('aria.renameTitle');
         renameBtn.innerHTML = '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>';
-        renameBtn.setAttribute('aria-label', 'Giv denne QR-kode et navn');
+        renameBtn.setAttribute('aria-label', t('aria.rename'));
         renameBtn.addEventListener('click', () => renameHistoryEntry(entry.originalIndex));
 
         const loadBtn = document.createElement('button');
         loadBtn.className = 'btn-history-action';
-        loadBtn.title = 'Genindlæs';
+        loadBtn.title = t('aria.reloadTitle');
         loadBtn.innerHTML = '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>';
-        loadBtn.setAttribute('aria-label', 'Genindlæs denne QR-kode');
+        loadBtn.setAttribute('aria-label', t('aria.reload'));
         loadBtn.addEventListener('click', () => loadFromHistory(entry.originalIndex));
 
         const deleteBtn = document.createElement('button');
         deleteBtn.className = 'btn-history-action';
-        deleteBtn.title = 'Slet';
+        deleteBtn.title = t('aria.deleteTitle');
         deleteBtn.innerHTML = '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>';
-        deleteBtn.setAttribute('aria-label', 'Slet denne QR-kode fra historik');
+        deleteBtn.setAttribute('aria-label', t('aria.delete'));
         deleteBtn.addEventListener('click', () => deleteFromHistory(entry.originalIndex));
 
         actions.appendChild(favBtn);
@@ -1785,7 +2092,7 @@ function toggleFavorite(index) {
     entry.favorite = !entry.favorite;
     localStorage.setItem('qr-history', JSON.stringify(history));
     renderHistory();
-    showToast(entry.favorite ? 'Tilføjet til favoritter' : 'Fjernet fra favoritter', 'success');
+    showToast(entry.favorite ? t('history.addedFav') : t('history.removedFav'), 'success');
 }
 
 function deleteFromHistory(index) {
@@ -1799,7 +2106,7 @@ function renameHistoryEntry(index) {
     const history = getHistory();
     const entry = history[index];
     if (!entry) return;
-    const name = prompt('Giv QR-koden et navn:', entry.label || '');
+    const name = prompt(t('history.rename'), entry.label || '');
     if (name === null) return; // Cancelled
     entry.label = name.trim();
     localStorage.setItem('qr-history', JSON.stringify(history));
@@ -1821,7 +2128,7 @@ if (historyFilter) {
 // Clear history button (with null check)
 if (clearHistory) {
     clearHistory.addEventListener('click', () => {
-        if (confirm('Er du sikker på at du vil slette hele historikken?')) {
+        if (confirm(t('history.confirmClear'))) {
             localStorage.removeItem('qr-history');
             renderHistory();
         }
@@ -1880,24 +2187,24 @@ const geoLocateBtn = document.getElementById('geoLocateBtn');
 if (geoLocateBtn) {
     geoLocateBtn.addEventListener('click', () => {
         if (!navigator.geolocation) {
-            showToast('Geolokation understøttes ikke i denne browser.', 'error');
+            showToast(t('geo.unsupported'), 'error');
             return;
         }
         geoLocateBtn.disabled = true;
-        geoLocateBtn.innerHTML = '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Henter placering...';
+        geoLocateBtn.innerHTML = '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> ' + t('geo.fetching');
         navigator.geolocation.getCurrentPosition(
             (pos) => {
                 document.getElementById('geoLat').value = pos.coords.latitude.toFixed(6);
                 document.getElementById('geoLng').value = pos.coords.longitude.toFixed(6);
                 geoLocateBtn.disabled = false;
-                geoLocateBtn.innerHTML = '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Brug min placering';
-                showToast('Placering hentet!', 'success');
+                geoLocateBtn.innerHTML = '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> ' + t('geo.useMyLocation');
+                showToast(t('geo.fetched'), 'success');
             },
             (err) => {
                 geoLocateBtn.disabled = false;
-                geoLocateBtn.innerHTML = '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Brug min placering';
-                const msgs = { 1: 'Adgang til placering blev nægtet.', 2: 'Placering ikke tilgængelig.', 3: 'Anmodning udløb.' };
-                showToast(msgs[err.code] || 'Kunne ikke hente placering.', 'error');
+                geoLocateBtn.innerHTML = '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> ' + t('geo.useMyLocation');
+                const msgs = { 1: t('geo.denied'), 2: t('geo.unavailable'), 3: t('geo.timeout') };
+                showToast(msgs[err.code] || t('geo.error'), 'error');
             },
             { enableHighAccuracy: true, timeout: 10000, maximumAge: 60000 }
         );
@@ -1975,7 +2282,7 @@ if (startScanBtn) {
 
 async function startScanner() {
     if (typeof jsQR === 'undefined') {
-        showToast('QR-scanner biblioteket mangler. Genindlæs siden.', 'error');
+        showToast(t('scanner.libMissing'), 'error');
         return;
     }
 
@@ -1992,9 +2299,9 @@ async function startScanner() {
     } catch (error) {
         console.error('Kamera fejl:', error);
         if (error.name === 'NotAllowedError') {
-            showToast('Kameraadgang blev afvist. Tillad kameraadgang i din browser.', 'error');
+            showToast(t('scanner.camDenied'), 'error');
         } else {
-            showToast('Kunne ikke starte kameraet. Har din enhed et kamera?', 'error');
+            showToast(t('scanner.camError'), 'error');
         }
     }
 }
@@ -2054,7 +2361,7 @@ if (scanFileInput) {
         if (!file) return;
 
         if (typeof jsQR === 'undefined') {
-            showToast('QR-scanner biblioteket mangler. Genindlæs siden.', 'error');
+            showToast(t('scanner.libMissing'), 'error');
             return;
         }
 
@@ -2077,7 +2384,7 @@ if (scanFileInput) {
             if (code) {
                 showScanResult(code.data);
             } else {
-                showToast('Ingen QR-kode fundet i billedet. Prøv et andet billede.', 'info');
+                showToast(t('scanner.noQR'), 'info');
             }
 
             // Reset file input
@@ -2086,7 +2393,7 @@ if (scanFileInput) {
 
         img.onerror = () => {
             URL.revokeObjectURL(url);
-            showToast('Kunne ikke indlæse billedet.', 'error');
+            showToast(t('scanner.imgError'), 'error');
             scanFileInput.value = '';
         };
 
@@ -2122,7 +2429,7 @@ if (scanCopyBtn) {
         const text = scanResultText.textContent;
         try {
             await navigator.clipboard.writeText(text);
-            showToast('Tekst kopieret til udklipsholder!', 'success');
+            showToast(t('toast.textCopied'), 'success');
         } catch {
             // Fallback for ældre browsere
             const textarea = document.createElement('textarea');
@@ -2133,7 +2440,7 @@ if (scanCopyBtn) {
             textarea.select();
             document.execCommand('copy');
             document.body.removeChild(textarea);
-            showToast('Tekst kopieret til udklipsholder!', 'success');
+            showToast(t('toast.textCopied'), 'success');
         }
     });
 }
@@ -2148,15 +2455,15 @@ if (scanCopyBtn) {
     const steps = [
         {
             target: '.qr-type-tabs',
-            text: 'Vælg hvilken type QR-kode du vil lave — tekst, WiFi, visitkort og mere.'
+            text: t('onboard.step1')
         },
         {
             target: '.tab-content.active',
-            text: 'Udfyld oplysningerne for din QR-kode her. Felterne ændrer sig med den valgte type.'
+            text: t('onboard.step2')
         },
         {
             target: '.button-group',
-            text: 'Tryk Generer for at se din QR-kode, og Download eller Kopiér den bagefter.'
+            text: t('onboard.step3')
         }
     ];
 
@@ -2174,7 +2481,7 @@ if (scanCopyBtn) {
         overlay.className = 'onboarding-overlay';
         overlay.setAttribute('role', 'dialog');
         overlay.setAttribute('aria-modal', 'true');
-        overlay.setAttribute('aria-label', 'Introduktionsrundvisning');
+        overlay.setAttribute('aria-label', t('onboard.ariaLabel'));
         document.body.appendChild(overlay);
 
         tooltip = document.createElement('div');
@@ -2205,15 +2512,15 @@ if (scanCopyBtn) {
 
         // Build tooltip content
         tooltip.innerHTML = `
-            <div class="onboarding-step">Trin ${index + 1} af ${steps.length}</div>
+            <div class="onboarding-step">${t('onboard.step', { n: index + 1, total: steps.length })}</div>
             <div class="onboarding-text">${step.text}</div>
             <div class="onboarding-actions">
                 <div class="onboarding-dots">
                     ${steps.map((_, i) => `<div class="onboarding-dot${i === index ? ' active' : ''}"></div>`).join('')}
                 </div>
                 <div class="onboarding-btns">
-                    <button class="onboarding-btn onboarding-btn-skip">Spring over</button>
-                    <button class="onboarding-btn onboarding-btn-next">${index === steps.length - 1 ? 'Forstået' : 'Næste'}</button>
+                    <button class="onboarding-btn onboarding-btn-skip">${t('onboard.skip')}</button>
+                    <button class="onboarding-btn onboarding-btn-next">${index === steps.length - 1 ? t('onboard.done') : t('onboard.next')}</button>
                 </div>
             </div>
         `;
@@ -2482,4 +2789,19 @@ document.addEventListener('click', (e) => {
                 break;
         }
     });
+})();
+
+// ===========================================
+// Language Switcher
+// ===========================================
+
+(() => {
+    const langBtn = document.getElementById('langSwitcher');
+    if (!langBtn) return;
+
+    const altLang = LANG === 'da' ? 'en' : 'da';
+    const altLink = document.querySelector(`link[hreflang="${altLang}"]`);
+    if (altLink) {
+        langBtn.href = altLink.href;
+    }
 })();
