@@ -8,6 +8,14 @@
     box-sizing: border-box;
 }
 
+/* Inline SVG Icon */
+.icon {
+    width: 1em;
+    height: 1em;
+    vertical-align: -0.125em;
+    flex-shrink: 0;
+}
+
 /* View Transition for theme switch */
 ::view-transition-old(root),
 ::view-transition-new(root) {
@@ -1290,6 +1298,14 @@ header p {
 
 .template-icon {
     font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.template-icon .icon {
+    width: 1.5rem;
+    height: 1.5rem;
 }
 
 .template-name {

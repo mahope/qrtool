@@ -1711,7 +1711,9 @@ function renderHistory() {
         const favBtn = document.createElement('button');
         favBtn.className = 'btn-history-action';
         favBtn.title = entry.favorite ? 'Fjern favorit' : 'Tilføj favorit';
-        favBtn.textContent = entry.favorite ? '⭐' : '☆';
+        favBtn.innerHTML = entry.favorite
+            ? '<svg class="icon" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>'
+            : '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>';
         favBtn.setAttribute('aria-label', entry.favorite ? 'Fjern fra favoritter' : 'Tilføj til favoritter');
         favBtn.addEventListener('click', () => toggleFavorite(entry.originalIndex));
 
@@ -1719,21 +1721,21 @@ function renderHistory() {
         const renameBtn = document.createElement('button');
         renameBtn.className = 'btn-history-action';
         renameBtn.title = 'Omdøb';
-        renameBtn.textContent = '✏️';
+        renameBtn.innerHTML = '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>';
         renameBtn.setAttribute('aria-label', 'Giv denne QR-kode et navn');
         renameBtn.addEventListener('click', () => renameHistoryEntry(entry.originalIndex));
 
         const loadBtn = document.createElement('button');
         loadBtn.className = 'btn-history-action';
         loadBtn.title = 'Genindlæs';
-        loadBtn.textContent = '🔄';
+        loadBtn.innerHTML = '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>';
         loadBtn.setAttribute('aria-label', 'Genindlæs denne QR-kode');
         loadBtn.addEventListener('click', () => loadFromHistory(entry.originalIndex));
 
         const deleteBtn = document.createElement('button');
         deleteBtn.className = 'btn-history-action';
         deleteBtn.title = 'Slet';
-        deleteBtn.textContent = '🗑️';
+        deleteBtn.innerHTML = '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>';
         deleteBtn.setAttribute('aria-label', 'Slet denne QR-kode fra historik');
         deleteBtn.addEventListener('click', () => deleteFromHistory(entry.originalIndex));
 
@@ -1882,18 +1884,18 @@ if (geoLocateBtn) {
             return;
         }
         geoLocateBtn.disabled = true;
-        geoLocateBtn.textContent = '📍 Henter placering...';
+        geoLocateBtn.innerHTML = '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Henter placering...';
         navigator.geolocation.getCurrentPosition(
             (pos) => {
                 document.getElementById('geoLat').value = pos.coords.latitude.toFixed(6);
                 document.getElementById('geoLng').value = pos.coords.longitude.toFixed(6);
                 geoLocateBtn.disabled = false;
-                geoLocateBtn.textContent = '📍 Brug min placering';
+                geoLocateBtn.innerHTML = '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Brug min placering';
                 showToast('Placering hentet!', 'success');
             },
             (err) => {
                 geoLocateBtn.disabled = false;
-                geoLocateBtn.textContent = '📍 Brug min placering';
+                geoLocateBtn.innerHTML = '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Brug min placering';
                 const msgs = { 1: 'Adgang til placering blev nægtet.', 2: 'Placering ikke tilgængelig.', 3: 'Anmodning udløb.' };
                 showToast(msgs[err.code] || 'Kunne ikke hente placering.', 'error');
             },
