@@ -1,8 +1,8 @@
-const CACHE_NAME = 'qrtool-v8';
+const CACHE_NAME = 'qrtool-v9';
 const ASSETS = [
     '/',
-    '/style.css',
-    '/app.js',
+    '/style.css?v=8',
+    '/app.js?v=8',
     '/icon.svg',
     '/manifest.json',
     '/lib/qrcode.js',
