@@ -241,7 +241,7 @@ Tilføj en smooth `view-transition` ved theme-skift i stedet for den nuværende 
 ### #45 — Ikon-konsistens (SVG ikoner) (P2)
 Erstat emoji-ikoner (📱, 📧, osv.) med et konsistent SVG-ikonsæt (f.eks. inline Lucide/Heroicons). Giver et mere professionelt udtryk.
 
-- [ ] Ikke startet
+- [x] Færdig — alle emojis erstattet med inline Lucide-style SVGs på tværs af 16 filer (index, app.js, 6 landingssider, 4 guides, om/404)
 
 ### #46 — Forbedret footer-design (P3)
 Redesign footer med columns: Links, QR-typer, Om os, Juridisk. Tilføj social media-links og "Bygget med ❤️ i Danmark".
