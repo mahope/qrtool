@@ -6,8 +6,7 @@ This file is a contract for Claude Code working in this repository. Follow it ex
 
 QR Tool is a free, client-side QR-code generator (text/URL, WiFi, vCard, email, SMS, calendar) with logo support, color customization and batch generation. It is a static multi-page website with a Danish UI and an English (`en/`) variant — no backend, all generation happens in the browser.
 
-- Production URL: `<PRODUCTION_URL>` (README/package.json reference `https://qrtool.dk`)
-- ⚠️ TODO: confirm deploy target — no matching Dokploy application was found via MCP search (`dokploy.json` declares a static deployment; verify the actual host/branch/auto-deploy before relying on this).
+- Production URL: `https://qrtool.dk` (static site served by nginx; no backend, no `/api/*` routes).
 - Stack: vanilla HTML/CSS/JS, `qrcode` + `file-saver` + bundled `lib/` (jsQR, JSZip), built/minified with esbuild via `build.js`, served by nginx (Docker).
 
 ## Commands
@@ -30,13 +29,11 @@ QR Tool is a free, client-side QR-code generator (text/URL, WiFi, vCard, email, 
 
 ## Deploy
 
-⚠️ TODO: confirm deploy target — no Dokploy application matched this repo via MCP search, so the deploy pipeline below is unverified.
-
-Once confirmed, the expected flow is: push to the production branch → Dokploy builds the Docker image (`npm run build` → nginx) → verify on production. Steps:
+Production host is `qrtool.dk` (https), hosted on Dokploy with auto-deploy enabled. Pushing to the `master` branch triggers Dokploy to build the Docker image (`npm run build` → nginx) and deploy automatically. Steps:
 1. Stage only the specific files you changed (never `git add .`).
-2. Commit with an English imperative message; push to the production branch.
+2. Commit with an English imperative message; push to `master`. Dokploy auto-deploys on push.
 3. Watch the Dokploy build/deploy log to completion.
-4. Verify: `curl -fsI https://<host>/` must return 200. A deploy is not done until verified on production.
+4. Verify: `curl -fsI https://qrtool.dk/` must return 200 (static site — verify the root path, there is no `/api/health` route). A deploy is not done until verified on production.
 
 ## Language
 
@@ -60,6 +57,6 @@ These have real, hard-to-reverse effects. Get an explicit "yes" before doing any
 - Force-pushing or rewriting history on the default branch.
 - Changing DNS, the Dokploy domain config, or `dokploy.json` domains (`qrtool.dk` / `www.qrtool.dk`).
 - Editing `nginx.conf`, `.htaccess`, or the `Dockerfile` in ways that affect routing, caching, or security headers in production.
-- Triggering a production deploy (see ⚠️ TODO above — confirm the target first).
+- Triggering a production deploy (pushing to `master` auto-deploys to qrtool.dk via Dokploy).
 
 GDPR note: QR content (including WiFi passwords, vCard contact details, emails, SMS) is processed entirely client-side and is not sent to a server. Keep it that way — do not add any tracking, logging, or backend transmission of user-entered QR data without an explicit decision and privacy-policy update.
