@@ -732,6 +732,13 @@
                 <!-- History Section -->
                 <div class="history-section">
                     <h3><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Tidligere QR-koder</h3>
+                    <div class="form-group checkbox-group">
+                        <label for="historyOptIn">
+                            <input type="checkbox" id="historyOptIn" autocomplete="off" aria-describedby="historyPrivacy">
+                            Gem nye QR-koder i historikken under dette besøg
+                        </label>
+                    </div>
+                    <p id="historyPrivacy">Slået fra som standard, også for WiFi, vCard, email og SMS. Ved tilvalg gemmes QR-indhold i denne browsers localStorage, også adgangskoder og kontaktoplysninger. Undgå det på delte enheder. Tilvalget nulstilles, når du genindlæser eller forlader siden. Gemte koder bliver liggende; fjern fluebenet for at stoppe nye gemninger, og brug »Ryd historik« for at slette de eksisterende.</p>
                     <div class="history-controls" id="historyControls" style="display: none;">
                         <input type="search" id="historySearch" class="history-search" placeholder="Søg i historik..." aria-label="Søg i historik">
                         <select id="historyFilter" class="history-filter" aria-label="Filtrer efter type">
@@ -1055,7 +1062,7 @@
 <script>(function(){try{var k=consent:v1;var s=localStorage.getItem(k);var b=document.getElementById(cookie-consent-banner);function hide(){b&&(b.style.display=none)}function show(){b&&(b.style.display=block)}if(!s){show()}document.getElementById(cookie-accept)?.addEventListener(click,function(){localStorage.setItem(k,accepted);hide()});document.getElementById(cookie-decline)?.addEventListener(click,function(){localStorage.setItem(k,declined);hide()});}catch(e){console.warn(e)}})();</script>
 <section data-seo-explainer style="max-width:960px;margin:2rem auto;padding:0 1rem;font-family:system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:#374151">
   <h2 style="font-size:1.25rem;margin-bottom:.5rem">Om dette værktøj</h2>
-  <p>Dette gratis online værktøj er lavet for at gøre hverdagen lidt lettere. Her på siden kan du hurtigt og uden installation løse en konkret opgave direkte i din browser. Alt kører lokalt hos dig – vi gemmer ikke dine indtastninger, og du kan frit bruge resultatet, som du vil.</p>
+  <p>Dette gratis online værktøj er lavet for at gøre hverdagen lidt lettere. Her på siden kan du hurtigt og uden installation løse en konkret opgave direkte i din browser. Du kan frit bruge resultatet, som du vil. Nye QR-koder gemmes kun i browserens historik, hvis du aktivt vælger det til under dette besøg.</p>
   <p>Værktøjet er udviklet med fokus på enkelhed, hastighed og pålidelighed. Vi forklarer, hvordan beregningen fungerer, giver tips til bedre resultater og linker til relevante kilder. På den måde kan du både forstå metoden og bruge den sikkert i praksis. Hvis du har forslag til forbedringer eller nye funktioner, hører vi meget gerne fra dig.</p>
   <p>Formålet er at samle små, nyttige værktøjer ét sted, så du ikke behøver at installere apps eller oprette en konto. Vi prioriterer tilgængelighed, så siden virker på mobil, tablet og computer. Har du brug for at dele resultatet, kan du ofte kopiere det direkte eller downloade en fil.</p>
 </section>

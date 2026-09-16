@@ -732,6 +732,13 @@
                 <!-- History Section -->
                 <div class="history-section">
                     <h3><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Previous QR Codes</h3>
+                    <div class="form-group checkbox-group">
+                        <label for="historyOptIn">
+                            <input type="checkbox" id="historyOptIn" autocomplete="off" aria-describedby="historyPrivacy">
+                            Save new QR codes to history during this visit
+                        </label>
+                    </div>
+                    <p id="historyPrivacy">Off by default, including WiFi, vCard, email and SMS. Opting in stores QR content in this browser’s localStorage, including passwords and contact details. Avoid this on shared devices. The choice resets when you reload or leave the page. Saved codes remain; uncheck to stop new saves, and use “Clear history” to delete existing entries.</p>
                     <div class="history-controls" id="historyControls" style="display: none;">
                         <input type="search" id="historySearch" class="history-search" placeholder="Search history..." aria-label="Search history">
                         <select id="historyFilter" class="history-filter" aria-label="Filter by type">
@@ -1055,7 +1062,7 @@
 <script>(function(){try{var k=consent:v1;var s=localStorage.getItem(k);var b=document.getElementById(cookie-consent-banner);function hide(){b&&(b.style.display=none)}function show(){b&&(b.style.display=block)}if(!s){show()}document.getElementById(cookie-accept)?.addEventListener(click,function(){localStorage.setItem(k,accepted);hide()});document.getElementById(cookie-decline)?.addEventListener(click,function(){localStorage.setItem(k,declined);hide()});}catch(e){console.warn(e)}})();</script>
 <section data-seo-explainer style="max-width:960px;margin:2rem auto;padding:0 1rem;font-family:system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:#374151">
   <h2 style="font-size:1.25rem;margin-bottom:.5rem">About this tool</h2>
-  <p>This free online tool is made to make everyday life a little easier. On this page you can quickly and without installation solve a specific task directly in your browser. Everything runs locally on your device - we do not store your input, and you are free to use the result however you like.</p>
+  <p>This free online tool is made to make everyday life a little easier. On this page you can quickly and without installation solve a specific task directly in your browser. You are free to use the result however you like. New QR codes are only saved to browser history if you explicitly opt in during this visit.</p>
   <p>The tool is developed with a focus on simplicity, speed and reliability. We explain how the calculation works, provide tips for better results and link to relevant sources. This way you can both understand the method and use it safely in practice. If you have suggestions for improvements or new features, we would love to hear from you.</p>
   <p>The purpose is to gather small, useful tools in one place, so you don't need to install apps or create an account. We prioritize accessibility, so the site works on mobile, tablet and computer. If you need to share the result, you can often copy it directly or download a file.</p>
 </section>

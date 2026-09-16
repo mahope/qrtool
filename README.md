@@ -24,7 +24,7 @@ Lavet af [Mahope.dk](https://mahope.dk)
 
 ### 🚀 Produktivitet
 - **📦 Batch Generering**: Generer flere QR-koder på én gang og download som ZIP
-- **📜 Historik**: Automatisk gem dine seneste 20 QR-koder med localStorage
+- **📜 Historik**: Valgfri historik, slået fra som standard - nye QR-koder gemmes kun lokalt efter eksplicit samtykke (op til 20 ikke-favoritter plus favoritter)
 - **⚡ Live Preview**: Se din QR-kode i real-time
 - **🔄 Auto-generering**: QR-koden opdateres automatisk mens du skriver
 - **⌨️ Keyboard Shortcuts**: Tryk Enter for at generere
@@ -105,11 +105,12 @@ Generer flere QR-koder på én gang:
 
 ## 📜 Historik
 
-QR Tool husker dine seneste 20 genererede QR-koder:
-- Automatisk gem til localStorage
-- Se type-ikon for hver QR-kode
-- Genindlæs tidligere QR-koder med ét klik
-- Slet individuelle eller hele historikken
+Historik er valgfri og slået fra som standard:
+- Nye QR-koder gemmes kun til localStorage, når du aktiverer afkrydsningsfeltet for dit nuværende besøg (nulstilles ved genindlæsning eller navigation)
+- Når slået til, gemmes de første 200 tegn af op til 20 ikke-favoritter plus favoritter
+- Fjerner du fluebenet, gemmes nye koder ikke længere - eksisterende poster slettes ikke
+- Knappen "Ryd historik" sletter hele historikken
+- Se type-ikon og genindlæs tidligere QR-koder med ét klik
 
 ## 📁 Projektstruktur
 
