@@ -2,6 +2,44 @@
 
 ## Prioritering: P0 Kritisk | P1 Høj | P2 Medium | P3 Lav
 
+## Kommerciel stopregel — 30 dage (P1)
+
+- [x] Stopreglen er fastlagt den 17. september 2026. Salgseksperimentet er ikke dermed gennemført eller valideret.
+
+Denne regel går forud for de øvrige udviklingsønsker nedenfor. QR Tool vedligeholdes som en mulig leadindgang til Mahope; flere generatorfunktioner er ikke et mål i sig selv.
+
+### Tidsramme og budget
+
+- Forsøgsperioden løber fra 17. september til 17. oktober 2026. Mads vurderer resultatet senest 17. oktober 2026; manglende dokumentation betyder stop, ikke automatisk forlængelse.
+- Brug samlet højst én arbejdsdag (8 timer) før første betalte ordre. Medregn forberedelse, udvikling, eksempel, distribution og opfølgning på tværs af kørsler, også denne opgave. Ingen ny kommerciel opgave startes uden et opdateret tidsforbrug.
+- Når budgettet er opbrugt, pauses kommercielt arbejde, mens allerede indkomne svar og betalinger kan vurderes ved fristen. Tre tilbudsforespørgsler ophæver ikke budgetloftet før første betaling.
+- Test kun tilbuddet om ét printklart QR-skilt til en feriebolig til 695 kr. ekskl. moms: ét A5- eller A4-layout, kundens logo, WiFi eller gæsteguide-link, PDF/PNG og én korrekturrunde. Dette fastlægger forsøgets ramme, men udgiver ikke tilbuddet.
+
+### Beslutning ved fristen
+
+Fortsæt kun kommerciel udvikling, hvis mindst ét af følgende er dokumenteret inden fristen:
+
+1. Mindst én betalt skiltordre til listeprisen på 695 kr. ekskl. moms. Gratis prøveleverancer, hensigtserklæringer og ubetalte fakturaer tæller ikke.
+2. Mindst tre konkrete tilbudsforespørgsler fra tre forskellige potentielle kunder. Hver skal beskrive en relevant anvendelse, give mulighed for svar og udtrykkeligt bede om et tilbud efter at have set listeprisen. Klik, downloads, generel feedback og dubletter tæller ikke.
+
+Ved opfyldt kriterium vælger Mads et nyt, afgrænset tidsbudget ud fra betalingsvillighed og faktisk leveringstid. Første betaling giver ikke et ubegrænset udviklingsbudget. Serviceomsætning er ikke passiv indtjening, og relaterede webprojekters fulde omsætning tæller ikke som QR-indtjening.
+
+Er ingen af kriterierne opfyldt, behold kun basal drift: nødvendige fejlrettelser, sikkerhed, privatliv og tilgængelighed. Pause nye funktioner, SEO-sider, annoncering, skabelonpakker og SaaS-arbejde. Genoptag kun efter en ny, eksplicit beslutning fra Mads med kommercielt belæg.
+
+### Beslutningsgrundlag
+
+Opdatér denne status før næste kommercielle opgave og ved fristen. Gem kun samlede tal og eventuelt interne sagsreferencer her; ingen navne, kontaktoplysninger, QR-indhold eller betalingsbilag i repoet. Mads verificerer de underliggende henvendelser og betalinger i sine eksisterende systemer.
+
+| Målepunkt | Status pr. 17. september 2026 |
+| --- | --- |
+| Samlet tidsforbrug før første betaling | Ikke opgjort; skal afklares før næste kommercielle opgave |
+| Betalte skiltordrer til listepris | Ikke verificeret |
+| Konkrete tilbudsforespørgsler fra forskellige kunder | Ikke verificeret |
+| Distribution af tilbuddet | Ikke verificeret; ingen henvendelser sendt i denne kørsel |
+| Beslutning ved fristen | Afventer; standard er kun basal drift uden dokumenteret kriterium |
+
+Der er ikke oprettet en automatisk påmindelse eller håndhævelse. Reglen er en arbejdsgrænse for Mads og kommende kørsler. Den giver ikke tilladelse til push, deploy, mails eller andre eksterne handlinger.
+
 ---
 
 ## SEO & Synlighed (1–12)
