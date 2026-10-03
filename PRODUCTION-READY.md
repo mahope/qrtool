@@ -221,12 +221,12 @@ Besøg https://qrtool.dk og verificer:
 
 ### Teknisk Support
 For tekniske spørgsmål eller bugs:
-- Email: kontakt via Mahope.dk
+- Email: kontakt via Mahoje
 - Response tid: 1-2 hverdage
 
 ### Feature Requests
 Har du ideer til nye features?
-- Email forslag til Mahope.dk
+- Email forslag til Mahoje
 - Vi prioriterer baseret på efterspørgsel
 
 ---
@@ -280,9 +280,9 @@ Har du ideer til nye features?
 
 ## 📝 Licens & Credits
 
-**Udviklet af:** [Mahope.dk](https://mahope.dk)
+**Udviklet af:** [Mahoje](https://mahoje.dk)
 **Licens:** Open source - Brug frit
-**Support:** Kontakt via Mahope.dk
+**Support:** Kontakt via Mahoje
 
 ---
 

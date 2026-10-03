@@ -2,7 +2,7 @@
 
 En moderne, funktionsrig QR-kode generator med avancerede tilpasningsmuligheder. Hostet på [QRTool.dk](https://qrtool.dk)
 
-Lavet af [Mahope.dk](https://mahope.dk)
+Lavet af [Mahoje](https://mahoje.dk)
 
 ## ✨ Features
 
@@ -175,7 +175,7 @@ Open source - brug frit!
 
 ## 👨‍💻 Udviklet af
 
-[Mahope.dk](https://mahope.dk) - Webudvikling og digitale løsninger
+[Mahoje](https://mahoje.dk) - Webudvikling og digitale løsninger
 
 ---
 

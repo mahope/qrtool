@@ -242,7 +242,7 @@ Before going live:
 
 ---
 
-**Lavet af Mahope.dk** - Webudvikling og digitale løsninger
-https://mahope.dk
+**Lavet af Mahoje** - Webudvikling og digitale løsninger
+https://mahoje.dk
 
-For support eller spørgsmål, kontakt via Mahope.dk
+For support eller spørgsmål, kontakt via Mahoje
