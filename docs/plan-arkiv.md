@@ -1,3 +1,21 @@
+## 2026-10-09 — Kalender-QR flyttede dage (ceo/calendar-date)
+
+Commit: "Keep the calendar date the user typed in QR events" på `master`.
+
+`formatDate` gjorde `new Date('2026-06-23T00:00').toISOString()`. En
+`datetime-local`-værdi er et **lokalt** ur-tidspunkt, så i dansk tid giver
+det `20260622T220000Z` — QR-koden flyttede begivenheden til 22. juni, og
+den afhang af hvilken tidszone siden tilfældigvis kørte i (på en server i
+UTC blev det `20260623T000000Z`). Samme indtastning, to forskellige koder.
+
+Nu sendes den værdi brugeren tastede, direkte igennem som flydende
+(lokal) tid uden `Z`-synts, så datoen altid er den indtastede og QR-koden
+er uafhængig af enhedens tidszone. Kalenderprogrammer viser den i
+læserens egen zone, hvilket er hvad en dansk begivenhed ønsker.
+
+Verificeret: `test/calendar-timezone.test.js` kører `getQRData()` under
+`Europe/Copenhagen`, `UTC`, `America/New_York` og `Asia/Tokyo` og kræver
+identisk output. Uden rettelsen falder 5 af 6 tests.
 ## 2026-10-09 — QR-kodning af æøå (ceo/qr-encoding)
 
 Commit: "Encode Danish characters as UTF-8 in QR payloads" på `master`.

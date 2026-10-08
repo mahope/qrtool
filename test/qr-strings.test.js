@@ -151,8 +151,8 @@ test('calendar: builds a VEVENT with the filled fields', () => {
     assert.match(data, /END:VEVENT\nEND:VCALENDAR$/);
     assert.match(data, /SUMMARY:Julefrokost\n/);
     assert.match(data, /LOCATION:Kontoret\n/);
-    assert.match(data, /DTSTART:\d{8}T\d{6}Z\n/);
-    assert.match(data, /DTEND:\d{8}T\d{6}Z\n/);
+    assert.match(data, /DTSTART:\d{8}T\d{6}\n/);
+    assert.match(data, /DTEND:\d{8}T\d{6}\n/);
     assert.match(data, /DESCRIPTION:Husk gave\n/);
 });
 

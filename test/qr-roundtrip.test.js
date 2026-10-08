@@ -98,7 +98,7 @@ const cases = [
     {
         name: 'kalender',
         tab: 'calendar',
-        text: 'BEGIN:VCALENDAR\nVERSION:2.0\nBEGIN:VEVENT\nSUMMARY:Møde\nLOCATION:Kontoret\nDTSTART:20261205T183000Z\nDTEND:20261205T210000Z\nEND:VEVENT\nEND:VCALENDAR',
+        text: 'BEGIN:VCALENDAR\nVERSION:2.0\nBEGIN:VEVENT\nSUMMARY:Møde\nLOCATION:Kontoret\nDTSTART:20261205T190000\nDTEND:20261205T220000\nEND:VEVENT\nEND:VCALENDAR',
         fill: f => {
             f('calTitle').value = 'Møde';
             f('calLocation').value = 'Kontoret';

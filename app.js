@@ -964,8 +964,15 @@ function getQRData() {
             // Convert to iCalendar format
             const formatDate = (dateStr) => {
                 if (!dateStr) return '';
-                const date = new Date(dateStr);
-                return date.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
+                // The field is a datetime-local value: the wall-clock time the
+                // user typed. Pass it straight through. Going via
+                // Date().toISOString() would move midnight in Danish time to
+                // the previous day, and the result would depend on the timezone
+                // the page happened to run in.
+                const [date, time = '00:00'] = dateStr.split('T');
+                const [y, m, d] = date.split('-');
+                const [hh, mi, ss] = `${time}:00`.split(':');
+                return `${y}${m}${d}T${hh}${mi}${ss}`;
             };
 
             let ical = 'BEGIN:VCALENDAR\nVERSION:2.0\nBEGIN:VEVENT\n';
