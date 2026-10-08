@@ -1,3 +1,26 @@
+## 2026-10-09 — QR-kodning af æøå (ceo/qr-encoding)
+
+Commit: "Encode Danish characters as UTF-8 in QR payloads" på `master`.
+
+`lib/qrcode.js` (Kazuhiko Arases qrcode-generator) sætter
+`qrcode.stringToBytes = qrcode.stringToBytesFuncs['default']`, der laver
+`s.charCodeAt(i) & 0xff` — èn byte pr. tegn. `æ` (U+00E6) blev dermed til
+det enkelte byte 0xE6 i byte-mode uden nogen ECI-header, der fortæller
+hvilket tegnsæt det er.
+
+Konsekvens: alle seks QR-typer på siden bekræftede dansk tekst kan læses
+forkert. Scannere der antager UTF-8 (iOS Kamera, Google Lens) viser møjs.
+Beviset i gaten: jsQR afkoder byte 0xE6 til en tom streng, fordi
+`decodeURIComponent('%e6')` kaster.
+
+Rettelsen er én linje i `app.js`:
+`qrcode.stringToBytes = qrcode.stringToBytesFuncs['UTF-8']`, sat efter
+`t()` og før første `qrcode(...)`-kald. Biblioteket har konverteren
+allerede; den var bare aldrig slået til.
+
+Verificeret: `test/qr-roundtrip.test.js` genererer en kode for hver type,
+renderer modulet til RGBA med korrekt quiet zone og afkoder med
+`lib/jsQR.min.js`. Uden rettelsen fejler 6 af 14 tests; med den grønne.
 # Planarkiv — qrtool.dk
 
 Afsluttede opgaver, fund og historik. Kun append. Nyeste øverst.

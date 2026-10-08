@@ -306,6 +306,17 @@ function t(key, params) {
     return str;
 }
 
+// ===========================================
+// QR encoding
+// ===========================================
+
+// qrcode-generator writes one byte per character by default, so "æ", "ø"
+// and "å" become a single byte that most phone scanners show as mojibake.
+// The library ships a UTF-8 converter - turn it on before any code is made.
+if (typeof qrcode !== 'undefined' && qrcode.stringToBytesFuncs && qrcode.stringToBytesFuncs['UTF-8']) {
+    qrcode.stringToBytes = qrcode.stringToBytesFuncs['UTF-8'];
+}
+
 // Theme management
 const themeToggle = document.getElementById('themeToggle');
 const html = document.documentElement;
