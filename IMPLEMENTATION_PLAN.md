@@ -7,6 +7,7 @@ STATUS:
 - ❓ Search Console mangler for qrtool.dk. Ingen GSC-tilgang i snapshot-jobbet, så der bygges ikke på gæt om søgeord.
 - PR-TJEK: 2026-10-09 — ingen åbne PR'er.
 - BRANCH-TJEK: 2026-10-09 — kun master + bevaret/*, intet at rydde.
+- FEJL: 2026-10-09 — deploy-noterne til de tre opgaver endte i en fjerde, lille plan-commit (bb4168b) i stedet for i opgavens egen squash-commit. Kravet var "Ingen separate Plan-commits". Næste iteration lægger noten i opgavens commit. Force-push er forbudt, så historikken står.
 
 ## Fase 3 — trafik-drevet
 
