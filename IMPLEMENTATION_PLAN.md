@@ -33,4 +33,10 @@ Baseline (Plausible, 28 dage til 2026-10-08): 206 besøgende, 288 sidevisninger,
 `bevaret/2026-10-auto-union-night` (slet aldrig): (1) opt-in-historik i app.js + politik-tekst — stadig rigtigt, opgave 6. (2) "30-dages stopregel" — kun BACKLOG-tekst, ingen kode; udgår. (3) ZIP-SVG-verificering — kun en testfil, ingen produktændring; tages igen når batch-eksporten får opmærksomhed.
 
 ## Verificér deploy
-Ingen åbne noter.
+- VERIFICÉR DEPLOY: `npm test` = build + node --test gate (48 tests, kan fejle) · ceo/quality-gate · 2026-10-09 01:28
+- VERIFICÉR DEPLOY: `æøå` i QR-koder gemmes som UTF-8 (var enkeltbyte uden ECI-header → møjs i skannere) · ceo/qr-encoding · 2026-10-09 01:28
+- VERIFICÉR DEPLOY: kalender-QR bærer den indtastede dato (midnat flyttede til dagen før) · ceo/calendar-date · 2026-10-09 01:28
+
+Hverken gate, kodnings- eller dato-rettelsen er live endnu: master blev pushet 01:28, og den
+næste batch-kørsel er 07:30. Effekten afkodes ved at tjekke indholdet på qrtool.dk, ikke
+blot statuskoden.
