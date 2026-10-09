@@ -133,6 +133,13 @@ const T = {
         'scan.fail': 'Kontrol: koden kunne ikke læses igen. Brug mere kontrast mellem kode og baggrund, flyt logoet mindre, eller vælg fejlkorrektion H.',
         'scan.checking': 'Kontrollerer om koden kan scannes...',
 
+        // Kontrast
+        'contrast.label': 'Kontrast',
+        'contrast.high': 'stærk kontrast',
+        'contrast.good': 'god kontrast',
+        'contrast.low': 'svag kontrast',
+        'contrast.bad': 'kontrasten er for lav',
+
         // Geo
         'geo.unsupported': 'Geolokation understøttes ikke i denne browser.',
         'geo.fetching': 'Henter placering...',
@@ -287,6 +294,13 @@ const T = {
         'scan.mismatch': 'Check: the code scans, but the content reads back wrong. Make the logo smaller, or set error correction to H.',
         'scan.fail': 'Check: the code could not be read back. Use more contrast between code and background, make the logo smaller, or set error correction to H.',
         'scan.checking': 'Checking whether the code scans...',
+
+        // Contrast
+        'contrast.label': 'Contrast',
+        'contrast.high': 'strong contrast',
+        'contrast.good': 'good contrast',
+        'contrast.low': 'weak contrast',
+        'contrast.bad': 'contrast is too low',
 
         // Geo
         'geo.unsupported': 'Geolocation is not supported in this browser.',
@@ -657,15 +671,105 @@ function updateColorSwatches() {
     if (swatchBg) swatchBg.style.background = bgColor.value;
 }
 
+// WCAG 2.1-kontrast mellem kode og baggrund. QR-læsere er optiske kameraer:
+// under 3:1 kan de ikke længere skille kode fra baggrund, og under 4,5:1
+// bliver det til at løbe for nogle kameraer.
+function hexToRgb(hex) {
+    const match = /^#([0-9a-f]{3}|[0-9a-f]{6})$/i.exec(String(hex == null ? '' : hex).trim());
+    if (!match) return null;
+    const body = match[1].length === 3
+        ? match[1].split('').map(c => c + c).join('')
+        : match[1];
+    return {
+        r: parseInt(body.slice(0, 2), 16),
+        g: parseInt(body.slice(2, 4), 16),
+        b: parseInt(body.slice(4, 6), 16)
+    };
+}
+
+// Relativ luminans: kanalerne lineæriseres før de vægtes
+function relativeLuminance(rgb) {
+    const channel = value => {
+        const c = value / 255;
+        return c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);
+    };
+    return 0.2126 * channel(rgb.r) + 0.7152 * channel(rgb.g) + 0.0722 * channel(rgb.b);
+}
+
+// Returnerer kontrastforholdet mellem 1 og 21, eller null ved ugyldige farver
+function contrastRatio(fg, bg) {
+    const a = hexToRgb(fg);
+    const b = hexToRgb(bg);
+    if (!a || !b) return null;
+    const luminances = [relativeLuminance(a), relativeLuminance(b)];
+    const light = Math.max(...luminances);
+    const dark = Math.min(...luminances);
+    return (light + 0.05) / (dark + 0.05);
+}
+
+function contrastLevel(ratio) {
+    if (ratio === null) return null;
+    if (ratio >= 7) return 'high';
+    if (ratio >= 4.5) return 'good';
+    if (ratio >= 3) return 'low';
+    return 'bad';
+}
+
+function formatContrastRatio(ratio) {
+    const rounded = (Math.round(ratio * 10) / 10).toFixed(1);
+    return LANG === 'da' ? rounded.replace('.', ',') : rounded;
+}
+
+let contrastStatusEl = null;
+
+function getContrastStatusElement() {
+    if (!contrastStatusEl) {
+        contrastStatusEl = document.createElement('p');
+        contrastStatusEl.id = 'contrastStatus';
+        contrastStatusEl.className = 'scan-status';
+        contrastStatusEl.setAttribute('role', 'status');
+        contrastStatusEl.hidden = true;
+    }
+    return contrastStatusEl;
+}
+
+function updateContrastDisplay() {
+    const preview = document.getElementById('colorPreview');
+    if (!preview) return;
+    const el = getContrastStatusElement();
+
+    // En transparent baggrund læses på den overflade koden ender på — typisk hvid
+    const bg = (transparentBg && transparentBg.checked) ? '#ffffff' : bgColor.value;
+    const ratio = contrastRatio(qrColor.value, bg);
+    if (ratio === null) {
+        el.hidden = true;
+        return;
+    }
+
+    const level = contrastLevel(ratio);
+    el.textContent = `${t('contrast.label')}: ${formatContrastRatio(ratio)}:1 — ${t(`contrast.${level}`)}`;
+    el.dataset.state = level === 'low' || level === 'bad' ? 'warn' : 'ok';
+    el.hidden = false;
+
+    const parent = preview.parentElement;
+    if (parent && el.parentElement !== parent) {
+        parent.insertBefore(el, preview.nextElementSibling);
+    } else if (!el.parentElement && preview.appendChild) {
+        preview.appendChild(el);
+    }
+}
+
 // Opdater farveværdi display
 qrColor.addEventListener('input', (e) => {
     e.target.nextElementSibling.textContent = e.target.value;
     updateColorSwatches();
+    updateContrastDisplay();
 });
 
 bgColor.addEventListener('input', (e) => {
     e.target.nextElementSibling.textContent = e.target.value;
     updateColorSwatches();
+    updateContrastDisplay();
 });
 
 // Swap colors button
@@ -678,6 +782,7 @@ if (swapColorsBtn) {
         qrColor.nextElementSibling.textContent = qrColor.value;
         bgColor.nextElementSibling.textContent = bgColor.value;
         updateColorSwatches();
+        updateContrastDisplay();
         clearPresetActive();
         if (currentQRCanvas || currentQRSVG) generateQRCode();
     });
@@ -738,6 +843,7 @@ colorPresets.forEach(preset => {
         qrColor.nextElementSibling.textContent = fg;
         bgColor.nextElementSibling.textContent = bg;
         updateColorSwatches();
+        updateContrastDisplay();
         colorPresets.forEach(p => {
             p.classList.remove('active');
             p.setAttribute('aria-pressed', 'false');
@@ -757,6 +863,7 @@ function clearPresetActive() {
 }
 qrColor.addEventListener('input', clearPresetActive);
 bgColor.addEventListener('input', clearPresetActive);
+updateContrastDisplay();
 
 // Håndter transparent baggrund checkbox
 transparentBg.addEventListener('change', (e) => {
@@ -772,6 +879,7 @@ transparentBg.addEventListener('change', (e) => {
         bgColor.disabled = false;
         bgColor.parentElement.style.opacity = '1';
     }
+    updateContrastDisplay();
 });
 
 // ===========================================

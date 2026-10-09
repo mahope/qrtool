@@ -1,7 +1,7 @@
 # IMPLEMENTATION_PLAN — qrtool.dk
 
 STATUS:
-- Gate: `npm test` = `npm run build` + `node --test` (96 tests). 96/96 grønne pr. 2026-10-09 18:15.
+- Gate: `npm test` = `npm run build` + `node --test` (109 tests). 109/109 grønne pr. 2026-10-09 20:20.
 - 2026-10-09: App-store-link som QR-type landet (ceo/app-link): ny "App"-fane der bygger
   App Store- og Google Play-links fra et ID eller et indsat link, med live forhåndsvisning. DA+EN.
 - DEPLOY OK 2026-10-09 (verificeret på indhold på `/` og `/en/`): printstørrelse + 300 dpi/PDF,
@@ -40,8 +40,8 @@ Baseline (Plausible, 28 dage til 2026-10-08): 206 besøgende, 289 sidevisninger,
 
 ### Feature-kø
 - ✅ **App-store-link som QR-type.** Landet 2026-10-09 i ceo/app-link.
-- **Kontrastmåling i farvevælgeren.** Til: alle der vælger farver. Delvist dækket af scan-kontrollen;
-  resten er en advarsel før generering. Accept: vise kontrastforholdet mellem kode og baggrund.
+- ✅ **Kontrastmåling i farvevælgeren.** Landet 2026-10-09 i ceo/contrast-readout: farveområdet
+  viser WCAG-kontrastforholdet mellem kode og baggrund live (advarsel under 3:1), DA+EN.
 - **PDF i trykkvalitet til flere QR-typer / batch.** Eksporten findes for enkeltkoder; batch er kun ZIP
   med PNG/SVG. Accept: printklar PDF pr. kode i batch. Datagrund: virksomheder printer mange koder.
 
@@ -53,3 +53,4 @@ får opmærksomhed.
 
 ## Verificér deploy
 - VERIFICÉR DEPLOY: "App"-fanen og appPreviewUrl vises på `/` og `/en/` (DA+EN) · ceo/app-link · 2026-10-09 18:15
+- VERIFICÉR DEPLOY: kontrast-linjen "Kontrast: 21,0:1 — stærk kontrast" vises under farvevælgeren på `/` og `/en/` · ceo/contrast-readout · 2026-10-09 20:20

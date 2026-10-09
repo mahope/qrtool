@@ -51,7 +51,11 @@ function loadApp(options = {}) {
     buildPrintPDF: (jpegBytes, imgW, imgH, mm) => buildPrintPDF(jpegBytes, imgW, imgH, mm),
     renderPrintCanvas: mm => renderPrintCanvas(mm),
     downloadQRCode: () => downloadQRCode(),
-    lastQR: () => lastQR
+    lastQR: () => lastQR,
+    updateContrastDisplay: () => updateContrastDisplay(),
+    contrastStatus: () => contrastStatusEl,
+    contrastRatio: (fg, bg) => contrastRatio(fg, bg),
+    contrastLevel: ratio => contrastLevel(ratio)
 };`);
 
     factory(...names.map(name => injected[name]));
@@ -87,7 +91,11 @@ function loadApp(options = {}) {
         buildPrintPDF: (jpegBytes, imgW, imgH, mm) => bind.buildPrintPDF(jpegBytes, imgW, imgH, mm),
         renderPrintCanvas: mm => bind.renderPrintCanvas(mm),
         downloadQRCode: () => bind.downloadQRCode(),
-        lastQR: () => bind.lastQR()
+        lastQR: () => bind.lastQR(),
+        updateContrastDisplay: () => bind.updateContrastDisplay(),
+        contrastStatus: () => bind.contrastStatus(),
+        contrastRatio: (fg, bg) => bind.contrastRatio(fg, bg),
+        contrastLevel: ratio => bind.contrastLevel(ratio)
     };
 
     return api;
