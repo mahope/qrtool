@@ -483,6 +483,13 @@
                 <!-- History Section -->
                 <div class="history-section">
                     <h3><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Tidligere QR-koder</h3>
+                    <div class="form-group checkbox-group">
+                        <label for="historyOptIn">
+                            <input type="checkbox" id="historyOptIn" autocomplete="off" aria-describedby="historyPrivacy">
+                            Gem nye QR-koder i historikken under dette besøg
+                        </label>
+                    </div>
+                    <p id="historyPrivacy">Slået fra som standard, også for WiFi, vCard, email og SMS. Ved tilvalg gemmes QR-indhold i denne browsers localStorage, også adgangskoder og kontaktoplysninger. Undgå det på delte enheder. Tilvalget nulstilles, når du genindlæser eller forlader siden. Gemte koder bliver liggende; fjern fluebenet for at stoppe nye gemninger, og brug »Ryd historik« for at slette de eksisterende.</p>
                     <div class="history-controls" id="historyControls" style="display: none;">
                         <input type="search" id="historySearch" class="history-search" placeholder="Søg i historik..." aria-label="Søg i historik">
                         <select id="historyFilter" class="history-filter" aria-label="Filtrer efter type">

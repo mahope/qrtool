@@ -1,11 +1,12 @@
 # IMPLEMENTATION_PLAN — qrtool.dk
 
 STATUS:
-- Gate: `npm test` = `npm run build` + `node --test` (60 tests). 60/60 grønne pr. 2026-10-09 09:00.
+- Gate: `npm test` = `npm run build` + `node --test` (60 tests). 60/60 grønne pr. 2026-10-09 11:45.
 - 2026-10-09: Cloudflare/nginx serverede gammel `app.js` i op til 7 dage. `nginx.conf` giver `.js`/`.css` `max-age=604800`, Cloudflare cacher pr. fuld URL, og HTML'ens hardkodede `?v=8` blev aldrig bumpet ved deploy. Origin havde dagens rettelser, men brugerne fik den gamle fil. Rettet i ceo/cache-bust-assets: buildet stempler et indholds-hash på `?v=` i alle HTML-filer og i `sw.js` (`?v=` + `CACHE_NAME`).
 - DEPLOY OK 2026-10-09: wifi-scan-guide (live side = lokal, ny sektion findes) og home-generator-first (live forside = lokal, rækkefølge input→preview→options).
 - 2026-10-09: vCard- og kalender-siderne (DA+EN) fik HowTo- og FAQPage-data plus en praktisk modtager-guide, som WiFi-siden. ceo/vcard-kalender-substans.
 - qr-encoding, calendar-date og escape-vcard ligger på origin, men nåede ikke brugerne pga. cachen. De bør være synlige efter næste batch-vindue (12:30), nu hvor cache-busting er på plads.
+- 2026-10-09: QR-historik er nu slået fra som standard. Brugere skal aktivt vælge at gemme via en checkbox. Privatlivspolitik og om-sider opdateret. ceo/history-opt-in.
 - ❓ Search Console mangler for qrtool.dk. Ingen GSC-tilgang i snapshot-jobbet, så der bygges ikke på gæt om søgeord.
 - PR-TJEK: 2026-10-09 — ingen åbne PR'er. Ingen GitHub Actions i repoet; den lokale gate er eneste kontrol.
 - BRANCH-TJEK: 2026-10-09 — kun master + bevaret/*, intet at rydde.
@@ -20,7 +21,7 @@ Baseline (Plausible, 28 dage til 2026-10-08): 206 besøgende, 289 sidevisninger,
 
 ### Åbne opgaver
 
-1. **Land QR-historik som tilvalg.** Datagrund: privatlivspolitikken siger "vi gemmer ikke dine indtastninger", men koden gemmer QR-indhold (WiFi-koder, kontaktdata) i localStorage uden spørgsmål. Accept: historik er slået fra som standard med en synlig forklaring, og teksten i politikken og om-siden passer med koden. Dækker bevaret-arbejdet (1).
+1. ✅ **Land QR-historik som tilvalg.** Landet i ceo/history-opt-in (2026-10-09). Historik er slået fra som standard, checkbox tilvalg, politik og om-sider opdateret.
 2. **Batch-import fra CSV er skrøbelig.** Datagrund: `csvFileInput` accepterer filer uden validering, og brugerne får ingen feedback hvis kolonnerne ikke matcher. Datagrunden er svag (ingen events) — behandles først hvis GSC viser trafik til batch.
 
 ### ❓ Til Mads

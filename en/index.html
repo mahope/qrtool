@@ -483,6 +483,13 @@
                 <!-- History Section -->
                 <div class="history-section">
                     <h3><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Previous QR Codes</h3>
+                    <div class="form-group checkbox-group">
+                        <label for="historyOptIn">
+                            <input type="checkbox" id="historyOptIn" autocomplete="off" aria-describedby="historyPrivacy">
+                            Save new QR codes to history during this visit
+                        </label>
+                    </div>
+                    <p id="historyPrivacy">Off by default, including WiFi, vCard, email and SMS. Opting in stores QR content in this browser's localStorage, including passwords and contact details. Avoid this on shared devices. The choice resets when you reload or leave the page. Saved codes remain; uncheck to stop new saves, and use "Clear history" to delete existing entries.</p>
                     <div class="history-controls" id="historyControls" style="display: none;">
                         <input type="search" id="historySearch" class="history-search" placeholder="Search history..." aria-label="Search history">
                         <select id="historyFilter" class="history-filter" aria-label="Filter by type">

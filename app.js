@@ -1918,6 +1918,19 @@ if (csvFileInput) {
 const historyControls = document.getElementById('historyControls');
 const historySearch = document.getElementById('historySearch');
 const historyFilter = document.getElementById('historyFilter');
+const historyOptIn = document.getElementById('historyOptIn');
+let historySavingEnabled = false;
+
+if (historyOptIn) {
+    historyOptIn.checked = false;
+    historyOptIn.addEventListener('change', () => {
+        historySavingEnabled = historyOptIn.checked;
+    });
+    window.addEventListener('pageshow', () => {
+        historySavingEnabled = false;
+        historyOptIn.checked = false;
+    });
+}
 
 const typeLabels = {
     'text': t('type.text'),
@@ -1932,6 +1945,8 @@ const typeLabels = {
 };
 
 function saveToHistory(text, type) {
+    if (!historySavingEnabled) return;
+
     const history = getHistory();
     const entry = {
         text: text.substring(0, 200),
