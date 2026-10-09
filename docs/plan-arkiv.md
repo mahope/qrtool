@@ -129,3 +129,22 @@ Gate: `npm test` 71/71 grøn.
 
 Kendt problem der ikke er løst her: `drawCanvas` giver ikke den 4 modulers hvide kant, som
 QR-standarden kræver — det er opgave 2 i planen.
+
+## 2026-10-09 — Hvid zone om koden i downloads
+Gennemført i ceo/quiet-zone. `drawCanvas` regner nu den påkrævede hvide kant med i
+størrelsen: `scale = size / (cells + 8)` og modulerne tegnes fra `(x + 4) * scale`, så hver
+kanvas — preview, download, batch, print, kopi og del — får fire modulers lys kant.
+`toSvgString` kaldes med kant 4 i stedet for 2, både i enkeltgenereringen og i batch-ZIPen.
+Preview-koden bliver ca. 18 % mindre i samme boks, men billedet er stadig den valgte
+størrelse, og koden rammer ikke længere billedkanten.
+
+Transparent baggrund efterlades transparent i kantzonen (brugerens valg), men JPG og PDF
+fylder alligevel hvid, fordi de uanset lægger en hvid baggrund under. Den dekorative
+QR-logo i headeren (linje 610) bruger stadig `size / cells` — den er pynt, ikke en kode.
+
+Ny testfil `test/quiet-zone.test.js` (7 tests) med en canvas-stub med rigtige pixels:
+kanten er baggrundsfarven i alle fire retninger, koden dekoder stadig med jsQR, zonen
+følger den valgte baggrundsfarve, prik- og rundet stil holder zonen, SVG'en får
+`viewBox` med 8 modulers margin, og modulerne i download-canvasen ligger alle inden for
+margenen. Seks af de syv tester fejler mod gammel kode (kun jsQR-testen går igennem).
+Gate: `npm test` 78/78 grøn.

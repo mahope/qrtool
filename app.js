@@ -1248,7 +1248,7 @@ function generateQRCode() {
 
         if (format === 'svg' && !needsCanvas) {
             // Generer SVG (kun uden logo/CTA — de kræver canvas)
-            currentQRSVG = toSvgString(qr, 2, style);
+            currentQRSVG = toSvgString(qr, QUIET_ZONE_MODULES, style);
             qrPreview.innerHTML = currentQRSVG;
             currentQRCanvas = null;
             // Scan-kontrollen læser pixels, så lav en usynlig kopi at læse fra
@@ -1397,10 +1397,15 @@ function updateScanStatus(expected) {
     }
 }
 
+// QR-standarden kræver mindst fire modulers lys kant om koden. Uden den kant
+// rammer koderne kanten af billedet, og det er der, scannerapps fejler oftest.
+const QUIET_ZONE_MODULES = 4;
+
 // Hjælpefunktion til at tegne QR-kode på canvas
 function drawCanvas(qr, size, canvas, style = 'square') {
     const cells = qr.getModuleCount();
-    const scale = size / cells;
+    // Kanten tæller med i størrelsen, så en kode aldrig fylder mere end preview
+    const scale = size / (cells + QUIET_ZONE_MODULES * 2);
 
     // Set dimensions only if not already set (CTA may extend height)
     if (!canvas.width || canvas.width < size) canvas.width = size;
@@ -1420,8 +1425,8 @@ function drawCanvas(qr, size, canvas, style = 'square') {
     for (let y = 0; y < cells; y++) {
         for (let x = 0; x < cells; x++) {
             if (qr.isDark(y, x)) {
-                const px = x * scale;
-                const py = y * scale;
+                const px = (x + QUIET_ZONE_MODULES) * scale;
+                const py = (y + QUIET_ZONE_MODULES) * scale;
 
                 if (style === 'dots') {
                     // Tegn cirkler
@@ -1951,7 +1956,7 @@ if (batchGenerateBtn && batchInput) {
                 qr.make();
 
                 if (format === 'svg') {
-                    const svg = toSvgString(qr, 2, style);
+                    const svg = toSvgString(qr, QUIET_ZONE_MODULES, style);
                     zip.file(`qr-${i + 1}.svg`, svg);
                 } else {
                     const canvas = document.createElement('canvas');

@@ -40,7 +40,11 @@ function loadApp(options = {}) {
     updateScanStatus: text => updateScanStatus(text),
     decodeQRCanvas: canvas => decodeQRCanvas(canvas),
     scanStatus: () => scanStatusEl,
-    setScanCanvas: canvas => { qrScanCanvas = canvas; }
+    setScanCanvas: canvas => { qrScanCanvas = canvas; },
+    drawCanvas: (qr, size, canvas, style) => drawCanvas(qr, size, canvas, style),
+    toSvgString: (qr, border, style) => toSvgString(qr, border, style),
+    qrSvg: () => currentQRSVG,
+    qrCanvas: () => currentQRCanvas
 };`);
 
     factory(...names.map(name => injected[name]));
@@ -65,7 +69,11 @@ function loadApp(options = {}) {
         updateScanStatus: text => bind.updateScanStatus(text),
         decodeQRCanvas: canvas => bind.decodeQRCanvas(canvas),
         scanStatus: () => bind.scanStatus(),
-        setScanCanvas: canvas => bind.setScanCanvas(canvas)
+        setScanCanvas: canvas => bind.setScanCanvas(canvas),
+        drawCanvas: (qr, size, canvas, style) => bind.drawCanvas(qr, size, canvas, style),
+        toSvgString: (qr, border, style) => bind.toSvgString(qr, border, style),
+        qrSvg: () => bind.qrSvg(),
+        qrCanvas: () => bind.qrCanvas()
     };
 
     return api;

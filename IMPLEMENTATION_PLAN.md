@@ -1,9 +1,10 @@
 # IMPLEMENTATION_PLAN — qrtool.dk
 
 STATUS:
-- Gate: `npm test` = `npm run build` + `node --test` (71 tests). 71/71 grønne pr. 2026-10-09 14:10.
+- Gate: `npm test` = `npm run build` + `node --test` (78 tests). 78/78 grønne pr. 2026-10-09 15:10.
 - 2026-10-09: Scan-kontrol landet (ceo/scan-check). Koden læses tilbage med jsQR efter hver
   generering, og brugeren ser "kan scannes" eller en konkret advarsel under QR-koden.
+- 2026-10-09: Hvid zone landet (ceo/quiet-zone). Alle downloads har nu fire modulers lys kant.
 - DEPLOY OK 2026-10-09 (verificeret på indhold): cache-bust med indholds-hash, UTF-8 i
   payloads, kalenderdato, vCard-escaping, vCard/kalender-undersider, WiFi-guide,
   generator-først på forsiden, historik som tilvalg.
@@ -22,12 +23,10 @@ Baseline (Plausible, 28 dage til 2026-10-08): 206 besøgende, 289 sidevisninger,
 ### Åbne opgaver
 
 1. ✅ **Scan-kontrol af den færdige kode.** Landet i ceo/scan-check (2026-10-09).
-2. **Hvid zone om koden i downloads.** Hvorfor: `drawCanvas` tegner modulerne ud til kanten, så en
-   downloadet PNG mangler den 4 modulers hvide kant standarden kræver; scannerapps fejler oftere
-   på en kode der rammer billedkanten. Accept: PNG og SVG får mindst 4 modulers hvid kant, og en
-   test beviser at kantpixelsne er baggrundsfarven. Datagrund: `/` 151 besøgende, 90 % bounce.
+2. ✅ **Hvid zone om koden i downloads.** Landet i ceo/quiet-zone (2026-10-09): fire modulers
+   lys kant i preview, download, batch, print, kopi og del.
 3. **Størrelse i millimeter til print.** Hvorfor: brugeren vælger pixels, men skal trykke 3 cm.
-   Accept: indtast mm (fx 20/30/50) og få PNG ved 300 dpi plus PDF i den fysiske størrelse.
+   Accept: indtast mm (fx 20/30/50) og få PNG ved 300 dpi plus PDF i den fysiske størrelsen.
    Datagrund: PDF-eksport findes allerede og benyttes; `/` 151 besøgende, 90 % bounce.
 4. **Engelsk forside: generatoren først.** Hvorfor: `/en/` har 9 besøgende og 100 % bounce.
    Accept: samme rækkefølge som den danske forside, og en test der stiller rækkefølgen samme
@@ -59,3 +58,4 @@ får opmærksomhed.
 
 ## Verificér deploy
 - VERIFICÉR DEPLOY: scan-kontrollen vises under QR-koden efter generering (DA+EN) · ceo/scan-check · 2026-10-09 14:10
+- VERIFICÉR DEPLOY: hvid zone om koden i preview, PNG/JPG/SVG/PDF og batch-ZIP (DA+EN) · ceo/quiet-zone · 2026-10-09 15:10
