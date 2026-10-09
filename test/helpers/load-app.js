@@ -55,7 +55,10 @@ function loadApp(options = {}) {
     updateContrastDisplay: () => updateContrastDisplay(),
     contrastStatus: () => contrastStatusEl,
     contrastRatio: (fg, bg) => contrastRatio(fg, bg),
-    contrastLevel: ratio => contrastLevel(ratio)
+    contrastLevel: ratio => contrastLevel(ratio),
+    csvToBatchValues: text => csvToBatchValues(text),
+    parseCsvRows: (text, delimiter) => parseCsvRows(text, delimiter),
+    detectCsvDelimiter: text => detectCsvDelimiter(text)
 };`);
 
     factory(...names.map(name => injected[name]));
@@ -95,7 +98,10 @@ function loadApp(options = {}) {
         updateContrastDisplay: () => bind.updateContrastDisplay(),
         contrastStatus: () => bind.contrastStatus(),
         contrastRatio: (fg, bg) => bind.contrastRatio(fg, bg),
-        contrastLevel: ratio => bind.contrastLevel(ratio)
+        contrastLevel: ratio => bind.contrastLevel(ratio),
+        csvToBatchValues: text => bind.csvToBatchValues(text),
+        parseCsvRows: (text, delimiter) => bind.parseCsvRows(text, delimiter),
+        detectCsvDelimiter: text => bind.detectCsvDelimiter(text)
     };
 
     return api;

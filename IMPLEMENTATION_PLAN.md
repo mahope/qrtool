@@ -1,7 +1,7 @@
 # IMPLEMENTATION_PLAN — qrtool.dk
 
 STATUS:
-- Gate: `npm test` = `npm run build` + `node --test` (110 tests). 110/110 grønne pr. 2026-10-09 22:45.
+- Gate: `npm test` = `npm run build` + `node --test` (131 tests). 131/131 grønne pr. 2026-10-10 01:3x.
 - 2026-10-09: App-store-link som QR-type landet (ceo/app-link): ny "App"-fane der bygger
   App Store- og Google Play-links fra et ID eller et indsat link, med live forhåndsvisning. DA+EN.
 - 2026-10-09: Share-billeder landet (ceo/og-images): alle 14 og-image.png fand 404, så enhver
@@ -14,6 +14,9 @@ STATUS:
   20:20) — live på `/` og `/en/` via `app.js?v=1abe2cffdb`.
 - 2026-10-10: vCard-siden skrevet om til "digitalt visitkort"-søgningerne (ceo/vcard-title-faq):
   title og beskrivelse nævner iPhone/Android, to nye FAQ'er (iPhone og printstørrelse), DA+EN.
+- 2026-10-10: CSV-batch-import omskrevet (ceo/csv-import): rigtig parser (anførselstegn, BOM,
+  CRLF), delimiter-fund og kolonnevalg — et "navn, url"-eksport koder ikke længere navnet ved en
+  fejl. Feedback om kolonne og loft på 100 rækker, DA+EN.
 - MÅL: `/` baseline 151 besøgende/28 d, bounce 90 % → under 75 % pr. 2026-11-05.
 - MÅL: Facebook-kilder 46 af 206 besøgende → 60+ pr. 2026-11-05 (share-preview rettet 2026-10-09).
 - PR-TJEK 2026-10-09 (2. gennemgang): dependabot-PR #2 (esbuild 0.27.7 → 0.28.1) landet som
@@ -30,11 +33,9 @@ Baseline (Plausible, 28 dage til 2026-10-08): 206 besøgende, 289 sidevisninger,
 
 ### Åbne opgaver
 
-1. **Batch-import fra CSV er skrøbelig.** `csvFileInput` validerer ikke kolonnerne, og brugeren får
-   ingen feedback. Datagrunden er svag (ingen events) — tages kun hvis trafikken til batch viser sig.
-
-Afkruttede opgaver (scan-kontrol, hvid zone, mm-download, EN-generator-først, share-billeder,
-vCard-title/FAQ) står i `docs/plan-arkiv.md`.
+Ingen åbne egne opgaver lige nu. Næste kandidat: printklar PDF pr. kode i batch-eksporten
+(nedenfor). Afsluttede opgaver (scan-kontrol, hvid zone, mm-download, EN-generator-først,
+share-billeder, vCard-title/FAQ, CSV-import) står i `docs/plan-arkiv.md`.
 
 ### GSC-CTR-baselines (måles igen pr. 2026-10-23)
 - `/en/calendar-qr-code` 566v, 2 klik, CTR 0,4 %, pos. 11,0 — største enkelt-side uden for `/`.
@@ -69,3 +70,5 @@ får opmærksomhed.
   2026-10-10 00:0x med cache-bust — merge 1e51906 (22:45 d. 9/10) er nyere end sidste
   deploy-vindue (21:30). Verificer https://qrtool.dk/og-image.png ved vinduet 07:30: skal give 200
   og content-type image/png. To vinduer uden live = DEPLOY-MISSING og stop for merge til master.
+- AFVENTER VERIFICERING (CSV-import): tjek ved næste deploy-vindue at live
+  https://qrtool.dk/app.js indeholder `csvToBatchValues` (curl + grep). ceo/csv-import.

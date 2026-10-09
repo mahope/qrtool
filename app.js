@@ -81,7 +81,9 @@ const T = {
         // CSV
         'csv.empty': 'CSV-filen er tom.',
         'csv.noData': 'Ingen data fundet i CSV-filen.',
-        'csv.imported': '{n} rækker importeret fra CSV.',
+        'csv.imported': '{n} koder importeret fra CSV.',
+        'csv.fromColumn': 'Fra kolonne {col} af {cols}.',
+        'csv.truncated': 'Kun de første {max} blev importeret.',
 
         // History
         'history.empty': 'Ingen tidligere QR-koder',
@@ -243,7 +245,9 @@ const T = {
         // CSV
         'csv.empty': 'The CSV file is empty.',
         'csv.noData': 'No data found in the CSV file.',
-        'csv.imported': '{n} rows imported from CSV.',
+        'csv.imported': '{n} codes imported from CSV.',
+        'csv.fromColumn': 'From column {col} of {cols}.',
+        'csv.truncated': 'Only the first {max} were imported.',
 
         // History
         'history.empty': 'No previous QR codes',
@@ -2218,6 +2222,111 @@ if (batchGenerateBtn && batchInput) {
 }
 
 // CSV Import for batch generation
+// Splits CSV/TSV text into rows of cells. Handles quoted fields that contain
+// the delimiter, escaped quotes ("") and line breaks inside quotes, a UTF-8
+// BOM and CRLF line endings. Rows that are entirely empty are dropped.
+function parseCsvRows(text, delimiter) {
+    const rows = [];
+    let row = [];
+    let cell = '';
+    let inQuotes = false;
+    const src = String(text).replace(/^\uFEFF/, '');
+    for (let i = 0; i < src.length; i++) {
+        const ch = src[i];
+        if (inQuotes) {
+            if (ch === '"') {
+                if (src[i + 1] === '"') { cell += '"'; i++; }
+                else { inQuotes = false; }
+            } else {
+                cell += ch;
+            }
+        } else if (ch === '"' && cell === '') {
+            inQuotes = true;
+        } else if (ch === delimiter) {
+            row.push(cell); cell = '';
+        } else if (ch === '\n' || ch === '\r') {
+            if (ch === '\r' && src[i + 1] === '\n') i++;
+            row.push(cell); cell = '';
+            rows.push(row); row = [];
+        } else {
+            cell += ch;
+        }
+    }
+    row.push(cell);
+    rows.push(row);
+    return rows
+        .map(r => r.map(c => c.trim()))
+        .filter(r => r.some(c => c !== ''));
+}
+
+// Picks the delimiter used on the first line by counting occurrences outside
+// quotes, so a value like "København, Danmark" does not split the row.
+function detectCsvDelimiter(text) {
+    const firstLine = String(text).replace(/^\uFEFF/, '').split(/\r?\n/, 1)[0] || '';
+    let best = ',';
+    let bestCount = 0;
+    for (const d of [';', '\t', ',']) {
+        let count = 0;
+        let inQuotes = false;
+        for (let i = 0; i < firstLine.length; i++) {
+            const ch = firstLine[i];
+            if (ch === '"') inQuotes = !inQuotes;
+            else if (ch === d && !inQuotes) count++;
+        }
+        if (count > bestCount) { best = d; bestCount = count; }
+    }
+    return best;
+}
+
+const CSV_CONTENT_HEADERS = [
+    'url', 'link', 'tekst', 'text', 'indhold', 'data', 'content', 'qr',
+    'besked', 'message', 'value', 'vaerdi', 'værdi', 'adresse', 'address'
+];
+
+// Chooses which column holds the QR content. A recognised header name wins;
+// otherwise the column with the most URLs (then the longest values) is used,
+// so a typical "navn, url" export no longer encodes the name by mistake.
+function selectCsvContentColumn(rows) {
+    const colCount = rows.reduce((m, r) => Math.max(m, r.length), 0);
+
+    const headerKeys = rows[0].map(c => c.toLowerCase().replace(/[^a-zæøå]/g, ''));
+    const hasHeader = headerKeys.some(k => CSV_CONTENT_HEADERS.includes(k));
+    const dataRows = hasHeader ? rows.slice(1) : rows;
+
+    if (hasHeader) {
+        const headerIndex = headerKeys.findIndex(k => CSV_CONTENT_HEADERS.includes(k));
+        if (headerIndex >= 0) return { index: headerIndex, hasHeader };
+    }
+
+    const isUrl = v => /^(https?:\/\/|www\.|mailto:|tel:|sms:|geo:|BEGIN:VCARD|\/\/)/i.test(v);
+    let bestIndex = 0;
+    let bestScore = -1;
+    for (let c = 0; c < colCount; c++) {
+        const vals = dataRows.map(r => r[c] || '').filter(v => v !== '');
+        if (vals.length === 0) continue;
+        const urlCount = vals.filter(isUrl).length;
+        const avgLen = vals.reduce((s, v) => s + v.length, 0) / vals.length;
+        const score = urlCount * 1000 + avgLen;
+        if (score > bestScore) { bestScore = score; bestIndex = c; }
+    }
+    return { index: bestIndex, hasHeader };
+}
+
+// Turns CSV text into the list of values used to fill the batch textarea,
+// together with which column was chosen (for the user-facing feedback).
+function csvToBatchValues(text) {
+    const delimiter = detectCsvDelimiter(text);
+    const rows = parseCsvRows(text, delimiter);
+    const columnCount = rows.reduce((m, r) => Math.max(m, r.length), 0);
+    if (rows.length === 0) {
+        return { values: [], contentIndex: 0, columnCount: 0, hasHeader: false };
+    }
+    const { index, hasHeader } = selectCsvContentColumn(rows);
+    const dataRows = hasHeader ? rows.slice(1) : rows;
+    const values = dataRows.map(r => (r[index] || '').trim()).filter(v => v !== '');
+    return { values, contentIndex: index, columnCount, hasHeader };
+}
+
 const csvFileInput = document.getElementById('csvFileInput');
 if (csvFileInput) {
     csvFileInput.addEventListener('change', (e) => {
@@ -2227,36 +2336,33 @@ if (csvFileInput) {
         const reader = new FileReader();
         reader.onload = (ev) => {
             const text = ev.target.result;
-            const lines = text.split(/\r?\n/).filter(l => l.trim());
-            if (lines.length === 0) {
+            if (!text || !text.trim()) {
                 showToast(t('csv.empty'), 'error');
+                csvFileInput.value = '';
                 return;
             }
 
-            // Detect delimiter: comma, semicolon, or tab
-            const firstLine = lines[0];
-            const delim = firstLine.includes('\t') ? '\t' : firstLine.includes(';') ? ';' : ',';
-
-            // Check if first line looks like a header
-            const firstCell = firstLine.split(delim)[0].trim().replace(/^["']|["']$/g, '');
-            const startsAt = /^(url|link|text|data|indhold|tekst|qr)/i.test(firstCell) ? 1 : 0;
-
-            const values = [];
-            for (let i = startsAt; i < lines.length; i++) {
-                const cell = lines[i].split(delim)[0].trim().replace(/^["']|["']$/g, '');
-                if (cell) values.push(cell);
-            }
-
-            if (values.length === 0) {
+            const result = csvToBatchValues(text);
+            if (result.values.length === 0) {
                 showToast(t('csv.noData'), 'error');
+                csvFileInput.value = '';
                 return;
             }
 
+            const max = 100;
+            const imported = result.values.slice(0, max);
             if (batchInput) {
-                batchInput.value = values.join('\n');
+                batchInput.value = imported.join('\n');
             }
 
-            showToast(t('csv.imported', { n: values.length }), 'success');
+            let message = t('csv.imported', { n: imported.length });
+            if (result.columnCount > 1) {
+                message += ' ' + t('csv.fromColumn', { col: result.contentIndex + 1, cols: result.columnCount });
+            }
+            if (result.values.length > max) {
+                message += ' ' + t('csv.truncated', { max });
+            }
+            showToast(message, 'success');
             csvFileInput.value = '';
         };
         reader.readAsText(file, 'UTF-8');

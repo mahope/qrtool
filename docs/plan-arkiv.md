@@ -185,3 +185,13 @@ iPhone (kamera → bjælke → Gem, uden app) og hvor stort QR-koden skal være 
 visitkort (min. 2×2 cm, helst 3×3 cm, bagsiden af et 85×55 mm-kort, SVG til print).
 DA+EN i samme commit; gate 116/116 (6 nye tests i test/vcard-content.test.js holder titel,
 beskrivelse, FAQ-sync og printstørrelse på plads i begge sprog).
+
+## 2026-10-10 — CSV-batch-import forstår nu flere kolonner
+Den gamle import tog blindt den første kolonne i hver række, så et typisk "navn, url"-eksport
+fra Excel/Sheets kodede navnet i stedet for linket — uden at brugeren fik det at vide.
+Nu: rigtig CSV-parser (anførselstegn med indlejret delimiter/linjeskift, "" som ét anførselstegn,
+BOM, CRLF), delimiter fundet ud fra første linje (komma/semikolon/tab), og kolonnevalg der
+foretrækker en genkendt header (url/link/tekst/…) og ellers den kolonne med flest URL-agtige
+værdier (ellers længste værdier). Brugeren får besked om hvilken kolonne der blev brugt, og
+importen stopper ved 100 rækker (batch-grænsen). DA+EN. Gate 131/131 (16 nye tests i
+test/csv-import.test.js). Opgaven stod som åben #1 i planen.
