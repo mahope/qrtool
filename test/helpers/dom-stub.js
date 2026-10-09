@@ -16,6 +16,10 @@ class ClassList {
         if (next) this.set.add(name); else this.set.delete(name);
         return next;
     }
+    replace(oldName, newName) {
+        this.remove(oldName);
+        if (newName) this.add(newName);
+    }
     contains(name) { return this.set.has(name); }
     get value() { return Array.from(this.set).join(' '); }
 }

@@ -35,7 +35,12 @@ function loadApp(options = {}) {
     isHistorySavingEnabled: () => historySavingEnabled,
     validateForm: () => validateForm(),
     translate: (key, vars) => t(key, vars),
-    language: () => LANG
+    language: () => LANG,
+    generateQRCode: () => generateQRCode(),
+    updateScanStatus: text => updateScanStatus(text),
+    decodeQRCanvas: canvas => decodeQRCanvas(canvas),
+    scanStatus: () => scanStatusEl,
+    setScanCanvas: canvas => { qrScanCanvas = canvas; }
 };`);
 
     factory(...names.map(name => injected[name]));
@@ -55,7 +60,12 @@ function loadApp(options = {}) {
         isHistorySavingEnabled: () => bind.isHistorySavingEnabled(),
         validateForm: () => bind.validateForm(),
         translate: (key, vars) => bind.translate(key, vars),
-        language: () => bind.language()
+        language: () => bind.language(),
+        generateQRCode: () => bind.generateQRCode(),
+        updateScanStatus: text => bind.updateScanStatus(text),
+        decodeQRCanvas: canvas => bind.decodeQRCanvas(canvas),
+        scanStatus: () => bind.scanStatus(),
+        setScanCanvas: canvas => bind.setScanCanvas(canvas)
     };
 
     return api;

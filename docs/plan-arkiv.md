@@ -103,3 +103,29 @@ HowTo- og FAQPage-structured-data samt en praktisk sektion ("Sådan gemmer modta
 dit kort" / "Sådan tilføjer deltagerne begivenheden") med iPhone- og Android-trin,
 svarende til WiFi-siden. Gate: `npm test` 60/60 grøn.
 MÅL: `/vcard-qr-kode` baseline 6 besøgende, bounce < 80 % pr. 2026-11-05.
+
+## 2026-10-09 — Historik som tilvalg
+Landområde: `bevaret/2026-10-auto-union-night` (1). Gemning af QR-indhold i localStorage er nu slået
+fra som standard; brugeren sætter flueben i "Gem nye QR-koder i historikken under dette besøg".
+Privatlivspolitik og om-siden opdateret. Gate: `npm test` grøn.
+
+## 2026-10-09 — Scan-kontrol af den færdige kode
+Gennemført i ceo/scan-check. `decodeQRCanvas()` læser pixelsne fra den færdige kode tilbage med
+`lib/jsQR.min.js` (samt `inversionAttempts: 'attemptBoth'`) op til 250 ms efter generering, så
+indtastning aldrig hakker. Resultatet vises som en status under QR-koden: kan scannes, indholdet
+stemmer / advarsel med konkret råd. Transparent baggrund lægges på hvid før læsning, for ellers
+tæller gennemsigtige pixels som sort. Formatet SVG får en usynlig canvas-kopi, for kontrollen
+læser pixels.
+
+Målinger bag beslutningen (lokal, med ægte qrcode-matricer): alle seks farve-presets dekoder,
+så der er ingen fejlalarmer på standardindstillinger. #cccccc på hvid fejler (rigtig advarsel),
+logo der dækker 35 % fejler ved fejlkorrektion L og M og går igennem ved H — netop det boost
+logoet allerede udløser. Prik-stil dekoder ved 512 px.
+
+Ny testfil `test/scan-check.test.js` (11 tests) og nye bindinger i `test/helpers/load-app.js`
+(`generateQRCode`, `updateScanStatus`, `decodeQRCanvas`, `scanStatus`, `setScanCanvas`);
+`ClassList` i dom-stubben har nu `replace`, som `showToast` bruger.
+Gate: `npm test` 71/71 grøn.
+
+Kendt problem der ikke er løst her: `drawCanvas` giver ikke den 4 modulers hvide kant, som
+QR-standarden kræver — det er opgave 2 i planen.

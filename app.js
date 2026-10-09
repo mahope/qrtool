@@ -123,6 +123,12 @@ const T = {
         'scanner.noQR': 'Ingen QR-kode fundet i billedet. Prøv et andet billede.',
         'scanner.imgError': 'Kunne ikke indlæse billedet.',
 
+        // Scan check
+        'scan.ok': 'Kontrol: QR-koden kan scannes og indholdet stemmer.',
+        'scan.mismatch': 'Kontrol: koden kan scannes, men indholdet blev læst forkert. Flyt logoet mindre, eller vælg fejlkorrektion H.',
+        'scan.fail': 'Kontrol: koden kunne ikke læses igen. Brug mere kontrast mellem kode og baggrund, flyt logoet mindre, eller vælg fejlkorrektion H.',
+        'scan.checking': 'Kontrollerer om koden kan scannes...',
+
         // Geo
         'geo.unsupported': 'Geolokation understøttes ikke i denne browser.',
         'geo.fetching': 'Henter placering...',
@@ -267,6 +273,12 @@ const T = {
         'scanner.camError': 'Could not start the camera. Does your device have a camera?',
         'scanner.noQR': 'No QR code found in the image. Try another image.',
         'scanner.imgError': 'Could not load the image.',
+
+        // Scan check
+        'scan.ok': 'Check: the QR code scans, and the content matches.',
+        'scan.mismatch': 'Check: the code scans, but the content reads back wrong. Make the logo smaller, or set error correction to H.',
+        'scan.fail': 'Check: the code could not be read back. Use more contrast between code and background, make the logo smaller, or set error correction to H.',
+        'scan.checking': 'Checking whether the code scans...',
 
         // Geo
         'geo.unsupported': 'Geolocation is not supported in this browser.',
@@ -1239,6 +1251,11 @@ function generateQRCode() {
             currentQRSVG = toSvgString(qr, 2, style);
             qrPreview.innerHTML = currentQRSVG;
             currentQRCanvas = null;
+            // Scan-kontrollen læser pixels, så lav en usynlig kopi at læse fra
+            qrScanCanvas = document.createElement('canvas');
+            qrScanCanvas.width = size;
+            qrScanCanvas.height = size;
+            drawCanvas(qr, size, qrScanCanvas, style);
         } else {
             // Generer Canvas
             const canvas = document.createElement('canvas');
@@ -1251,6 +1268,7 @@ function generateQRCode() {
             qrPreview.appendChild(canvas);
             currentQRCanvas = canvas;
             currentQRSVG = null;
+            qrScanCanvas = canvas;
         }
 
         // Aktiver download, kopiér og del knapper
@@ -1276,9 +1294,106 @@ function generateQRCode() {
 
         showToast(t('toast.generated'), 'success');
 
+        scheduleScanCheck(text);
+
     } catch (error) {
         console.error('Fejl ved generering af QR-kode:', error);
         showToast(t('toast.generateError') + error.message, 'error');
+    }
+}
+
+// ===========================================
+// Scan-kontrol — læs den færdige kode igen med samme dekoder en telefon bruger
+// ===========================================
+
+let qrScanCanvas = null;
+let scanStatusEl = null;
+let scanCheckTimer;
+
+function getScanStatusElement() {
+    if (!scanStatusEl) {
+        scanStatusEl = document.createElement('p');
+        scanStatusEl.id = 'scanStatus';
+        scanStatusEl.className = 'scan-status';
+        scanStatusEl.setAttribute('role', 'status');
+        scanStatusEl.hidden = true;
+    }
+    return scanStatusEl;
+}
+
+function setScanStatus(message, state) {
+    if (!qrPreview) return;
+    const el = getScanStatusElement();
+    el.textContent = message;
+    el.dataset.state = state;
+    el.hidden = !message;
+
+    // Sidder teksten allerede under QR-koden, skal den ikke flyttes igen
+    const parent = qrPreview.parentElement;
+    const sibling = qrPreview.nextElementSibling;
+    if (parent && el.parentElement !== parent) {
+        parent.insertBefore(el, sibling);
+    } else if (!el.parentElement && qrPreview.appendChild) {
+        qrPreview.appendChild(el);
+    }
+}
+
+function scheduleScanCheck(text) {
+    if (!qrPreview) return;
+    clearTimeout(scanCheckTimer);
+    if (typeof jsQR === 'undefined') return;
+    setScanStatus(t('scan.checking'), 'checking');
+    // Dekodning koster op mod 100 ms på 2048 px, så den må ikke stå i vejen
+    scanCheckTimer = setTimeout(() => updateScanStatus(text), 250);
+}
+
+// Læser pixels fra et canvas tilbage med jsQR og returnerer indholdet
+function decodeQRCanvas(canvas) {
+    if (!canvas) return null;
+
+    // QR-koden er kvadratisk; et evt. CTA-bånd under den skal ikke læses med
+    const side = Math.min(canvas.width, canvas.height);
+    let target = canvas;
+    let ctx = canvas.getContext('2d');
+
+    // En transparent PNG læses på en hvid overflade, så læg den på hvid: ellers
+    // tæller de gennemsigtige pixels som sort, og kontrollen slår fejl-alarm
+    if (transparentBg && transparentBg.checked) {
+        const flat = document.createElement('canvas');
+        flat.width = side;
+        flat.height = side;
+        const flatCtx = flat.getContext('2d');
+        flatCtx.fillStyle = '#ffffff';
+        flatCtx.fillRect(0, 0, side, side);
+        flatCtx.drawImage(canvas, 0, 0);
+        target = flat;
+        ctx = flatCtx;
+    }
+
+    const imageData = ctx.getImageData(0, 0, side, side);
+    const code = jsQR(imageData.data, side, side, { inversionAttempts: 'attemptBoth' });
+    return code ? code.data : null;
+}
+
+function updateScanStatus(expected) {
+    if (!qrScanCanvas || typeof jsQR === 'undefined') {
+        setScanStatus('', 'ok');
+        return;
+    }
+
+    let decoded = null;
+    try {
+        decoded = decodeQRCanvas(qrScanCanvas);
+    } catch (error) {
+        console.error('Scan-kontrol fejlede:', error);
+    }
+
+    if (decoded === null) {
+        setScanStatus(t('scan.fail'), 'warn');
+    } else if (decoded !== expected) {
+        setScanStatus(t('scan.mismatch'), 'warn');
+    } else {
+        setScanStatus(t('scan.ok'), 'ok');
     }
 }
 

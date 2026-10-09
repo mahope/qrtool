@@ -1105,6 +1105,7 @@ header p {
     border-radius: var(--radius-lg);
     padding: 2rem;
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     min-height: 350px;
@@ -1129,6 +1130,30 @@ header p {
     height: auto;
     border-radius: var(--radius);
     animation: qr-appear 0.3s ease-out;
+}
+
+/* Scan-kontrollen ligger under koden på sin egen linje */
+.scan-status {
+    flex: 0 0 100%;
+    margin: 1rem 0 0;
+    padding: 0.65rem 0.9rem;
+    border-radius: var(--radius-sm);
+    border-left: 4px solid var(--border-color);
+    background: var(--card-bg);
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    line-height: 1.4;
+    text-align: left;
+}
+
+.scan-status[data-state="ok"] {
+    border-left-color: var(--success-color);
+    color: var(--text-color);
+}
+
+.scan-status[data-state="warn"] {
+    border-left-color: var(--error-color);
+    color: var(--text-color);
 }
 
 @keyframes qr-appear {
