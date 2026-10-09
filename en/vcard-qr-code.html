@@ -77,6 +77,66 @@
       ]
     }
     </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "HowTo",
+          "name": "How a recipient saves your digital business card on iPhone",
+          "description": "The recipient scans the vCard QR code with the built-in iPhone camera and saves the contact details without typing anything.",
+          "totalTime": "PT1M",
+          "step": [
+            {"@type": "HowToStep", "name": "Open the camera", "text": "Start the built-in camera app. There is no button to press — just hold the code in the frame."},
+            {"@type": "HowToStep", "name": "Hold the code in the frame", "text": "Move close enough for the code to be sharp. A banner appears with the name from the card."},
+            {"@type": "HowToStep", "name": "Tap the notification", "text": "Tap the banner to open the contact card."},
+            {"@type": "HowToStep", "name": "Tap Save", "text": "The iPhone opens the card with name, phone and email filled in. Tap Save to add it to contacts."}
+          ]
+        },
+        {
+          "@type": "HowTo",
+          "name": "How a recipient saves your digital business card on Android",
+          "description": "Android phones read vCard QR codes in the camera app or Google Lens.",
+          "totalTime": "PT1M",
+          "step": [
+            {"@type": "HowToStep", "name": "Open the camera", "text": "The built-in camera app or Google Lens reads vCard QR codes."},
+            {"@type": "HowToStep", "name": "Hold the code in the frame", "text": "The phone shows a contact card with the details."},
+            {"@type": "HowToStep", "name": "Tap Save", "text": "Tap the card and save the contact to your address book."}
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "What is a vCard QR code?",
+              "acceptedAnswer": {"@type": "Answer", "text": "A vCard QR code contains your contact information in a standardized format. When someone scans the code, they can save your name, phone number, email and more directly to their phone contacts."}
+            },
+            {
+              "@type": "Question",
+              "name": "Do vCard QR codes work on all phones?",
+              "acceptedAnswer": {"@type": "Answer", "text": "Yes! vCard QR codes are supported by both iPhone (iOS 11+) and Android phones. Most camera apps can scan and interpret vCard data automatically."}
+            },
+            {
+              "@type": "Question",
+              "name": "What information can I include in a vCard?",
+              "acceptedAnswer": {"@type": "Answer", "text": "You can include name, company, title, phone number, email, website and address. The more information you include, the larger the QR code becomes."}
+            },
+            {
+              "@type": "Question",
+              "name": "Can I use the vCard QR code on my business card?",
+              "acceptedAnswer": {"@type": "Answer", "text": "Absolutely! Download the QR code in SVG format for the best print quality, and place it on the back of your business card."}
+            },
+            {
+              "@type": "Question",
+              "name": "Is my contact information secure?",
+              "acceptedAnswer": {"@type": "Answer", "text": "Yes, your information is only processed locally in your browser. No data is sent to a server. The QR code is generated 100% on your own device."}
+            }
+          ]
+        }
+      ]
+    }
+    </script>
 </head>
 <body>
     <div class="container">
@@ -255,6 +315,29 @@
                     <li><strong>Download & share:</strong> Download as PNG or SVG and use it digitally or print it.</li>
                     <li><strong>Share everywhere:</strong> Use it on business cards, presentations, email signatures or your website.</li>
                 </ol>
+            </article>
+
+            <article class="content-block" id="how-recipients-save">
+                <h2>How the recipient saves your card</h2>
+                <p>The vCard QR code packs your contact details into a single scan. The recipient does not have to type a name or number — they scan the code and save the contact card straight to their address book.</p>
+
+                <h3>On iPhone and iPad (iOS 11 and later)</h3>
+                <ol class="guide-list">
+                    <li><strong>Open the camera:</strong> Start the built-in camera app. There is no button to press — just hold the code in the frame.</li>
+                    <li><strong>Hold the code in the frame:</strong> Move close enough for the code to be sharp. A banner appears with the name from the card.</li>
+                    <li><strong>Tap the notification:</strong> Tap the banner to open the contact card.</li>
+                    <li><strong>Tap Save:</strong> The iPhone opens the card with name, phone and email filled in. Tap Save to add it to contacts.</li>
+                </ol>
+
+                <h3>On Android (Android 9 and later)</h3>
+                <ol class="guide-list">
+                    <li><strong>Open the camera:</strong> The built-in camera app or Google Lens reads vCard QR codes.</li>
+                    <li><strong>Hold the code in the frame:</strong> The phone shows a contact card with the details.</li>
+                    <li><strong>Tap Save:</strong> Tap the card and save the contact to your address book.</li>
+                </ol>
+
+                <h3>If the phone does not recognise the code</h3>
+                <p>Some older phones and apps cannot read vCard codes directly. Always write the name and phone number as text next to the code if it has to work for everyone — for example on a printed business card. Test the code with both an iPhone and an Android before you use it.</p>
             </article>
 
             <article class="content-block">

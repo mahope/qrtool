@@ -4,6 +4,7 @@ STATUS:
 - Gate: `npm test` = `npm run build` + `node --test` (60 tests). 60/60 grønne pr. 2026-10-09 09:00.
 - 2026-10-09: Cloudflare/nginx serverede gammel `app.js` i op til 7 dage. `nginx.conf` giver `.js`/`.css` `max-age=604800`, Cloudflare cacher pr. fuld URL, og HTML'ens hardkodede `?v=8` blev aldrig bumpet ved deploy. Origin havde dagens rettelser, men brugerne fik den gamle fil. Rettet i ceo/cache-bust-assets: buildet stempler et indholds-hash på `?v=` i alle HTML-filer og i `sw.js` (`?v=` + `CACHE_NAME`).
 - DEPLOY OK 2026-10-09: wifi-scan-guide (live side = lokal, ny sektion findes) og home-generator-first (live forside = lokal, rækkefølge input→preview→options).
+- 2026-10-09: vCard- og kalender-siderne (DA+EN) fik HowTo- og FAQPage-data plus en praktisk modtager-guide, som WiFi-siden. ceo/vcard-kalender-substans.
 - qr-encoding, calendar-date og escape-vcard ligger på origin, men nåede ikke brugerne pga. cachen. De bør være synlige efter næste batch-vindue (12:30), nu hvor cache-busting er på plads.
 - ❓ Search Console mangler for qrtool.dk. Ingen GSC-tilgang i snapshot-jobbet, så der bygges ikke på gæt om søgeord.
 - PR-TJEK: 2026-10-09 — ingen åbne PR'er. Ingen GitHub Actions i repoet; den lokale gate er eneste kontrol.
@@ -19,9 +20,8 @@ Baseline (Plausible, 28 dage til 2026-10-08): 206 besøgende, 289 sidevisninger,
 
 ### Åbne opgaver
 
-1. **Undersider med substans: vCard og kalender.** Datagrund: `/vcard-qr-kode` 6 besøgende (bounce 100 %), `/kalender-qr-kode` 6 (+500 %, bounce 50 %). Samme behandling som WiFi-siden, hver side ét HowTo + FAQPage. MÅL: `/vcard-qr-kode` baseline 6, bounce < 80 % pr. 2026-11-05.
-2. **Land QR-historik som tilvalg.** Datagrund: privatlivspolitikken siger "vi gemmer ikke dine indtastninger", men koden gemmer QR-indhold (WiFi-koder, kontaktdata) i localStorage uden spørgsmål. Accept: historik er slået fra som standard med en synlig forklaring, og teksten i politikken og om-siden passer med koden. Dækker bevaret-arbejdet (1).
-3. **Batch-import fra CSV er skrøbelig.** Datagrund: `csvFileInput` accepterer filer uden validering, og brugerne får ingen feedback hvis kolonnerne ikke matcher. Datagrunden er svag (ingen events) — behandles først hvis GSC viser trafik til batch.
+1. **Land QR-historik som tilvalg.** Datagrund: privatlivspolitikken siger "vi gemmer ikke dine indtastninger", men koden gemmer QR-indhold (WiFi-koder, kontaktdata) i localStorage uden spørgsmål. Accept: historik er slået fra som standard med en synlig forklaring, og teksten i politikken og om-siden passer med koden. Dækker bevaret-arbejdet (1).
+2. **Batch-import fra CSV er skrøbelig.** Datagrund: `csvFileInput` accepterer filer uden validering, og brugerne får ingen feedback hvis kolonnerne ikke matcher. Datagrunden er svag (ingen events) — behandles først hvis GSC viser trafik til batch.
 
 ### ❓ Til Mads
 - **Playwright mangler.** Der er ingen skærmbillede-verifikation af UI-ændringer, kun HTML-gate. En devDependency på `@playwright/test` + axe ville give billeder ved 390/1280 px og en a11y-scanning. Uden tilladelse til nye npm-pakker gør loopet UI-ændringer uden at se dem i browseren.
@@ -38,6 +38,7 @@ Baseline (Plausible, 28 dage til 2026-10-08): 206 besøgende, 289 sidevisninger,
 ## Verificér deploy
 - DEPLOY OK 2026-10-09: WiFi-siden forklarer hvordan gæster scanner koden på iPhone og Android · ceo/wifi-scan-guide
 - DEPLOY OK 2026-10-09: forsiden viser generatoren først på mobil, previewen lå før folden · ceo/home-generator-first
+- VERIFICÉR DEPLOY: vCard- og kalender-siderne har HowTo + FAQPage og en praktisk modtager-guide (DA+EN) · ceo/vcard-kalender-substans · 2026-10-09 10:15
 - VERIFICÉR DEPLOY: `?v=`-tokenet er et indholds-hash, så ny app.js/style.css ikke serveres fra Cloudflare-cachen · ceo/cache-bust-assets · 2026-10-09 09:00
 - VERIFICÉR DEPLOY: `æøå` i QR-koder gemmes som UTF-8 · ceo/qr-encoding · 2026-10-09 01:28 (cache-blokeret indtil cache-busting er live)
 - VERIFICÉR DEPLOY: kalender-QR bærer den indtastede dato (midnat flyttede til dagen før) · ceo/calendar-date · 2026-10-09 01:28 (samme)

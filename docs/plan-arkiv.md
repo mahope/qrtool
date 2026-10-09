@@ -96,3 +96,10 @@ Verificeret: `npm test` 60/60 grøn. `test/cache-busting.test.js` (3 tests)
 fejler mod den gamle build (dist pegede på `?v=8`), og den ene test beviser
 at hashen ændrer sig, når `app.js` ændres. Cloudflare bekræftet manuelt:
 `?v=8` = HIT (gammel), nyt token = MISS (ny fil).
+
+## 2026-10-09 — Undersider med substans: vCard og kalender
+Gennemført i ceo/vcard-kalender-substans. vCard- og kalender-siderne (DA+EN) fik
+HowTo- og FAQPage-structured-data samt en praktisk sektion ("Sådan gemmer modtageren
+dit kort" / "Sådan tilføjer deltagerne begivenheden") med iPhone- og Android-trin,
+svarende til WiFi-siden. Gate: `npm test` 60/60 grøn.
+MÅL: `/vcard-qr-kode` baseline 6 besøgende, bounce < 80 % pr. 2026-11-05.

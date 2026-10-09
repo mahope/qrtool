@@ -77,6 +77,66 @@
       ]
     }
     </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "HowTo",
+          "name": "How attendees add your event on iPhone",
+          "description": "The attendee scans the calendar QR code with the built-in iPhone camera and saves the event straight to Apple Calendar.",
+          "totalTime": "PT1M",
+          "step": [
+            {"@type": "HowToStep", "name": "Open the camera", "text": "Start the built-in camera app. There is no button to press — just hold the code in the frame."},
+            {"@type": "HowToStep", "name": "Hold the code in the frame", "text": "The code is recognised and a banner appears with the event title."},
+            {"@type": "HowToStep", "name": "Tap the notification", "text": "Tap the banner to open the event."},
+            {"@type": "HowToStep", "name": "Tap Add", "text": "Apple Calendar opens the event with title, time and location. Tap Add to save it to the calendar."}
+          ]
+        },
+        {
+          "@type": "HowTo",
+          "name": "How attendees add your event on Android",
+          "description": "Android phones read calendar QR codes in the camera app and offer to save the event to Google Calendar.",
+          "totalTime": "PT1M",
+          "step": [
+            {"@type": "HowToStep", "name": "Open the camera", "text": "The built-in camera app reads calendar QR codes."},
+            {"@type": "HowToStep", "name": "Hold the code in the frame", "text": "The phone shows the event with its title and time."},
+            {"@type": "HowToStep", "name": "Tap Add", "text": "Google Calendar or the chosen app opens the event, and the attendee confirms."}
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "Do calendar QR codes work on iPhone?",
+              "acceptedAnswer": {"@type": "Answer", "text": "Yes! When you scan a calendar QR code with your iPhone, it will automatically offer to add the event to your Apple Calendar."}
+            },
+            {
+              "@type": "Question",
+              "name": "Does it work with Google Calendar?",
+              "acceptedAnswer": {"@type": "Answer", "text": "Yes, Android phones will offer to add the event to Google Calendar or another calendar app you have installed."}
+            },
+            {
+              "@type": "Question",
+              "name": "What format does the calendar QR code use?",
+              "acceptedAnswer": {"@type": "Answer", "text": "The QR code contains data in iCalendar format (VCALENDAR/VEVENT), which is the universal standard for calendar events. It works with all modern calendar apps."}
+            },
+            {
+              "@type": "Question",
+              "name": "Can I include a location?",
+              "acceptedAnswer": {"@type": "Answer", "text": "Yes, you can add a location that will be displayed in the calendar event. Use a full address so attendees can easily find their way."}
+            },
+            {
+              "@type": "Question",
+              "name": "Is there a limit to the description length?",
+              "acceptedAnswer": {"@type": "Answer", "text": "QR codes have a capacity limitation, so we recommend keeping the description short and concise - typically under 200 characters for best scanning results."}
+            }
+          ]
+        }
+      ]
+    }
+    </script>
 </head>
 <body>
     <div class="container">
@@ -242,6 +302,29 @@
                     <li><strong>Download & share:</strong> Download as PNG or SVG and use it in invitations, posters or online.</li>
                     <li><strong>Attendees scan:</strong> When people scan the code, the event is automatically added to their calendar.</li>
                 </ol>
+            </article>
+
+            <article class="content-block" id="how-attendees-add">
+                <h2>How attendees add the event</h2>
+                <p>The calendar QR code packs the title, time and location into a single scan. The attendee does not have to write the date down or search for the event — they scan the code and confirm.</p>
+
+                <h3>On iPhone and iPad (iOS 11 and later)</h3>
+                <ol class="guide-list">
+                    <li><strong>Open the camera:</strong> Start the built-in camera app. There is no button to press — just hold the code in the frame.</li>
+                    <li><strong>Hold the code in the frame:</strong> The code is recognised and a banner appears with the event title.</li>
+                    <li><strong>Tap the notification:</strong> Tap the banner to open the event.</li>
+                    <li><strong>Tap Add:</strong> Apple Calendar opens the event with title, time and location. Tap Add to save it to the calendar.</li>
+                </ol>
+
+                <h3>On Android</h3>
+                <ol class="guide-list">
+                    <li><strong>Open the camera:</strong> The built-in camera app reads calendar QR codes.</li>
+                    <li><strong>Hold the code in the frame:</strong> The phone shows the event with its title and time.</li>
+                    <li><strong>Tap Add:</strong> Google Calendar or the chosen app opens the event, and the attendee confirms.</li>
+                </ol>
+
+                <h3>If the code does not open the calendar</h3>
+                <p>Some older phones and camera apps do not read calendar codes directly. Always write the date, time and location as text next to the code if the event has to work for everyone — for example on a printed invitation. Test the code with both an iPhone and an Android before sending it out.</p>
             </article>
 
             <article class="content-block">

@@ -77,6 +77,66 @@
       ]
     }
     </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "HowTo",
+          "name": "Sådan tilføjer deltagerne din begivenhed på iPhone",
+          "description": "Deltageren scanner kalender QR-koden med iPhone'ens indbyggede kamera og gemmer begivenheden direkte i Apple Kalender.",
+          "totalTime": "PT1M",
+          "step": [
+            {"@type": "HowToStep", "name": "Åbn kameraet", "text": "Start den indbyggede kamera-app. Der er ingen knap at trykke på — hold bare koden op i billedet."},
+            {"@type": "HowToStep", "name": "Hold koden i billedet", "text": "Koden genkendes, og der popper en bjælke op med begivenhedens titel."},
+            {"@type": "HowToStep", "name": "Tryk på notifikationen", "text": "Tryk på bjælken for at åbne begivenheden."},
+            {"@type": "HowToStep", "name": "Tryk Tilføj", "text": "Apple Kalender åbner begivenheden med titel, tid og sted. Tryk Tilføj for at gemme den i kalenderen."}
+          ]
+        },
+        {
+          "@type": "HowTo",
+          "name": "Sådan tilføjer deltagerne din begivenhed på Android",
+          "description": "Android-telefoner læser kalender QR-koder i kamera-appen og tilbyder at gemme begivenheden i Google Kalender.",
+          "totalTime": "PT1M",
+          "step": [
+            {"@type": "HowToStep", "name": "Åbn kameraet", "text": "Den indbyggede kamera-app læser kalender QR-koder."},
+            {"@type": "HowToStep", "name": "Hold koden i billedet", "text": "Telefonen viser begivenheden med titel og tidspunkt."},
+            {"@type": "HowToStep", "name": "Tryk Tilføj", "text": "Google Kalender eller den valgte app åbner begivenheden, og deltageren bekræfter."}
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "Virker kalender QR-koder på iPhone?",
+              "acceptedAnswer": {"@type": "Answer", "text": "Ja! Når du scanner en kalender QR-kode med din iPhone, vil den automatisk tilbyde at tilføje begivenheden til din Apple Kalender."}
+            },
+            {
+              "@type": "Question",
+              "name": "Virker det med Google Kalender?",
+              "acceptedAnswer": {"@type": "Answer", "text": "Ja, Android-telefoner vil tilbyde at tilføje begivenheden til Google Kalender eller en anden kalenderapp du har installeret."}
+            },
+            {
+              "@type": "Question",
+              "name": "Hvilket format bruger kalender QR-koden?",
+              "acceptedAnswer": {"@type": "Answer", "text": "QR-koden indeholder data i iCalendar-format (VCALENDAR/VEVENT), som er den universelle standard for kalenderbegivenheder. Det virker med alle moderne kalenderapps."}
+            },
+            {
+              "@type": "Question",
+              "name": "Kan jeg inkludere en lokation?",
+              "acceptedAnswer": {"@type": "Answer", "text": "Ja, du kan tilføje en lokation, som vil blive vist i kalenderbegivenheden. Brug en fuld adresse, så deltagere nemt kan finde vej."}
+            },
+            {
+              "@type": "Question",
+              "name": "Er der en grænse for beskrivelsens længde?",
+              "acceptedAnswer": {"@type": "Answer", "text": "QR-koder har en kapacitetsbegrænsning, så vi anbefaler at holde beskrivelsen kort og præcis - typisk under 200 tegn for bedste scanningsresultat."}
+            }
+          ]
+        }
+      ]
+    }
+    </script>
 </head>
 <body>
     <div class="container">
@@ -242,6 +302,29 @@
                     <li><strong>Download & del:</strong> Download som PNG eller SVG og brug den i invitationer, plakater eller online.</li>
                     <li><strong>Deltagere scanner:</strong> Når folk scanner koden, tilføjes begivenheden automatisk til deres kalender.</li>
                 </ol>
+            </article>
+
+            <article class="content-block" id="saadan-tilfoejer">
+                <h2>Sådan tilføjer deltagerne begivenheden</h2>
+                <p>Kalender QR-koden pakker titel, tidspunkt og sted i ét scan. Deltageren skal hverken skrive datoen af eller lede efter arrangementet — de scanner koden og bekræfter.</p>
+
+                <h3>På iPhone og iPad (iOS 11 og nyere)</h3>
+                <ol class="guide-list">
+                    <li><strong>Åbn kameraet:</strong> Start den indbyggede kamera-app. Der er ingen knap at trykke på — hold bare koden op i billedet.</li>
+                    <li><strong>Hold koden i billedet:</strong> Koden genkendes, og der popper en bjælke op med begivenhedens titel.</li>
+                    <li><strong>Tryk på notifikationen:</strong> Tryk på bjælken for at åbne begivenheden.</li>
+                    <li><strong>Tryk Tilføj:</strong> Apple Kalender åbner begivenheden med titel, tid og sted. Tryk Tilføj for at gemme den i kalenderen.</li>
+                </ol>
+
+                <h3>På Android</h3>
+                <ol class="guide-list">
+                    <li><strong>Åbn kameraet:</strong> Den indbyggede kamera-app læser kalender QR-koder.</li>
+                    <li><strong>Hold koden i billedet:</strong> Telefonen viser begivenheden med titel og tidspunkt.</li>
+                    <li><strong>Tryk Tilføj:</strong> Google Kalender eller den valgte app åbner begivenheden, og deltageren bekræfter.</li>
+                </ol>
+
+                <h3>Hvis koden ikke åbner kalenderen</h3>
+                <p>Nogle ældre telefoner og kamera-apps læser ikke kalender-koder direkte. Skriv derfor altid dato, tidspunkt og sted som tekst ved siden af koden, hvis arrangementet skal kunne finde sted for alle — fx i en trykt invitation. Test gerne koden med både en iPhone og en Android, inden den sendes ud.</p>
             </article>
 
             <article class="content-block">

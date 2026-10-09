@@ -77,6 +77,66 @@
       ]
     }
     </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "HowTo",
+          "name": "Sådan gemmer modtageren dit digitale visitkort på iPhone",
+          "description": "Modtageren scanner vCard QR-koden med iPhone'ens indbyggede kamera og gemmer kontaktoplysningerne uden at taste noget.",
+          "totalTime": "PT1M",
+          "step": [
+            {"@type": "HowToStep", "name": "Åbn kameraet", "text": "Start den indbyggede kamera-app. Der er ingen knap at trykke på — hold bare koden op i billedet."},
+            {"@type": "HowToStep", "name": "Hold koden i billedet", "text": "Gå tæt nok på til, at koden er skarp. Der popper en bjælke op med navnet fra kortet."},
+            {"@type": "HowToStep", "name": "Tryk på notifikationen", "text": "Tryk på bjælken for at åbne kontaktkortet."},
+            {"@type": "HowToStep", "name": "Tryk Gem", "text": "iPhone'en åbner kortet med navn, telefon og e-mail udfyldt. Tryk Gem for at lægge det i telefonbogen."}
+          ]
+        },
+        {
+          "@type": "HowTo",
+          "name": "Sådan gemmer modtageren dit digitale visitkort på Android",
+          "description": "Android-telefoner læser vCard QR-koder i kamera-appen eller Google Lens.",
+          "totalTime": "PT1M",
+          "step": [
+            {"@type": "HowToStep", "name": "Åbn kameraet", "text": "Den indbyggede kamera-app eller Google Lens læser vCard QR-koder."},
+            {"@type": "HowToStep", "name": "Hold koden i billedet", "text": "Telefonen viser et kontaktkort med oplysningerne."},
+            {"@type": "HowToStep", "name": "Tryk Gem", "text": "Tryk på kortet og gem kontakten i telefonbogen."}
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "Hvad er en vCard QR-kode?",
+              "acceptedAnswer": {"@type": "Answer", "text": "En vCard QR-kode indeholder dine kontaktoplysninger i et standardiseret format. Når nogen scanner koden, kan de gemme dit navn, telefonnummer, e-mail og mere direkte i deres telefonbog."}
+            },
+            {
+              "@type": "Question",
+              "name": "Virker vCard QR-koder på alle telefoner?",
+              "acceptedAnswer": {"@type": "Answer", "text": "Ja! vCard QR-koder understøttes af både iPhone (iOS 11+) og Android telefoner. De fleste kamera-apps kan scanne og fortolke vCard data automatisk."}
+            },
+            {
+              "@type": "Question",
+              "name": "Hvilke oplysninger kan jeg inkludere i en vCard?",
+              "acceptedAnswer": {"@type": "Answer", "text": "Du kan inkludere navn, virksomhed, titel, telefonnummer, e-mail, hjemmeside og adresse. Jo flere oplysninger, jo større bliver QR-koden."}
+            },
+            {
+              "@type": "Question",
+              "name": "Kan jeg bruge vCard QR-koden på mit visitkort?",
+              "acceptedAnswer": {"@type": "Answer", "text": "Absolut! Download QR-koden i SVG-format for den bedste printkvalitet, og placer den på bagsiden af dit visitkort."}
+            },
+            {
+              "@type": "Question",
+              "name": "Er mine kontaktoplysninger sikre?",
+              "acceptedAnswer": {"@type": "Answer", "text": "Ja, dine oplysninger behandles kun lokalt i din browser. Ingen data sendes til en server. QR-koden genereres 100% på din egen enhed."}
+            }
+          ]
+        }
+      ]
+    }
+    </script>
 </head>
 <body>
     <div class="container">
@@ -255,6 +315,29 @@
                     <li><strong>Download & del:</strong> Download som PNG eller SVG og brug den digitalt eller print den.</li>
                     <li><strong>Del overalt:</strong> Brug den på visitkort, præsentationer, e-mail signaturer eller din hjemmeside.</li>
                 </ol>
+            </article>
+
+            <article class="content-block" id="saadan-gemmer">
+                <h2>Sådan gemmer modtageren dit kort</h2>
+                <p>vCard QR-koden pakker dine kontaktoplysninger i ét scan. Modtageren skal hverken taste navn eller nummer — de scanner koden og gemmer kontaktkortet direkte i telefonbogen.</p>
+
+                <h3>På iPhone og iPad (iOS 11 og nyere)</h3>
+                <ol class="guide-list">
+                    <li><strong>Åbn kameraet:</strong> Start den indbyggede kamera-app. Der er ingen knap at trykke på — hold bare koden op i billedet.</li>
+                    <li><strong>Hold koden i billedet:</strong> Gå tæt nok på til, at koden er skarp. Der popper en bjælke op med navnet fra kortet.</li>
+                    <li><strong>Tryk på notifikationen:</strong> Tryk på bjælken for at åbne kontaktkortet.</li>
+                    <li><strong>Tryk Gem:</strong> iPhone'en åbner kortet med navn, telefon og e-mail udfyldt. Tryk Gem for at lægge det i telefonbogen.</li>
+                </ol>
+
+                <h3>På Android (Android 9 og nyere)</h3>
+                <ol class="guide-list">
+                    <li><strong>Åbn kameraet:</strong> Den indbyggede kamera-app eller Google Lens læser vCard QR-koder.</li>
+                    <li><strong>Hold koden i billedet:</strong> Telefonen viser et kontaktkort med oplysningerne.</li>
+                    <li><strong>Tryk Gem:</strong> Tryk på kortet og gem kontakten i telefonbogen.</li>
+                </ol>
+
+                <h3>Hvis telefonen ikke genkender koden</h3>
+                <p>Nogle ældre telefoner og apps kan ikke læse vCard-koder direkte. Skriv derfor altid navn og telefonnummer som tekst ved siden af koden, hvis den skal virke for alle — fx på et fysisk visitkort. Test gerne koden med en iPhone og en Android, inden du bruger den.</p>
             </article>
 
             <article class="content-block">
