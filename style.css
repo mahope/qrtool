@@ -481,12 +481,20 @@ header p {
 .main-content {
     display: grid;
     grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
     gap: 2rem;
     align-items: start;
 }
 
-.input-section,
+/* The preview column spans both rows so the options sit right under the form */
 .preview-section {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+}
+
+.input-section,
+.preview-section,
+.options-section {
     background: var(--card-bg);
     border-radius: var(--radius-xl);
     padding: 2rem;
@@ -502,7 +510,8 @@ header p {
 }
 
 .input-section:hover,
-.preview-section:hover {
+.preview-section:hover,
+.options-section:hover {
     box-shadow: var(--shadow-lg);
 }
 
@@ -2582,6 +2591,7 @@ header p {
 @media (max-width: 968px) {
     .main-content {
         grid-template-columns: 1fr;
+        grid-template-rows: auto;
     }
 
     .settings-grid,
@@ -2590,8 +2600,9 @@ header p {
     }
 
     .preview-section {
-        order: -1;
         position: static;
+        grid-column: auto;
+        grid-row: auto;
     }
 
     .preview-container {
@@ -2610,7 +2621,8 @@ header p {
     }
 
     .input-section,
-    .preview-section {
+    .preview-section,
+    .options-section {
         padding: 1.25rem;
         border-radius: var(--radius-lg);
     }
@@ -2621,19 +2633,54 @@ header p {
     }
 
     .button-group {
-        flex-direction: column;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.5rem;
+    }
+
+    .button-group .btn:only-child {
+        grid-column: 1 / -1;
     }
 
     .btn {
         width: 100%;
+        padding: 0.875rem 1rem;
+    }
+
+    /* Keep the generator, its buttons and the result above the fold */
+    header {
+        margin-bottom: 1.25rem;
+    }
+
+    header h1 {
+        font-size: 1.4rem;
+        margin-bottom: 0;
+    }
+
+    header p {
+        display: none;
+    }
+
+    .header-top .logo #logoQR {
+        width: 36px;
+        height: 36px;
+    }
+
+    .main-content {
+        gap: 1rem;
+    }
+
+    #qrText {
+        height: 4.5rem;
     }
 
     .qr-type-tabs {
         gap: 0.375rem;
     }
 
+    /* 0.7rem keeps the button at 45px tall, so it stays a 44px touch target */
     .tab-button {
-        padding: 0.5rem 0.75rem;
+        padding: 0.7rem 0.75rem;
         font-size: 0.8rem;
         flex: 1 1 calc(33.333% - 0.375rem);
         text-align: center;
@@ -2670,8 +2717,14 @@ header p {
     }
 
     .preview-container {
-        padding: 1.5rem;
-        min-height: 250px;
+        padding: 1rem;
+        min-height: 200px;
+    }
+
+    /* Keep the generated code fully inside the first screen on phones */
+    .qr-preview canvas,
+    .qr-preview svg {
+        max-width: 200px;
     }
 
     .guide-list li {
@@ -2922,6 +2975,7 @@ header p {
 
     header,
     .input-section,
+    .options-section,
     .info-panel,
     .history-section,
     .scanner-section,

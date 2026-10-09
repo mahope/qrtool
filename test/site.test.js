@@ -187,3 +187,50 @@ test('pages: no page still contains copy-paste Lorem ipsum', () => {
     const hits = htmlFiles().filter(rel => /lorem ipsum/i.test(read(rel)));
     assert.deepEqual(hits, []);
 });
+
+// ------------------------------------------------------------ forsidens opbygning
+
+// 90 % of the monthly visitors to `/` left before using the generator, so the
+// three cards of the homepage have a fixed order: you type, you see the code,
+// and only then do you style it. The order is what both the desktop grid and
+// the mobile breakpoint rely on, so it is pinned down here.
+const HOME_PAGES = ['index.html', 'en/index.html'];
+const HOME_CARDS = ['input-section', 'preview-section', 'options-section'];
+
+function mainContentOf(html) {
+    const start = html.indexOf('<div class="main-content">');
+    assert.notEqual(start, -1, 'page has no .main-content');
+    // The cards are siblings; the scanner section is the next element after them.
+    const end = html.indexOf('<!-- QR Scanner Section -->', start);
+    return html.slice(start, end === -1 ? undefined : end);
+}
+
+test('homepage: the generator card comes before the preview and the options', () => {
+    for (const rel of HOME_PAGES) {
+        const cards = [...mainContentOf(read(rel)).matchAll(/<div class="([a-z-]+-section)">/g)]
+            .map(m => m[1])
+            .filter(cls => HOME_CARDS.includes(cls));
+        assert.deepEqual(cards, HOME_CARDS, `${rel}: .main-content holds ${cards.join(' -> ')}`);
+    }
+});
+
+test('homepage: the mobile breakpoint does not lift the preview above the form', () => {
+    const css = read('style.css');
+    const mobile = css.slice(css.indexOf('@media (max-width: 968px)'));
+    assert.notEqual(mobile.length, 0, 'style.css has no tablet breakpoint');
+    const rules = [...mobile.matchAll(/\.preview-section\s*\{([^}]*)\}/g)].map(m => m[1]);
+    assert.ok(rules.length > 0, 'style.css has no .preview-section rule for small screens');
+    for (const body of rules) {
+        assert.doesNotMatch(body, /order\s*:\s*-1/, 'the preview must not sit above the form on small screens');
+    }
+});
+
+test('homepage: the desktop grid pins the preview to the right of both rows', () => {
+    // Without this the third card would be auto-placed in the top right cell
+    // and the preview would end up on the left, under nothing.
+    const base = read('style.css').split('@media')[0];
+    const rule = base.match(/\.preview-section\s*\{([^}]*)\}/g) || [];
+    const declarations = rule.map(r => r.slice(r.indexOf('{') + 1, -1)).join(' ');
+    assert.match(declarations, /grid-column:\s*2/, 'the preview is not pinned to the second column');
+    assert.match(declarations, /grid-row:\s*1\s*\/\s*span\s*2/, 'the preview does not span both rows');
+});

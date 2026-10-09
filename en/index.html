@@ -223,39 +223,6 @@
         <div class="main-content">
             <!-- Input section -->
             <div class="input-section">
-                <!-- Quick Templates -->
-                <div class="templates-section">
-                    <details>
-                        <summary>Quick Templates</summary>
-                        <div class="templates-grid">
-                            <button class="template-card" data-template="restaurant-menu">
-                                <span class="template-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3zm0 0v7"/></svg></span>
-                                <span class="template-name">Restaurant menu</span>
-                            </button>
-                            <button class="template-card" data-template="wifi-guest">
-                                <span class="template-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><circle cx="12" cy="20" r="1"/></svg></span>
-                                <span class="template-name">Guest WiFi</span>
-                            </button>
-                            <button class="template-card" data-template="business-card">
-                                <span class="template-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></span>
-                                <span class="template-name">Business Card</span>
-                            </button>
-                            <button class="template-card" data-template="event-invite">
-                                <span class="template-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/><circle cx="12" cy="12" r="10"/></svg></span>
-                                <span class="template-name">Event invitation</span>
-                            </button>
-                            <button class="template-card" data-template="social-link">
-                                <span class="template-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></span>
-                                <span class="template-name">Social media link</span>
-                            </button>
-                            <button class="template-card" data-template="feedback">
-                                <span class="template-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/></svg></span>
-                                <span class="template-name">Feedback form</span>
-                            </button>
-                        </div>
-                    </details>
-                </div>
-
                 <!-- QR Type Tabs -->
                 <div class="qr-type-tabs">
                     <button class="tab-button active" data-tab="text"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg> Text/URL</button>
@@ -468,11 +435,117 @@
                             <label for="mobilepayAmount">Amount (optional):</label>
                             <input type="number" id="mobilepayAmount" placeholder="100" step="0.01" min="0">
                         </div>
-                        <div class="form-group">
-                            <label for="mobilepayComment">Comment (optional):</label>
-                            <input type="text" id="mobilepayComment" placeholder="Payment for...">
+                    <div class="form-group">
+                        <label for="mobilepayComment">Comment (optional):</label>
+                        <input type="text" id="mobilepayComment" placeholder="Payment for...">
+                    </div>
+                </div>
+                </div>
+
+                <div class="button-group">
+                    <button id="generateBtn" class="btn btn-primary" aria-label="Generate your QR code now">Generate QR Code</button>
+                    <button id="downloadBtn" class="btn btn-secondary" disabled aria-label="Download your generated QR code">Download</button>
+                </div>
+            </div>
+
+            <!-- Preview section -->
+            <div class="preview-section">
+                <div class="preview-container">
+                    <div id="qrAnnouncement" class="sr-only" aria-live="assertive" aria-atomic="true"></div>
+                    <div id="qrPreview" class="qr-preview" role="img" aria-labelledby="qrAnnouncement">
+                        <div class="placeholder">
+                            <div class="skeleton-qr" aria-hidden="true">
+                                <div class="skeleton-block"></div>
+                                <div class="skeleton-block"></div>
+                                <div class="skeleton-block"></div>
+                                <div class="skeleton-block"></div>
+                            </div>
+                            <p>Your QR code will be displayed here</p>
                         </div>
                     </div>
+                </div>
+                <div class="info-panel">
+                    <p><strong>Info:</strong></p>
+                    <ul>
+                        <li>Higher error correction = more robust QR code</li>
+                        <li>Transparent background only available for PNG</li>
+                        <li>SVG format is vector-based and scalable</li>
+                        <li>Always test your QR code before use</li>
+                    </ul>
+                </div>
+
+                <!-- Compare Section -->
+                <div class="compare-section" id="compareSection" style="display: none;">
+                    <h3><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg> Compare Styles</h3>
+                    <div class="compare-grid" id="compareGrid"></div>
+                </div>
+
+                <!-- History Section -->
+                <div class="history-section">
+                    <h3><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Previous QR Codes</h3>
+                    <div class="history-controls" id="historyControls" style="display: none;">
+                        <input type="search" id="historySearch" class="history-search" placeholder="Search history..." aria-label="Search history">
+                        <select id="historyFilter" class="history-filter" aria-label="Filter by type">
+                            <option value="all">All types</option>
+                            <option value="favorites">Favorites</option>
+                            <option value="text">Text/URL</option>
+                            <option value="wifi">WiFi</option>
+                            <option value="vcard">vCard</option>
+                            <option value="email">Email</option>
+                            <option value="sms">SMS</option>
+                            <option value="calendar">Calendar</option>
+                            <option value="geo">Location</option>
+                            <option value="payment">Payment</option>
+                            <option value="social">Social</option>
+                        </select>
+                    </div>
+                    <div id="historyList" class="history-list">
+                        <p class="history-empty">No previous QR codes</p>
+                    </div>
+                    <button id="clearHistory" class="btn-clear-history" style="display: none;">Clear history</button>
+                </div>
+            </div>
+
+            <!-- Customization options: colors, logo, size and batch -->
+            <div class="options-section">
+                <!-- Quick Templates -->
+                <div class="templates-section">
+                    <details>
+                        <summary>Quick Templates</summary>
+                        <div class="templates-grid">
+                            <button class="template-card" data-template="restaurant-menu">
+                                <span class="template-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3zm0 0v7"/></svg></span>
+                                <span class="template-name">Restaurant menu</span>
+                            </button>
+                            <button class="template-card" data-template="wifi-guest">
+                                <span class="template-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><circle cx="12" cy="20" r="1"/></svg></span>
+                                <span class="template-name">Guest WiFi</span>
+                            </button>
+                            <button class="template-card" data-template="business-card">
+                                <span class="template-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></span>
+                                <span class="template-name">Business Card</span>
+                            </button>
+                            <button class="template-card" data-template="event-invite">
+                                <span class="template-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/><circle cx="12" cy="12" r="10"/></svg></span>
+                                <span class="template-name">Event invitation</span>
+                            </button>
+                            <button class="template-card" data-template="social-link">
+                                <span class="template-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></span>
+                                <span class="template-name">Social media link</span>
+                            </button>
+                            <button class="template-card" data-template="feedback">
+                                <span class="template-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/></svg></span>
+                                <span class="template-name">Feedback form</span>
+                            </button>
+                        </div>
+                    </details>
+                </div>
+
+                <div class="button-group">
+                    <button id="copyBtn" class="btn btn-secondary" disabled aria-label="Copy QR code to clipboard">Copy</button>
+                    <button id="shareBtn" class="btn btn-secondary" disabled aria-label="Share QR code">Share</button>
+                    <button id="printBtn" class="btn btn-secondary" disabled aria-label="Print QR code">Print</button>
+                    <button id="compareBtn" class="btn btn-secondary" disabled aria-label="Compare QR styles">Compare</button>
                 </div>
 
                 <div class="settings-accordion">
@@ -685,73 +758,6 @@
                             <div id="batchPreviewGrid" class="batch-preview-grid"></div>
                         </div>
                     </details>
-                </div>
-
-                <div class="button-group">
-                    <button id="generateBtn" class="btn btn-primary" aria-label="Generate your QR code now">Generate QR Code</button>
-                    <button id="downloadBtn" class="btn btn-secondary" disabled aria-label="Download your generated QR code">Download</button>
-                    <button id="copyBtn" class="btn btn-secondary" disabled aria-label="Copy QR code to clipboard">Copy</button>
-                    <button id="shareBtn" class="btn btn-secondary" disabled aria-label="Share QR code">Share</button>
-                    <button id="printBtn" class="btn btn-secondary" disabled aria-label="Print QR code">Print</button>
-                    <button id="compareBtn" class="btn btn-secondary" disabled aria-label="Compare QR styles">Compare</button>
-                </div>
-            </div>
-
-            <!-- Preview section -->
-            <div class="preview-section">
-                <div class="preview-container">
-                    <div id="qrAnnouncement" class="sr-only" aria-live="assertive" aria-atomic="true"></div>
-                    <div id="qrPreview" class="qr-preview" role="img" aria-labelledby="qrAnnouncement">
-                        <div class="placeholder">
-                            <div class="skeleton-qr" aria-hidden="true">
-                                <div class="skeleton-block"></div>
-                                <div class="skeleton-block"></div>
-                                <div class="skeleton-block"></div>
-                                <div class="skeleton-block"></div>
-                            </div>
-                            <p>Your QR code will be displayed here</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="info-panel">
-                    <p><strong>Info:</strong></p>
-                    <ul>
-                        <li>Higher error correction = more robust QR code</li>
-                        <li>Transparent background only available for PNG</li>
-                        <li>SVG format is vector-based and scalable</li>
-                        <li>Always test your QR code before use</li>
-                    </ul>
-                </div>
-
-                <!-- Compare Section -->
-                <div class="compare-section" id="compareSection" style="display: none;">
-                    <h3><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg> Compare Styles</h3>
-                    <div class="compare-grid" id="compareGrid"></div>
-                </div>
-
-                <!-- History Section -->
-                <div class="history-section">
-                    <h3><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Previous QR Codes</h3>
-                    <div class="history-controls" id="historyControls" style="display: none;">
-                        <input type="search" id="historySearch" class="history-search" placeholder="Search history..." aria-label="Search history">
-                        <select id="historyFilter" class="history-filter" aria-label="Filter by type">
-                            <option value="all">All types</option>
-                            <option value="favorites">Favorites</option>
-                            <option value="text">Text/URL</option>
-                            <option value="wifi">WiFi</option>
-                            <option value="vcard">vCard</option>
-                            <option value="email">Email</option>
-                            <option value="sms">SMS</option>
-                            <option value="calendar">Calendar</option>
-                            <option value="geo">Location</option>
-                            <option value="payment">Payment</option>
-                            <option value="social">Social</option>
-                        </select>
-                    </div>
-                    <div id="historyList" class="history-list">
-                        <p class="history-empty">No previous QR codes</p>
-                    </div>
-                    <button id="clearHistory" class="btn-clear-history" style="display: none;">Clear history</button>
                 </div>
             </div>
         </div>
