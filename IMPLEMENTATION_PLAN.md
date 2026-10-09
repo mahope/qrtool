@@ -9,7 +9,8 @@ STATUS:
   payloads, kalenderdato, vCard-escaping, vCard/kalender-undersider, WiFi-guide,
   generator-først på forsiden, historik som tilvalg.
 - MÅL: `/` baseline 151 besøgende/28 d, bounce 90 % → under 75 % pr. 2026-11-05.
-- PR-TJEK 2026-10-09: ingen åbne PR'er, ingen GitHub Actions — den lokale gate er eneste kontrol.
+- PR-TJEK 2026-10-09 (2. gennemgang): dependabot-PR #2 (esbuild 0.27.7 → 0.28.1) landet som
+  squash-commit. Ellers ingen åbne PR'er, ingen GitHub Actions — den lokale gate er eneste kontrol.
 - BRANCH-TJEK 2026-10-09: kun master + `bevaret/*`, intet at rydde.
 
 ## Fase 3 — trafik-drevet
@@ -59,3 +60,4 @@ får opmærksomhed.
 ## Verificér deploy
 - VERIFICÉR DEPLOY: scan-kontrollen vises under QR-koden efter generering (DA+EN) · ceo/scan-check · 2026-10-09 14:10
 - VERIFICÉR DEPLOY: hvid zone om koden i preview, PNG/JPG/SVG/PDF og batch-ZIP (DA+EN) · ceo/quiet-zone · 2026-10-09 15:10
+- VERIFICÉR DEPLOY: app.js og style.css i dist er bygget med esbuild 0.28.1 (samlet med hvid zone) · deps/esbuild-0.28.1 · 2026-10-09 15:25

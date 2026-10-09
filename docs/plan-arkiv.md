@@ -148,3 +148,9 @@ følger den valgte baggrundsfarve, prik- og rundet stil holder zonen, SVG'en få
 `viewBox` med 8 modulers margin, og modulerne i download-canvasen ligger alle inden for
 margenen. Seks af de syv tester fejler mod gammel kode (kun jsQR-testen går igennem).
 Gate: `npm test` 78/78 grøn.
+
+## 2026-10-09 — esbuild 0.27.7 → 0.28.1
+Dependabot-PR #2 landet som squash-commit. Kun package.json og package-lock.json ændres;
+esbuild bygger og minificerer uændret, og der er ingen runtime-afhængighed i spillet.
+Gate kørt med 0.28.1 installeret lokalt: `npm test` 71/71 grøn (testtallet er fra den gren
+PR'en stod på, før kviet-zonen tilføjede sine syv tests).
