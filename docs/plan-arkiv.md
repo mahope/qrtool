@@ -172,3 +172,16 @@ med filerne fjernet, 110/110 med dem på plads).
 - Hvid stillezone om koden i PNG/SVG/JPG/PDF — ceo/quiet-zone (2026-10-09).
 - Download i millimeter med 300 dpi og præcis PDF-størrelse — ceo/print-size-mm (2026-10-09).
 - Engelsk forside: generatoren først — allerede opfyldt, håndhævet af test.
+
+## 2026-10-10 — vCard-siden skrevet om til "digitalt visitkort"-søgningerne
+GSC (2026-09-09–10-07): `/vcard-qr-kode` 121 visninger, 0 klik, CTR 0,0 %, pos. 13,0 — men
+"digitalt visitkort" pos. 9 (16v) og "digitalt visitkort iphone" pos. 10 (25v), og
+"/guides/visitkort-med-qr-kode" 6v pos. 32. Siden rankede altså allerede på de præcise
+søgninger, uden at titel eller beskrivelse lovede iPhone/Android.
+Fix: title "Digitalt Visitkort med QR-Kode til iPhone & Android | QRTool.dk" (DA) og "Digital
+Business Card QR Code for iPhone & Android | QRTool.dk" (EN), ny meta description og keywords,
+og to nye FAQ'er i både synlig tekst og FAQPage-schema: hvordan modtageren får kortet på
+iPhone (kamera → bjælke → Gem, uden app) og hvor stort QR-koden skal være på et fysisk
+visitkort (min. 2×2 cm, helst 3×3 cm, bagsiden af et 85×55 mm-kort, SVG til print).
+DA+EN i samme commit; gate 116/116 (6 nye tests i test/vcard-content.test.js holder titel,
+beskrivelse, FAQ-sync og printstørrelse på plads i begge sprog).

@@ -12,6 +12,8 @@ STATUS:
   zone, cache-bust, generator-først, vCard/kalender-undersider, historik som tilvalg, "App"-fanen
   og appPreviewUrl (ceo/app-link 18:15), kontrast-linjen under farvevælgeren (ceo/contrast-readout
   20:20) — live på `/` og `/en/` via `app.js?v=1abe2cffdb`.
+- 2026-10-10: vCard-siden skrevet om til "digitalt visitkort"-søgningerne (ceo/vcard-title-faq):
+  title og beskrivelse nævner iPhone/Android, to nye FAQ'er (iPhone og printstørrelse), DA+EN.
 - MÅL: `/` baseline 151 besøgende/28 d, bounce 90 % → under 75 % pr. 2026-11-05.
 - MÅL: Facebook-kilder 46 af 206 besøgende → 60+ pr. 2026-11-05 (share-preview rettet 2026-10-09).
 - PR-TJEK 2026-10-09 (2. gennemgang): dependabot-PR #2 (esbuild 0.27.7 → 0.28.1) landet som
@@ -30,17 +32,14 @@ Baseline (Plausible, 28 dage til 2026-10-08): 206 besøgende, 289 sidevisninger,
 
 1. **Batch-import fra CSV er skrøbelig.** `csvFileInput` validerer ikke kolonnerne, og brugeren får
    ingen feedback. Datagrunden er svag (ingen events) — tages kun hvis trafikken til batch viser sig.
-2. **vCard-siden: skriv titel/beskrivelse og FAQ om til søgningerne.** GSC: 121 visninger, 0 klik,
-   pos. 13 — "digitalt visitkort" pos. 9, "digitalt visitkort iphone" pos. 10. Accept: title nævner
-   iPhone/Android, FAQ besvarer "digitalt visitkort til iPhone" + størrelse på fysisk kort (mm),
-   DA+EN i samme commit. MÅL: CTR > 2 % pr. 2026-10-23.
 
-Afkruttede opgaver (scan-kontrol, hvid zone, mm-download, EN-generator-først, share-billeder)
-står i `docs/plan-arkiv.md`.
+Afkruttede opgaver (scan-kontrol, hvid zone, mm-download, EN-generator-først, share-billeder,
+vCard-title/FAQ) står i `docs/plan-arkiv.md`.
 
 ### GSC-CTR-baselines (måles igen pr. 2026-10-23)
 - `/en/calendar-qr-code` 566v, 2 klik, CTR 0,4 %, pos. 11,0 — største enkelt-side uden for `/`.
-- `/vcard-qr-kode` 121v, 0 klik, CTR 0,0 %, pos. 13,0 — opgave 2 nedenfor.
+- `/vcard-qr-kode` 121v, 0 klik, CTR 0,0 %, pos. 13,0 — title/FAQ opdateret 2026-10-10 til
+  iPhone/Android og visitkortstørrelse (ceo/vcard-title-faq). MÅL: CTR > 2 %.
 - `/sms-qr-kode` 102v, 4 klik, CTR 3,9 %, pos. 10,7.
 - `/en/guides/business-cards-with-qr-code` 100v, 0 klik, pos. 16,6.
 
@@ -66,4 +65,7 @@ ceo/history-opt-in. (2) "30-dages stopregel" — kun BACKLOG-tekst, ingen kode; 
 får opmærksomhed.
 
 ## Verificér deploy
-- VERIFICÉR DEPLOY: en delt side viser preview-billede (og-image-*.png) på `/` og `/en/` · ceo/og-images · 2026-10-09 22:45
+- AFVENTER VERIFICERING (share-billeder): /og-image.png og /og-image-en.png gav stadig 404 live
+  2026-10-10 00:0x med cache-bust — merge 1e51906 (22:45 d. 9/10) er nyere end sidste
+  deploy-vindue (21:30). Verificer https://qrtool.dk/og-image.png ved vinduet 07:30: skal give 200
+  og content-type image/png. To vinduer uden live = DEPLOY-MISSING og stop for merge til master.
