@@ -922,15 +922,18 @@ function getQRData() {
 
             if (!name) return null;
 
+            // Escape special chars per vCard spec: \ ; , :
+            const escVcard = s => s.replace(/\\/g, '\\\\').replace(/;/g, '\\;').replace(/,/g, '\\,').replace(/:/g, '\\:');
+
             // vCard 3.0 format
             let vcard = 'BEGIN:VCARD\nVERSION:3.0\n';
-            vcard += `FN:${name}\n`;
-            if (org) vcard += `ORG:${org}\n`;
-            if (title) vcard += `TITLE:${title}\n`;
+            vcard += `FN:${escVcard(name)}\n`;
+            if (org) vcard += `ORG:${escVcard(org)}\n`;
+            if (title) vcard += `TITLE:${escVcard(title)}\n`;
             if (phone) vcard += `TEL:${phone}\n`;
             if (email) vcard += `EMAIL:${email}\n`;
             if (website) vcard += `URL:${website}\n`;
-            if (address) vcard += `ADR:;;${address}\n`;
+            if (address) vcard += `ADR:;;${escVcard(address)}\n`;
             vcard += 'END:VCARD';
 
             return vcard;

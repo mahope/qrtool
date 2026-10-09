@@ -74,7 +74,7 @@ test('vCard: builds a 3.0 card from every filled field', () => {
         'TEL:+4512345678',
         'EMAIL:mads@mahoje.dk',
         'URL:https://mahoje.dk',
-        'ADR:;;Søndergade 1, 8000 Aarhus',
+        'ADR:;;Søndergade 1\\, 8000 Aarhus',
         'END:VCARD'
     ].join('\n'));
 });
