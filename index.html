@@ -234,6 +234,7 @@
                     <button class="tab-button" data-tab="geo"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Lokation</button>
                     <button class="tab-button" data-tab="payment"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg> Betaling</button>
                     <button class="tab-button" data-tab="social"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg> Social</button>
+                    <button class="tab-button" data-tab="app"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg> App</button>
                 </div>
 
                 <!-- Text/URL Tab Content -->
@@ -384,6 +385,23 @@
                         <span class="field-error" id="socialUsernameError"></span>
                     </div>
                     <p class="cta-hint" id="socialPreviewUrl"></p>
+                </div>
+
+                <!-- App Tab Content -->
+                <div class="tab-content" data-content="app">
+                    <div class="form-group">
+                        <label for="appPlatform">Platform:</label>
+                        <select id="appPlatform">
+                            <option value="ios">App Store (iPhone/iPad)</option>
+                            <option value="android">Google Play (Android)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="appId">App-ID eller link:</label>
+                        <input type="text" id="appId" placeholder="id123456789 eller com.example.app">
+                        <span class="field-error" id="appIdError"></span>
+                    </div>
+                    <p class="cta-hint" id="appPreviewUrl"></p>
                 </div>
 
                 <!-- Geo Location Tab Content -->

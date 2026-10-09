@@ -1,15 +1,11 @@
 # IMPLEMENTATION_PLAN — qrtool.dk
 
 STATUS:
-- Gate: `npm test` = `npm run build` + `node --test` (78 tests). 78/78 grønne pr. 2026-10-09 15:10.
-- 2026-10-09: Scan-kontrol landet (ceo/scan-check). Koden læses tilbage med jsQR efter hver
-  generering, og brugeren ser "kan scannes" eller en konkret advarsel under QR-koden.
-- 2026-10-09: Hvid zone landet (ceo/quiet-zone). Alle downloads har nu fire modulers lys kant.
-- 2026-10-09: Printstørrelse i mm landet (ceo/print-size-mm): felt med præsatknapper,
-  download i 300 dpi (PNG/JPG/WebP) og PDF med side i præcis mm. 88/88 tests grønne.
-- DEPLOY OK 2026-10-09 (verificeret på indhold): cache-bust med indholds-hash, UTF-8 i
-  payloads, kalenderdato, vCard-escaping, vCard/kalender-undersider, WiFi-guide,
-  generator-først på forsiden, historik som tilvalg.
+- Gate: `npm test` = `npm run build` + `node --test` (96 tests). 96/96 grønne pr. 2026-10-09 18:15.
+- 2026-10-09: App-store-link som QR-type landet (ceo/app-link): ny "App"-fane der bygger
+  App Store- og Google Play-links fra et ID eller et indsat link, med live forhåndsvisning. DA+EN.
+- DEPLOY OK 2026-10-09 (verificeret på indhold på `/` og `/en/`): printstørrelse + 300 dpi/PDF,
+  scan-kontrol, hvid zone, cache-bust, generator-først, vCard/kalender-undersider, historik som tilvalg.
 - MÅL: `/` baseline 151 besøgende/28 d, bounce 90 % → under 75 % pr. 2026-11-05.
 - PR-TJEK 2026-10-09 (2. gennemgang): dependabot-PR #2 (esbuild 0.27.7 → 0.28.1) landet som
   squash-commit. Ellers ingen åbne PR'er, ingen GitHub Actions — den lokale gate er eneste kontrol.
@@ -26,13 +22,11 @@ Baseline (Plausible, 28 dage til 2026-10-08): 206 besøgende, 289 sidevisninger,
 ### Åbne opgaver
 
 1. ✅ **Scan-kontrol af den færdige kode.** Landet i ceo/scan-check (2026-10-09).
-2. ✅ **Hvid zone om koden i downloads.** Landet i ceo/quiet-zone (2026-10-09): fire modulers
-   lys kant i preview, download, batch, print, kopi og del.
-3. ✅ **Størrelse i millimeter til print.** Landet i ceo/print-size-mm (2026-10-09): felt med
-   præsatknapper (20/30/50 mm), download som PNG/JPG/WebP i 300 dpi og PDF med side i præcis mm.
-4. **Engelsk forside: generatoren først.** Hvorfor: `/en/` har 9 besøgende og 100 % bounce.
-   Accept: samme rækkefølge som den danske forside, og en test der stiller rækkefølgen samme
-   krav på begge sprog. Datagrund: `/en/` 9 besøgende, bounce 100 %.
+2. ✅ **Hvid zone om koden i downloads.** Landet i ceo/quiet-zone (2026-10-09).
+3. ✅ **Størrelse i millimeter til print.** Landet i ceo/print-size-mm (2026-10-09).
+4. ✅ **Engelsk forside: generatoren først.** Var allerede opfyldt: rækkefølgen er identisk på
+   `index.html` og `en/index.html`, og `test/site.test.js` ("homepage: the generator card comes
+   before…") håndhæver den på begge sprog. Ingen kodeændring nødvendig.
 5. **Batch-import fra CSV er skrøbelig.** `csvFileInput` validerer ikke kolonnerne, og brugeren får
    ingen feedback. Datagrunden er svag (ingen events) — tages kun hvis trafikken til batch viser sig.
 
@@ -45,13 +39,11 @@ Baseline (Plausible, 28 dage til 2026-10-08): 206 besøgende, 289 sidevisninger,
   eneste undtagelse fra reglen om ingen nye afhængigheder.
 
 ### Feature-kø
-- **App-store-link som QR-type.** Til: udviklere og små apps. Skal flytte antal genererede koder.
-  Accept: koder til App Store og Google Play fra én URL. Datagrund: konkurrenter tilbyder typen.
+- ✅ **App-store-link som QR-type.** Landet 2026-10-09 i ceo/app-link.
 - **Kontrastmåling i farvevælgeren.** Til: alle der vælger farver. Delvist dækket af scan-kontrollen;
   resten er en advarsel før generering. Accept: vise kontrastforholdet mellem kode og baggrund.
-- **Geo-link som QR-type.** Til: virksomheder, der sender kort vej til besøg. Skal flytte antal
-  genererede koder. Accept: `geo:`-kader der åbner Kort på telefonen. Datagrund: konkurrenter
-  tilbyder typen; geo-felter findes allerede i app.js.
+- **PDF i trykkvalitet til flere QR-typer / batch.** Eksporten findes for enkeltkoder; batch er kun ZIP
+  med PNG/SVG. Accept: printklar PDF pr. kode i batch. Datagrund: virksomheder printer mange koder.
 
 ## Bevaret arbejde
 `bevaret/2026-10-auto-union-night` (slet aldrig): (1) opt-in-historik — landet 2026-10-09 i
@@ -60,7 +52,4 @@ ceo/history-opt-in. (2) "30-dages stopregel" — kun BACKLOG-tekst, ingen kode; 
 får opmærksomhed.
 
 ## Verificér deploy
-- VERIFICÉR DEPLOY: scan-kontrollen vises under QR-koden efter generering (DA+EN) · ceo/scan-check · 2026-10-09 14:10
-- VERIFICÉR DEPLOY: hvid zone om koden i preview, PNG/JPG/SVG/PDF og batch-ZIP (DA+EN) · ceo/quiet-zone · 2026-10-09 15:10
-- VERIFICÉR DEPLOY: app.js og style.css i dist er bygget med esbuild 0.28.1 (samlet med hvid zone) · deps/esbuild-0.28.1 · 2026-10-09 15:25
-- VERIFICÉR DEPLOY: printstørrelse-feltet og 300-dpi/PDF-downloads vises på `/` og `/en/` (DA+EN) · ceo/print-size-mm · 2026-10-09 17:00
+- VERIFICÉR DEPLOY: "App"-fanen og appPreviewUrl vises på `/` og `/en/` (DA+EN) · ceo/app-link · 2026-10-09 18:15

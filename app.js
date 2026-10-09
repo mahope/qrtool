@@ -45,6 +45,8 @@ const T = {
         'err.usernameRequired': 'Brugernavn er påkrævet.',
         'err.paypalRequired': 'PayPal brugernavn er påkrævet.',
         'err.mobilepayRequired': 'Telefonnummer er påkrævet.',
+        'err.appRequired': 'App-ID eller link er påkrævet.',
+        'err.appInvalid': 'Indtast et app-ID (fx id123456789) eller et link, der starter med https://',
 
         // Toast messages
         'toast.generated': 'QR-kode genereret!',
@@ -99,6 +101,7 @@ const T = {
         'type.geo': 'Lokation',
         'type.payment': 'Betaling',
         'type.social': 'Social',
+        'type.app': 'App',
 
         // Aria / Announcements
         'aria.qrGenerated': 'QR-kode genereret for {type}: {preview}',
@@ -197,6 +200,8 @@ const T = {
         'err.usernameRequired': 'Username is required.',
         'err.paypalRequired': 'PayPal username is required.',
         'err.mobilepayRequired': 'Phone number is required.',
+        'err.appRequired': 'App ID or link is required.',
+        'err.appInvalid': 'Enter an app ID (e.g. id123456789) or a link starting with https://',
 
         // Toast messages
         'toast.generated': 'QR code generated!',
@@ -251,6 +256,7 @@ const T = {
         'type.geo': 'Location',
         'type.payment': 'Payment',
         'type.social': 'Social',
+        'type.app': 'App',
 
         // Aria / Announcements
         'aria.qrGenerated': 'QR code generated for {type}: {preview}',
@@ -404,7 +410,7 @@ if (contrastToggle) {
 // Tab management
 const tabButtons = document.querySelectorAll('.tab-button');
 const tabContents = document.querySelectorAll('.tab-content');
-const tabOrder = ['text', 'wifi', 'vcard', 'email', 'sms', 'calendar', 'geo', 'payment', 'social'];
+const tabOrder = ['text', 'wifi', 'vcard', 'email', 'sms', 'calendar', 'geo', 'payment', 'social', 'app'];
 let currentTab = 'text';
 
 function switchToTab(tabName, { autoFocus = true } = {}) {
@@ -1055,6 +1061,21 @@ function getQRData() {
             };
             return socialUrls[socialPlatform] || null;
 
+        case 'app':
+            const appPlatform = document.getElementById('appPlatform').value;
+            const appInput = document.getElementById('appId').value.trim();
+            if (!appInput) return null;
+
+            // A pasted store link is used as-is; otherwise build the store link.
+            if (/^https?:\/\//i.test(appInput)) return appInput;
+
+            if (appPlatform === 'android') {
+                return `https://play.google.com/store/apps/details?id=${encodeURIComponent(appInput)}`;
+            }
+            const appIdDigits = appInput.replace(/^id/i, '').replace(/\D/g, '');
+            if (!appIdDigits) return null;
+            return `https://apps.apple.com/app/id${appIdDigits}`;
+
         default:
             return null;
     }
@@ -1199,6 +1220,23 @@ function validateForm() {
                 const ph = document.getElementById('mobilepayPhone').value.trim();
                 if (!ph) {
                     setFieldError('mobilepayPhone', t('err.mobilepayRequired'));
+                    valid = false;
+                }
+            }
+            break;
+        }
+        case 'app': {
+            const appInput = document.getElementById('appId').value.trim();
+            const appPlatform = document.getElementById('appPlatform').value;
+            if (!appInput) {
+                setFieldError('appId', t('err.appRequired'));
+                valid = false;
+            } else if (!/^https?:\/\//i.test(appInput)) {
+                const looksValid = appPlatform === 'android'
+                    ? /^[A-Za-z][\w]*(\.[\w]+)+$/.test(appInput)
+                    : /\d/.test(appInput);
+                if (!looksValid) {
+                    setFieldError('appId', t('err.appInvalid'));
                     valid = false;
                 }
             }
@@ -2144,7 +2182,8 @@ const typeLabels = {
     'calendar': t('type.calendar'),
     'geo': t('type.geo'),
     'payment': t('type.payment'),
-    'social': t('type.social')
+    'social': t('type.social'),
+    'app': t('type.app')
 };
 
 function saveToHistory(text, type) {
@@ -2476,6 +2515,29 @@ function updateSocialPreview() {
 
 if (socialPlatform) socialPlatform.addEventListener('change', updateSocialPreview);
 if (socialUsername) socialUsername.addEventListener('input', updateSocialPreview);
+
+// ===========================================
+// App store link preview
+// ===========================================
+const appPlatformSelect = document.getElementById('appPlatform');
+const appIdInput = document.getElementById('appId');
+const appPreviewUrl = document.getElementById('appPreviewUrl');
+
+function updateAppPreview() {
+    if (!appPlatformSelect || !appIdInput || !appPreviewUrl) return;
+    const value = appIdInput.value.trim();
+    if (!value) { appPreviewUrl.textContent = ''; return; }
+    if (/^https?:\/\//i.test(value)) { appPreviewUrl.textContent = value; return; }
+    if (appPlatformSelect.value === 'android') {
+        appPreviewUrl.textContent = `play.google.com/store/apps/details?id=${value}`;
+        return;
+    }
+    const digits = value.replace(/^id/i, '').replace(/\D/g, '');
+    appPreviewUrl.textContent = digits ? `apps.apple.com/app/id${digits}` : '';
+}
+
+if (appPlatformSelect) appPlatformSelect.addEventListener('change', updateAppPreview);
+if (appIdInput) appIdInput.addEventListener('input', updateAppPreview);
 
 // ===========================================
 // Payment type toggle (PayPal / MobilePay)
