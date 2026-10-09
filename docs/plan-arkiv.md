@@ -154,3 +154,21 @@ Dependabot-PR #2 landet som squash-commit. Kun package.json og package-lock.json
 esbuild bygger og minificerer uændret, og der er ingen runtime-afhængighed i spillet.
 Gate kørt med 0.28.1 installeret lokalt: `npm test` 71/71 grøn (testtallet er fra den gren
 PR'en stod på, før kviet-zonen tilføjede sine syv tests).
+
+## 2026-10-09 — share-billeder (og:image) til alle sider
+Alle sider deklarerede en og-image, men ingen af filerne fandtes — alle syv URL'er
+returnerede 404 på https://qrtool.dk, så enhver deling (Facebook er 36 % af trafikken,
+46 af 206 besøgende/28 d) landed uden preview-billede. Engelske sider pegede desuden
+på de danske kort.
+Fix: `og-images.js` genererer 14 kort (1200×630) med rsvg-convert efter sitets egne
+farver (#0f172a/#1e293b, #6366f1/#8b5cf6) og QR-motivet fra icon.svg; PNG'erne
+committes som statiske asseter og kopieres af build.js, fordi Docker-staget ingen
+rasteriserer har. EN-sider fik egne `og-image-*-en.png`. Ny test i test/site.test.js
+fejler, hvis et deklareret og-image mangler i repo eller dist/ (bevist: testen fejler
+med filerne fjernet, 110/110 med dem på plads).
+
+## Ældre afsluttede opgaver (konserveret fra planens kø)
+- Scan-kontrol af den færdige kode før download — ceo/scan-check (2026-10-09).
+- Hvid stillezone om koden i PNG/SVG/JPG/PDF — ceo/quiet-zone (2026-10-09).
+- Download i millimeter med 300 dpi og præcis PDF-størrelse — ceo/print-size-mm (2026-10-09).
+- Engelsk forside: generatoren først — allerede opfyldt, håndhævet af test.

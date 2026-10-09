@@ -1,12 +1,19 @@
 # IMPLEMENTATION_PLAN — qrtool.dk
 
 STATUS:
-- Gate: `npm test` = `npm run build` + `node --test` (109 tests). 109/109 grønne pr. 2026-10-09 20:20.
+- Gate: `npm test` = `npm run build` + `node --test` (110 tests). 110/110 grønne pr. 2026-10-09 22:45.
 - 2026-10-09: App-store-link som QR-type landet (ceo/app-link): ny "App"-fane der bygger
   App Store- og Google Play-links fra et ID eller et indsat link, med live forhåndsvisning. DA+EN.
-- DEPLOY OK 2026-10-09 (verificeret på indhold på `/` og `/en/`): printstørrelse + 300 dpi/PDF,
-  scan-kontrol, hvid zone, cache-bust, generator-først, vCard/kalender-undersider, historik som tilvalg.
+- 2026-10-09: Share-billeder landet (ceo/og-images): alle 14 og-image.png fand 404, så enhver
+  deling på Facebook (36 % af trafikken) manglede preview. Nye kort genereret af `og-images.js`
+  (rsvg-convert, sitets farver), EN-sider fik egne `og-image-*-en.png`. Test fejler hvis et
+  deklareret og-image mangler i repo eller dist.
+- DEPLOY OK 2026-10-09 (verificeret på indhold): printstørrelse + 300 dpi/PDF, scan-kontrol, hvid
+  zone, cache-bust, generator-først, vCard/kalender-undersider, historik som tilvalg, "App"-fanen
+  og appPreviewUrl (ceo/app-link 18:15), kontrast-linjen under farvevælgeren (ceo/contrast-readout
+  20:20) — live på `/` og `/en/` via `app.js?v=1abe2cffdb`.
 - MÅL: `/` baseline 151 besøgende/28 d, bounce 90 % → under 75 % pr. 2026-11-05.
+- MÅL: Facebook-kilder 46 af 206 besøgende → 60+ pr. 2026-11-05 (share-preview rettet 2026-10-09).
 - PR-TJEK 2026-10-09 (2. gennemgang): dependabot-PR #2 (esbuild 0.27.7 → 0.28.1) landet som
   squash-commit. Ellers ingen åbne PR'er, ingen GitHub Actions — den lokale gate er eneste kontrol.
 - BRANCH-TJEK 2026-10-09: kun master + `bevaret/*`, intet at rydde.
@@ -21,14 +28,21 @@ Baseline (Plausible, 28 dage til 2026-10-08): 206 besøgende, 289 sidevisninger,
 
 ### Åbne opgaver
 
-1. ✅ **Scan-kontrol af den færdige kode.** Landet i ceo/scan-check (2026-10-09).
-2. ✅ **Hvid zone om koden i downloads.** Landet i ceo/quiet-zone (2026-10-09).
-3. ✅ **Størrelse i millimeter til print.** Landet i ceo/print-size-mm (2026-10-09).
-4. ✅ **Engelsk forside: generatoren først.** Var allerede opfyldt: rækkefølgen er identisk på
-   `index.html` og `en/index.html`, og `test/site.test.js` ("homepage: the generator card comes
-   before…") håndhæver den på begge sprog. Ingen kodeændring nødvendig.
-5. **Batch-import fra CSV er skrøbelig.** `csvFileInput` validerer ikke kolonnerne, og brugeren får
+1. **Batch-import fra CSV er skrøbelig.** `csvFileInput` validerer ikke kolonnerne, og brugeren får
    ingen feedback. Datagrunden er svag (ingen events) — tages kun hvis trafikken til batch viser sig.
+2. **vCard-siden: skriv titel/beskrivelse og FAQ om til søgningerne.** GSC: 121 visninger, 0 klik,
+   pos. 13 — "digitalt visitkort" pos. 9, "digitalt visitkort iphone" pos. 10. Accept: title nævner
+   iPhone/Android, FAQ besvarer "digitalt visitkort til iPhone" + størrelse på fysisk kort (mm),
+   DA+EN i samme commit. MÅL: CTR > 2 % pr. 2026-10-23.
+
+Afkruttede opgaver (scan-kontrol, hvid zone, mm-download, EN-generator-først, share-billeder)
+står i `docs/plan-arkiv.md`.
+
+### GSC-CTR-baselines (måles igen pr. 2026-10-23)
+- `/en/calendar-qr-code` 566v, 2 klik, CTR 0,4 %, pos. 11,0 — største enkelt-side uden for `/`.
+- `/vcard-qr-kode` 121v, 0 klik, CTR 0,0 %, pos. 13,0 — opgave 2 nedenfor.
+- `/sms-qr-kode` 102v, 4 klik, CTR 3,9 %, pos. 10,7.
+- `/en/guides/business-cards-with-qr-code` 100v, 0 klik, pos. 16,6.
 
 ### ❓ Til Mads
 - **Playwright mangler.** Ingen skærmbillede-verifikation af UI-ændringer, kun HTML-gate.
@@ -52,5 +66,4 @@ ceo/history-opt-in. (2) "30-dages stopregel" — kun BACKLOG-tekst, ingen kode; 
 får opmærksomhed.
 
 ## Verificér deploy
-- VERIFICÉR DEPLOY: "App"-fanen og appPreviewUrl vises på `/` og `/en/` (DA+EN) · ceo/app-link · 2026-10-09 18:15
-- VERIFICÉR DEPLOY: kontrast-linjen "Kontrast: 21,0:1 — stærk kontrast" vises under farvevælgeren på `/` og `/en/` · ceo/contrast-readout · 2026-10-09 20:20
+- VERIFICÉR DEPLOY: en delt side viser preview-billede (og-image-*.png) på `/` og `/en/` · ceo/og-images · 2026-10-09 22:45

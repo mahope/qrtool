@@ -179,6 +179,24 @@ test('assets: robots.txt, manifest and icon are present', () => {
     }
 });
 
+// Facebook is the second-biggest referrer, and every og:image used to point at
+// a file that was never generated, so shares landed without a preview image.
+test('social: every og:image a page declares exists and lands in dist/', () => {
+    const missing = [];
+    const unbuilt = [];
+    for (const rel of htmlFiles()) {
+        const html = read(rel);
+        const images = [...html.matchAll(/<meta property="og:image" content="https:\/\/qrtool\.dk\/([^"]+)"/gi)]
+            .map(m => m[1]);
+        for (const image of images) {
+            if (!exists(image)) missing.push(`${rel} -> ${image}`);
+            if (exists('dist') && !fs.existsSync(path.join(ROOT, 'dist', image))) unbuilt.push(`${rel} -> ${image}`);
+        }
+    }
+    assert.deepEqual(missing, [], 'og:image files missing from the repo');
+    assert.deepEqual(unbuilt, [], 'og:image files missing from dist/');
+});
+
 test('assets: robots.txt links the sitemap', () => {
     assert.match(read('robots.txt'), /Sitemap:\s*https:\/\/qrtool\.dk\/sitemap\.xml/);
 });

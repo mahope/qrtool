@@ -18,6 +18,13 @@ const copyItems = [
     'style.css', 'app.js', 'sw.js',
     'sitemap.xml', 'robots.txt', 'manifest.json', 'icon.svg', 'ads.txt',
     '.htaccess',
+    'og-image.png', 'og-image-en.png',
+    'og-image-wifi.png', 'og-image-wifi-en.png',
+    'og-image-vcard.png', 'og-image-vcard-en.png',
+    'og-image-kalender.png', 'og-image-kalender-en.png',
+    'og-image-sms.png', 'og-image-sms-en.png',
+    'og-image-email.png', 'og-image-email-en.png',
+    'og-image-tekst.png', 'og-image-tekst-en.png',
     'lib', 'guides', 'en'
 ];
 
