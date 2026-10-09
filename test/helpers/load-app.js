@@ -44,7 +44,14 @@ function loadApp(options = {}) {
     drawCanvas: (qr, size, canvas, style) => drawCanvas(qr, size, canvas, style),
     toSvgString: (qr, border, style) => toSvgString(qr, border, style),
     qrSvg: () => currentQRSVG,
-    qrCanvas: () => currentQRCanvas
+    qrCanvas: () => currentQRCanvas,
+    mmToPixels: (mm, dpi) => mmToPixels(mm, dpi),
+    parsePrintSizeMm: () => parsePrintSizeMm(),
+    buildPDF: (jpegBytes, imgW, imgH) => buildPDF(jpegBytes, imgW, imgH),
+    buildPrintPDF: (jpegBytes, imgW, imgH, mm) => buildPrintPDF(jpegBytes, imgW, imgH, mm),
+    renderPrintCanvas: mm => renderPrintCanvas(mm),
+    downloadQRCode: () => downloadQRCode(),
+    lastQR: () => lastQR
 };`);
 
     factory(...names.map(name => injected[name]));
@@ -73,7 +80,14 @@ function loadApp(options = {}) {
         drawCanvas: (qr, size, canvas, style) => bind.drawCanvas(qr, size, canvas, style),
         toSvgString: (qr, border, style) => bind.toSvgString(qr, border, style),
         qrSvg: () => bind.qrSvg(),
-        qrCanvas: () => bind.qrCanvas()
+        qrCanvas: () => bind.qrCanvas(),
+        mmToPixels: (mm, dpi) => bind.mmToPixels(mm, dpi),
+        parsePrintSizeMm: () => bind.parsePrintSizeMm(),
+        buildPDF: (jpegBytes, imgW, imgH) => bind.buildPDF(jpegBytes, imgW, imgH),
+        buildPrintPDF: (jpegBytes, imgW, imgH, mm) => bind.buildPrintPDF(jpegBytes, imgW, imgH, mm),
+        renderPrintCanvas: mm => bind.renderPrintCanvas(mm),
+        downloadQRCode: () => bind.downloadQRCode(),
+        lastQR: () => bind.lastQR()
     };
 
     return api;

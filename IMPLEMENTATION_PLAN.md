@@ -5,6 +5,8 @@ STATUS:
 - 2026-10-09: Scan-kontrol landet (ceo/scan-check). Koden læses tilbage med jsQR efter hver
   generering, og brugeren ser "kan scannes" eller en konkret advarsel under QR-koden.
 - 2026-10-09: Hvid zone landet (ceo/quiet-zone). Alle downloads har nu fire modulers lys kant.
+- 2026-10-09: Printstørrelse i mm landet (ceo/print-size-mm): felt med præsatknapper,
+  download i 300 dpi (PNG/JPG/WebP) og PDF med side i præcis mm. 88/88 tests grønne.
 - DEPLOY OK 2026-10-09 (verificeret på indhold): cache-bust med indholds-hash, UTF-8 i
   payloads, kalenderdato, vCard-escaping, vCard/kalender-undersider, WiFi-guide,
   generator-først på forsiden, historik som tilvalg.
@@ -26,9 +28,8 @@ Baseline (Plausible, 28 dage til 2026-10-08): 206 besøgende, 289 sidevisninger,
 1. ✅ **Scan-kontrol af den færdige kode.** Landet i ceo/scan-check (2026-10-09).
 2. ✅ **Hvid zone om koden i downloads.** Landet i ceo/quiet-zone (2026-10-09): fire modulers
    lys kant i preview, download, batch, print, kopi og del.
-3. **Størrelse i millimeter til print.** Hvorfor: brugeren vælger pixels, men skal trykke 3 cm.
-   Accept: indtast mm (fx 20/30/50) og få PNG ved 300 dpi plus PDF i den fysiske størrelsen.
-   Datagrund: PDF-eksport findes allerede og benyttes; `/` 151 besøgende, 90 % bounce.
+3. ✅ **Størrelse i millimeter til print.** Landet i ceo/print-size-mm (2026-10-09): felt med
+   præsatknapper (20/30/50 mm), download som PNG/JPG/WebP i 300 dpi og PDF med side i præcis mm.
 4. **Engelsk forside: generatoren først.** Hvorfor: `/en/` har 9 besøgende og 100 % bounce.
    Accept: samme rækkefølge som den danske forside, og en test der stiller rækkefølgen samme
    krav på begge sprog. Datagrund: `/en/` 9 besøgende, bounce 100 %.
@@ -44,12 +45,13 @@ Baseline (Plausible, 28 dage til 2026-10-08): 206 besøgende, 289 sidevisninger,
   eneste undtagelse fra reglen om ingen nye afhængigheder.
 
 ### Feature-kø
-- **Fysisk printstørrelse (mm) med 300 dpi.** Til: erhverv, der sætter koder i tryksager.
-  Skal flytte andelen downloads til print. Accept: PDF og PNG i valgt mm. Datagrund: `/` 151 besøgende.
 - **App-store-link som QR-type.** Til: udviklere og små apps. Skal flytte antal genererede koder.
   Accept: koder til App Store og Google Play fra én URL. Datagrund: konkurrenter tilbyder typen.
 - **Kontrastmåling i farvevælgeren.** Til: alle der vælger farver. Delvist dækket af scan-kontrollen;
   resten er en advarsel før generering. Accept: vise kontrastforholdet mellem kode og baggrund.
+- **Geo-link som QR-type.** Til: virksomheder, der sender kort vej til besøg. Skal flytte antal
+  genererede koder. Accept: `geo:`-kader der åbner Kort på telefonen. Datagrund: konkurrenter
+  tilbyder typen; geo-felter findes allerede i app.js.
 
 ## Bevaret arbejde
 `bevaret/2026-10-auto-union-night` (slet aldrig): (1) opt-in-historik — landet 2026-10-09 i
@@ -61,3 +63,4 @@ får opmærksomhed.
 - VERIFICÉR DEPLOY: scan-kontrollen vises under QR-koden efter generering (DA+EN) · ceo/scan-check · 2026-10-09 14:10
 - VERIFICÉR DEPLOY: hvid zone om koden i preview, PNG/JPG/SVG/PDF og batch-ZIP (DA+EN) · ceo/quiet-zone · 2026-10-09 15:10
 - VERIFICÉR DEPLOY: app.js og style.css i dist er bygget med esbuild 0.28.1 (samlet med hvid zone) · deps/esbuild-0.28.1 · 2026-10-09 15:25
+- VERIFICÉR DEPLOY: printstørrelse-feltet og 300-dpi/PDF-downloads vises på `/` og `/en/` (DA+EN) · ceo/print-size-mm · 2026-10-09 17:00

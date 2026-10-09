@@ -673,6 +673,20 @@
                         </select>
                     </div>
 
+                    <!-- Print size -->
+                    <div class="form-group print-size-group">
+                        <label for="printSizeMm">Print size (mm):</label>
+                        <div class="print-size-row">
+                            <input type="number" id="printSizeMm" min="5" max="300" step="1" placeholder="e.g. 30" inputmode="numeric" aria-describedby="printSizeHint">
+                            <div class="print-presets" role="group" aria-label="Common print sizes">
+                                <button type="button" class="print-preset" data-mm="20">20 mm</button>
+                                <button type="button" class="print-preset" data-mm="30">30 mm</button>
+                                <button type="button" class="print-preset" data-mm="50">50 mm</button>
+                            </div>
+                        </div>
+                        <span class="cta-hint" id="printSizeHint">Optional. Fill it in to download PNG/JPG/WebP at 300 dpi and a PDF at exactly that size.</span>
+                    </div>
+
                     <!-- Error Correction -->
                     <div class="form-group ec-group">
                         <label>Error Correction:</label>

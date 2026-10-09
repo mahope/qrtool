@@ -49,6 +49,7 @@ const T = {
         // Toast messages
         'toast.generated': 'QR-kode genereret!',
         'toast.downloaded': 'QR-kode downloadet!',
+        'toast.printDownloaded': 'QR-kode downloadet i {mm} mm (300 dpi)!',
         'toast.copied': 'Kopieret til udklipsholder!',
         'toast.shared': 'QR-kode delt!',
         'toast.generateFirst': 'Generer venligst en QR-kode først!',
@@ -200,6 +201,7 @@ const T = {
         // Toast messages
         'toast.generated': 'QR code generated!',
         'toast.downloaded': 'QR code downloaded!',
+        'toast.printDownloaded': 'QR code downloaded at {mm} mm (300 dpi)!',
         'toast.copied': 'Copied to clipboard!',
         'toast.shared': 'QR code shared!',
         'toast.generateFirst': 'Please generate a QR code first!',
@@ -553,6 +555,9 @@ const compareBtn = document.getElementById('compareBtn');
 const qrPreview = document.getElementById('qrPreview');
 const qrAnnouncement = document.getElementById('qrAnnouncement');
 const ctaText = document.getElementById('ctaText');
+const printSizeMm = document.getElementById('printSizeMm');
+const printSizeHint = document.getElementById('printSizeHint');
+const printSizeHintDefault = printSizeHint ? printSizeHint.textContent : '';
 
 // Batch elements
 const batchInput = document.getElementById('batchInput');
@@ -565,6 +570,7 @@ const clearHistory = document.getElementById('clearHistory');
 // Gem den genererede QR-kode canvas
 let currentQRCanvas = null;
 let currentQRSVG = null;
+let lastQR = null;
 
 // Toast notification system
 const toastContainer = document.getElementById('toastContainer');
@@ -1242,6 +1248,7 @@ function generateQRCode() {
         const qr = qrcode(typeNumber, ecLevel);
         qr.addData(text);
         qr.make();
+        lastQR = qr;
 
         const hasCTA = ctaText && ctaText.value.trim();
         const needsCanvas = currentLogoImage || hasCTA;
@@ -1258,13 +1265,7 @@ function generateQRCode() {
             drawCanvas(qr, size, qrScanCanvas, style);
         } else {
             // Generer Canvas
-            const canvas = document.createElement('canvas');
-            const ctaExtra = hasCTA ? Math.max(40, size * 0.1) : 0;
-            canvas.width = size;
-            canvas.height = size + ctaExtra;
-            drawCanvas(qr, size, canvas, style);
-            drawLogoOnCanvas(canvas);
-            if (hasCTA) drawCTAOnCanvas(canvas, size);
+            const canvas = renderQRCanvas(qr, size);
             qrPreview.appendChild(canvas);
             currentQRCanvas = canvas;
             currentQRSVG = null;
@@ -1300,6 +1301,64 @@ function generateQRCode() {
         console.error('Fejl ved generering af QR-kode:', error);
         showToast(t('toast.generateError') + error.message, 'error');
     }
+}
+
+// Maler QR-koden på en ny canvas i en given pixelstørrelse (inkl. logo og CTA)
+function renderQRCanvas(qr, size) {
+    const hasCTA = ctaText && ctaText.value.trim();
+    const ctaExtra = hasCTA ? Math.max(40, size * 0.1) : 0;
+    const canvas = document.createElement('canvas');
+    canvas.width = size;
+    canvas.height = size + ctaExtra;
+    drawCanvas(qr, size, canvas, qrStyle.value);
+    drawLogoOnCanvas(canvas);
+    if (hasCTA) drawCTAOnCanvas(canvas, size);
+    return canvas;
+}
+
+// Printstørrelse: omregner millimeter til pixels ved et givet dpi
+function mmToPixels(mm, dpi = 300) {
+    return Math.round((mm / 25.4) * dpi);
+}
+
+// Læs printstørrelsen i mm fra feltet; null hvis tom eller ugyldig.
+// Værdien klampes til feltets grænser (5–300 mm), så et tastet 5000 ikke
+// laver en flere gigabyter stor canvas.
+function parsePrintSizeMm() {
+    if (!printSizeMm) return null;
+    const mm = parseFloat(printSizeMm.value);
+    if (!Number.isFinite(mm) || mm <= 0) return null;
+    return Math.min(300, Math.max(5, mm));
+}
+
+// Vis mm og den tæilhørende pixelstørrelse ved 300 dpi under feltet
+function updatePrintSizeHint() {
+    if (!printSizeHint) return;
+    const mm = parsePrintSizeMm();
+    if (!mm) {
+        printSizeHint.textContent = printSizeHintDefault;
+        return;
+    }
+    const px = mmToPixels(mm);
+    printSizeHint.textContent = `${mm} mm = ${px}×${px} px ved 300 dpi`;
+}
+
+// Genmal den senest genererede kode i printstørrelsen, så download matcher previewet
+function renderPrintCanvas(mm) {
+    if (!lastQR) return null;
+    return renderQRCanvas(lastQR, mmToPixels(mm));
+}
+
+// Printstørrelse: felt og præsatknapper
+if (printSizeMm) {
+    printSizeMm.addEventListener('input', updatePrintSizeHint);
+    updatePrintSizeHint();
+    document.querySelectorAll('.print-preset').forEach(btn => {
+        btn.addEventListener('click', () => {
+            printSizeMm.value = btn.dataset.mm;
+            updatePrintSizeHint();
+        });
+    });
 }
 
 // ===========================================
@@ -1517,6 +1576,7 @@ if (downloadBtn) {
 function downloadQRCode() {
     const format = fileFormat.value;
     const filename = `qr-code-${Date.now()}.${format}`;
+    const mm = parsePrintSizeMm();
 
     try {
         if (format === 'svg') {
@@ -1531,18 +1591,20 @@ function downloadQRCode() {
 
         } else if (format === 'png') {
             // Download PNG
-            if (!currentQRCanvas) {
+            const canvas = mm ? renderPrintCanvas(mm) : currentQRCanvas;
+            if (!canvas) {
                 showToast(t('toast.generateFirst'), 'info');
                 return;
             }
 
-            currentQRCanvas.toBlob((blob) => {
+            canvas.toBlob((blob) => {
                 downloadBlob(blob, filename);
             }, 'image/png');
 
         } else if (format === 'jpg') {
             // Download JPG
-            if (!currentQRCanvas) {
+            const canvas = mm ? renderPrintCanvas(mm) : currentQRCanvas;
+            if (!canvas) {
                 showToast(t('toast.generateFirst'), 'info');
                 return;
             }
@@ -1550,8 +1612,8 @@ function downloadQRCode() {
             // For JPG skal vi sørge for hvid baggrund hvis transparent er valgt
             if (transparentBg.checked) {
                 const tempCanvas = document.createElement('canvas');
-                tempCanvas.width = currentQRCanvas.width;
-                tempCanvas.height = currentQRCanvas.height;
+                tempCanvas.width = canvas.width;
+                tempCanvas.height = canvas.height;
                 const ctx = tempCanvas.getContext('2d');
 
                 // Fyld med hvid baggrund
@@ -1559,25 +1621,26 @@ function downloadQRCode() {
                 ctx.fillRect(0, 0, tempCanvas.width, tempCanvas.height);
 
                 // Tegn QR-kode ovenpå
-                ctx.drawImage(currentQRCanvas, 0, 0);
+                ctx.drawImage(canvas, 0, 0);
 
                 tempCanvas.toBlob((blob) => {
                     downloadBlob(blob, filename);
                 }, 'image/jpeg', 0.95);
             } else {
-                currentQRCanvas.toBlob((blob) => {
+                canvas.toBlob((blob) => {
                     downloadBlob(blob, filename);
                 }, 'image/jpeg', 0.95);
             }
 
         } else if (format === 'webp') {
             // Download WebP
-            if (!currentQRCanvas) {
+            const canvas = mm ? renderPrintCanvas(mm) : currentQRCanvas;
+            if (!canvas) {
                 showToast(t('toast.generateFirst'), 'info');
                 return;
             }
 
-            currentQRCanvas.toBlob((blob) => {
+            canvas.toBlob((blob) => {
                 if (!blob) {
                     showToast(t('toast.webpUnsupported'), 'error');
                     return;
@@ -1586,22 +1649,26 @@ function downloadQRCode() {
             }, 'image/webp', 0.95);
 
         } else if (format === 'pdf') {
-            // Download PDF (A4)
-            if (!currentQRCanvas) {
+            // Download PDF — i printstørrelsen hvis den er sat, ellers A4
+            const canvas = mm ? renderPrintCanvas(mm) : currentQRCanvas;
+            if (!canvas) {
                 showToast(t('toast.generateFirst'), 'info');
                 return;
             }
 
-            currentQRCanvas.toBlob((blob) => {
+            canvas.toBlob((blob) => {
                 if (!blob) return;
                 blob.arrayBuffer().then(buf => {
-                    const pdfBlob = buildPDF(new Uint8Array(buf), currentQRCanvas.width, currentQRCanvas.height);
+                    const jpeg = new Uint8Array(buf);
+                    const pdfBlob = mm
+                        ? buildPrintPDF(jpeg, canvas.width, canvas.height, mm)
+                        : buildPDF(jpeg, canvas.width, canvas.height);
                     downloadBlob(pdfBlob, `qr-code-${Date.now()}.pdf`);
                 });
             }, 'image/jpeg', 0.95);
         }
 
-        showToast(t('toast.downloaded'), 'success');
+        showToast(mm ? t('toast.printDownloaded', { mm }) : t('toast.downloaded'), 'success');
 
     } catch (error) {
         console.error('Fejl ved download:', error);
@@ -1609,15 +1676,13 @@ function downloadQRCode() {
     }
 }
 
-// Build a minimal PDF with a centered JPEG image on A4
-function buildPDF(jpegBytes, imgW, imgH) {
-    const pageW = 595.28, pageH = 841.89;
-    const maxDim = 400;
-    const scale = Math.min(maxDim / imgW, maxDim / imgH);
-    const w = Math.round(imgW * scale);
-    const h = Math.round(imgH * scale);
-    const x = Math.round((pageW - w) / 2);
-    const y = Math.round((pageH - h) / 2);
+// Build a minimal PDF with one JPEG image placed by `place` ({w,h,x,y})
+// on a page of pageW × pageH points
+function buildPDFDocument(jpegBytes, imgW, imgH, pageW, pageH, place) {
+    const w = Math.round(place.w);
+    const h = Math.round(place.h);
+    const x = Math.round(place.x);
+    const y = Math.round(place.y);
 
     const objs = [];
     const offsets = [];
@@ -1653,6 +1718,24 @@ function buildPDF(jpegBytes, imgW, imgH) {
     add(`trailer\n<< /Size 6 /Root 1 0 R >>\nstartxref\n${xrefPos}\n%%EOF\n`);
 
     return new Blob(objs, { type: 'application/pdf' });
+}
+
+// Build a minimal PDF with a centered JPEG image on A4
+function buildPDF(jpegBytes, imgW, imgH) {
+    const pageW = 595.28, pageH = 841.89;
+    const maxDim = 400;
+    const scale = Math.min(maxDim / imgW, maxDim / imgH);
+    const w = imgW * scale;
+    const h = imgH * scale;
+    return buildPDFDocument(jpegBytes, imgW, imgH, pageW, pageH, {
+        w, h, x: (pageW - w) / 2, y: (pageH - h) / 2
+    });
+}
+
+// Print-PDF: page i præcis den fysiske størrelse (mm), koden fylder siden
+function buildPrintPDF(jpegBytes, imgW, imgH, mm) {
+    const pt = Math.round(((mm * 72) / 25.4) * 100) / 100;
+    return buildPDFDocument(jpegBytes, imgW, imgH, pt, pt, { w: pt, h: pt, x: 0, y: 0 });
 }
 
 // Hjælpefunktion til at downloade blob

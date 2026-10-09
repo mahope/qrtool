@@ -673,6 +673,20 @@
                         </select>
                     </div>
 
+                    <!-- Printstørrelse -->
+                    <div class="form-group print-size-group">
+                        <label for="printSizeMm">Printstørrelse (mm):</label>
+                        <div class="print-size-row">
+                            <input type="number" id="printSizeMm" min="5" max="300" step="1" placeholder="fx. 30" inputmode="numeric" aria-describedby="printSizeHint">
+                            <div class="print-presets" role="group" aria-label="Almindelige printstørrelser">
+                                <button type="button" class="print-preset" data-mm="20">20 mm</button>
+                                <button type="button" class="print-preset" data-mm="30">30 mm</button>
+                                <button type="button" class="print-preset" data-mm="50">50 mm</button>
+                            </div>
+                        </div>
+                        <span class="cta-hint" id="printSizeHint">Valgfri. Udfyldes den, downloades PNG/JPG/WebP i 300 dpi og PDF i præcis den størrelse.</span>
+                    </div>
+
                     <!-- Fejlkorrektion -->
                     <div class="form-group ec-group">
                         <label>Fejlkorrektion:</label>
