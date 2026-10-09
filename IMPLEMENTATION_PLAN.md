@@ -1,50 +1,44 @@
 # IMPLEMENTATION_PLAN — qrtool.dk
 
 STATUS:
-- Gate: `npm test` = `npm run build` + `node --test` (57 tests). 57/57 grønne pr. 2026-10-09 07:08.
-- 2026-10-09: `bevaret/2026-10-auto-union-night` vurderet — 3 commits: (1) opt-in-historik, (2) 30-dages stopregel (kun BACKLOG-tekst, ingen kode), (3) ZIP-SVG-tjek (test-fil, ingen produktkode). Ingen landet endnu.
+- Gate: `npm test` = `npm run build` + `node --test` (60 tests). 60/60 grønne pr. 2026-10-09 09:00.
+- 2026-10-09: Cloudflare/nginx serverede gammel `app.js` i op til 7 dage. `nginx.conf` giver `.js`/`.css` `max-age=604800`, Cloudflare cacher pr. fuld URL, og HTML'ens hardkodede `?v=8` blev aldrig bumpet ved deploy. Origin havde dagens rettelser, men brugerne fik den gamle fil. Rettet i ceo/cache-bust-assets: buildet stempler et indholds-hash på `?v=` i alle HTML-filer og i `sw.js` (`?v=` + `CACHE_NAME`).
+- DEPLOY OK 2026-10-09: wifi-scan-guide (live side = lokal, ny sektion findes) og home-generator-first (live forside = lokal, rækkefølge input→preview→options).
+- qr-encoding, calendar-date og escape-vcard ligger på origin, men nåede ikke brugerne pga. cachen. De bør være synlige efter næste batch-vindue (12:30), nu hvor cache-busting er på plads.
 - ❓ Search Console mangler for qrtool.dk. Ingen GSC-tilgang i snapshot-jobbet, så der bygges ikke på gæt om søgeord.
 - PR-TJEK: 2026-10-09 — ingen åbne PR'er. Ingen GitHub Actions i repoet; den lokale gate er eneste kontrol.
 - BRANCH-TJEK: 2026-10-09 — kun master + bevaret/*, intet at rydde.
-- 2026-10-09 05:29: live `/app.js` (61834 B) har endnu ikke `stringToBytesFuncs`; lokal build har (62038 B). Kodnings-rettelsen er altså ikke live. Forventet — næste batch-vindue er 07:30.
 
 ## Fase 3 — trafik-drevet
 
-Baseline (Plausible, 28 dage til 2026-10-08): 206 besøgende, 288 sidevisninger, bounce 90 %, besøgstid 42 s.
-- `/` 150 besøgende (+90 %), bounce 90 % — MÅL: `/` bounce < 75 % pr. 2026-11-05
-- `/wifi-qr-kode` 9, `/vcard-qr-kode` 6, `/sms-qr-kode` 7, `/kalender-qr-kode` 6 (+500 %), `/tekst-qr-kode` 3
+Baseline (Plausible, 28 dage til 2026-10-08): 206 besøgende, 289 sidevisninger, bounce 90 %, besøgstid 42 s.
+- `/` 151 besøgende (+94 %), bounce 90 % — MÅL: `/` bounce < 75 % pr. 2026-11-05
+- `/wifi-qr-kode` 10, `/vcard-qr-kode` 6, `/sms-qr-kode` 6, `/kalender-qr-kode` 6 (+500 %), `/tekst-qr-kode` 3
 - `/en/calendar-qr-code` 11, `/en/email-qr-code` 10, `/en/` 9 (bounce 100 %)
-- Kilder: Direct 89, Google 54, Facebook 46, Bing 6 — Facebook er 36 % af al trafik.
+- Kilder: Direct 86, Google 56, Facebook 46, Bing 7 — Facebook er 36 % af al trafik.
 
 ### Åbne opgaver
 
-1. ~~**Generatoren først på forsiden.**~~ ✅ ceo/home-generator-first. Forsiden er delt i tre kort (generator → resultat → tilpasning); på mobil lå previewen først og fyldte skærmen med en tom pladsholder. Accept: rækkefølgen er låst af 3 nye tests i gaten, som alle 3 fejler mod master.
-2. ~~**Escape vCard-tekst.**~~ ✅ ceo/escape-vcard. Datagrund: `;`, `,`, `\` og `:` i ORG/TITLE/FN/ADR bryder vCard-strukturen, og det er almindelige tegn i danske virksomhedsnavn ("Larsen & Sønner A/S"). Accept: specialtegn escapes, og kortet afkodes korrekt.
-3. ~~**Undersider med substans: WiFi.**~~ ✅ ceo/wifi-scan-guide. MÅL: `/wifi-qr-kode` baseline 10 besøgende/28d pr. 2026-10-08, bounce 100 %, 8 indgange — bounce < 80 % pr. 2026-11-05. Siden havde kun "Sådan fungerer det" om at lave koden, intet om at scanningen virker. Ny sektion "Sådan scanner gæster dit WiFi" med iPhone- og Android-gennemgang, ældre-Android-caset og to HowTo + ét FAQPage-JSON-LD (de 5 synlige FAQ-spørgsmål, samme rækkefølge). 6 nye tests, 5 af dem fejler mod master.
-4. **Undersider med substans: vCard og kalender.** Datagrund: `/vcard-qr-kode` 6 besøgende (bounce 100 %), `/kalender-qr-kode` 6 (+500 %, bounce 50 %). Samme behandling som WiFi-siden, hver side ét HowTo + FAQPage. MÅL: `/vcard-qr-kode` baseline 6, bounce < 80 % pr. 2026-11-05.
-5. **Land QR-historik som tilvalg.** Datagrund: privatlivspolitikken siger "vi gemmer ikke dine indtastninger", men koden gemmer QR-indhold (WiFi-koder, kontaktdata) i localStorage uden sporger. Accept: historik er slået fra som standard med en synlig forklaring, og teksten i politikken og om-siden passer med koden. Dækker bevaret-arbejdet (1).
-6. **Batch-import fra CSV er skrøbelig.** Datagrund: `csvFileInput` accepterer filer uden validering, og brugerne får ingen feedback hvis kolonnerne ikke matcher. Datagrunden er svag (ingen events) — behandles først hvis GSC viser trafik til batch.
+1. **Undersider med substans: vCard og kalender.** Datagrund: `/vcard-qr-kode` 6 besøgende (bounce 100 %), `/kalender-qr-kode` 6 (+500 %, bounce 50 %). Samme behandling som WiFi-siden, hver side ét HowTo + FAQPage. MÅL: `/vcard-qr-kode` baseline 6, bounce < 80 % pr. 2026-11-05.
+2. **Land QR-historik som tilvalg.** Datagrund: privatlivspolitikken siger "vi gemmer ikke dine indtastninger", men koden gemmer QR-indhold (WiFi-koder, kontaktdata) i localStorage uden spørgsmål. Accept: historik er slået fra som standard med en synlig forklaring, og teksten i politikken og om-siden passer med koden. Dækker bevaret-arbejdet (1).
+3. **Batch-import fra CSV er skrøbelig.** Datagrund: `csvFileInput` accepterer filer uden validering, og brugerne får ingen feedback hvis kolonnerne ikke matcher. Datagrunden er svag (ingen events) — behandles først hvis GSC viser trafik til batch.
 
 ### ❓ Til Mads
 - **Playwright mangler.** Der er ingen skærmbillede-verifikation af UI-ændringer, kun HTML-gate. En devDependency på `@playwright/test` + axe ville give billeder ved 390/1280 px og en a11y-scanning. Uden tilladelse til nye npm-pakker gør loopet UI-ændringer uden at se dem i browseren.
 - **Search Console mangler for qrtool.dk** (se STATUS). Ingen GSC-tal, så der bygges ikke på gæt om søgeord.
 
 ### Feature-kø
-- **Printklar eksport (PDF/PNG i 300 dpi).** Til: erhverv, der sætter QR-koder i tryksager. Skal flytte andelen mobildownloads. Accept: PDF med korrekt størrelse i mm. Datagrund: `/` 150 besøgende, 90 % bounce.
+- **Printklar eksport (PDF/PNG i 300 dpi).** Til: erhverv, der sætter QR-koder i tryksager. Skal flytte andelen mobildownloads. Accept: PDF med korrekt størrelse i mm. Datagrund: `/` 151 besøgende, 90 % bounce.
 - **Kontrastadvarsel ved farvevalg.** Til: alle, der laver koder med mørke farver. Accept: koder under 40 % kontrast til mørk mod lys advares. Datagrund: farvetilpasning er nævnt som kernefeature.
-- **MobilePay-betalingslink.** Til: foreninger og små forhandlere. Datagrund: `/sms-qr-kode` 7 besøgende (+75 %) viser efterspørgsel på danske formater.
+- **MobilePay-betalingslink.** Til: foreninger og små forhandlere. Datagrund: `/sms-qr-kode` 6 besøgende viser efterspørgsel på danske formater.
 
 ## Bevaret arbejde
-`bevaret/2026-10-auto-union-night` (slet aldrig): (1) opt-in-historik i app.js + politik-tekst — stadig rigtigt, opgave 6. (2) "30-dages stopregel" — kun BACKLOG-tekst, ingen kode; udgår. (3) ZIP-SVG-verificering — kun en testfil, ingen produktændring; tages igen når batch-eksporten får opmærksomhed.
+`bevaret/2026-10-auto-union-night` (slet aldrig): (1) opt-in-historik i app.js + politik-tekst — stadig rigtigt, opgave 2. (2) "30-dages stopregel" — kun BACKLOG-tekst, ingen kode; udgår. (3) ZIP-SVG-verificering — kun en testfil, ingen produktændring; tages igen når batch-eksporten får opmærksomhed.
 
 ## Verificér deploy
-- VERIFICÉR DEPLOY: WiFi-siden forklarer hvordan gæster scanner koden på iPhone og Android, med HowTo + FAQPage · ceo/wifi-scan-guide · 2026-10-09 07:10
-- VERIFICÉR DEPLOY: forsiden viser generatoren først på mobil, previewen lå før folden · ceo/home-generator-first · 2026-10-09 05:35
-- VERIFICÉR DEPLOY: `npm test` = build + node --test gate (57 tests) · ceo/quality-gate · 2026-10-09 07:45
-- VERIFICÉR DEPLOY: `æøå` i QR-koder gemmes som UTF-8 (var enkeltbyte uden ECI-header → møjs i skannere) · ceo/qr-encoding · 2026-10-09 01:28
-- VERIFICÉR DEPLOY: kalender-QR bærer den indtastede dato (midnat flyttede til dagen før) · ceo/calendar-date · 2026-10-09 01:28
-- VERIFICÉR DEPLOY: vCard-tegn som ; , \ og : escapes korrekt i FN, ORG, TITLE og ADR-felter · ceo/escape-vcard · 2026-10-09 07:50
-
-Ingen af de seks er live endnu: master blev pushet 05:35, og næste batch-kørsel er 07:30.
-Live `/app.js` er 61834 B mod lokal 62038 B, så de fire ældre rettelser mangler stadig.
-Effekten afkodes ved at tjekke indholdet på qrtool.dk, ikke blot statuskoden.
+- DEPLOY OK 2026-10-09: WiFi-siden forklarer hvordan gæster scanner koden på iPhone og Android · ceo/wifi-scan-guide
+- DEPLOY OK 2026-10-09: forsiden viser generatoren først på mobil, previewen lå før folden · ceo/home-generator-first
+- VERIFICÉR DEPLOY: `?v=`-tokenet er et indholds-hash, så ny app.js/style.css ikke serveres fra Cloudflare-cachen · ceo/cache-bust-assets · 2026-10-09 09:00
+- VERIFICÉR DEPLOY: `æøå` i QR-koder gemmes som UTF-8 · ceo/qr-encoding · 2026-10-09 01:28 (cache-blokeret indtil cache-busting er live)
+- VERIFICÉR DEPLOY: kalender-QR bærer den indtastede dato (midnat flyttede til dagen før) · ceo/calendar-date · 2026-10-09 01:28 (samme)
+- VERIFICÉR DEPLOY: vCard-tegn som ; , \ og : escapes korrekt i FN, ORG, TITLE og ADR · ceo/escape-vcard · 2026-10-09 07:50 (samme)

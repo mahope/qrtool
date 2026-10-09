@@ -74,3 +74,25 @@ Verificeret: `npm test` 57/57 grøn. De 6 nye tests i `test/wifi-content.test.js
 kørt mod master uden ændringerne — 5 af 6 fejler dér. Fakta om iOS 11 / Android 10 er
 tjekt op imod Apples og Googles dokumentation, ikke husket. Ingen ny CSS: sektionen
 bruger `.content-block` og `.guide-list`, som siden allerede bruger.
+
+## 2026-10-09 — Cache-busting af app.js/style.css (ceo/cache-bust-assets)
+
+Datagrund: live `/app.js?v=8` var 61.834 B med `cf-cache-status: HIT` og
+`last-modified: 03 Oct` — mens origin bag Cloudflare serverede den friske
+fil (62.038 B, `last-modified: 09 Oct 05:41`, med `stringToBytesFuncs`).
+Et nyt query-parameter gav `MISS` og den friske fil. Altså: origin havde
+dagens rettelser (æøå-kodning, kalenderdato, vCard-escaping), men hver
+bruger fik den gamle fil, fordi `nginx.conf` giver `.js`/`.css`
+`max-age=604800` (7 dage) og Cloudflare cacher pr. fuld URL — og HTML'ens
+`?v=8` var hardkodet og blev aldrig bumpet ved deploy.
+
+Rettelse: `build-version.js` harher (sha256, 10 tegn) over de byggede
+`app.js`, `style.css` og `lib/qrcode.js`; `build.js` stempler tokenet på
+hver `href`/`src` i `dist/` og på `sw.js` (både `?v=` og `CACHE_NAME`), så
+en ændret fil får en ny URL og et cache-miss. `?v=8` i kilderne er nu bare
+en pladsholder, som buildet overskriver.
+
+Verificeret: `npm test` 60/60 grøn. `test/cache-busting.test.js` (3 tests)
+fejler mod den gamle build (dist pegede på `?v=8`), og den ene test beviser
+at hashen ændrer sig, når `app.js` ændres. Cloudflare bekræftet manuelt:
+`?v=8` = HIT (gammel), nyt token = MISS (ny fil).

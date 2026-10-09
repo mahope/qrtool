@@ -57,4 +57,28 @@ execSync(`npx esbuild "${path.join(DIST, 'sw.js')}" --minify --outfile="${path.j
 console.log('Minifying lib/qrcode.js...');
 execSync(`npx esbuild "${path.join(DIST, 'lib', 'qrcode.js')}" --minify --outfile="${path.join(DIST, 'lib', 'qrcode.js')}" --allow-overwrite`, { stdio: 'inherit' });
 
+// Cache-busting: derive a token from the built asset contents and stamp it on
+// every reference. Cloudflare caches .js/.css per URL for 7 days, so without a
+// new token a deploy keeps serving the previous file.
+const { computeVersion, applyVersion } = require('./build-version');
+const VERSION = computeVersion(DIST);
+console.log(`Stamping cache-busting token ?v=${VERSION}...`);
+
+function stampHtml(dir) {
+    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+        const full = path.join(dir, entry.name);
+        if (entry.isDirectory()) {
+            stampHtml(full);
+        } else if (entry.name.endsWith('.html')) {
+            fs.writeFileSync(full, applyVersion(fs.readFileSync(full, 'utf8'), VERSION));
+        }
+    }
+}
+stampHtml(DIST);
+
+const swPath = path.join(DIST, 'sw.js');
+let sw = applyVersion(fs.readFileSync(swPath, 'utf8'), VERSION);
+sw = sw.replace(/CACHE_NAME\s*=\s*["'][^"']*["']/, `CACHE_NAME="qrtool-${VERSION}"`);
+fs.writeFileSync(swPath, sw);
+
 console.log('Build complete! Output in dist/');
