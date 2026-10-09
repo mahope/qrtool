@@ -61,3 +61,16 @@ To ting fandt testen straks og de er rykket ud i planens opgave 2 og 3:
 - Kalender-datoer flytter en dag ved midnat.
 
 `test/` kører alene uden build: `node --test`.
+
+## 2026-10-09 — ceo/wifi-scan-guide (afkrydset opgave 3)
+
+WiFi-siden er danses største underside (10 besøgende/28d, 8 indgange, bounce 100 %) og
+havde intet om det, folk rent faktisk spørger om: hvordan scanner man koden. Sektionen
+"Sådan fungerer det" handlede om at *lave* koden. Ny sektion med iPhone- og
+Android-gennemgang + caset for telefoner før Android 10, og JSON-LD: to HowTo (én pr.
+platform) og ét FAQPage med de fem allerede synlige spørgsmål i samme rækkefølge.
+
+Verificeret: `npm test` 57/57 grøn. De 6 nye tests i `test/wifi-content.test.js` er
+kørt mod master uden ændringerne — 5 af 6 fejler dér. Fakta om iOS 11 / Android 10 er
+tjekt op imod Apples og Googles dokumentation, ikke husket. Ingen ny CSS: sektionen
+bruger `.content-block` og `.guide-list`, som siden allerede bruger.

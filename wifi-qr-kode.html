@@ -77,6 +77,67 @@
       ]
     }
     </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "HowTo",
+          "name": "Sådan forbinder en gæst sig til dit WiFi på iPhone",
+          "description": "Gæsten scanner WiFi QR-koden med iPhone'ens indbyggede kamera og forbinder uden at taste adgangskoden.",
+          "totalTime": "PT1M",
+          "step": [
+            {"@type": "HowToStep", "name": "Slå QR-scanning til", "text": "Gå til Indstillinger → Kamera, og sørg for at Scan QR-koder er slået til."},
+            {"@type": "HowToStep", "name": "Åbn kameraet", "text": "Start den indbyggede kamera-app. Der er ingen knap at trykke på."},
+            {"@type": "HowToStep", "name": "Hold koden i billedet", "text": "Peg mod QR-koden, indtil den er skarp. iPhone'en genkender den automatisk."},
+            {"@type": "HowToStep", "name": "Tryk på notifikationen", "text": "Der popper en bjælke op i toppen med netværkets navn. Tryk på den."},
+            {"@type": "HowToStep", "name": "Tryk Forbind", "text": "iPhone'en lægger navn og adgangskode fra koden ind, og gæsten bekræfter med Forbind."}
+          ]
+        },
+        {
+          "@type": "HowTo",
+          "name": "Sådan forbinder en gæst sig til dit WiFi på Android",
+          "description": "Android-telefoner fra Android 10 læser WiFi QR-koden direkte i kamera-appen.",
+          "totalTime": "PT1M",
+          "step": [
+            {"@type": "HowToStep", "name": "Åbn kameraet", "text": "Start den indbyggede kamera-app."},
+            {"@type": "HowToStep", "name": "Hold koden i billedet", "text": "Koden genkendes, og telefonen foreslår at oprette forbindelse til netværket."},
+            {"@type": "HowToStep", "name": "Tryk Forbind", "text": "Telefonen lægger selv netværksnavn og adgangskode ind."}
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "Virker WiFi QR-koder på iPhone?",
+              "acceptedAnswer": {"@type": "Answer", "text": "Ja. iOS 11 og nyere læser WiFi QR-koden i den indbyggede kamera-app og tilbyder at forbinde til netværket uden at vise adgangskoden på skærmen."}
+            },
+            {
+              "@type": "Question",
+              "name": "Virker det på Android telefoner?",
+              "acceptedAnswer": {"@type": "Answer", "text": "Ja. Android 10 og nyere kan scanne WiFi QR-koder med kameraet. Ældre telefoner skal bruge en tredjepartsapp eller taste adgangskoden ind i stedet."}
+            },
+            {
+              "@type": "Question",
+              "name": "Er det sikkert at dele min WiFi adgangskode via QR-kode?",
+              "acceptedAnswer": {"@type": "Answer", "text": "Koden skal stå et sted, kun dine gæster kan komme til. Til offentlige steder er det bedre at have et separat gæstenetværk, hvis gæsterne ikke skal have adgang til dine øvrige enheder."}
+            },
+            {
+              "@type": "Question",
+              "name": "Kan jeg ændre mit WiFi password senere?",
+              "acceptedAnswer": {"@type": "Answer", "text": "Ja, men så skal du generere en ny QR-kode med den nye adgangskode. Den gamle kode holder op med at virke, og du skal lade alle trykkede steder skifte den ud."}
+            },
+            {
+              "@type": "Question",
+              "name": "Hvordan scanner jeg en WiFi QR-kode?",
+              "acceptedAnswer": {"@type": "Answer", "text": "Åbn kameraet på din telefon og hold koden i billedet. Telefonen genkender den, og du trykker på den notifikation, der fortæller, at den kan oprette forbindelse til netværket."}
+            }
+          ]
+        }
+      ]
+    }
+    </script>
 </head>
 <body>
     <div class="container">
@@ -243,6 +304,30 @@
                     <li><strong>Download & print:</strong> Download som PNG eller SVG og print den ud.</li>
                     <li><strong>Placer synligt:</strong> Sæt QR-koden op hvor gæster nemt kan scanne den.</li>
                 </ol>
+            </article>
+
+            <article class="content-block" id="saadan-scanner">
+                <h2>Sådan scanner gæster dit WiFi</h2>
+                <p>WiFi QR-koden pakker netværksnavn og adgangskode i én kode. Gæsten skal derfor hverken finde dit netværk i listen eller taste adgangskoden ind — de scanner bare koden med telefonens kamera.</p>
+
+                <h3>På iPhone og iPad (iOS 11 og nyere)</h3>
+                <ol class="guide-list">
+                    <li><strong>Slå QR-scanning til:</strong> Gå til Indstillinger → Kamera, og sørg for at "Scan QR-koder" er slået til. Er den slået fra, genkender iPhone'en slet ikke koden.</li>
+                    <li><strong>Åbn kameraet:</strong> Start den indbyggede kamera-app. Der er ingen knap at trykke på — bare hold koden op i billedet.</li>
+                    <li><strong>Hold koden i billedet:</strong> Gå tæt nok på til, at koden er skarp. Giver billedet stadig ikke lyd, så hold en arm's afstand og lys på koden.</li>
+                    <li><strong>Tryk på notifikationen:</strong> Der popper en bjælke op i toppen med netværkets navn. Tryk på den.</li>
+                    <li><strong>Tryk Forbind:</strong> iPhone'en lægger selv navn og adgangskode ind. Gæsten bekræfter med Forbind, og adgangskoden bliver aldrig vist i klar tekst.</li>
+                </ol>
+
+                <h3>På Android (Android 10 og nyere)</h3>
+                <ol class="guide-list">
+                    <li><strong>Åbn kameraet:</strong> Den indbyggede kamera-app læser WiFi QR-koder direkte.</li>
+                    <li><strong>Hold koden i billedet:</strong> Koden genkendes, og telefonen foreslår at oprette forbindelse til netværket.</li>
+                    <li><strong>Tryk Forbind:</strong> Telefonen lægger selv netværksnavn og adgangskode ind.</li>
+                </ol>
+
+                <h3>Når gæstens telefon er ældre end Android 10</h3>
+                <p>Android-telefoner før Android 10 kan ikke læse WiFi-koden med kameraet, medmindre gæsten bruger en tredjepartsapp. Skriv derfor altid netværksnavn og adgangskode som tekst ved siden af koden — så kan alle være med, også dem med ældre telefoner. Og test gerne koden med to forskellige telefoner, inden du hænger den op: en iPhone og en Android, hvis du har begge dele.</p>
             </article>
 
             <article class="content-block">

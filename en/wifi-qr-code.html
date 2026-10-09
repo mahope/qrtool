@@ -77,6 +77,67 @@
       ]
     }
     </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "HowTo",
+          "name": "How a guest joins your WiFi on an iPhone",
+          "description": "The guest scans the WiFi QR code with the built-in iPhone camera and connects without typing the password.",
+          "totalTime": "PT1M",
+          "step": [
+            {"@type": "HowToStep", "name": "Turn on QR scanning", "text": "Go to Settings, Camera, and make sure Scan QR Codes is switched on."},
+            {"@type": "HowToStep", "name": "Open the camera", "text": "Start the built-in camera app. There is no button to press, just hold the code in view."},
+            {"@type": "HowToStep", "name": "Frame the code", "text": "Move close enough for the code to be sharp. If it still does not read, hold it at arm's length with light on the code."},
+            {"@type": "HowToStep", "name": "Tap the notification", "text": "A banner appears at the top with the network name. Tap it."},
+            {"@type": "HowToStep", "name": "Tap Join", "text": "The iPhone fills in the network name and password from the code, and the guest confirms with Join."}
+          ]
+        },
+        {
+          "@type": "HowTo",
+          "name": "How a guest joins your WiFi on Android",
+          "description": "Android phones from Android 10 read the WiFi QR code directly in the camera app.",
+          "totalTime": "PT1M",
+          "step": [
+            {"@type": "HowToStep", "name": "Open the camera", "text": "Start the built-in camera app."},
+            {"@type": "HowToStep", "name": "Frame the code", "text": "The code is recognised and the phone offers to connect to the network."},
+            {"@type": "HowToStep", "name": "Tap Join", "text": "The phone fills in the network name and password itself."}
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "Do WiFi QR codes work on iPhone?",
+              "acceptedAnswer": {"@type": "Answer", "text": "Yes. iOS 11 and newer read the WiFi QR code in the built-in camera app and offer to join the network without showing the password on screen."}
+            },
+            {
+              "@type": "Question",
+              "name": "Does it work on Android phones?",
+              "acceptedAnswer": {"@type": "Answer", "text": "Yes. Android 10 and newer can scan WiFi QR codes with the camera. Older phones need a third-party app or have to type the password in."}
+            },
+            {
+              "@type": "Question",
+              "name": "Is it safe to share my WiFi password via QR code?",
+              "acceptedAnswer": {"@type": "Answer", "text": "Put the code somewhere only your guests can reach. For public places it is better to run a separate guest network, so guests do not get access to your other devices."}
+            },
+            {
+              "@type": "Question",
+              "name": "Can I change my WiFi password later?",
+              "acceptedAnswer": {"@type": "Answer", "text": "Yes, but then you have to generate a new QR code with the new password. The old code stops working, and every printed copy has to be replaced."}
+            },
+            {
+              "@type": "Question",
+              "name": "How do I scan a WiFi QR code?",
+              "acceptedAnswer": {"@type": "Answer", "text": "Open the camera app on your phone and hold the code in view. The phone recognises it, and you tap the notification that says it can join the network."}
+            }
+          ]
+        }
+      ]
+    }
+    </script>
 </head>
 <body>
     <div class="container">
@@ -243,6 +304,30 @@
                     <li><strong>Download & print:</strong> Download as PNG or SVG and print it out.</li>
                     <li><strong>Place visually:</strong> Put the QR code where guests can easily scan it.</li>
                 </ol>
+            </article>
+
+            <article class="content-block" id="how-guests-scan">
+                <h2>How Your Guests Scan the Code</h2>
+                <p>The WiFi QR code packs the network name and the password into a single code. Guests never have to find your network in the list or type a password — they just scan the code with the camera on their phone.</p>
+
+                <h3>On iPhone and iPad (iOS 11 and newer)</h3>
+                <ol class="guide-list">
+                    <li><strong>Turn on QR scanning:</strong> Go to Settings, Camera, and make sure "Scan QR Codes" is switched on. With it off, the iPhone does not recognise the code at all.</li>
+                    <li><strong>Open the camera:</strong> Start the built-in camera app. There is no button to press — just hold the code in view.</li>
+                    <li><strong>Frame the code:</strong> Move close enough for the code to be sharp. If it still does not read, hold it at arm's length with light on the code.</li>
+                    <li><strong>Tap the notification:</strong> A banner appears at the top of the screen with the network name. Tap it.</li>
+                    <li><strong>Tap Join:</strong> The iPhone fills in the network name and password by itself. The guest confirms with Join, and the password is never shown in plain text.</li>
+                </ol>
+
+                <h3>On Android (Android 10 and newer)</h3>
+                <ol class="guide-list">
+                    <li><strong>Open the camera:</strong> The built-in camera app reads WiFi QR codes directly.</li>
+                    <li><strong>Frame the code:</strong> The code is recognised, and the phone offers to connect to the network.</li>
+                    <li><strong>Tap Join:</strong> The phone fills in the network name and password itself.</li>
+                </ol>
+
+                <h3>If a guest is on Android older than Android 10</h3>
+                <p>Android phones before Android 10 cannot read the WiFi code with the camera unless the guest uses a third-party app. So always print the network name and password as text next to the code — that way everyone can get online, including people with older phones. If you own both, test the code on one iPhone and one Android before you put it up.</p>
             </article>
 
             <article class="content-block">
