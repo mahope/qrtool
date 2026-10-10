@@ -263,3 +263,11 @@ tekst ikke driver fra hinanden. DA+EN. Gate 193/193 (9 nye tests i test/email-co
 8 af 9 fejlede på master — de tjekker bl.a. at markerede og synlige FAQ'er er identiske og i
 samme rækkefølge, og at "300 tegn"-påstanden er den samme i tekst og markup).
 MÅL: `/en/email-qr-code` CTR fra 1,0 % (299v, 3 klik, pos. 8,9) til over 3 % pr. 2026-11-05.
+
+## 2026-10-10 — Telefon- og WhatsApp-QR-koder i generatoren (ceo/phone-whatsapp-qr)
+Feature-køens øverste punkt: konkurrenter tilbyder telefon- og WhatsApp-koder, vores
+generator manglede begge. Ny fane "Telefon" (tel:-link bygget fra det tastede nummer —
+mellemrum, punktummer og streger fjernes, + landekode bevares, og under seks cifre
+afvises) og WhatsApp som platform i Social-fanen (wa.me-link, kun cifre; navne uden
+cifre afvises). Begge sprog; live-preview viser linket mens der skrives. Accept: ny fane
++ test. Gate 204/204 (11 nye tests i test/phone-link.test.js, 6 af 11 fejlede på master).

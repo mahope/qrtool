@@ -236,6 +236,7 @@
                     <button class="tab-button" data-tab="payment"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg> Payment</button>
                     <button class="tab-button" data-tab="social"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg> Social</button>
                     <button class="tab-button" data-tab="app"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg> App</button>
+                    <button class="tab-button" data-tab="phone"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg> Phone</button>
                 </div>
 
                 <!-- Text/URL Tab Content -->
@@ -372,6 +373,7 @@
                         <select id="socialPlatform">
                             <option value="instagram">Instagram</option>
                             <option value="facebook">Facebook</option>
+                            <option value="whatsapp">WhatsApp</option>
                             <option value="linkedin">LinkedIn</option>
                             <option value="tiktok">TikTok</option>
                             <option value="youtube">YouTube</option>
@@ -403,6 +405,16 @@
                         <span class="field-error" id="appIdError"></span>
                     </div>
                     <p class="cta-hint" id="appPreviewUrl"></p>
+                </div>
+
+                <!-- Phone Tab Content -->
+                <div class="tab-content" data-content="phone">
+                    <div class="form-group">
+                        <label for="phoneNumber">Phone number:</label>
+                        <input type="tel" id="phoneNumber" placeholder="+45 12 34 56 78">
+                        <span class="field-error" id="phoneNumberError"></span>
+                    </div>
+                    <p class="cta-hint">Starts a call when scanned: <span id="phonePreview"></span></p>
                 </div>
 
                 <!-- Geo Location Tab Content -->

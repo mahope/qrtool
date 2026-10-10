@@ -47,6 +47,9 @@ const T = {
         'err.mobilepayRequired': 'Telefonnummer er påkrævet.',
         'err.appRequired': 'App-ID eller link er påkrævet.',
         'err.appInvalid': 'Indtast et app-ID (fx id123456789) eller et link, der starter med https://',
+        'err.phoneRequired': 'Telefonnummer er påkrævet.',
+        'err.phoneInvalid': 'Indtast et telefonnummer med mindst seks cifre (fx +45 12 34 56 78).',
+        'err.whatsappInvalid': 'WhatsApp-koder bruger et telefonnummer — indtast cifrene (fx 4512345678).',
 
         // Toast messages
         'toast.generated': 'QR-kode genereret!',
@@ -106,6 +109,7 @@ const T = {
         'type.payment': 'Betaling',
         'type.social': 'Social',
         'type.app': 'App',
+        'type.phone': 'Telefon',
 
         // Aria / Announcements
         'aria.qrGenerated': 'QR-kode genereret for {type}: {preview}',
@@ -213,6 +217,9 @@ const T = {
         'err.mobilepayRequired': 'Phone number is required.',
         'err.appRequired': 'App ID or link is required.',
         'err.appInvalid': 'Enter an app ID (e.g. id123456789) or a link starting with https://',
+        'err.phoneRequired': 'Phone number is required.',
+        'err.phoneInvalid': 'Enter a phone number with at least six digits (e.g. +45 12 34 56 78).',
+        'err.whatsappInvalid': 'WhatsApp codes use a phone number — enter the digits (e.g. 4512345678).',
 
         // Toast messages
         'toast.generated': 'QR code generated!',
@@ -272,6 +279,7 @@ const T = {
         'type.payment': 'Payment',
         'type.social': 'Social',
         'type.app': 'App',
+        'type.phone': 'Phone',
 
         // Aria / Announcements
         'aria.qrGenerated': 'QR code generated for {type}: {preview}',
@@ -432,7 +440,7 @@ if (contrastToggle) {
 // Tab management
 const tabButtons = document.querySelectorAll('.tab-button');
 const tabContents = document.querySelectorAll('.tab-content');
-const tabOrder = ['text', 'wifi', 'vcard', 'email', 'sms', 'calendar', 'geo', 'payment', 'social', 'app'];
+const tabOrder = ['text', 'wifi', 'vcard', 'email', 'sms', 'calendar', 'geo', 'payment', 'social', 'app', 'phone'];
 let currentTab = 'text';
 
 function switchToTab(tabName, { autoFocus = true } = {}) {
@@ -1166,6 +1174,12 @@ function getQRData() {
             const socialUsername = document.getElementById('socialUsername').value.trim();
             if (!socialUsername) return null;
 
+            if (socialPlatform === 'whatsapp') {
+                const waDigits = socialUsername.replace(/\D/g, '');
+                if (!waDigits) return null;
+                return `https://wa.me/${waDigits}`;
+            }
+
             const socialUrls = {
                 instagram: `https://instagram.com/${socialUsername}`,
                 facebook: `https://facebook.com/${socialUsername}`,
@@ -1192,6 +1206,13 @@ function getQRData() {
             const appIdDigits = appInput.replace(/^id/i, '').replace(/\D/g, '');
             if (!appIdDigits) return null;
             return `https://apps.apple.com/app/id${appIdDigits}`;
+
+        case 'phone':
+            const phoneRaw = document.getElementById('phoneNumber').value.trim();
+            if (!phoneRaw) return null;
+            const phoneDigits = phoneRaw.replace(/[^\d+]/g, '').replace(/(?!^)\+/g, '');
+            if (phoneDigits.replace(/\D/g, '').length < 6) return null;
+            return `tel:${phoneDigits}`;
 
         default:
             return null;
@@ -1319,8 +1340,12 @@ function validateForm() {
         }
         case 'social': {
             const sUser = document.getElementById('socialUsername').value.trim();
+            const sPlatform = document.getElementById('socialPlatform').value;
             if (!sUser) {
                 setFieldError('socialUsername', t('err.usernameRequired'));
+                valid = false;
+            } else if (sPlatform === 'whatsapp' && !/\d/.test(sUser)) {
+                setFieldError('socialUsername', t('err.whatsappInvalid'));
                 valid = false;
             }
             break;
@@ -1356,6 +1381,18 @@ function validateForm() {
                     setFieldError('appId', t('err.appInvalid'));
                     valid = false;
                 }
+            }
+            break;
+        }
+        case 'phone': {
+            const phone = document.getElementById('phoneNumber').value.trim();
+            const digits = phone.replace(/[^\d+]/g, '').replace(/(?!^)\+/g, '').replace(/\D/g, '');
+            if (!phone) {
+                setFieldError('phoneNumber', t('err.phoneRequired'));
+                valid = false;
+            } else if (digits.length < 6) {
+                setFieldError('phoneNumber', t('err.phoneInvalid'));
+                valid = false;
             }
             break;
         }
@@ -2538,7 +2575,8 @@ const typeLabels = {
     'geo': t('type.geo'),
     'payment': t('type.payment'),
     'social': t('type.social'),
-    'app': t('type.app')
+    'app': t('type.app'),
+    'phone': t('type.phone')
 };
 
 function saveToHistory(text, type) {
@@ -2855,6 +2893,11 @@ function updateSocialPreview() {
     if (!socialPlatform || !socialUsername || !socialPreviewUrl) return;
     const user = socialUsername.value.trim();
     if (!user) { socialPreviewUrl.textContent = ''; return; }
+    if (socialPlatform.value === 'whatsapp') {
+        const waDigits = user.replace(/\D/g, '');
+        socialPreviewUrl.textContent = waDigits ? `wa.me/${waDigits}` : '';
+        return;
+    }
     const urls = {
         instagram: `instagram.com/${user}`,
         facebook: `facebook.com/${user}`,
@@ -2893,6 +2936,21 @@ function updateAppPreview() {
 
 if (appPlatformSelect) appPlatformSelect.addEventListener('change', updateAppPreview);
 if (appIdInput) appIdInput.addEventListener('input', updateAppPreview);
+
+// ===========================================
+// Phone number preview
+// ===========================================
+const phoneInput = document.getElementById('phoneNumber');
+const phonePreview = document.getElementById('phonePreview');
+
+function updatePhonePreview() {
+    if (!phoneInput || !phonePreview) return;
+    const value = phoneInput.value.trim();
+    const digits = value.replace(/[^\d+]/g, '').replace(/(?!^)\+/g, '');
+    phonePreview.textContent = digits ? `tel:${digits}` : '';
+}
+
+if (phoneInput) phoneInput.addEventListener('input', updatePhonePreview);
 
 // ===========================================
 // Payment type toggle (PayPal / MobilePay)
