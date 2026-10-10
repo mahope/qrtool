@@ -1,6 +1,10 @@
 # IMPLEMENTATION_PLAN — qrtool.dk
 
 STATUS:
+- ⚠️ DEPLOYER-SPRUNGET VINDUE 2026-10-10 07:4x: 07:30-vinduet gik uden at live blev opdateret
+  (build stadig 2026-10-09 19:41 UTC). Fem commits venter. Hvis 12:30 også springer over → 2 vinduer
+  → DEPLOY-MISSING og stop for merge til master (se "Verificér deploy"). ❓ Til Mads: kan batch-deployeren
+  køre for qrtool.dk?
 - Gate: `npm test` = `npm run build` + `node --test` (159 tests). 159/159 grønne pr. 2026-10-10 07:4x.
 - 2026-10-09: App-store-link som QR-type landet (ceo/app-link): ny "App"-fane der bygger
   App Store- og Google Play-links fra et ID eller et indsat link, med live forhåndsvisning. DA+EN.
@@ -84,12 +88,13 @@ ceo/history-opt-in. (2) "30-dages stopregel" — kun BACKLOG-tekst, ingen kode; 
 får opmærksomhed.
 
 ## Verificér deploy
-- VERIFICÉR DEPLOY: undersidernes printværktøjer (mm/PDF/JPG/WebP/scan-kontrol) ceo/subpage-print-scan
-  2026-10-10 07:4x — tjek ved næste vindue at fx https://qrtool.dk/wifi-qr-kode henter
-  `lib/qr-page.js` og tilbyder PDF.
-- AFVENTER VERIFICERING (share-billeder): /og-image.png og /og-image-en.png gav stadig 404 live
-  2026-10-10 00:0x med cache-bust — merge 1e51906 (22:45 d. 9/10) er nyere end sidste
-  deploy-vindue (21:30). Verificer https://qrtool.dk/og-image.png ved vinduet 07:30: skal give 200
-  og content-type image/png. To vinduer uden live = DEPLOY-MISSING og stop for merge til master.
-- AFVENTER VERIFICERING (CSV-import): tjek ved næste deploy-vindue at live
-  https://qrtool.dk/app.js indeholder `csvToBatchValues` (curl + grep). ceo/csv-import.
+- DEPLOY-STAND 2026-10-10 07:4x: live build er stadig fra 2026-10-09 19:41 UTC (last-modified på
+  `app.js`). Vinduet 07:30 er gået uden at noget nyt er live. Alt merget efter det commit
+  (1e51906 22:43, 2c66537, f65fbee, 7498bf3, a463b81) mangler på live. Ét vindue sprunget over.
+- SHARE-BILLEDER (1e51906): /og-image.png og /og-image-en.png giver fortsat 404 live
+  2026-10-10 07:4x med cache-bust. Tjek igen når en ny build er live (next: vinduet 12:30):
+  skal give 200 + image/png. To vinduer uden live = DEPLOY-MISSING + stop for merge til master.
+- CSV-IMPORT (f65fbee): live app.js indeholder ikke `csvToBatchValues`. Tjek igen når en ny
+  build er live. To vinduer uden live = DEPLOY-MISSING + stop for merge til master.
+- UNDERSIDERNES PRINTVÆRKTØJER (a463b81): kan ikke verificeres før en ny build er live.
+  Tjek: https://qrtool.dk/wifi-qr-kode henter `lib/qr-page.js` og tilbyder PDF i formatvælgeren.
