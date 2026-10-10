@@ -6,15 +6,16 @@ STATUS:
   (ceo/email-guide) live — "Telefon"-fanen og wa.me i den live app.js, "ét scan"-
   afsnittet og FAQPage-JSON-LD med seks spørgsmål på begge sprog. Share-billederne
   giver fortsat 200 image/png (19:3x og 23:2x).
-- 2026-10-10: print-arket deler store batches over flere A4-sider i én PDF
-  (ceo/multi-page-print-sheet) — 100 koder giver nu tre sider i stedet for afvisning.
-- Gate: `npm test` = `npm run build` + `node --test` (208 tests). 208/208 grønne
-  pr. 2026-10-10 23:1x.
+- 2026-10-11: download-knappen ved resultatet på alle 12 QR-typesider (ceo/result-first-subpages).
+- Gate: `npm test` = `npm run build` + `node --test` (210 tests). 210/210 grønne
+  pr. 2026-10-11 02:0x.
 - MÅL: `/` baseline 151 besøgende/28 d, bounce 90 % → under 75 % pr. 2026-11-05.
 - MÅL: Facebook-kilder 46 af 206 besøgende → 60+ pr. 2026-11-05 (share-preview live).
 - MÅL: `/en/calendar-qr-code` CTR 0,4 % (566v, 2 klik, pos. 11,0) → over 2 % pr. 2026-10-24.
 - MÅL: `/sms-qr-kode` CTR 3,9 % (102v, 4 klik, pos. 10,7) → over 6 % pr. 2026-10-24.
 - MÅL: `/en/email-qr-code` CTR 1,0 % (299v, 3 klik, pos. 8,9) → over 3 % pr. 2026-11-05.
+- MÅL: typesiderne samlet 1 235 visninger/28 d (GSC) med Download ved inputfeltet → flyttet
+  til resultatet 2026-10-11 (ceo/result-first-subpages). Måles som scroll-depth/bounce pr. 2026-11-05.
 - MÅL: `/scan-qr-kode` ny side ("scan qr kode gratis" 48v pos. 9) → CTR > 3 % pr. 2026-11-05.
 - PR-TJEK 2026-10-10: ingen åbne PR'er.
 - BRANCH-TJEK 2026-10-10: intet nyt at rydde.
@@ -29,12 +30,13 @@ Baseline (Plausible, 28 dage til 2026-10-08): 206 besøgende, 289 sidevisninger,
 
 ### Åbne opgaver
 
-1. Telefon- og WhatsApp-QR-koder landet 2026-10-10 (ceo/phone-whatsapp-qr); print-ark over
-   flere sider landet 2026-10-10 (ceo/multi-page-print-sheet). Næste kandidater (vælges
-   efter effekt): `/` som værktøj først (151 besøgende, 90 % bounce), Google-Maps-
-   anmeldelse som QR-type, eller CTR-løft på `/tekst-qr-kode` fra feature-køen.
+1. Næste feature efter ceo/result-first-subpages: Google Maps-anmeldelse som QR-type
+   (place-ID-felt med vejledning) eller et digitalt-visitkort-eksempel på `/vcard-qr-kode`.
+   `/` er 151 besøgende med 90 % bounce; mobile-first og result-first er lige landet, så
+   effekten måles først 2026-11-05.
 
-Afsluttede opgaver (scan-kontrol, hvid zone, mm-download, EN-generator-først,
+Afsluttede opgaver (download-knap ved resultatet på alle typer, telefon-/WhatsApp-QR,
+multi-side print-ark, scan-kontrol, hvid zone, mm-download, EN-generator-først,
 share-billeder, vCard-title/FAQ, CSV-import, batch-PDF, undersidernes print-/scan-værktøjer,
 sms-vejledning, kalender-vejledning) står i `docs/plan-arkiv.md`.
 
@@ -57,11 +59,12 @@ sms-vejledning, kalender-vejledning) står i `docs/plan-arkiv.md`.
   eneste undtagelse fra reglen om ingen nye afhængigheder.
 
 ### Feature-kø (prioriteret)
-- **`/` som værktøj først:** LANDET 2026-10-11 (ceo/mobile-first). Download-knappen
-   flyttet fra input-sektionen til preview-sektionen (ved resultatet), scroll til
-   resultat efter generering på mobil. VERIFICÉR DEPLOY: download-knap ved resultat +
-   scroll efter generering på `/` og `/en/` · ceo/mobile-first · 2026-10-11 00:4x.
-   Accept: bounce under 75 % pr. 2026-11-05.
+- **`/` som værktøj først:** LANDET 2026-10-11 (ceo/mobile-first) og færdiggjort på alle
+   typer 2026-10-11 (ceo/result-first-subpages). Accept: bounce under 75 % pr. 2026-11-05.
+- **Google-Maps-anmeldelse som QR-type:** konkurrenter tilbyder "skriv en anmeldelse"-koder.
+   Kræver en place-ID fra Google, så felterne skal gøre det tydeligt. Accept: ny fane + test.
+- **`/guides/qr-koder-til-restauranter`:** 67 visninger, pos. 11,7, 0 klik. Næststørste
+   danske guide uden klik. Accept: CTR > 2 % pr. 2026-11-05.
 - **CTR-løft på `/tekst-qr-kode`:** 93v, pos. 30,8, 0 klik. Omskriv title/description mod
    "url kode"/"statisk qr kode". MÅL: CTR > 2 % pr. 2026-11-05.
 - **vCard-konvertering:** 121v, 0 klik, pos. 13. Efter title/FAQ-landingen måles CTR igen;
@@ -80,3 +83,8 @@ får opmærksomhed.
 - VERIFICÉR DEPLOY: download-knap ved resultat + scroll efter generering på `/` og
   `/en/` · ceo/mobile-first · 2026-10-11 00:4x. Verificér live: efter klik på
   "Generer" på mobil skal resultatet + download-knap være synlige uden scroll.
+  Første batch-vindue efter merge: 07:30 2026-10-11.
+- VERIFICÉR DEPLOY: Download-knappen sidder i `.preview-actions` under QR-resultatet på alle
+  12 typesider (begge sprog) · ceo/result-first-subpages · 2026-10-11 02:0x.
+  Verificér live: `curl -s https://qrtool.dk/wifi-qr-kode | grep -c 'preview-actions'` skal
+  være 1, og samme for de øvrige typer. Første batch-vindue efter merge: 07:30 2026-10-11.

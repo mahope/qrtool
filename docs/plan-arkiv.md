@@ -285,3 +285,15 @@ under knappen. DA+EN. Gate 208/208 (9 tests i test/batch-sheet.test.js; 4 af dem
 master — herunder klik-testen, der downloader en 100-koders batch og tæller sider i PDF'en,
 og et xref-tjek, der afslørede en reel off-by-one i den nye builder: xref-tabellen påstod
 et objekt for meget).
+
+## 2026-10-11 — Download-knappen ved resultatet på alle typer (ceo/result-first-subpages)
+Forsiden fik 2026-10-10 sin download-knap flyttet fra inputsektionen til `.preview-actions`
+under QR-resultatet, men de 12 QR-typesider (wifi, vcard, kalender, sms, email, tekst — DA
++ EN) havde den stadig ved felterne. Det er præcis de sider, Google sender trafik til:
+1 235 visninger i 28 dage (`/en/calendar-qr-code` 531, `/en/email-qr-code` 299,
+`/vcard-qr-kode` 118, `/sms-qr-kode` 99, `/wifi-qr-kode` 95, `/tekst-qr-kode` 93), og på
+mobil ligger forudsigtningsboksen under formularen, så knappen lå uden for syn. Samme
+behandling på alle 14 generatorsider nu, og `test/site.test.js` låser det: Download skal
+komme efter `qrPreview`, ligge i `.preview-actions`, og der må være præcis én pr. side
+(fejler på master, grøn med rettelsen). Scroll-til-resultat-logikken i `app.js` var
+generisk og virkede allerede på undersiderne. Gate 210/210.

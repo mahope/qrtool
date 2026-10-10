@@ -304,3 +304,38 @@ test('tool pages: the Danish and English pages carry translated print size copy'
         assert.ok(!read(en).includes(daText), `${en} must not show Danish copy`);
     }
 });
+
+// ------------------------------------------------- downloadknappen ved resultatet
+// På telefonen ligger forudsigtningsboksen under formularen. Hvis Download ligger
+// ved inputfelterne, skal brugeren rulle op og ned igen for at finde den.
+
+const GENERATOR_PAGES = [
+    'index.html', 'en/index.html',
+    'wifi-qr-kode.html', 'vcard-qr-kode.html', 'kalender-qr-kode.html',
+    'sms-qr-kode.html', 'email-qr-kode.html', 'tekst-qr-kode.html',
+    'en/wifi-qr-code.html', 'en/vcard-qr-code.html', 'en/calendar-qr-code.html',
+    'en/sms-qr-code.html', 'en/email-qr-code.html', 'en/text-qr-code.html'
+];
+
+test('generator pages: the download button sits at the result, not by the inputs', () => {
+    for (const rel of GENERATOR_PAGES) {
+        const html = read(rel);
+        const preview = html.indexOf('id="qrPreview"');
+        const download = html.indexOf('id="downloadBtn"');
+        const generate = html.indexOf('id="generateBtn"');
+        assert.ok(preview > 0, `${rel} has a preview element`);
+        assert.ok(download > preview, `${rel} places Download after the preview`);
+        assert.ok(generate < preview, `${rel} keeps Generate by the inputs`);
+
+        const actions = html.slice(preview, download);
+        assert.match(actions, /class="button-group preview-actions"/,
+            `${rel} wraps Download in the preview action row`);
+    }
+});
+
+test('generator pages: there is exactly one download button per page', () => {
+    for (const rel of GENERATOR_PAGES) {
+        const hits = read(rel).match(/id="downloadBtn"/g) || [];
+        assert.equal(hits.length, 1, `${rel} has one Download button`);
+    }
+});
