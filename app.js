@@ -2109,6 +2109,34 @@ function hideBatchProgress() {
     if (batchProgressFill) batchProgressFill.style.width = '0%';
 }
 
+// What the batch ZIP gets for a format. PDF must become a real PDF file, not
+// PNG bytes with a .pdf name.
+function batchOutput(format) {
+    if (format === 'svg') return { ext: 'svg', mime: 'image/svg+xml' };
+    if (format === 'pdf') return { ext: 'pdf', mime: 'application/pdf' };
+    return { ext: format, mime: `image/${format === 'jpg' ? 'jpeg' : format}` };
+}
+
+// Canvas to a print-ready PDF — at the print size when the user has set one,
+// otherwise centred on A4. Same builder as the single-code download.
+async function canvasToPdfBlob(canvas, mm) {
+    const jpeg = await new Promise((resolve, reject) => {
+        canvas.toBlob(blob => {
+            if (!blob) {
+                reject(new Error('Could not read the canvas.'));
+                return;
+            }
+            blob.arrayBuffer()
+                .then(buf => resolve(new Uint8Array(buf)))
+                .catch(reject);
+        }, 'image/jpeg', 0.95);
+    });
+
+    return mm
+        ? buildPrintPDF(jpeg, canvas.width, canvas.height, mm)
+        : buildPDF(jpeg, canvas.width, canvas.height);
+}
+
 // Preview batch QR codes
 if (batchPreviewBtn && batchInput) {
     batchPreviewBtn.addEventListener('click', () => {
@@ -2177,10 +2205,13 @@ if (batchGenerateBtn && batchInput) {
 
         try {
             const zip = new JSZip();
-            const size = parseInt(qrSize.value);
             const format = fileFormat.value;
             const ecLevel = errorCorrection.value;
             const style = qrStyle.value;
+            const size = parseInt(qrSize.value);
+            const mm = format === 'pdf' ? parsePrintSizeMm() : null;
+            // At 300 dpi once a print size is chosen, otherwise the picked pixel size
+            const renderSize = mm ? mmToPixels(mm) : size;
 
             for (let i = 0; i < lines.length; i++) {
                 const text = lines[i];
@@ -2191,13 +2222,18 @@ if (batchGenerateBtn && batchInput) {
                 if (format === 'svg') {
                     const svg = toSvgString(qr, QUIET_ZONE_MODULES, style);
                     zip.file(`qr-${i + 1}.svg`, svg);
+                } else if (format === 'pdf') {
+                    const canvas = document.createElement('canvas');
+                    drawCanvas(qr, renderSize, canvas, style);
+                    zip.file(`qr-${i + 1}.pdf`, await canvasToPdfBlob(canvas, mm));
                 } else {
                     const canvas = document.createElement('canvas');
-                    drawCanvas(qr, size, canvas, style);
+                    drawCanvas(qr, renderSize, canvas, style);
+                    const { ext, mime } = batchOutput(format);
                     const blob = await new Promise(resolve => {
-                        canvas.toBlob(resolve, `image/${format}`, 0.95);
+                        canvas.toBlob(resolve, mime, 0.95);
                     });
-                    zip.file(`qr-${i + 1}.${format}`, blob);
+                    zip.file(`qr-${i + 1}.${ext}`, blob);
                 }
 
                 updateBatchProgress(i + 1, lines.length);

@@ -22,6 +22,11 @@ STATUS:
 - PR-TJEK 2026-10-09 (2. gennemgang): dependabot-PR #2 (esbuild 0.27.7 → 0.28.1) landet som
   squash-commit. Ellers ingen åbne PR'er, ingen GitHub Actions — den lokale gate er eneste kontrol.
 - BRANCH-TJEK 2026-10-09: kun master + `bevaret/*`, intet at rydde.
+- 2026-10-10: Batch-eksport med PDF landet (ceo/batch-pdf): valgte man PDF, fik man
+  ZIP-filer med PNG-bytes og endelsen .pdf. Nu laves en rigtig PDF pr. kode, i
+  printstørrelsen (300 dpi) hvis den er sat, ellers A4. JPG fik korrekt image/jpeg.
+  Gate 137/137 (131 + 6 nye). VERIFICÉR DEPLOY: batch-PDF i ZIP-eksporten ceo/batch-pdf
+  2026-10-10 01:5x.
 
 ## Fase 3 — trafik-drevet
 
@@ -33,9 +38,13 @@ Baseline (Plausible, 28 dage til 2026-10-08): 206 besøgende, 289 sidevisninger,
 
 ### Åbne opgaver
 
-Ingen åbne egne opgaver lige nu. Næste kandidat: printklar PDF pr. kode i batch-eksporten
-(nedenfor). Afsluttede opgaver (scan-kontrol, hvid zone, mm-download, EN-generator-først,
-share-billeder, vCard-title/FAQ, CSV-import) står i `docs/plan-arkiv.md`.
+Ingen åbne egne opgaver lige nu. Næste kandidat: flyt de print-/scan-funktioner, der
+siden 8/10 er landet på `/`, ud på de seks QR-type-undersider (de har hver deres
+ældre inline-script: kun PNG/SVG, ingen mm/PDF/300 dpi, scan-kontrol eller H-fejlkorrektion).
+De sider bærer 900+ GSC-visninger pr. måned.
+
+Afsluttede opgaver (scan-kontrol, hvid zone, mm-download, EN-generator-først,
+share-billeder, vCard-title/FAQ, CSV-import, batch-PDF) står i `docs/plan-arkiv.md`.
 
 ### GSC-CTR-baselines (måles igen pr. 2026-10-23)
 - `/en/calendar-qr-code` 566v, 2 klik, CTR 0,4 %, pos. 11,0 — største enkelt-side uden for `/`.
@@ -56,8 +65,9 @@ share-billeder, vCard-title/FAQ, CSV-import) står i `docs/plan-arkiv.md`.
 - ✅ **App-store-link som QR-type.** Landet 2026-10-09 i ceo/app-link.
 - ✅ **Kontrastmåling i farvevælgeren.** Landet 2026-10-09 i ceo/contrast-readout: farveområdet
   viser WCAG-kontrastforholdet mellem kode og baggrund live (advarsel under 3:1), DA+EN.
-- **PDF i trykkvalitet til flere QR-typer / batch.** Eksporten findes for enkeltkoder; batch er kun ZIP
-  med PNG/SVG. Accept: printklar PDF pr. kode i batch. Datagrund: virksomheder printer mange koder.
+- ✅ **PDF i trykkvalitet i batch.** Landet 2026-10-10 i ceo/batch-pdf.
+- **Samme funktioner på QR-type-undersiderne.** Fortegn nederst i opgavelisten. Accept: en
+  WiFi-kode fra `/wifi-qr-kode` kan downloades i 300 dpi PDF. Datagrund: 5 af 6 GSC-sider.
 
 ## Bevaret arbejde
 `bevaret/2026-10-auto-union-night` (slet aldrig): (1) opt-in-historik — landet 2026-10-09 i

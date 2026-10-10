@@ -58,7 +58,9 @@ function loadApp(options = {}) {
     contrastLevel: ratio => contrastLevel(ratio),
     csvToBatchValues: text => csvToBatchValues(text),
     parseCsvRows: (text, delimiter) => parseCsvRows(text, delimiter),
-    detectCsvDelimiter: text => detectCsvDelimiter(text)
+    detectCsvDelimiter: text => detectCsvDelimiter(text),
+    batchOutput: format => batchOutput(format),
+    canvasToPdfBlob: (canvas, mm) => canvasToPdfBlob(canvas, mm)
 };`);
 
     factory(...names.map(name => injected[name]));
@@ -101,7 +103,9 @@ function loadApp(options = {}) {
         contrastLevel: ratio => bind.contrastLevel(ratio),
         csvToBatchValues: text => bind.csvToBatchValues(text),
         parseCsvRows: (text, delimiter) => bind.parseCsvRows(text, delimiter),
-        detectCsvDelimiter: text => bind.detectCsvDelimiter(text)
+        detectCsvDelimiter: text => bind.detectCsvDelimiter(text),
+        batchOutput: format => bind.batchOutput(format),
+        canvasToPdfBlob: (canvas, mm) => bind.canvasToPdfBlob(canvas, mm)
     };
 
     return api;
