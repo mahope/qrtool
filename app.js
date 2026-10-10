@@ -1476,6 +1476,14 @@ function generateQRCode() {
         qrPreview.setAttribute('tabindex', '-1');
         qrPreview.focus({ preventScroll: true });
 
+        // On phones the result sits below the form; scroll it into view after generating
+        if (window.matchMedia('(max-width: 968px)').matches) {
+            const previewTop = qrPreview.getBoundingClientRect().top;
+            if (previewTop < 0 || previewTop > window.innerHeight * 0.5) {
+                qrPreview.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
         // Announce to screen readers
         if (qrAnnouncement) {
             const label = t('type.' + currentTab) || currentTab;

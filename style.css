@@ -2807,6 +2807,10 @@ header p {
         max-width: 200px;
     }
 
+    .preview-actions {
+        margin-top: 1rem;
+    }
+
     .guide-list li {
         padding-left: 2.75rem;
     }

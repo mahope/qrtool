@@ -57,8 +57,10 @@ sms-vejledning, kalender-vejledning) står i `docs/plan-arkiv.md`.
   eneste undtagelse fra reglen om ingen nye afhængigheder.
 
 ### Feature-kø (prioriteret)
-- **`/` som værktøj først:** 151 besøgende, 90 % bounce. Generatoren er over folden;
-   mangler: et synligt, fungerende resultat og download uden scroll på mobil.
+- **`/` som værktøj først:** LANDET 2026-10-11 (ceo/mobile-first). Download-knappen
+   flyttet fra input-sektionen til preview-sektionen (ved resultatet), scroll til
+   resultat efter generering på mobil. VERIFICÉR DEPLOY: download-knap ved resultat +
+   scroll efter generering på `/` og `/en/` · ceo/mobile-first · 2026-10-11 00:4x.
    Accept: bounce under 75 % pr. 2026-11-05.
 - **CTR-løft på `/tekst-qr-kode`:** 93v, pos. 30,8, 0 klik. Omskriv title/description mod
    "url kode"/"statisk qr kode". MÅL: CTR > 2 % pr. 2026-11-05.
@@ -75,6 +77,6 @@ får opmærksomhed.
 
 ## Verificér deploy
 
-Ingen åbne noter pr. 2026-10-10 23:2x. Sidste tre merges (kalender-FAQ, scanner-sider,
-batch-print-ark, share-billeder, email-guide, telefon/WhatsApp) er bekræftet live ved
-indholdstjek — se STATUS og plan-arkivet.
+- VERIFICÉR DEPLOY: download-knap ved resultat + scroll efter generering på `/` og
+  `/en/` · ceo/mobile-first · 2026-10-11 00:4x. Verificér live: efter klik på
+  "Generer" på mobil skal resultatet + download-knap være synlige uden scroll.
