@@ -6,6 +6,7 @@ const ASSETS = [
     '/icon.svg',
     '/manifest.json',
     '/lib/qrcode.js',
+    '/lib/qr-page.js',
     '/lib/jszip.min.js',
     '/lib/jsQR.min.js',
     '/wifi-qr-kode',

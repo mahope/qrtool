@@ -1,7 +1,7 @@
 # IMPLEMENTATION_PLAN — qrtool.dk
 
 STATUS:
-- Gate: `npm test` = `npm run build` + `node --test` (131 tests). 131/131 grønne pr. 2026-10-10 01:3x.
+- Gate: `npm test` = `npm run build` + `node --test` (159 tests). 159/159 grønne pr. 2026-10-10 07:4x.
 - 2026-10-09: App-store-link som QR-type landet (ceo/app-link): ny "App"-fane der bygger
   App Store- og Google Play-links fra et ID eller et indsat link, med live forhåndsvisning. DA+EN.
 - 2026-10-09: Share-billeder landet (ceo/og-images): alle 14 og-image.png fand 404, så enhver
@@ -22,6 +22,11 @@ STATUS:
 - PR-TJEK 2026-10-09 (2. gennemgang): dependabot-PR #2 (esbuild 0.27.7 → 0.28.1) landet som
   squash-commit. Ellers ingen åbne PR'er, ingen GitHub Actions — den lokale gate er eneste kontrol.
 - BRANCH-TJEK 2026-10-09: kun master + `bevaret/*`, intet at rydde.
+- 2026-10-10: QR-type-undersiderne landet (ceo/subpage-print-scan): delt modul
+  `lib/qr-page.js` giver alle 12 undersider (DA+EN) hvid stillezone, fejlkorrektion H,
+  printstørrelse i mm → 300 dpi i PNG/JPG/WebP, PDF i præcis størrelse (eller A4),
+  JPG på hvid og en scan-kontrol efter generering — det samme forsiden har haft siden 8/10.
+  Kopien om downloadformaterne rettet (der er nu fem formater, ikke to). DA+EN. Gate 159/159.
 - 2026-10-10: Batch-eksport med PDF landet (ceo/batch-pdf): valgte man PDF, fik man
   ZIP-filer med PNG-bytes og endelsen .pdf. Nu laves en rigtig PDF pr. kode, i
   printstørrelsen (300 dpi) hvis den er sat, ellers A4. JPG fik korrekt image/jpeg.
@@ -38,13 +43,15 @@ Baseline (Plausible, 28 dage til 2026-10-08): 206 besøgende, 289 sidevisninger,
 
 ### Åbne opgaver
 
-Ingen åbne egne opgaver lige nu. Næste kandidat: flyt de print-/scan-funktioner, der
-siden 8/10 er landet på `/`, ud på de seks QR-type-undersider (de har hver deres
-ældre inline-script: kun PNG/SVG, ingen mm/PDF/300 dpi, scan-kontrol eller H-fejlkorrektion).
-De sider bærer 900+ GSC-visninger pr. måned.
+Ingen åbne egne opgaver lige nu. Næste kandidat: byg den konkrete vejledning ud på
+`/sms-qr-kode` og `/kalender-qr-kode` (sms 6 besøgende +20 %, kalender 6 +500 %), som
+wifi-siden fik: "sådan scanner gæster", FAQ med strukturerede data og interne links til
+de andre QR-typer. Accept: begge sider har en how-to-sektion + FAQPage-data med mindst tre
+spørgsmål, DA+EN, og gate grøn.
 
 Afsluttede opgaver (scan-kontrol, hvid zone, mm-download, EN-generator-først,
-share-billeder, vCard-title/FAQ, CSV-import, batch-PDF) står i `docs/plan-arkiv.md`.
+share-billeder, vCard-title/FAQ, CSV-import, batch-PDF, undersidernes print-/scan-værktøjer)
+står i `docs/plan-arkiv.md`.
 
 ### GSC-CTR-baselines (måles igen pr. 2026-10-23)
 - `/en/calendar-qr-code` 566v, 2 klik, CTR 0,4 %, pos. 11,0 — største enkelt-side uden for `/`.
@@ -66,8 +73,9 @@ share-billeder, vCard-title/FAQ, CSV-import, batch-PDF) står i `docs/plan-arkiv
 - ✅ **Kontrastmåling i farvevælgeren.** Landet 2026-10-09 i ceo/contrast-readout: farveområdet
   viser WCAG-kontrastforholdet mellem kode og baggrund live (advarsel under 3:1), DA+EN.
 - ✅ **PDF i trykkvalitet i batch.** Landet 2026-10-10 i ceo/batch-pdf.
-- **Samme funktioner på QR-type-undersiderne.** Fortegn nederst i opgavelisten. Accept: en
-  WiFi-kode fra `/wifi-qr-kode` kan downloades i 300 dpi PDF. Datagrund: 5 af 6 GSC-sider.
+- ✅ **Samme funktioner på QR-type-undersiderne.** Landet 2026-10-10 i ceo/subpage-print-scan:
+  printstørrelse, PDF, JPG/WebP, scan-kontrol og hvid zone på alle 12 undersider via
+  `lib/qr-page.js`. Accept (300 dpi PDF fra `/wifi-qr-kode`) dækket af test/subpage-features.test.js.
 
 ## Bevaret arbejde
 `bevaret/2026-10-auto-union-night` (slet aldrig): (1) opt-in-historik — landet 2026-10-09 i
@@ -76,6 +84,9 @@ ceo/history-opt-in. (2) "30-dages stopregel" — kun BACKLOG-tekst, ingen kode; 
 får opmærksomhed.
 
 ## Verificér deploy
+- VERIFICÉR DEPLOY: undersidernes printværktøjer (mm/PDF/JPG/WebP/scan-kontrol) ceo/subpage-print-scan
+  2026-10-10 07:4x — tjek ved næste vindue at fx https://qrtool.dk/wifi-qr-kode henter
+  `lib/qr-page.js` og tilbyder PDF.
 - AFVENTER VERIFICERING (share-billeder): /og-image.png og /og-image-en.png gav stadig 404 live
   2026-10-10 00:0x med cache-bust — merge 1e51906 (22:45 d. 9/10) er nyere end sidste
   deploy-vindue (21:30). Verificer https://qrtool.dk/og-image.png ved vinduet 07:30: skal give 200

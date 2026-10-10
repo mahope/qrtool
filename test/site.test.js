@@ -252,3 +252,55 @@ test('homepage: the desktop grid pins the preview to the right of both rows', ()
     assert.match(declarations, /grid-column:\s*2/, 'the preview is not pinned to the second column');
     assert.match(declarations, /grid-row:\s*1\s*\/\s*span\s*2/, 'the preview does not span both rows');
 });
+
+// ------------------------------------------------------------ undersidernes værktøjer
+
+// De seks QR-type-undersider ( og deres en/-spejle) deler printstørrelse,
+// PDF, scan-kontrol og quiet zone med forsiden via lib/qr-page.js. Uden
+// den wiring falder de tilbage til strenge uden hvid kant og til download
+// i skærmstørrelse, og det er præcis det gæsterne trykker fra.
+const TOOL_PAGES = [
+    'wifi-qr-kode.html', 'vcard-qr-kode.html', 'email-qr-kode.html',
+    'sms-qr-kode.html', 'kalender-qr-kode.html', 'tekst-qr-kode.html',
+    'en/wifi-qr-code.html', 'en/vcard-qr-code.html', 'en/email-qr-code.html',
+    'en/sms-qr-code.html', 'en/calendar-qr-code.html', 'en/text-qr-code.html'
+];
+
+test('tool pages: every subpage loads the shared QR helpers', () => {
+    for (const rel of TOOL_PAGES) {
+        const html = read(rel);
+        assert.ok(html.includes('<script src="/lib/jsQR.min.js"></script>'), `${rel} loads jsQR`);
+        assert.ok(html.includes('<script src="/lib/qr-page.js"></script>'), `${rel} loads lib/qr-page.js`);
+        assert.ok(html.includes('QRPage.download('), `${rel} downloads through QRPage`);
+        assert.ok(html.includes('QRPage.scheduleScanCheck('), `${rel} checks that the code scans`);
+    }
+});
+
+test('tool pages: print size, PDF and the scan status are on the page', () => {
+    for (const rel of TOOL_PAGES) {
+        const html = read(rel);
+        assert.ok(html.includes('id="printSizeMm"'), `${rel} has the print size field`);
+        assert.ok(html.includes('id="printSizeHint"'), `${rel} explains the print size`);
+        assert.equal((html.match(/class="print-preset"/g) || []).length, 3, `${rel} has three size presets`);
+        assert.ok(html.includes('id="scanStatus"'), `${rel} has a scan status element`);
+        // PDF er et af downloadformaterne, og det er det, printjob skal bruge
+        const formats = html.slice(html.indexOf('<select id="fileFormat">'), html.indexOf('</select>', html.indexOf('<select id="fileFormat">')));
+        assert.match(formats, /<option value="pdf">/, `${rel} offers PDF`);
+        assert.match(formats, /<option value="jpg">/, `${rel} offers JPG`);
+        assert.match(formats, /<option value="webp">/, `${rel} offers WebP`);
+    }
+});
+
+test('tool pages: the Danish and English pages carry translated print size copy', () => {
+    const pairs = [
+        ['wifi-qr-kode.html', 'en/wifi-qr-code.html', 'Printstørrelse', 'Print size'],
+        ['vcard-qr-kode.html', 'en/vcard-qr-code.html', 'Printstørrelse', 'Print size'],
+        ['kalender-qr-kode.html', 'en/calendar-qr-code.html', 'Printstørrelse', 'Print size'],
+        ['tekst-qr-kode.html', 'en/text-qr-code.html', 'Printstørrelse', 'Print size']
+    ];
+    for (const [da, en, daText, enText] of pairs) {
+        assert.ok(read(da).includes(daText), `${da} keeps the Danish label`);
+        assert.ok(read(en).includes(enText), `${en} has the English label`);
+        assert.ok(!read(en).includes(daText), `${en} must not show Danish copy`);
+    }
+});

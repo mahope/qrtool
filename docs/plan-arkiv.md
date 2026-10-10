@@ -195,3 +195,19 @@ foretrækker en genkendt header (url/link/tekst/…) og ellers den kolonne med f
 værdier (ellers længste værdier). Brugeren får besked om hvilken kolonne der blev brugt, og
 importen stopper ved 100 rækker (batch-grænsen). DA+EN. Gate 131/131 (16 nye tests i
 test/csv-import.test.js). Opgaven stod som åben #1 i planen.
+
+## 2026-10-10 — QR-type-undersiderne har nu forsidens print- og scanværktøjer
+De seks QR-type-undersider (wifi, vcard, email, sms, kalender, tekst) og deres tolvte en/-spejle
+havde hver deres lille inline-script med kun PNG/SVG-download: ingen hvid stillezone, ingen
+printstørrelse, ingen PDF, ingen scan-kontrol. Det var præcis det, gæster trykker fra, og siderne
+bærer 900+ GSC-visninger pr. måned.
+Fix: delt modul `lib/qr-page.js` — samme tegning som forsiden (4 modulers hvid kant,
+fejlkorrektion H), printstørrelse i mm → 300 dpi i PNG/JPG/WebP, PDF i præcis fysisk størrelse
+eller A4, JPG flættet på hvid, og en rådgivende scan-kontrol (jsQR) efter generering. Alle tolv
+sider bruger modulet; `build.js` minifierer det, `sw.js` pre-cacher det, `build-version.js`
+cache-buster det. DA+EN: også kopien om formater ("Download som PNG eller SVG" var blevet forkert
+med fem formater) og PDF/JPG/WebP i formatvælgeren.
+Gate 159/159 (22 nye tests): `test/subpage-features.test.js` dækker mm-omregning, PDF-geometri og
+xref-offsets, quiet zone i canvas og SVG, at jsQR kan læse koden tilbage, uden jsQR sker ingen
+kontrol, og sprogvalg; `test/site.test.js` tvinger wiring, formater og oversat kopi på alle 12
+sider.

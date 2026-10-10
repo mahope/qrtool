@@ -130,7 +130,7 @@
             {
               "@type": "Question",
               "name": "Hvordan får jeg et digitalt visitkort på min iPhone?",
-              "acceptedAnswer": {"@type": "Answer", "text": "Udfyld felterne og download QR-koden som PNG eller SVG. Når nogen scanner koden med iPhone-kameraet, popper der en bjælke med dit navn — tryk på den og tryk Gem, så ligger dine oplysninger i Kontakter-appen. Der er ikke brug for en app."}
+              "acceptedAnswer": {"@type": "Answer", "text": "Udfyld felterne og download QR-koden som PNG, SVG, JPG, WebP eller PDF. Når nogen scanner koden med iPhone-kameraet, popper der en bjælke med dit navn — tryk på den og tryk Gem, så ligger dine oplysninger i Kontakter-appen. Der er ikke brug for en app."}
             },
             {
               "@type": "Question",
@@ -264,7 +264,22 @@
                         <select id="fileFormat">
                             <option value="png" selected>PNG</option>
                             <option value="svg">SVG (Print)</option>
+                            <option value="jpg">JPG</option>
+                            <option value="webp">WebP</option>
+                            <option value="pdf">PDF (print)</option>
                         </select>
+                    </div>
+                    <div class="form-group print-size-group">
+                        <label for="printSizeMm">Printstørrelse (mm):</label>
+                        <div class="print-size-row">
+                            <input type="number" id="printSizeMm" min="5" max="300" step="1" placeholder="fx. 30" inputmode="numeric" aria-describedby="printSizeHint">
+                            <div class="print-presets" role="group" aria-label="Almindelige printstørrelser">
+                                <button type="button" class="print-preset" data-mm="20">20 mm</button>
+                                <button type="button" class="print-preset" data-mm="30">30 mm</button>
+                                <button type="button" class="print-preset" data-mm="50">50 mm</button>
+                            </div>
+                        </div>
+                        <span class="cta-hint" id="printSizeHint">Valgfri. Udfyldes den, downloades PNG/JPG/WebP i 300 dpi og PDF i præcis den størrelse.</span>
                     </div>
                 </div>
 
@@ -286,6 +301,8 @@
                             <p>Dit digitale visitkort vil blive vist her</p>
                         </div>
                     </div>
+
+                    <p class="scan-status" id="scanStatus" role="status" hidden></p>
                 </div>
             </div>
         </div>
@@ -322,7 +339,7 @@
                     <li><strong>Indtast dine oplysninger:</strong> Udfyld navn, virksomhed, telefon, e-mail og andre relevante felter.</li>
                     <li><strong>Tilpas udseendet:</strong> Vælg farve, størrelse og format til din QR-kode.</li>
                     <li><strong>Generer QR-koden:</strong> Klik på knappen og din vCard QR-kode genereres øjeblikkeligt.</li>
-                    <li><strong>Download & del:</strong> Download som PNG eller SVG og brug den digitalt eller print den.</li>
+                    <li><strong>Download & del:</strong> Download som PNG, SVG, JPG, WebP eller PDF digitalt eller i print.</li>
                     <li><strong>Del overalt:</strong> Brug den på visitkort, præsentationer, e-mail signaturer eller din hjemmeside.</li>
                 </ol>
             </article>
@@ -386,7 +403,7 @@
 
                 <div class="faq-item">
                     <h3>Hvordan får jeg et digitalt visitkort på min iPhone?</h3>
-                    <p>Udfyld felterne og download QR-koden som PNG eller SVG. Når nogen scanner koden med iPhone-kameraet, popper der en bjælke med dit navn — tryk på den og tryk Gem, så ligger dine oplysninger i Kontakter-appen. Der er ikke brug for en app.</p>
+                    <p>Udfyld felterne og download QR-koden som PNG, SVG, JPG, WebP eller PDF. Når nogen scanner koden med iPhone-kameraet, popper der en bjælke med dit navn — tryk på den og tryk Gem, så ligger dine oplysninger i Kontakter-appen. Der er ikke brug for en app.</p>
                 </div>
 
                 <div class="faq-item">
@@ -431,6 +448,8 @@
     <script>window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }</script>
 
     <script src="/lib/qrcode.js"></script>
+    <script src="/lib/jsQR.min.js"></script>
+    <script src="/lib/qr-page.js"></script>
     <script>
         // Standalone vCard QR Generator Script
         (function() {
@@ -457,6 +476,7 @@
             const qrSize = document.getElementById('qrSize');
             const fileFormat = document.getElementById('fileFormat');
 
+            let currentQR = null;
             let currentQRCanvas = null;
             let currentQRSVG = null;
 
@@ -527,45 +547,14 @@
                 return vcard;
             }
 
-            // Draw QR to canvas
+            // Draw QR to canvas — the white quiet zone counts toward the size
             function drawCanvas(qr, size, canvas) {
-                const cells = qr.getModuleCount();
-                const scale = size / cells;
-                canvas.width = size;
-                canvas.height = size;
-                const ctx = canvas.getContext('2d');
-
-                ctx.fillStyle = '#ffffff';
-                ctx.fillRect(0, 0, size, size);
-                ctx.fillStyle = qrColor.value;
-
-                for (let y = 0; y < cells; y++) {
-                    for (let x = 0; x < cells; x++) {
-                        if (qr.isDark(y, x)) {
-                            ctx.fillRect(x * scale, y * scale, scale, scale);
-                        }
-                    }
-                }
+                QRPage.drawCanvas(qr, size, canvas);
             }
 
-            // Generate SVG string
+            // Generate SVG string — white quiet zone around the code
             function toSvgString(qr, border) {
-                const cells = qr.getModuleCount();
-                const size = cells + border * 2;
-                let parts = [];
-                parts.push(`<?xml version="1.0" encoding="UTF-8"?>`);
-                parts.push(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${size} ${size}">`);
-                parts.push(`<rect width="100%" height="100%" fill="#ffffff"/>`);
-                parts.push(`<path d="`);
-                for (let y = 0; y < cells; y++) {
-                    for (let x = 0; x < cells; x++) {
-                        if (qr.isDark(y, x)) {
-                            parts.push(`M${x + border},${y + border}h1v1h-1z`);
-                        }
-                    }
-                }
-                parts.push(`" fill="${qrColor.value}"/></svg>`);
-                return parts.join('\n');
+                return QRPage.toSvgString(qr, border);
             }
 
             // Generate QR code
@@ -580,12 +569,12 @@
                     qrPreview.innerHTML = '';
                     const size = parseInt(qrSize.value);
                     const format = fileFormat.value;
-                    const qr = qrcode(0, 'M');
+                    const qr = qrcode(0, QRPage.EC_LEVEL);
                     qr.addData(text);
                     qr.make();
 
                     if (format === 'svg') {
-                        currentQRSVG = toSvgString(qr, 2);
+                        currentQRSVG = toSvgString(qr, QRPage.QUIET_ZONE_MODULES);
                         qrPreview.innerHTML = currentQRSVG;
                         currentQRCanvas = null;
                     } else {
@@ -595,6 +584,9 @@
                         currentQRCanvas = canvas;
                         currentQRSVG = null;
                     }
+
+                    currentQR = qr;
+                    QRPage.scheduleScanCheck(currentQRCanvas, text);
 
                     downloadBtn.disabled = false;
                     generateBtn.textContent = '✓ Genereret!';
@@ -608,31 +600,21 @@
                 }
             }
 
-            // Download
+            // Download — print size, PDF and the scan check live in QRPage
             function downloadQRCode() {
-                const format = fileFormat.value;
-                const filename = `vcard-qr-${Date.now()}.${format}`;
-
-                function downloadBlob(blob, name) {
-                    const url = URL.createObjectURL(blob);
-                    const link = document.createElement('a');
-                    link.href = url;
-                    link.download = name;
-                    document.body.appendChild(link);
-                    link.click();
-                    document.body.removeChild(link);
-                    URL.revokeObjectURL(url);
-                }
-
-                if (format === 'svg' && currentQRSVG) {
-                    const blob = new Blob([currentQRSVG], { type: 'image/svg+xml' });
-                    downloadBlob(blob, filename);
-                } else if (currentQRCanvas) {
-                    currentQRCanvas.toBlob((blob) => downloadBlob(blob, filename), 'image/png');
-                }
-
-                downloadBtn.textContent = '✓ Downloaded!';
-                setTimeout(() => { downloadBtn.textContent = 'Download'; }, 2000);
+                QRPage.download({
+                    format: fileFormat.value,
+                    canvas: currentQRCanvas,
+                    svg: currentQRSVG,
+                    svgFrom: () => toSvgString(currentQR, QRPage.QUIET_ZONE_MODULES),
+                    mm: QRPage.parsePrintSizeMm(),
+                    prefix: 'vcard-qr',
+                    renderAt: px => QRPage.renderCanvas(currentQR, px),
+                    onDone: () => {
+                        downloadBtn.textContent = '✓ Downloaded!';
+                        setTimeout(() => { downloadBtn.textContent = 'Download'; }, 2000);
+                    }
+                });
             }
 
             // Color picker display

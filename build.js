@@ -64,6 +64,10 @@ execSync(`npx esbuild "${path.join(DIST, 'sw.js')}" --minify --outfile="${path.j
 console.log('Minifying lib/qrcode.js...');
 execSync(`npx esbuild "${path.join(DIST, 'lib', 'qrcode.js')}" --minify --outfile="${path.join(DIST, 'lib', 'qrcode.js')}" --allow-overwrite`, { stdio: 'inherit' });
 
+// Minify lib/qr-page.js — the shared helpers for the QR-type subpages
+console.log('Minifying lib/qr-page.js...');
+execSync(`npx esbuild "${path.join(DIST, 'lib', 'qr-page.js')}" --minify --outfile="${path.join(DIST, 'lib', 'qr-page.js')}" --allow-overwrite`, { stdio: 'inherit' });
+
 // Cache-busting: derive a token from the built asset contents and stamp it on
 // every reference. Cloudflare caches .js/.css per URL for 7 days, so without a
 // new token a deploy keeps serving the previous file.
