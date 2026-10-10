@@ -211,3 +211,22 @@ Gate 159/159 (22 nye tests): `test/subpage-features.test.js` dækker mm-omregnin
 xref-offsets, quiet zone i canvas og SVG, at jsQR kan læse koden tilbage, uden jsQR sker ingen
 kontrol, og sprogvalg; `test/site.test.js` tvinger wiring, formater og oversat kopi på alle 12
 sider.
+
+## 2026-10-10 — SMS-siden får en scanning-vejledning og strukturerede data
+GSC viser "hvordan opretter jeg en sms-kode" på position 29 (7 visninger) og 34 (3 visninger)
+uden klik, og siden havde kun en HTML-FAQ uden strukturerede data — altså intet søgemaskinerne
+kunne vise som rich result. Now: synlig vejledning "Sådan scanner du en SMS QR-kode" med trin
+for iPhone (iOS 11+, "Scan QR-koder" skal være slået til i Indstillinger → Kamera) og Android
+(Android 10+, kamera-appen læser koden direkte), et afsnit om beskeder over 160 tegn, to
+HowTo-noder (én pr. platform) og FAQPage-JSON-LD med de seks synlige spørgsmål — heraf ét nyt
+("Hvordan opretter jeg en SMS QR-kode?"). DA+EN. Gate 166/166 (7 nye tests i
+test/sms-content.test.js; 6/7 fejler på master). Datagrund: GSC-søgningerne ovenfor, samt
+MÅL: `/sms-qr-kode` CTR 3,9 % (102v, 4 klik, pos. 10,7) → over 6 % pr. 2026-10-24.
+- App-store-link som QR-type ("App"-fane: App Store/Google Play-link fra ID eller indsat link,
+  live forhåndsvisning) — ceo/app-link (2026-10-09).
+
+## 2026-10-10 — Batch-eksport med PDF i trykkvalitet
+Valgte brugeren PDF i batch-downloaden, fik de en ZIP med PNG-bytes og filendelsen .pdf — en
+fil ingen printer kunne åbne. Nu laves én rigtig PDF pr. kode, i den valgte printstørrelse
+(300 dpi) eller på A4, og JPG får korrekt image/jpeg. DA+EN. Gate 137/137 (6 nye tests).
+Verificeret live 2026-10-10 (ZIP med PDF'en i valgt størrelse).

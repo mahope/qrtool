@@ -77,6 +77,72 @@
       ]
     }
     </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "HowTo",
+          "name": "How to send a pre-filled SMS from a QR code on iPhone",
+          "description": "The recipient scans the SMS QR code with the iPhone's built-in camera, and Messages opens with the number and message already filled in.",
+          "totalTime": "PT1M",
+          "step": [
+            {"@type": "HowToStep", "name": "Turn on QR scanning", "text": "Go to Settings, choose Camera, and make sure Scan QR Codes is enabled."},
+            {"@type": "HowToStep", "name": "Open the camera", "text": "Start the built-in camera app. There is no button to press."},
+            {"@type": "HowToStep", "name": "Hold the code in the frame", "text": "Point at the QR code until it is sharp. The iPhone reads the number and the message."},
+            {"@type": "HowToStep", "name": "Tap the suggestion", "text": "A bar appears at the top suggesting to open Messages. Tap it."},
+            {"@type": "HowToStep", "name": "Tap send", "text": "Messages opens with the number and message already filled in. The recipient reads the text through and taps send."}
+          ]
+        },
+        {
+          "@type": "HowTo",
+          "name": "How to send a pre-filled SMS from a QR code on Android",
+          "description": "Android phones from Android 10 read SMS QR codes directly in the camera app.",
+          "totalTime": "PT1M",
+          "step": [
+            {"@type": "HowToStep", "name": "Open the camera", "text": "Start the built-in camera app."},
+            {"@type": "HowToStep", "name": "Hold the code in the frame", "text": "The code is recognised and the phone shows the phone number. Tap it."},
+            {"@type": "HowToStep", "name": "Tap send", "text": "The SMS app opens with the number filled in, and the recipient taps send."}
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "How do I create an SMS QR code?",
+              "acceptedAnswer": {"@type": "Answer", "text": "Type the phone number the SMS should be sent to and the message that should be pre-filled. Then press Generate SMS QR Code, and the code is ready to download as PNG, SVG, JPG, WebP or PDF."}
+            },
+            {
+              "@type": "Question",
+              "name": "Do SMS QR codes work on iPhone?",
+              "acceptedAnswer": {"@type": "Answer", "text": "Yes. When an iPhone scans an SMS QR code, the Messages app opens automatically with the pre-filled phone number and message. The user simply needs to tap send."}
+            },
+            {
+              "@type": "Question",
+              "name": "Does it work on Android phones?",
+              "acceptedAnswer": {"@type": "Answer", "text": "Yes, Android phones open the default SMS app with the pre-filled number and message, ready to send."}
+            },
+            {
+              "@type": "Question",
+              "name": "Does it cost anything to send SMS via QR code?",
+              "acceptedAnswer": {"@type": "Answer", "text": "The QR code itself is free to generate. However, the SMS that is sent is charged according to the recipient's normal SMS rate from their carrier."}
+            },
+            {
+              "@type": "Question",
+              "name": "Can the recipient edit the message before sending?",
+              "acceptedAnswer": {"@type": "Answer", "text": "Yes, the message is only pre-filled. The recipient can freely edit the text in the SMS app before tapping send."}
+            },
+            {
+              "@type": "Question",
+              "name": "How many characters can the message contain?",
+              "acceptedAnswer": {"@type": "Answer", "text": "We recommend keeping the message under 160 characters for best compatibility. Longer messages may work but can be split into multiple SMS messages."}
+            }
+          ]
+        }
+      ]
+    }
+    </script>
 </head>
 <body>
     <div class="container">
@@ -244,6 +310,30 @@
             </article>
 
             <article class="content-block">
+                <h2>How to scan an SMS QR code</h2>
+                <p>An SMS QR code stores a phone number and a pre-filled message. The recipient does not need to know the number or type the message themselves — they scan the code with the phone camera, and the SMS app opens ready to send.</p>
+
+                <h3>On iPhone and iPad (iOS 11 and newer)</h3>
+                <ol class="guide-list">
+                    <li><strong>Turn on QR scanning:</strong> Go to Settings → Camera, and make sure "Scan QR Codes" is enabled. With it off, the iPhone does not recognise the code at all.</li>
+                    <li><strong>Open the camera:</strong> Start the built-in Camera app and hold the code in the frame. There is no button to press.</li>
+                    <li><strong>Hold the code in the frame:</strong> Move close enough that the code is sharp. The iPhone reads the number and the message.</li>
+                    <li><strong>Tap the suggestion:</strong> A bar appears at the top suggesting to open Messages. Tap it.</li>
+                    <li><strong>Tap send:</strong> Messages opens with the number and the message already filled in. The recipient reads the text through and taps send.</li>
+                </ol>
+
+                <h3>On Android (Android 10 and newer)</h3>
+                <ol class="guide-list">
+                    <li><strong>Open the camera:</strong> The built-in camera app reads SMS QR codes directly.</li>
+                    <li><strong>Hold the code in the frame:</strong> The code is recognised and the phone shows the phone number. Tap it.</li>
+                    <li><strong>Tap send:</strong> The SMS app opens with the number filled in, and the recipient taps send.</li>
+                </ol>
+
+                <h3>When the message is long</h3>
+                <p>The longer the text, the denser the QR code becomes, and the harder it is to scan. Keep the message under 160 characters. If the message does not carry over on an older phone, the recipient can still send to the number — so make sure the phone number and the instruction next to the code are easy to read.</p>
+            </article>
+
+            <article class="content-block">
                 <h2>Best Practices for SMS QR Codes</h2>
                 <ul>
                     <li><strong>Keep the message short:</strong> Pre-filled SMS messages should be short and clear for best results</li>
@@ -256,6 +346,11 @@
 
             <article class="content-block faq-section">
                 <h2>Frequently Asked Questions About SMS QR Codes</h2>
+
+                <div class="faq-item">
+                    <h3>How do I create an SMS QR code?</h3>
+                    <p>Type the phone number the SMS should be sent to and the message that should be pre-filled. Then press "Generate SMS QR Code", and the code is ready to download as PNG, SVG, JPG, WebP or PDF.</p>
+                </div>
 
                 <div class="faq-item">
                     <h3>Do SMS QR codes work on iPhone?</h3>

@@ -77,6 +77,72 @@
       ]
     }
     </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "HowTo",
+          "name": "Sådan sender du en forudfyldt SMS fra en QR-kode på iPhone",
+          "description": "Modtageren scanner SMS QR-koden med iPhone'ens indbyggede kamera, og Beskeder åbner med nummer og besked allerede udfyldt.",
+          "totalTime": "PT1M",
+          "step": [
+            {"@type": "HowToStep", "name": "Slå QR-scanning til", "text": "Gå til Indstillinger, vælg Kamera, og sørg for at Scan QR-koder er slået til."},
+            {"@type": "HowToStep", "name": "Åbn kameraet", "text": "Start den indbyggede kamera-app. Der er ingen knap at trykke på."},
+            {"@type": "HowToStep", "name": "Hold koden i billedet", "text": "Peg mod QR-koden, indtil den er skarp. iPhone'en læser nummer og besked."},
+            {"@type": "HowToStep", "name": "Tryk på forslaget", "text": "Der popper en bjælke op i toppen med et forslag om at åbne Beskeder. Tryk på den."},
+            {"@type": "HowToStep", "name": "Tryk send", "text": "Beskeder åbner med nummer og besked allerede udfyldt. Modtageren læser teksten igennem og trykker send."}
+          ]
+        },
+        {
+          "@type": "HowTo",
+          "name": "Sådan sender du en forudfyldt SMS fra en QR-kode på Android",
+          "description": "Android-telefoner fra Android 10 læser SMS QR-koden direkte i kamera-appen.",
+          "totalTime": "PT1M",
+          "step": [
+            {"@type": "HowToStep", "name": "Åbn kameraet", "text": "Start den indbyggede kamera-app."},
+            {"@type": "HowToStep", "name": "Hold koden i billedet", "text": "Koden genkendes, og telefonen viser telefonnummeret. Tryk på det."},
+            {"@type": "HowToStep", "name": "Tryk send", "text": "SMS-appen åbner med nummeret udfyldt, og modtageren trykker send."}
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "Hvordan opretter jeg en SMS QR-kode?",
+              "acceptedAnswer": {"@type": "Answer", "text": "Skriv det telefonnummer, SMS'en skal sendes til, og den besked, der skal stå forudfyldt. Tryk derefter på Generer SMS QR-Kode, og koden er klar til at downloade som PNG, SVG, JPG, WebP eller PDF."}
+            },
+            {
+              "@type": "Question",
+              "name": "Virker SMS QR-koder på iPhone?",
+              "acceptedAnswer": {"@type": "Answer", "text": "Ja. Når en iPhone scanner en SMS QR-kode, åbner Beskeder-appen automatisk med det forudfyldte telefonnummer og besked. Brugeren skal blot trykke send."}
+            },
+            {
+              "@type": "Question",
+              "name": "Virker det på Android telefoner?",
+              "acceptedAnswer": {"@type": "Answer", "text": "Ja, Android telefoner åbner standard SMS-appen med det forudfyldte nummer og besked, klar til at sende."}
+            },
+            {
+              "@type": "Question",
+              "name": "Koster det noget at sende SMS via QR-kode?",
+              "acceptedAnswer": {"@type": "Answer", "text": "Selve QR-koden er gratis at generere. Men den SMS som sendes, afregnes efter modtagerens normale SMS-takst hos sin teleoperatør."}
+            },
+            {
+              "@type": "Question",
+              "name": "Kan modtageren redigere beskeden før afsendelse?",
+              "acceptedAnswer": {"@type": "Answer", "text": "Ja, beskeden er kun forudfyldt. Modtageren kan frit redigere teksten i SMS-appen, inden de trykker send."}
+            },
+            {
+              "@type": "Question",
+              "name": "Hvor mange tegn kan beskeden indeholde?",
+              "acceptedAnswer": {"@type": "Answer", "text": "Vi anbefaler at holde beskeden under 160 tegn for bedste kompatibilitet. Længere beskeder kan fungere, men kan blive opdelt i flere SMS'er."}
+            }
+          ]
+        }
+      ]
+    }
+    </script>
 </head>
 <body>
     <div class="container">
@@ -243,6 +309,30 @@
                 </ol>
             </article>
 
+            <article class="content-block" id="saadan-scanner">
+                <h2>Sådan scanner du en SMS QR-kode</h2>
+                <p>SMS QR-koden gemmer et telefonnummer og en forudfyldt besked. Modtageren skal derfor ikke kende nummeret eller skrive beskeden selv — de scanner koden med telefonens kamera, og SMS-appen åbner klar til afsendelse.</p>
+
+                <h3>På iPhone og iPad (iOS 11 og nyere)</h3>
+                <ol class="guide-list">
+                    <li><strong>Slå QR-scanning til:</strong> Gå til Indstillinger → Kamera, og sørg for at "Scan QR-koder" er slået til. Er den slået fra, genkender iPhone'en slet ikke koden.</li>
+                    <li><strong>Åbn kameraet:</strong> Start den indbyggede kamera-app og hold koden i billedet. Der er ingen knap at trykke på.</li>
+                    <li><strong>Hold koden i billedet:</strong> Gå tæt nok på til, at koden er skarp. iPhone'en læser nummer og besked.</li>
+                    <li><strong>Tryk på forslaget:</strong> Der popper en bjælke op i toppen med et forslag om at åbne Beskeder. Tryk på den.</li>
+                    <li><strong>Tryk send:</strong> Beskeder åbner med nummeret og beskeden allerede udfyldt. Modtageren læser teksten igennem og trykker send.</li>
+                </ol>
+
+                <h3>På Android (Android 10 og nyere)</h3>
+                <ol class="guide-list">
+                    <li><strong>Åbn kameraet:</strong> Den indbyggede kamera-app læser SMS QR-koder direkte.</li>
+                    <li><strong>Hold koden i billedet:</strong> Koden genkendes, og telefonen viser telefonnummeret. Tryk på det.</li>
+                    <li><strong>Tryk send:</strong> SMS-appen åbner med nummeret udfyldt, og modtageren trykker send.</li>
+                </ol>
+
+                <h3>Når beskeden er lang</h3>
+                <p>Jo længere teksten er, jo tættere bliver QR-koden, og jo sværere er den at scanne. Hold derfor beskeden under 160 tegn. Kommer beskeden ikke med over på en ældre telefon, kan modtageren stadig sende til nummeret — så er det vigtigst, at telefonnummeret og instruktionen ved siden af koden står tydeligt.</p>
+            </article>
+
             <article class="content-block">
                 <h2>Best Practices for SMS QR-Koder</h2>
                 <ul>
@@ -256,6 +346,11 @@
 
             <article class="content-block faq-section">
                 <h2>Ofte Stillede Spørgsmål om SMS QR-Koder</h2>
+
+                <div class="faq-item">
+                    <h3>Hvordan opretter jeg en SMS QR-kode?</h3>
+                    <p>Skriv det telefonnummer, SMS'en skal sendes til, og den besked, der skal stå forudfyldt. Tryk derefter på "Generer SMS QR-Kode", og koden er klar til at downloade som PNG, SVG, JPG, WebP eller PDF.</p>
+                </div>
 
                 <div class="faq-item">
                     <h3>Virker SMS QR-koder på iPhone?</h3>

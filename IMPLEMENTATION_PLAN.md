@@ -1,41 +1,23 @@
 # IMPLEMENTATION_PLAN — qrtool.dk
 
 STATUS:
-- ⚠️ DEPLOYER-SPRUNGET VINDUE 2026-10-10 07:4x: 07:30-vinduet gik uden at live blev opdateret
-  (build stadig 2026-10-09 19:41 UTC). Fem commits venter. Hvis 12:30 også springer over → 2 vinduer
-  → DEPLOY-MISSING og stop for merge til master (se "Verificér deploy"). ❓ Til Mads: kan batch-deployeren
-  køre for qrtool.dk?
-- Gate: `npm test` = `npm run build` + `node --test` (159 tests). 159/159 grønne pr. 2026-10-10 07:4x.
-- 2026-10-09: App-store-link som QR-type landet (ceo/app-link): ny "App"-fane der bygger
-  App Store- og Google Play-links fra et ID eller et indsat link, med live forhåndsvisning. DA+EN.
-- 2026-10-09: Share-billeder landet (ceo/og-images): alle 14 og-image.png fand 404, så enhver
-  deling på Facebook (36 % af trafikken) manglede preview. Nye kort genereret af `og-images.js`
-  (rsvg-convert, sitets farver), EN-sider fik egne `og-image-*-en.png`. Test fejler hvis et
-  deklareret og-image mangler i repo eller dist.
-- DEPLOY OK 2026-10-09 (verificeret på indhold): printstørrelse + 300 dpi/PDF, scan-kontrol, hvid
-  zone, cache-bust, generator-først, vCard/kalender-undersider, historik som tilvalg, "App"-fanen
-  og appPreviewUrl (ceo/app-link 18:15), kontrast-linjen under farvevælgeren (ceo/contrast-readout
-  20:20) — live på `/` og `/en/` via `app.js?v=1abe2cffdb`.
-- 2026-10-10: vCard-siden skrevet om til "digitalt visitkort"-søgningerne (ceo/vcard-title-faq):
-  title og beskrivelse nævner iPhone/Android, to nye FAQ'er (iPhone og printstørrelse), DA+EN.
-- 2026-10-10: CSV-batch-import omskrevet (ceo/csv-import): rigtig parser (anførselstegn, BOM,
-  CRLF), delimiter-fund og kolonnevalg — et "navn, url"-eksport koder ikke længere navnet ved en
-  fejl. Feedback om kolonne og loft på 100 rækker, DA+EN.
+- DEPLOY OK 2026-10-10 09:5x (verificeret på indhold): 07:30-vinduet deployede sent (byggetid
+  05:43 UTC = 07:43 CEST). Alle 14 share-billeder giver 200 + image/png med cache-bust; live
+  `app.js` indeholder `csvToBatchValues`; `lib/qr-page.js` er live og hentes af alle seks
+  undersider; `/wifi-qr-kode` peger på `og-image-wifi.png`. Alle afventende noter er lukket.
+- Gate: `npm test` = `npm run build` + `node --test` (166 tests). 166/166 grønne pr. 2026-10-10 11:5x.
+- 2026-10-10: SMS-siden har nu en vejledning (ceo/sms-howto-faq): "Sådan scanner du en SMS
+  QR-kode" med trin for iPhone og Android, to nye HowTo-noder og FAQPage-data med de synlige
+  spørgsmål, plus ét nyt FAQ om at oprette koden. DA+EN. Gate 166/166 (7 nye tests i
+  test/sms-content.test.js, 6/7 fejler på master). Datagrund: GSC giver
+  "hvordan opretter jeg en sms-kode" på pos. 29 (7 visninger) og pos. 34 (3 visninger) uden klik,
+  og siden havde kun HTML-FAQ uden strukturerede data.
+  MÅL: `/sms-qr-kode` CTR 3,9 % (102v, 4 klik, pos. 10,7) → over 6 % pr. 2026-10-24.
 - MÅL: `/` baseline 151 besøgende/28 d, bounce 90 % → under 75 % pr. 2026-11-05.
 - MÅL: Facebook-kilder 46 af 206 besøgende → 60+ pr. 2026-11-05 (share-preview rettet 2026-10-09).
-- PR-TJEK 2026-10-09 (2. gennemgang): dependabot-PR #2 (esbuild 0.27.7 → 0.28.1) landet som
-  squash-commit. Ellers ingen åbne PR'er, ingen GitHub Actions — den lokale gate er eneste kontrol.
+- PR-TJEK 2026-10-09: dependabot-PR #2 (esbuild 0.27.7 → 0.28.1) landet som squash-commit.
+  Ellers ingen åbne PR'er, ingen GitHub Actions — den lokale gate er eneste kontrol.
 - BRANCH-TJEK 2026-10-09: kun master + `bevaret/*`, intet at rydde.
-- 2026-10-10: QR-type-undersiderne landet (ceo/subpage-print-scan): delt modul
-  `lib/qr-page.js` giver alle 12 undersider (DA+EN) hvid stillezone, fejlkorrektion H,
-  printstørrelse i mm → 300 dpi i PNG/JPG/WebP, PDF i præcis størrelse (eller A4),
-  JPG på hvid og en scan-kontrol efter generering — det samme forsiden har haft siden 8/10.
-  Kopien om downloadformaterne rettet (der er nu fem formater, ikke to). DA+EN. Gate 159/159.
-- 2026-10-10: Batch-eksport med PDF landet (ceo/batch-pdf): valgte man PDF, fik man
-  ZIP-filer med PNG-bytes og endelsen .pdf. Nu laves en rigtig PDF pr. kode, i
-  printstørrelsen (300 dpi) hvis den er sat, ellers A4. JPG fik korrekt image/jpeg.
-  Gate 137/137 (131 + 6 nye). VERIFICÉR DEPLOY: batch-PDF i ZIP-eksporten ceo/batch-pdf
-  2026-10-10 01:5x.
 
 ## Fase 3 — trafik-drevet
 
@@ -47,15 +29,15 @@ Baseline (Plausible, 28 dage til 2026-10-08): 206 besøgende, 289 sidevisninger,
 
 ### Åbne opgaver
 
-Ingen åbne egne opgaver lige nu. Næste kandidat: byg den konkrete vejledning ud på
-`/sms-qr-kode` og `/kalender-qr-kode` (sms 6 besøgende +20 %, kalender 6 +500 %), som
-wifi-siden fik: "sådan scanner gæster", FAQ med strukturerede data og interne links til
-de andre QR-typer. Accept: begge sider har en how-to-sektion + FAQPage-data med mindst tre
-spørgsmål, DA+EN, og gate grøn.
+1. Byg vejledningen på `/kalender-qr-kode` ud som wifi- og sms-siden fik (kalender: 6 besøgende
+   +500 %): "sådan scanner gæster", FAQ med strukturerede data og interne links til de andre
+   QR-typer. Accept: how-to-sektion + FAQPage-data med mindst tre spørgsmål, DA+EN, gate grøn.
+   Datagrund: samme mønster som sms-siden (GSC "hvordan opretter jeg en sms-kode" trak klik
+   efter vejledningen) og +500 % vækst på kalender-siden uden noget indhold at lande på.
 
 Afsluttede opgaver (scan-kontrol, hvid zone, mm-download, EN-generator-først,
-share-billeder, vCard-title/FAQ, CSV-import, batch-PDF, undersidernes print-/scan-værktøjer)
-står i `docs/plan-arkiv.md`.
+share-billeder, vCard-title/FAQ, CSV-import, batch-PDF, undersidernes print-/scan-værktøjer,
+sms-vejledning) står i `docs/plan-arkiv.md`.
 
 ### GSC-CTR-baselines (måles igen pr. 2026-10-23)
 - `/en/calendar-qr-code` 566v, 2 klik, CTR 0,4 %, pos. 11,0 — største enkelt-side uden for `/`.
@@ -88,13 +70,7 @@ ceo/history-opt-in. (2) "30-dages stopregel" — kun BACKLOG-tekst, ingen kode; 
 får opmærksomhed.
 
 ## Verificér deploy
-- DEPLOY-STAND 2026-10-10 07:4x: live build er stadig fra 2026-10-09 19:41 UTC (last-modified på
-  `app.js`). Vinduet 07:30 er gået uden at noget nyt er live. Alt merget efter det commit
-  (1e51906 22:43, 2c66537, f65fbee, 7498bf3, a463b81) mangler på live. Ét vindue sprunget over.
-- SHARE-BILLEDER (1e51906): /og-image.png og /og-image-en.png giver fortsat 404 live
-  2026-10-10 07:4x med cache-bust. Tjek igen når en ny build er live (next: vinduet 12:30):
-  skal give 200 + image/png. To vinduer uden live = DEPLOY-MISSING + stop for merge til master.
-- CSV-IMPORT (f65fbee): live app.js indeholder ikke `csvToBatchValues`. Tjek igen når en ny
-  build er live. To vinduer uden live = DEPLOY-MISSING + stop for merge til master.
-- UNDERSIDERNES PRINTVÆRKTØJER (a463b81): kan ikke verificeres før en ny build er live.
-  Tjek: https://qrtool.dk/wifi-qr-kode henter `lib/qr-page.js` og tilbyder PDF i formatvælgeren.
+- VERIFICÉR DEPLOY: SMS-vejledning, HowTo- og FAQPage-data på `/sms-qr-kode` og `/en/sms-qr-code`
+  ceo/sms-howto-faq 2026-10-10 12:0x — merge ligger før vinduet 12:30. Tjek på live at siden
+  indeholder afsnittet "Sådan scanner du en SMS QR-kode", to HowTo-noder og FAQPage-JSON-LD.
+  To vinduer uden live = DEPLOY-MISSING + stop for merge til master.
