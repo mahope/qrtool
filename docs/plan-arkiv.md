@@ -271,3 +271,17 @@ mellemrum, punktummer og streger fjernes, + landekode bevares, og under seks cif
 afvises) og WhatsApp som platform i Social-fanen (wa.me-link, kun cifre; navne uden
 cifre afvises). Begge sprog; live-preview viser linket mens der skrives. Accept: ny fane
 + test. Gate 204/204 (11 nye tests i test/phone-link.test.js, 6 af 11 fejlede på master).
+
+## 2026-10-10 — Print-arket deler store batches over flere A4-sider (ceo/multi-page-print-sheet)
+Print-arket kunne højst rumme én side: en batch på 43 koder eller flere blev afvist med
+"Print-arket kan højst rumme 42 QR-koder ad gangen", selvom preview og ZIP godt kunne
+100. Nu deler `sheetPages()` batchen i A4-sider (layoutet vælges ud fra hele batchen, så
+alle sider har samme gitter), og `buildMultiPageSheetPDF()` bygger én PDF med en side pr.
+ark — objektmodel, indholdsstrøm, billed-XObject og xref-tabel fra bunden, så tre kanvasser
+bliver tre sider i én fil. Canvaserne konverteres én ad gangen (ét A4-canvas ved 300 dpi
+er ~35 MB), så en batch på 100 ikke holder alle sider i hukommelsen — vigtigt på mobil.
+Toast'en fortæller nu både antal koder og antal sider, og der er en synlig hjælpetekst
+under knappen. DA+EN. Gate 208/208 (9 tests i test/batch-sheet.test.js; 4 af dem fejler på
+master — herunder klik-testen, der downloader en 100-koders batch og tæller sider i PDF'en,
+og et xref-tjek, der afslørede en reel off-by-one i den nye builder: xref-tabellen påstod
+et objekt for meget).

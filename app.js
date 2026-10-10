@@ -80,8 +80,7 @@ const T = {
         'batch.downloaded': '{n} QR-koder downloadet som ZIP!',
         'batch.error': 'Fejl ved batch generering: ',
         'batch.preview': '{n} QR-koder vist i forhåndsvisning',
-        'batch.sheetDownloaded': 'Print-ark med {n} QR-koder downloadet som PDF!',
-        'batch.sheetTooMany': 'Print-arket kan højst rumme {n} QR-koder ad gangen.',
+        'batch.sheetDownloaded': 'Print-ark med {n} QR-koder på {pages} sider downloadet som PDF!',
 
         // CSV
         'csv.empty': 'CSV-filen er tom.',
@@ -250,8 +249,7 @@ const T = {
         'batch.downloaded': '{n} QR codes downloaded as ZIP!',
         'batch.error': 'Batch generation error: ',
         'batch.preview': '{n} QR codes shown in preview',
-        'batch.sheetDownloaded': 'Print sheet with {n} QR codes downloaded as PDF!',
-        'batch.sheetTooMany': 'The print sheet can hold at most {n} QR codes at a time.',
+        'batch.sheetDownloaded': 'Print sheet with {n} QR codes on {pages} pages downloaded as PDF!',
 
         // CSV
         'csv.empty': 'The CSV file is empty.',
@@ -2197,10 +2195,23 @@ function sheetLayout(count) {
     return { cols, rows, perPage: cols * rows, cell, gap: SHEET_GAP, margin: SHEET_MARGIN, labelH: SHEET_LABEL_H };
 }
 
+// Split a batch into A4 pages. The layout is picked from the whole batch so
+// every page gets the same grid, and no page holds more codes than fit.
+function sheetPages(lines) {
+    const { perPage } = sheetLayout(lines.length);
+    const pages = [];
+    for (let i = 0; i < lines.length; i += perPage) {
+        pages.push(lines.slice(i, i + perPage));
+    }
+    return pages;
+}
+
 // Draws up to `perPage` codes in a grid on one A4 canvas, each with its text
-// underneath. Returns the canvas plus how many codes were placed.
-function buildBatchSheetCanvas(lines, style, ecLevel) {
-    const { cols, cell, gap, margin, labelH, perPage } = sheetLayout(lines.length);
+// underneath. `layout` pins the grid so all pages of a batch look the same;
+// without it the grid is chosen from the number of codes given. Returns the
+// canvas plus how many codes were placed.
+function buildBatchSheetCanvas(lines, style, ecLevel, layout) {
+    const { cols, cell, gap, margin, labelH, perPage } = layout || sheetLayout(lines.length);
     const canvas = document.createElement('canvas');
     canvas.width = SHEET_W;
     canvas.height = SHEET_H;
@@ -2237,6 +2248,61 @@ function buildBatchSheetCanvas(lines, style, ecLevel) {
 function buildSheetPDF(jpegBytes, imgW, imgH) {
     const pageW = 595.28, pageH = 841.89;
     return buildPDFDocument(jpegBytes, imgW, imgH, pageW, pageH, { w: pageW, h: pageH, x: 0, y: 0 });
+}
+
+// Sheet-PDF with one A4 canvas per page, each filling its page. Used when a
+// batch is too big for one sheet. `jpegs` is [{ bytes, w, h }].
+function buildMultiPageSheetPDF(jpegs) {
+    const pageW = 595.28, pageH = 841.89;
+    const pages = jpegs.length;
+    const w = Math.round(pageW);
+    const h = Math.round(pageH);
+
+    const objs = [];
+    const offsets = [];
+    let pos = 0;
+
+    function add(s) { const b = new TextEncoder().encode(s); objs.push(b); pos += b.length; return b; }
+    function addObj(n, s) { offsets[n] = pos; return add(`${n} 0 obj\n${s}\nendobj\n`); }
+
+    add('%PDF-1.4\n%\xE2\xE3\xCF\xD3\n');
+    addObj(1, '<< /Type /Catalog /Pages 2 0 R >>');
+
+    const kids = [];
+    for (let i = 0; i < pages; i++) kids.push(`${3 + i * 3} 0 R`);
+    addObj(2, `<< /Type /Pages /Kids [${kids.join(' ')}] /Count ${pages} >>`);
+
+    jpegs.forEach((jpeg, i) => {
+        const pageObj = 3 + i * 3;
+        const contentsObj = pageObj + 1;
+        const imgObj = pageObj + 2;
+
+        addObj(pageObj, `<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ${pageW} ${pageH}] /Contents ${contentsObj} 0 R /Resources << /XObject << /Im0 ${imgObj} 0 R >> >> >>`);
+
+        const stream = `q ${w} 0 0 ${h} 0 0 cm /Im0 Do Q`;
+        addObj(contentsObj, `<< /Length ${stream.length} >>\nstream\n${stream}\nendstream`);
+
+        // Image object header (binary stream follows)
+        const imgHead = `${imgObj} 0 obj\n<< /Type /XObject /Subtype /Image /Width ${jpeg.w} /Height ${jpeg.h} /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length ${jpeg.bytes.length} >>\nstream\n`;
+        const imgTail = '\nendstream\nendobj\n';
+        offsets[imgObj] = pos;
+        objs.push(new TextEncoder().encode(imgHead));
+        pos += imgHead.length;
+        objs.push(jpeg.bytes);
+        pos += jpeg.bytes.length;
+        objs.push(new TextEncoder().encode(imgTail));
+        pos += imgTail.length;
+    });
+
+    const total = 2 + pages * 3;
+    const xrefPos = pos;
+    add(`xref\n0 ${total + 1}\n0000000000 65535 f \n`);
+    for (let i = 1; i <= total; i++) {
+        add(`${String(offsets[i]).padStart(10, '0')} 00000 n \n`);
+    }
+    add(`trailer\n<< /Size ${total + 1} /Root 1 0 R >>\nstartxref\n${xrefPos}\n%%EOF\n`);
+
+    return new Blob(objs, { type: 'application/pdf' });
 }
 
 // Preview batch QR codes
@@ -2359,7 +2425,7 @@ if (batchGenerateBtn && batchInput) {
     });
 }
 
-// Download all batch codes as one printable A4 sheet (PDF)
+// Download all batch codes as printable A4 sheets (one PDF, a page per sheet)
 if (batchSheetBtn && batchInput) {
     batchSheetBtn.addEventListener('click', async () => {
         const lines = getBatchLines();
@@ -2367,10 +2433,8 @@ if (batchSheetBtn && batchInput) {
             showToast(t('batch.enterText'), 'error');
             return;
         }
-
-        const { perPage } = sheetLayout(lines.length);
-        if (lines.length > perPage) {
-            showToast(t('batch.sheetTooMany', { n: perPage }), 'error');
+        if (lines.length > 100) {
+            showToast(t('batch.max100'), 'error');
             return;
         }
 
@@ -2379,16 +2443,28 @@ if (batchSheetBtn && batchInput) {
         batchSheetBtn.disabled = true;
 
         try {
-            const { canvas, used } = buildBatchSheetCanvas(lines, qrStyle.value, errorCorrection.value);
-            const jpeg = await new Promise((resolve, reject) => {
-                canvas.toBlob(blob => {
-                    if (!blob) { reject(new Error('Could not read the canvas.')); return; }
-                    blob.arrayBuffer().then(buf => resolve(new Uint8Array(buf))).catch(reject);
-                }, 'image/jpeg', 0.92);
-            });
+            const style = qrStyle.value;
+            const ecLevel = errorCorrection.value;
+            const layout = sheetLayout(lines.length);
 
-            downloadBlob(buildSheetPDF(jpeg, canvas.width, canvas.height), `qr-print-ark-${Date.now()}.pdf`);
-            showToast(t('batch.sheetDownloaded', { n: used }), 'success');
+            // One canvas is alive at a time: an A4 page at 300 dpi is ~35 MB,
+            // and a batch of 100 would otherwise hold all pages in memory.
+            const jpegs = [];
+            for (const page of sheetPages(lines)) {
+                const canvas = buildBatchSheetCanvas(page, style, ecLevel, layout).canvas;
+                jpegs.push(await new Promise((resolve, reject) => {
+                    canvas.toBlob(blob => {
+                        if (!blob) { reject(new Error('Could not read the canvas.')); return; }
+                        blob.arrayBuffer().then(buf => resolve({ bytes: new Uint8Array(buf), w: canvas.width, h: canvas.height })).catch(reject);
+                    }, 'image/jpeg', 0.92);
+                }));
+            }
+
+            const pdf = jpegs.length === 1
+                ? buildSheetPDF(jpegs[0].bytes, jpegs[0].w, jpegs[0].h)
+                : buildMultiPageSheetPDF(jpegs);
+            downloadBlob(pdf, `qr-print-ark-${Date.now()}.pdf`);
+            showToast(t('batch.sheetDownloaded', { n: lines.length, pages: jpegs.length }), 'success');
         } catch (error) {
             console.error('Fejl ved print-ark:', error);
             showToast(t('batch.error') + error.message, 'error');

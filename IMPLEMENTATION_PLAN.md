@@ -1,17 +1,15 @@
 # IMPLEMENTATION_PLAN — qrtool.dk
 
 STATUS:
-- DEPLOY OK 2026-10-10 19:3x (verificeret på indhold): 17:30-vinduet bragte
-  kalender-FAQ'en, scanner-siden og batch-print-arket live — FAQ-spørgsmålet synligt på
-  `/kalender-qr-kode`, HowTo/FAQPage-JSON-LD på `/en/calendar-qr-code`, "Start kamera"
-  på `/scan-qr-kode` og `/en/scan-qr-code`, "Download print-ark" i batch på `/` og `/en/`.
-  Alle share-billeder (og-image*.png) giver nu 200 image/png med cache-bust, så reviewets
-  afventer-note for dem er lukket.
-- 2026-10-10: `/email-qr-kode` + `/en/email-qr-code` har fået en scanner-vejledning med
-  to HowTo-noder og FAQPage-JSON-LD over de seks synlige spørgsmål (ceo/email-guide).
-  Datagrund: GSC "email qr code" 299v, 3 klik, CTR 1,0 %, pos. 8,9.
-- Gate: `npm test` = `npm run build` + `node --test` (204 tests). 204/204 grønne
-  pr. 2026-10-10 20:5x.
+- DEPLOY OK 2026-10-10 23:2x (verificeret på indhold): 21:30-vinduet bragte
+  telefon-/WhatsApp-fanen (ceo/phone-whatsapp-qr) og email-scanner-vejledningen
+  (ceo/email-guide) live — "Telefon"-fanen og wa.me i den live app.js, "ét scan"-
+  afsnittet og FAQPage-JSON-LD med seks spørgsmål på begge sprog. Share-billederne
+  giver fortsat 200 image/png (19:3x og 23:2x).
+- 2026-10-10: print-arket deler store batches over flere A4-sider i én PDF
+  (ceo/multi-page-print-sheet) — 100 koder giver nu tre sider i stedet for afvisning.
+- Gate: `npm test` = `npm run build` + `node --test` (208 tests). 208/208 grønne
+  pr. 2026-10-10 23:1x.
 - MÅL: `/` baseline 151 besøgende/28 d, bounce 90 % → under 75 % pr. 2026-11-05.
 - MÅL: Facebook-kilder 46 af 206 besøgende → 60+ pr. 2026-11-05 (share-preview live).
 - MÅL: `/en/calendar-qr-code` CTR 0,4 % (566v, 2 klik, pos. 11,0) → over 2 % pr. 2026-10-24.
@@ -31,10 +29,10 @@ Baseline (Plausible, 28 dage til 2026-10-08): 206 besøgende, 289 sidevisninger,
 
 ### Åbne opgaver
 
-1. Telefon- og WhatsApp-QR-koder landet 2026-10-10 (ceo/phone-whatsapp-qr) — ny fane
-   "Telefon" og WhatsApp i Social-fanen. Næste kandidater (vælges efter effekt):
-   `/` som værktøj først (151 besøgende, 90 % bounce), eller Print-ark over flere sider
-   (batch på 100 koder → flersidet PDF) fra feature-køen.
+1. Telefon- og WhatsApp-QR-koder landet 2026-10-10 (ceo/phone-whatsapp-qr); print-ark over
+   flere sider landet 2026-10-10 (ceo/multi-page-print-sheet). Næste kandidater (vælges
+   efter effekt): `/` som værktøj først (151 besøgende, 90 % bounce), Google-Maps-
+   anmeldelse som QR-type, eller CTR-løft på `/tekst-qr-kode` fra feature-køen.
 
 Afsluttede opgaver (scan-kontrol, hvid zone, mm-download, EN-generator-først,
 share-billeder, vCard-title/FAQ, CSV-import, batch-PDF, undersidernes print-/scan-værktøjer,
@@ -59,10 +57,11 @@ sms-vejledning, kalender-vejledning) står i `docs/plan-arkiv.md`.
   eneste undtagelse fra reglen om ingen nye afhængigheder.
 
 ### Feature-kø (prioriteret)
-- **Print-ark over flere sider:** arket tager i dag ét A4-ark (op til 42 koder). Del op i
-  sider, så en batch på 100 også kan printes samlet. Accept: 100 koder → flersidet PDF.
+- **`/` som værktøj først:** 151 besøgende, 90 % bounce. Generatoren er over folden;
+   mangler: et synligt, fungerende resultat og download uden scroll på mobil.
+   Accept: bounce under 75 % pr. 2026-11-05.
 - **CTR-løft på `/tekst-qr-kode`:** 93v, pos. 30,8, 0 klik. Omskriv title/description mod
-  "url kode"/"statisk qr kode". MÅL: CTR > 2 % pr. 2026-11-05.
+   "url kode"/"statisk qr kode". MÅL: CTR > 2 % pr. 2026-11-05.
 - **vCard-konvertering:** 121v, 0 klik, pos. 13. Efter title/FAQ-landingen måles CTR igen;
   hvis stadig 0, byg et digitalt-visitkort-eksempel ind på siden.
 - **Google-Maps-anmeldelse som QR-type:** konkurrenter tilbyder "skriv en anmeldelse"-koder.
@@ -75,14 +74,7 @@ ceo/history-opt-in. (2) "30-dages stopregel" — kun BACKLOG-tekst, ingen kode; 
 får opmærksomhed.
 
 ## Verificér deploy
-- DEPLOY OK 2026-10-10 19:3x: kalender-FAQ (ceo/kalender-howto-faq), scanner-sider
-  (ceo/scan-page), batch-print-ark (ceo/batch-print-ark) og share-billederne
-  (ceo/og-images) bekræftet på live ved indholdstjek — se STATUS.
-- VERIFICÉR DEPLOY: ny fane "Telefon" (tel:-link med live-preview) og WhatsApp som
-  platform i Social-fanen (wa.me-link) på `/` og `/en/` · ceo/phone-whatsapp-qr
-  2026-10-10 20:5x — merge ligger før vinduet 21:30. Tjek efter 21:30 at fanen vises,
-  og at app.js (med cache-bust) indeholder "wa.me".
-- VERIFICÉR DEPLOY: scanner-vejledning "Sådan sender dine kunder en email med ét scan"
-  og FAQPage-JSON-LD med seks spørgsmål på `/email-qr-kode` + `/en/email-qr-code`
-  · ceo/email-guide 2026-10-10 20:0x — merge ligger før vinduet 21:30. Tjek efter 21:30
-  at afsnittet er synligt og at FAQPage-JSON-LD har seks spørgsmål.
+
+Ingen åbne noter pr. 2026-10-10 23:2x. Sidste tre merges (kalender-FAQ, scanner-sider,
+batch-print-ark, share-billeder, email-guide, telefon/WhatsApp) er bekræftet live ved
+indholdstjek — se STATUS og plan-arkivet.

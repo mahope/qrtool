@@ -62,8 +62,10 @@ function loadApp(options = {}) {
     batchOutput: format => batchOutput(format),
     canvasToPdfBlob: (canvas, mm) => canvasToPdfBlob(canvas, mm),
     sheetLayout: count => sheetLayout(count),
-    buildBatchSheetCanvas: (lines, style, ecLevel) => buildBatchSheetCanvas(lines, style, ecLevel),
-    buildSheetPDF: (jpegBytes, imgW, imgH) => buildSheetPDF(jpegBytes, imgW, imgH)
+    sheetPages: lines => sheetPages(lines),
+    buildBatchSheetCanvas: (lines, style, ecLevel, layout) => buildBatchSheetCanvas(lines, style, ecLevel, layout),
+    buildSheetPDF: (jpegBytes, imgW, imgH) => buildSheetPDF(jpegBytes, imgW, imgH),
+    buildMultiPageSheetPDF: jpegs => buildMultiPageSheetPDF(jpegs)
 };`);
 
     factory(...names.map(name => injected[name]));
@@ -110,8 +112,10 @@ function loadApp(options = {}) {
         batchOutput: format => bind.batchOutput(format),
         canvasToPdfBlob: (canvas, mm) => bind.canvasToPdfBlob(canvas, mm),
         sheetLayout: count => bind.sheetLayout(count),
-        buildBatchSheetCanvas: (lines, style, ecLevel) => bind.buildBatchSheetCanvas(lines, style, ecLevel),
-        buildSheetPDF: (jpegBytes, imgW, imgH) => bind.buildSheetPDF(jpegBytes, imgW, imgH)
+        sheetPages: lines => bind.sheetPages(lines),
+        buildBatchSheetCanvas: (lines, style, ecLevel, layout) => bind.buildBatchSheetCanvas(lines, style, ecLevel, layout),
+        buildSheetPDF: (jpegBytes, imgW, imgH) => bind.buildSheetPDF(jpegBytes, imgW, imgH),
+        buildMultiPageSheetPDF: jpegs => bind.buildMultiPageSheetPDF(jpegs)
     };
 
     return api;
