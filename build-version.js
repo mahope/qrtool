@@ -13,7 +13,7 @@ const crypto = require('crypto');
 const fs = require('fs');
 const path = require('path');
 
-const VERSIONED = ['app.js', 'style.css', 'lib/qrcode.js', 'lib/qr-page.js'];
+const VERSIONED = ['app.js', 'style.css', 'lib/qrcode.js', 'lib/qr-page.js', 'lib/qr-scan.js'];
 
 function computeVersion(distDir) {
     const hash = crypto.createHash('sha256');
@@ -30,10 +30,10 @@ function computeVersion(distDir) {
 // have none yet (lib/qrcode.js).
 function applyVersion(content, version) {
     let out = content.replace(
-        /(style\.css|app\.js|lib\/qrcode\.js|lib\/qr-page\.js)\?v=[0-9a-f]+/g,
+        /(style\.css|app\.js|lib\/qrcode\.js|lib\/qr-page\.js|lib\/qr-scan\.js)\?v=[0-9a-f]+/g,
         `$1?v=${version}`
     );
-    out = out.replace(/(lib\/qrcode\.js|lib\/qr-page\.js)(?!\?v=)/g, `$1?v=${version}`);
+    out = out.replace(/(lib\/qrcode\.js|lib\/qr-page\.js|lib\/qr-scan\.js)(?!\?v=)/g, `$1?v=${version}`);
     return out;
 }
 

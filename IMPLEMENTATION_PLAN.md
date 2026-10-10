@@ -5,7 +5,13 @@ STATUS:
   SMS-vejledningen. `/sms-qr-kode` og `/en/sms-qr-code` har på live afsnittet
   "Sådan scanner du en SMS QR-kode", to HowTo-noder og FAQPage-JSON-LD med seks
   spørgsmål. Alle tidligere afventende noter er lukket.
-- Gate: `npm test` = `npm run build` + `node --test` (173 tests). 173/173 grønne pr. 2026-10-10 14:4x.
+- Gate: `npm test` = `npm run build` + `node --test` (179 tests). 179/179 grønne pr. 2026-10-10 15:4x.
+- 2026-10-10: Ny QR-læser som egen side `/scan-qr-kode` + `/en/scan-qr-code`
+  (ceo/scan-page): kamera og billed-upload, dekodet lokalt med jsQR, resultat med
+  kopiér/åbn-link, vejledning, FAQ og FAQPage/WebApplication-JSON-LD. Datagrund:
+  GSC "scan qr kode gratis" 48 visninger, pos. 9, 0 klik — der manglede en
+  landingsside for scanner-søgninger. Gate 179/179 (6 nye tests i
+  test/scan-page.test.js).
 - 2026-10-10: `/kalender-qr-kode` fået oprettelses-FAQ og interne links
   (ceo/kalender-howto-faq): "Hvordan opretter jeg en kalender QR-kode?" er nu første
   FAQ på siden og i FAQPage-JSON-LD (seks spørgsmål), og et nyt afsnit linker til de
@@ -16,6 +22,8 @@ STATUS:
 - MÅL: `/sms-qr-kode` CTR 3,9 % (102v, 4 klik, pos. 10,7) → over 6 % pr. 2026-10-24.
 - MÅL: `/` baseline 151 besøgende/28 d, bounce 90 % → under 75 % pr. 2026-11-05.
 - MÅL: Facebook-kilder 46 af 206 besøgende → 60+ pr. 2026-11-05 (share-preview rettet 2026-10-09).
+- MÅL: `/scan-qr-kode` ny side, 0 besøgende/0 klik i dag (query "scan qr kode gratis"
+  48v pos. 9) → CTR > 3 % pr. 2026-11-05.
 - PR-TJEK 2026-10-10: ingen åbne PR'er.
 - BRANCH-TJEK 2026-10-10: intet nyt at rydde.
 
@@ -53,14 +61,15 @@ sms-vejledning, kalender-vejledning) står i `docs/plan-arkiv.md`.
 - **`file-saver` er erklæret i package.json men bruges ikke** i app.js eller noget HTML. Det er den
   eneste undtagelse fra reglen om ingen nye afhængigheder.
 
-### Feature-kø
-- ✅ **App-store-link som QR-type.** Landet 2026-10-09 i ceo/app-link.
-- ✅ **Kontrastmåling i farvevælgeren.** Landet 2026-10-09 i ceo/contrast-readout: farveområdet
-  viser WCAG-kontrastforholdet mellem kode og baggrund live (advarsel under 3:1), DA+EN.
-- ✅ **PDF i trykkvalitet i batch.** Landet 2026-10-10 i ceo/batch-pdf.
-- ✅ **Samme funktioner på QR-type-undersiderne.** Landet 2026-10-10 i ceo/subpage-print-scan:
-  printstørrelse, PDF, JPG/WebP, scan-kontrol og hvid zone på alle 12 undersider via
-  `lib/qr-page.js`. Accept (300 dpi PDF fra `/wifi-qr-kode`) dækket af test/subpage-features.test.js.
+### Feature-kø (prioriteret)
+- **Batch som print-ark:** læg flere koder på ét A4-ark og download som PDF — til
+  mærkater og ark. Til brugere med mange koder. Accept: ZIP + ét ark-PDF fra batch.
+- **Flere QR-typer i generatoren:** telefon (`tel:`), WhatsApp og Google Maps-anmeldelse.
+  Datagrund: konkurrenter tilbyder dem, og de mangler i fanerne. Accept: ny fane + test.
+- **CTR-løft på `/tekst-qr-kode`:** 93v, pos. 30,8, 0 klik. Omskriv title/description mod
+  "url kode"/"statisk qr kode". MÅL: CTR > 2 % pr. 2026-11-05.
+- **vCard-konvertering:** 121v, 0 klik, pos. 13. Efter title/FAQ-landingen måles CTR igen;
+  hvis stadig 0, byg et digitalt-visitkort-eksempel ind på siden.
 
 ## Bevaret arbejde
 `bevaret/2026-10-auto-union-night` (slet aldrig): (1) opt-in-historik — landet 2026-10-09 i
@@ -73,3 +82,7 @@ får opmærksomhed.
   `/en/calendar-qr-code` · ceo/kalender-howto-faq 2026-10-10 14:4x — merge ligger før vinduet
   17:30. Tjek på live at FAQ'en "Hvordan opretter jeg en kalender QR-kode?" er synlig som
   første spørgsmål og at FAQPage-JSON-LD har seks spørgsmål.
+- VERIFICÉR DEPLOY: ny QR-læser-side `/scan-qr-kode` og `/en/scan-qr-code` (kamera +
+  billed-upload, FAQ, strukturerede data) · ceo/scan-page 2026-10-10 15:4x — merge ligger
+  efter vinduet 12:30, så tjek først efter 17:30. Verificér på live at siden svarer 200, at
+  knapperne "Start kamera"/"Upload billede" findes, og at FAQPage-JSON-LD har seks spørgsmål.

@@ -15,6 +15,7 @@ const copyItems = [
     'index.html', 'wifi-qr-kode.html', 'om-qr-tool.html', 'privatlivspolitik.html',
     'cookiepolitik.html', '404.html', 'vcard-qr-kode.html', 'email-qr-kode.html',
     'sms-qr-kode.html', 'kalender-qr-kode.html', 'tekst-qr-kode.html',
+    'scan-qr-kode.html',
     'style.css', 'app.js', 'sw.js',
     'sitemap.xml', 'robots.txt', 'manifest.json', 'icon.svg', 'ads.txt',
     '.htaccess',
@@ -67,6 +68,10 @@ execSync(`npx esbuild "${path.join(DIST, 'lib', 'qrcode.js')}" --minify --outfil
 // Minify lib/qr-page.js — the shared helpers for the QR-type subpages
 console.log('Minifying lib/qr-page.js...');
 execSync(`npx esbuild "${path.join(DIST, 'lib', 'qr-page.js')}" --minify --outfile="${path.join(DIST, 'lib', 'qr-page.js')}" --allow-overwrite`, { stdio: 'inherit' });
+
+// Minify lib/qr-scan.js — the QR reader for /scan-qr-kode
+console.log('Minifying lib/qr-scan.js...');
+execSync(`npx esbuild "${path.join(DIST, 'lib', 'qr-scan.js')}" --minify --outfile="${path.join(DIST, 'lib', 'qr-scan.js')}" --allow-overwrite`, { stdio: 'inherit' });
 
 // Cache-busting: derive a token from the built asset contents and stamp it on
 // every reference. Cloudflare caches .js/.css per URL for 7 days, so without a
