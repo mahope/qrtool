@@ -60,7 +60,10 @@ function loadApp(options = {}) {
     parseCsvRows: (text, delimiter) => parseCsvRows(text, delimiter),
     detectCsvDelimiter: text => detectCsvDelimiter(text),
     batchOutput: format => batchOutput(format),
-    canvasToPdfBlob: (canvas, mm) => canvasToPdfBlob(canvas, mm)
+    canvasToPdfBlob: (canvas, mm) => canvasToPdfBlob(canvas, mm),
+    sheetLayout: count => sheetLayout(count),
+    buildBatchSheetCanvas: (lines, style, ecLevel) => buildBatchSheetCanvas(lines, style, ecLevel),
+    buildSheetPDF: (jpegBytes, imgW, imgH) => buildSheetPDF(jpegBytes, imgW, imgH)
 };`);
 
     factory(...names.map(name => injected[name]));
@@ -105,7 +108,10 @@ function loadApp(options = {}) {
         parseCsvRows: (text, delimiter) => bind.parseCsvRows(text, delimiter),
         detectCsvDelimiter: text => bind.detectCsvDelimiter(text),
         batchOutput: format => bind.batchOutput(format),
-        canvasToPdfBlob: (canvas, mm) => bind.canvasToPdfBlob(canvas, mm)
+        canvasToPdfBlob: (canvas, mm) => bind.canvasToPdfBlob(canvas, mm),
+        sheetLayout: count => bind.sheetLayout(count),
+        buildBatchSheetCanvas: (lines, style, ecLevel) => bind.buildBatchSheetCanvas(lines, style, ecLevel),
+        buildSheetPDF: (jpegBytes, imgW, imgH) => bind.buildSheetPDF(jpegBytes, imgW, imgH)
     };
 
     return api;

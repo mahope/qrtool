@@ -77,6 +77,8 @@ const T = {
         'batch.downloaded': '{n} QR-koder downloadet som ZIP!',
         'batch.error': 'Fejl ved batch generering: ',
         'batch.preview': '{n} QR-koder vist i forhåndsvisning',
+        'batch.sheetDownloaded': 'Print-ark med {n} QR-koder downloadet som PDF!',
+        'batch.sheetTooMany': 'Print-arket kan højst rumme {n} QR-koder ad gangen.',
 
         // CSV
         'csv.empty': 'CSV-filen er tom.',
@@ -241,6 +243,8 @@ const T = {
         'batch.downloaded': '{n} QR codes downloaded as ZIP!',
         'batch.error': 'Batch generation error: ',
         'batch.preview': '{n} QR codes shown in preview',
+        'batch.sheetDownloaded': 'Print sheet with {n} QR codes downloaded as PDF!',
+        'batch.sheetTooMany': 'The print sheet can hold at most {n} QR codes at a time.',
 
         // CSV
         'csv.empty': 'The CSV file is empty.',
@@ -586,6 +590,7 @@ const printSizeHintDefault = printSizeHint ? printSizeHint.textContent : '';
 // Batch elements
 const batchInput = document.getElementById('batchInput');
 const batchGenerateBtn = document.getElementById('batchGenerateBtn');
+const batchSheetBtn = document.getElementById('batchSheetBtn');
 
 // History elements
 const historyList = document.getElementById('historyList');
@@ -2137,6 +2142,66 @@ async function canvasToPdfBlob(canvas, mm) {
         : buildPDF(jpeg, canvas.width, canvas.height);
 }
 
+// --- Print sheet: several QR codes laid out in a grid on one A4 page ---
+// A4 at 300 dpi (210 × 297 mm). The canvas is the page the user prints.
+const SHEET_W = 2480;
+const SHEET_H = 3508;
+const SHEET_MARGIN = 80;
+const SHEET_GAP = 40;
+const SHEET_LABEL_H = 90;
+
+// Pure layout: how many columns/rows a given number of codes gets on one A4
+// page, and how large each square cell is. Columns grow with the count so a
+// few codes are big and many codes still fit.
+function sheetLayout(count) {
+    const cols = count <= 4 ? 2 : count <= 9 ? 3 : count <= 16 ? 4 : count <= 25 ? 5 : 6;
+    const cell = Math.floor((SHEET_W - 2 * SHEET_MARGIN - (cols - 1) * SHEET_GAP) / cols);
+    const rows = Math.max(1, Math.floor((SHEET_H - 2 * SHEET_MARGIN + SHEET_GAP) / (cell + SHEET_LABEL_H + SHEET_GAP)));
+    return { cols, rows, perPage: cols * rows, cell, gap: SHEET_GAP, margin: SHEET_MARGIN, labelH: SHEET_LABEL_H };
+}
+
+// Draws up to `perPage` codes in a grid on one A4 canvas, each with its text
+// underneath. Returns the canvas plus how many codes were placed.
+function buildBatchSheetCanvas(lines, style, ecLevel) {
+    const { cols, cell, gap, margin, labelH, perPage } = sheetLayout(lines.length);
+    const canvas = document.createElement('canvas');
+    canvas.width = SHEET_W;
+    canvas.height = SHEET_H;
+    const ctx = canvas.getContext('2d');
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0, 0, SHEET_W, SHEET_H);
+
+    const used = Math.min(lines.length, perPage);
+    for (let i = 0; i < used; i++) {
+        const text = lines[i];
+        const col = i % cols;
+        const row = Math.floor(i / cols);
+        const x = margin + col * (cell + gap);
+        const y = margin + row * (cell + labelH + gap);
+
+        const qr = qrcode(0, ecLevel);
+        qr.addData(text);
+        qr.make();
+
+        const tile = document.createElement('canvas');
+        drawCanvas(qr, cell, tile, style);
+        ctx.drawImage(tile, x, y, cell, cell);
+
+        ctx.fillStyle = '#000000';
+        ctx.font = `${Math.round(labelH * 0.36)}px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif`;
+        ctx.textAlign = 'center';
+        const label = text.length > 34 ? text.slice(0, 33) + '…' : text;
+        ctx.fillText(label, x + cell / 2, y + cell + labelH * 0.72);
+    }
+    return { canvas, used, perPage };
+}
+
+// Sheet-PDF: the A4 canvas fills the whole page (the canvas is A4 shaped).
+function buildSheetPDF(jpegBytes, imgW, imgH) {
+    const pageW = 595.28, pageH = 841.89;
+    return buildPDFDocument(jpegBytes, imgW, imgH, pageW, pageH, { w: pageW, h: pageH, x: 0, y: 0 });
+}
+
 // Preview batch QR codes
 if (batchPreviewBtn && batchInput) {
     batchPreviewBtn.addEventListener('click', () => {
@@ -2253,6 +2318,46 @@ if (batchGenerateBtn && batchInput) {
             batchGenerateBtn.textContent = originalText;
             batchGenerateBtn.disabled = false;
             hideBatchProgress();
+        }
+    });
+}
+
+// Download all batch codes as one printable A4 sheet (PDF)
+if (batchSheetBtn && batchInput) {
+    batchSheetBtn.addEventListener('click', async () => {
+        const lines = getBatchLines();
+        if (lines.length === 0) {
+            showToast(t('batch.enterText'), 'error');
+            return;
+        }
+
+        const { perPage } = sheetLayout(lines.length);
+        if (lines.length > perPage) {
+            showToast(t('batch.sheetTooMany', { n: perPage }), 'error');
+            return;
+        }
+
+        const originalText = batchSheetBtn.textContent;
+        batchSheetBtn.textContent = t('batch.generating');
+        batchSheetBtn.disabled = true;
+
+        try {
+            const { canvas, used } = buildBatchSheetCanvas(lines, qrStyle.value, errorCorrection.value);
+            const jpeg = await new Promise((resolve, reject) => {
+                canvas.toBlob(blob => {
+                    if (!blob) { reject(new Error('Could not read the canvas.')); return; }
+                    blob.arrayBuffer().then(buf => resolve(new Uint8Array(buf))).catch(reject);
+                }, 'image/jpeg', 0.92);
+            });
+
+            downloadBlob(buildSheetPDF(jpeg, canvas.width, canvas.height), `qr-print-ark-${Date.now()}.pdf`);
+            showToast(t('batch.sheetDownloaded', { n: used }), 'success');
+        } catch (error) {
+            console.error('Fejl ved print-ark:', error);
+            showToast(t('batch.error') + error.message, 'error');
+        } finally {
+            batchSheetBtn.textContent = originalText;
+            batchSheetBtn.disabled = false;
         }
     });
 }

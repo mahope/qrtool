@@ -241,3 +241,13 @@ FAQPage-JSON-LD, seks spørgsmål i alt), og der er et internt link-afsnit til d
 generatorer. MÅL: `/en/calendar-qr-code` CTR fra 0,4 % (566v, 2 klik, pos. 11,0) til over
 2 % pr. 2026-10-24. DA+EN. Gate 173/173 (7 nye tests i test/kalender-content.test.js, 2 af
 dem fejlede på master).
+
+## 2026-10-10 — A4-print-ark i batch-eksporten (ceo/batch-print-ark)
+Batch kunne kun give én fil pr. kode (ZIP), så brugere med mange koder måtte printe dem
+enkeltvis. Nu kan hele batch'en downloades som ét A4-print-ark (PDF) med koderne i et
+gitter og teksten under hver — til mærkater og ark. Gitteret tilpasser sig antallet
+(2–6 kolonner) og rummer op til 42 koder pr. ark; er der flere, vises en besked (flersidet
+ark er en selvstændig opgave). Genbruger den eksisterende PDF-builder ved at tegne hele
+arket på ét 300 dpi A4-canvas (2480×3508) og lægge det på siden. DA+EN. Gate 184/184
+(5 nye tests i test/batch-sheet.test.js). Datagrund: planens feature-kø; batch er til
+brugere med mange koder.

@@ -5,13 +5,17 @@ STATUS:
   SMS-vejledningen. `/sms-qr-kode` og `/en/sms-qr-code` har på live afsnittet
   "Sådan scanner du en SMS QR-kode", to HowTo-noder og FAQPage-JSON-LD med seks
   spørgsmål. Alle tidligere afventende noter er lukket.
-- Gate: `npm test` = `npm run build` + `node --test` (179 tests). 179/179 grønne pr. 2026-10-10 15:4x.
+- Gate: `npm test` = `npm run build` + `node --test` (184 tests). 184/184 grønne pr. 2026-10-10 17:1x.
 - 2026-10-10: Ny QR-læser som egen side `/scan-qr-kode` + `/en/scan-qr-code`
   (ceo/scan-page): kamera og billed-upload, dekodet lokalt med jsQR, resultat med
   kopiér/åbn-link, vejledning, FAQ og FAQPage/WebApplication-JSON-LD. Datagrund:
   GSC "scan qr kode gratis" 48 visninger, pos. 9, 0 klik — der manglede en
   landingsside for scanner-søgninger. Gate 179/179 (6 nye tests i
   test/scan-page.test.js).
+- 2026-10-10: Batch kan nu downloades som ét A4-print-ark (PDF) med koderne i et gitter
+  og teksten under hver (ceo/batch-print-ark): "Download print-ark (A4)" i batch-sektionen.
+  Gitteret tilpasser sig antallet (2–6 kolonner), op til 42 koder pr. ark; flere viser en
+  besked. DA+EN. Gate 184/184 (5 nye tests i test/batch-sheet.test.js).
 - 2026-10-10: `/kalender-qr-kode` fået oprettelses-FAQ og interne links
   (ceo/kalender-howto-faq): "Hvordan opretter jeg en kalender QR-kode?" er nu første
   FAQ på siden og i FAQPage-JSON-LD (seks spørgsmål), og et nyt afsnit linker til de
@@ -62,10 +66,10 @@ sms-vejledning, kalender-vejledning) står i `docs/plan-arkiv.md`.
   eneste undtagelse fra reglen om ingen nye afhængigheder.
 
 ### Feature-kø (prioriteret)
-- **Batch som print-ark:** læg flere koder på ét A4-ark og download som PDF — til
-  mærkater og ark. Til brugere med mange koder. Accept: ZIP + ét ark-PDF fra batch.
 - **Flere QR-typer i generatoren:** telefon (`tel:`), WhatsApp og Google Maps-anmeldelse.
   Datagrund: konkurrenter tilbyder dem, og de mangler i fanerne. Accept: ny fane + test.
+- **Print-ark over flere sider:** arket tager i dag ét A4-ark (op til 42 koder). Del op i
+  sider, så en batch på 100 også kan printes samlet. Accept: 100 koder → flersidet PDF.
 - **CTR-løft på `/tekst-qr-kode`:** 93v, pos. 30,8, 0 klik. Omskriv title/description mod
   "url kode"/"statisk qr kode". MÅL: CTR > 2 % pr. 2026-11-05.
 - **vCard-konvertering:** 121v, 0 klik, pos. 13. Efter title/FAQ-landingen måles CTR igen;
@@ -86,3 +90,6 @@ får opmærksomhed.
   billed-upload, FAQ, strukturerede data) · ceo/scan-page 2026-10-10 15:4x — merge ligger
   efter vinduet 12:30, så tjek først efter 17:30. Verificér på live at siden svarer 200, at
   knapperne "Start kamera"/"Upload billede" findes, og at FAQPage-JSON-LD har seks spørgsmål.
+- VERIFICÉR DEPLOY: A4-print-ark i batch-sektionen på `/` og `/en/` · ceo/batch-print-ark
+  2026-10-10 17:1x — merge ligger før vinduet 17:30, tjek efter 17:30. Verificér på live at
+  knappen "Download print-ark (A4)" findes i batch-sektionen på begge forsider.
