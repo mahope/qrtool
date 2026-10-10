@@ -77,6 +77,72 @@
       ]
     }
     </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "HowTo",
+          "name": "Sådan sender dine kunder en email med iPhone",
+          "description": "Kunden scanner email QR-koden med iPhone'ens indbyggede kamera og åbner en forudfyldt email i Mail.",
+          "totalTime": "PT1M",
+          "step": [
+            {"@type": "HowToStep", "name": "Åbn kameraet", "text": "Start den indbyggede kamera-app. Der er ingen knap at trykke på — hold bare koden op i billedet."},
+            {"@type": "HowToStep", "name": "Hold koden i billedet", "text": "Koden genkendes, og der popper en bjælke op med modtagerens emailadresse."},
+            {"@type": "HowToStep", "name": "Tryk på bjælken", "text": "Mail-appen åbner en ny email med modtager, emne og besked forudfyldt."},
+            {"@type": "HowToStep", "name": "Tjek og send", "text": "Kunden læser emailen igennem og trykker Send. Felterne kan redigeres før afsendelse."}
+          ]
+        },
+        {
+          "@type": "HowTo",
+          "name": "Sådan sender dine kunder en email med Android",
+          "description": "Android-telefoner læser email QR-koder i kamera-appen og åbner den forudfyldte email i mail-appen.",
+          "totalTime": "PT1M",
+          "step": [
+            {"@type": "HowToStep", "name": "Åbn kameraet", "text": "Den indbyggede kamera-app læser email QR-koder."},
+            {"@type": "HowToStep", "name": "Hold koden i billedet", "text": "Telefonen genkender mailto-linket og viser en bjælke eller et ikon."},
+            {"@type": "HowToStep", "name": "Tryk på bjælken", "text": "Mail-appen åbner en ny email med modtager, emne og besked forudfyldt."},
+            {"@type": "HowToStep", "name": "Tjek og send", "text": "Kunden læser emailen igennem og trykker Send. Felterne kan redigeres før afsendelse."}
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "Hvordan opretter jeg en email QR-kode?",
+              "acceptedAnswer": {"@type": "Answer", "text": "Udfyld modtagerens emailadresse og eventuelt emne og besked, og tryk på Generer Email QR-Kode. Koden kan derefter downloades som PNG, SVG, JPG, WebP eller PDF."}
+            },
+            {
+              "@type": "Question",
+              "name": "Hvordan virker en email QR-kode?",
+              "acceptedAnswer": {"@type": "Answer", "text": "Når en bruger scanner QR-koden, åbnes deres standard email-app med modtager, emne og besked forudfyldt. Brugeren skal blot trykke på Send."}
+            },
+            {
+              "@type": "Question",
+              "name": "Virker email QR-koder på både iPhone og Android?",
+              "acceptedAnswer": {"@type": "Answer", "text": "Ja! Email QR-koder bruger mailto-protokollen, som understøttes af alle smartphones. Koden åbner den email-app brugeren har installeret."}
+            },
+            {
+              "@type": "Question",
+              "name": "Kan modtageren redigere emailen inden afsendelse?",
+              "acceptedAnswer": {"@type": "Answer", "text": "Ja, QR-koden forudfylder blot felterne. Brugeren kan frit redigere emne, besked og tilføje vedhæftninger inden de sender."}
+            },
+            {
+              "@type": "Question",
+              "name": "Er der en grænse for beskedens længde?",
+              "acceptedAnswer": {"@type": "Answer", "text": "QR-koder har en kapacitetsbegrænsning. Vi anbefaler at holde den samlede tekst under 300 tegn for optimal scanbarhed."}
+            },
+            {
+              "@type": "Question",
+              "name": "Kan jeg bruge email QR-koder til nyhedsbreve?",
+              "acceptedAnswer": {"@type": "Answer", "text": "Ja, du kan oprette en QR-kode der forudfylder en tilmeldingsmail til dit nyhedsbrev. Angiv emnet som Tilmeld nyhedsbrev og en kort besked."}
+            }
+          ]
+        }
+      ]
+    }
+    </script>
 </head>
 <body>
     <div class="container">
@@ -249,6 +315,30 @@
                 </ol>
             </article>
 
+            <article class="content-block" id="saadan-scanner-email">
+                <h2>Sådan sender dine kunder en email med ét scan</h2>
+                <p>Email QR-koden pakker modtager, emne og besked i ét scan. Kunden skal hverken finde emailadressen eller tænke over, hvad de skriver — de scanner koden, tjekker emailen og sender.</p>
+
+                <h3>På iPhone og iPad</h3>
+                <ol class="guide-list">
+                    <li><strong>Åbn kameraet:</strong> Start den indbyggede kamera-app. Der er ingen knap at trykke på — hold bare koden op i billedet.</li>
+                    <li><strong>Hold koden i billedet:</strong> Koden genkendes, og der popper en bjælke op med modtagerens emailadresse.</li>
+                    <li><strong>Tryk på bjælken:</strong> Mail-appen åbner en ny email med modtager, emne og besked forudfyldt.</li>
+                    <li><strong>Tjek og send:</strong> Kunden læser emailen igennem og trykker Send. Felterne kan redigeres før afsendelse.</li>
+                </ol>
+
+                <h3>På Android</h3>
+                <ol class="guide-list">
+                    <li><strong>Åbn kameraet:</strong> Den indbyggede kamera-app læser email QR-koder.</li>
+                    <li><strong>Hold koden i billedet:</strong> Telefonen genkender mailto-linket og viser en bjælke eller et ikon.</li>
+                    <li><strong>Tryk på bjælken:</strong> Mail-appen åbner en ny email med modtager, emne og besked forudfyldt.</li>
+                    <li><strong>Tjek og send:</strong> Kunden læser emailen igennem og trykker Send. Felterne kan redigeres før afsendelse.</li>
+                </ol>
+
+                <h3>Hvis koden ikke åbner mailappen</h3>
+                <p>Nogle ældre telefoner og kamera-apps læser ikke mailto-koder direkte. Skriv derfor altid emailadressen som tekst ved siden af koden, hvis den skal virke for alle — fx på et trykt visitkort. Test gerne koden med både en iPhone og en Android, inden den sendes ud.</p>
+            </article>
+
             <article class="content-block">
                 <h2>Best Practices for Email QR-Koder</h2>
                 <ul>
@@ -260,8 +350,25 @@
                 </ul>
             </article>
 
+            <article class="content-block">
+                <h2>Andre QR-Kodetyper</h2>
+                <p>QRTool laver flere slags QR-koder. Alle er gratis, og alt sker i din egen browser:</p>
+                <ul>
+                    <li><a href="/wifi-qr-kode">WiFi QR-kode</a> — gæster kommer på netværket med ét scan.</li>
+                    <li><a href="/vcard-qr-kode">Visitkort QR-kode</a> — del kontaktoplysninger direkte til adressbogen.</li>
+                    <li><a href="/sms-qr-kode">SMS QR-kode</a> — send en forudfyldt sms med ét tryk.</li>
+                    <li><a href="/kalender-qr-kode">Kalender QR-kode</a> — lad kunder gemme dit event med ét scan.</li>
+                    <li><a href="/tekst-qr-kode">Tekst QR-kode</a> — hvilken som helst tekst eller link.</li>
+                </ul>
+            </article>
+
             <article class="content-block faq-section">
                 <h2>Ofte Stillede Spørgsmål om Email QR-Koder</h2>
+
+                <div class="faq-item">
+                    <h3>Hvordan opretter jeg en email QR-kode?</h3>
+                    <p>Udfyld modtagerens emailadresse og eventuelt emne og besked, og tryk på "Generer Email QR-Kode". Koden kan derefter downloades som PNG, SVG, JPG, WebP eller PDF.</p>
+                </div>
 
                 <div class="faq-item">
                     <h3>Hvordan virker en email QR-kode?</h3>

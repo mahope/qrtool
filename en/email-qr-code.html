@@ -77,6 +77,72 @@
       ]
     }
     </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "HowTo",
+          "name": "How your customers send an email with iPhone",
+          "description": "The customer scans the email QR code with the iPhone's built-in camera and opens a pre-filled email in Mail.",
+          "totalTime": "PT1M",
+          "step": [
+            {"@type": "HowToStep", "name": "Open the camera", "text": "Start the built-in camera app. There is no button to press — just hold the code in the frame."},
+            {"@type": "HowToStep", "name": "Hold the code in the frame", "text": "The code is recognised and a banner appears with the recipient's email address."},
+            {"@type": "HowToStep", "name": "Tap the banner", "text": "The Mail app opens a new email with recipient, subject and message pre-filled."},
+            {"@type": "HowToStep", "name": "Check and send", "text": "The customer reads the email and taps Send. The fields can be edited before sending."}
+          ]
+        },
+        {
+          "@type": "HowTo",
+          "name": "How your customers send an email with Android",
+          "description": "Android phones read email QR codes in the camera app and open the pre-filled email in the mail app.",
+          "totalTime": "PT1M",
+          "step": [
+            {"@type": "HowToStep", "name": "Open the camera", "text": "The built-in camera app reads email QR codes."},
+            {"@type": "HowToStep", "name": "Hold the code in the frame", "text": "The phone recognises the mailto link and shows a banner or an icon."},
+            {"@type": "HowToStep", "name": "Tap the banner", "text": "The mail app opens a new email with recipient, subject and message pre-filled."},
+            {"@type": "HowToStep", "name": "Check and send", "text": "The customer reads the email and taps Send. The fields can be edited before sending."}
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "How do I create an email QR code?",
+              "acceptedAnswer": {"@type": "Answer", "text": "Fill in the recipient's email address and optionally a subject and message, and press Generate Email QR Code. The code can then be downloaded as PNG, SVG, JPG, WebP or PDF."}
+            },
+            {
+              "@type": "Question",
+              "name": "How does an email QR code work?",
+              "acceptedAnswer": {"@type": "Answer", "text": "When a user scans the QR code, their default email app opens with the recipient, subject and message pre-filled. The user simply needs to press Send."}
+            },
+            {
+              "@type": "Question",
+              "name": "Do email QR codes work on both iPhone and Android?",
+              "acceptedAnswer": {"@type": "Answer", "text": "Yes! Email QR codes use the mailto protocol, which is supported by all smartphones. The code opens whichever email app the user has installed."}
+            },
+            {
+              "@type": "Question",
+              "name": "Can the recipient edit the email before sending?",
+              "acceptedAnswer": {"@type": "Answer", "text": "Yes, the QR code only pre-fills the fields. The user can freely edit the subject, message and add attachments before sending."}
+            },
+            {
+              "@type": "Question",
+              "name": "Is there a limit to the message length?",
+              "acceptedAnswer": {"@type": "Answer", "text": "QR codes have a capacity limitation. We recommend keeping the total text under 300 characters for optimal scannability."}
+            },
+            {
+              "@type": "Question",
+              "name": "Can I use email QR codes for newsletters?",
+              "acceptedAnswer": {"@type": "Answer", "text": "Yes, you can create a QR code that pre-fills a subscription email for your newsletter. Set the subject as Subscribe to newsletter and a short message."}
+            }
+          ]
+        }
+      ]
+    }
+    </script>
 </head>
 <body>
     <div class="container">
@@ -249,6 +315,30 @@
                 </ol>
             </article>
 
+            <article class="content-block" id="how-customers-scan">
+                <h2>How your customers send an email with a single scan</h2>
+                <p>The email QR code packs the recipient, subject and message into a single scan. The customer never has to look up the email address or think about what to write — they scan the code, check the email and send it.</p>
+
+                <h3>On iPhone and iPad</h3>
+                <ol class="guide-list">
+                    <li><strong>Open the camera:</strong> Start the built-in camera app. There is no button to press — just hold the code in the frame.</li>
+                    <li><strong>Hold the code in the frame:</strong> The code is recognised and a banner appears with the recipient's email address.</li>
+                    <li><strong>Tap the banner:</strong> The Mail app opens a new email with recipient, subject and message pre-filled.</li>
+                    <li><strong>Check and send:</strong> The customer reads the email and taps Send. The fields can be edited before sending.</li>
+                </ol>
+
+                <h3>On Android</h3>
+                <ol class="guide-list">
+                    <li><strong>Open the camera:</strong> The built-in camera app reads email QR codes.</li>
+                    <li><strong>Hold the code in the frame:</strong> The phone recognises the mailto link and shows a banner or an icon.</li>
+                    <li><strong>Tap the banner:</strong> The mail app opens a new email with recipient, subject and message pre-filled.</li>
+                    <li><strong>Check and send:</strong> The customer reads the email and taps Send. The fields can be edited before sending.</li>
+                </ol>
+
+                <h3>If the code does not open the mail app</h3>
+                <p>Some older phones and camera apps do not read mailto codes directly. Always write the email address as text next to the code if it has to work for everyone — for example on a printed business card. Test the code with both an iPhone and an Android before sending it out.</p>
+            </article>
+
             <article class="content-block">
                 <h2>Best Practices for Email QR Codes</h2>
                 <ul>
@@ -260,8 +350,25 @@
                 </ul>
             </article>
 
+            <article class="content-block">
+                <h2>Other QR Code Types</h2>
+                <p>QR Tool makes several kinds of QR codes. All of them are free, and everything happens in your own browser:</p>
+                <ul>
+                    <li><a href="/en/wifi-qr-code">WiFi QR code</a> — guests join the network with a single scan.</li>
+                    <li><a href="/en/vcard-qr-code">Business card QR code</a> — share contact details straight to the address book.</li>
+                    <li><a href="/en/sms-qr-code">SMS QR code</a> — send a pre-filled text with one tap.</li>
+                    <li><a href="/en/calendar-qr-code">Calendar QR code</a> — let customers save your event with a single scan.</li>
+                    <li><a href="/en/text-qr-code">Text QR code</a> — any text or link.</li>
+                </ul>
+            </article>
+
             <article class="content-block faq-section">
                 <h2>Frequently Asked Questions About Email QR Codes</h2>
+
+                <div class="faq-item">
+                    <h3>How do I create an email QR code?</h3>
+                    <p>Fill in the recipient's email address and optionally a subject and message, and press "Generate Email QR Code". The code can then be downloaded as PNG, SVG, JPG, WebP or PDF.</p>
+                </div>
 
                 <div class="faq-item">
                     <h3>How does an email QR code work?</h3>

@@ -251,3 +251,15 @@ ark er en selvstændig opgave). Genbruger den eksisterende PDF-builder ved at te
 arket på ét 300 dpi A4-canvas (2480×3508) og lægge det på siden. DA+EN. Gate 184/184
 (5 nye tests i test/batch-sheet.test.js). Datagrund: planens feature-kø; batch er til
 brugere med mange koder.
+
+## 2026-10-10 — Email-siden får scanner-vejledning og strukturerede data (ceo/email-guide)
+Search Console viste "email qr code" (35 visninger, pos. 11), "qr code email" (13, pos. 18) og
+"qr code for email" (10, pos. 12) med 3 klik i alt (CTR 1,0 %), mens siden hverken fortalte
+en bruger, hvad der sker efter scan — eller gav søgemaskiner noget at vise. Nu er der et
+synligt afsnit "Sådan sender dine kunder en email med ét scan" med trin for iPhone og for
+Android, et afsnit om telefoner der ikke læser mailto-koder, to HowTo-noder (én pr. platform)
+og FAQPage-JSON-LD med de seks allerede synlige spørgsmål — i samme rækkefølge, så markup og
+tekst ikke driver fra hinanden. DA+EN. Gate 193/193 (9 nye tests i test/email-content.test.js,
+8 af 9 fejlede på master — de tjekker bl.a. at markerede og synlige FAQ'er er identiske og i
+samme rækkefølge, og at "300 tegn"-påstanden er den samme i tekst og markup).
+MÅL: `/en/email-qr-code` CTR fra 1,0 % (299v, 3 klik, pos. 8,9) til over 3 % pr. 2026-11-05.

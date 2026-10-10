@@ -1,33 +1,23 @@
 # IMPLEMENTATION_PLAN — qrtool.dk
 
 STATUS:
-- DEPLOY OK 2026-10-10 14:2x (verificeret på indhold): 12:30-vinduet deployede
-  SMS-vejledningen. `/sms-qr-kode` og `/en/sms-qr-code` har på live afsnittet
-  "Sådan scanner du en SMS QR-kode", to HowTo-noder og FAQPage-JSON-LD med seks
-  spørgsmål. Alle tidligere afventende noter er lukket.
-- Gate: `npm test` = `npm run build` + `node --test` (184 tests). 184/184 grønne pr. 2026-10-10 17:1x.
-- 2026-10-10: Ny QR-læser som egen side `/scan-qr-kode` + `/en/scan-qr-code`
-  (ceo/scan-page): kamera og billed-upload, dekodet lokalt med jsQR, resultat med
-  kopiér/åbn-link, vejledning, FAQ og FAQPage/WebApplication-JSON-LD. Datagrund:
-  GSC "scan qr kode gratis" 48 visninger, pos. 9, 0 klik — der manglede en
-  landingsside for scanner-søgninger. Gate 179/179 (6 nye tests i
-  test/scan-page.test.js).
-- 2026-10-10: Batch kan nu downloades som ét A4-print-ark (PDF) med koderne i et gitter
-  og teksten under hver (ceo/batch-print-ark): "Download print-ark (A4)" i batch-sektionen.
-  Gitteret tilpasser sig antallet (2–6 kolonner), op til 42 koder pr. ark; flere viser en
-  besked. DA+EN. Gate 184/184 (5 nye tests i test/batch-sheet.test.js).
-- 2026-10-10: `/kalender-qr-kode` fået oprettelses-FAQ og interne links
-  (ceo/kalender-howto-faq): "Hvordan opretter jeg en kalender QR-kode?" er nu første
-  FAQ på siden og i FAQPage-JSON-LD (seks spørgsmål), og et nyt afsnit linker til de
-  fem andre QR-typer. DA+EN. Gate 173/173 (7 nye tests i test/kalender-content.test.js,
-  2/7 fejlede på master). Datagrund: GSC "qr code calendar event" pos. 14,
-  "qr code to add calendar event" pos. 15, "calendar qr code" pos. 17 — ingen klik.
-  MÅL: `/en/calendar-qr-code` CTR 0,4 % (566v, 2 klik, pos. 11,0) → over 2 % pr. 2026-10-24.
-- MÅL: `/sms-qr-kode` CTR 3,9 % (102v, 4 klik, pos. 10,7) → over 6 % pr. 2026-10-24.
+- DEPLOY OK 2026-10-10 19:3x (verificeret på indhold): 17:30-vinduet bragte
+  kalender-FAQ'en, scanner-siden og batch-print-arket live — FAQ-spørgsmålet synligt på
+  `/kalender-qr-kode`, HowTo/FAQPage-JSON-LD på `/en/calendar-qr-code`, "Start kamera"
+  på `/scan-qr-kode` og `/en/scan-qr-code`, "Download print-ark" i batch på `/` og `/en/`.
+  Alle share-billeder (og-image*.png) giver nu 200 image/png med cache-bust, så reviewets
+  afventer-note for dem er lukket.
+- 2026-10-10: `/email-qr-kode` + `/en/email-qr-code` har fået en scanner-vejledning med
+  to HowTo-noder og FAQPage-JSON-LD over de seks synlige spørgsmål (ceo/email-guide).
+  Datagrund: GSC "email qr code" 299v, 3 klik, CTR 1,0 %, pos. 8,9.
+- Gate: `npm test` = `npm run build` + `node --test` (193 tests). 193/193 grønne
+  pr. 2026-10-10 19:3x.
 - MÅL: `/` baseline 151 besøgende/28 d, bounce 90 % → under 75 % pr. 2026-11-05.
-- MÅL: Facebook-kilder 46 af 206 besøgende → 60+ pr. 2026-11-05 (share-preview rettet 2026-10-09).
-- MÅL: `/scan-qr-kode` ny side, 0 besøgende/0 klik i dag (query "scan qr kode gratis"
-  48v pos. 9) → CTR > 3 % pr. 2026-11-05.
+- MÅL: Facebook-kilder 46 af 206 besøgende → 60+ pr. 2026-11-05 (share-preview live).
+- MÅL: `/en/calendar-qr-code` CTR 0,4 % (566v, 2 klik, pos. 11,0) → over 2 % pr. 2026-10-24.
+- MÅL: `/sms-qr-kode` CTR 3,9 % (102v, 4 klik, pos. 10,7) → over 6 % pr. 2026-10-24.
+- MÅL: `/en/email-qr-code` CTR 1,0 % (299v, 3 klik, pos. 8,9) → over 3 % pr. 2026-11-05.
+- MÅL: `/scan-qr-kode` ny side ("scan qr kode gratis" 48v pos. 9) → CTR > 3 % pr. 2026-11-05.
 - PR-TJEK 2026-10-10: ingen åbne PR'er.
 - BRANCH-TJEK 2026-10-10: intet nyt at rydde.
 
@@ -52,6 +42,8 @@ sms-vejledning, kalender-vejledning) står i `docs/plan-arkiv.md`.
 ### GSC-CTR-baselines (måles igen pr. 2026-10-23)
 - `/en/calendar-qr-code` 566v, 2 klik, CTR 0,4 %, pos. 11,0 — største enkelt-side uden for `/`.
   MÅL: CTR > 2 % (oprettelses-FAQ + interne links landet 2026-10-10, ceo/kalender-howto-faq).
+- `/en/email-qr-code` 299v, 3 klik, CTR 1,0 %, pos. 8,9 — scanner-vejledning + FAQPage-data
+  landet 2026-10-10 (ceo/email-guide). MÅL: CTR > 3 %.
 - `/vcard-qr-kode` 121v, 0 klik, CTR 0,0 %, pos. 13,0 — title/FAQ opdateret 2026-10-10 til
   iPhone/Android og visitkortstørrelse (ceo/vcard-title-faq). MÅL: CTR > 2 %.
 - `/sms-qr-kode` 102v, 4 klik, CTR 3,9 %, pos. 10,7.
@@ -82,14 +74,10 @@ ceo/history-opt-in. (2) "30-dages stopregel" — kun BACKLOG-tekst, ingen kode; 
 får opmærksomhed.
 
 ## Verificér deploy
-- VERIFICÉR DEPLOY: oprettelses-FAQ og interne QR-type-links på `/kalender-qr-kode` og
-  `/en/calendar-qr-code` · ceo/kalender-howto-faq 2026-10-10 14:4x — merge ligger før vinduet
-  17:30. Tjek på live at FAQ'en "Hvordan opretter jeg en kalender QR-kode?" er synlig som
-  første spørgsmål og at FAQPage-JSON-LD har seks spørgsmål.
-- VERIFICÉR DEPLOY: ny QR-læser-side `/scan-qr-kode` og `/en/scan-qr-code` (kamera +
-  billed-upload, FAQ, strukturerede data) · ceo/scan-page 2026-10-10 15:4x — merge ligger
-  efter vinduet 12:30, så tjek først efter 17:30. Verificér på live at siden svarer 200, at
-  knapperne "Start kamera"/"Upload billede" findes, og at FAQPage-JSON-LD har seks spørgsmål.
-- VERIFICÉR DEPLOY: A4-print-ark i batch-sektionen på `/` og `/en/` · ceo/batch-print-ark
-  2026-10-10 17:1x — merge ligger før vinduet 17:30, tjek efter 17:30. Verificér på live at
-  knappen "Download print-ark (A4)" findes i batch-sektionen på begge forsider.
+- DEPLOY OK 2026-10-10 19:3x: kalender-FAQ (ceo/kalender-howto-faq), scanner-sider
+  (ceo/scan-page), batch-print-ark (ceo/batch-print-ark) og share-billederne
+  (ceo/og-images) bekræftet på live ved indholdstjek — se STATUS.
+- VERIFICÉR DEPLOY: scanner-vejledning "Sådan sender dine kunder en email med ét scan"
+  og FAQPage-JSON-LD med seks spørgsmål på `/email-qr-kode` + `/en/email-qr-code`
+  · ceo/email-guide 2026-10-10 20:0x — merge ligger før vinduet 21:30. Tjek efter 21:30
+  at afsnittet er synligt og at FAQPage-JSON-LD har seks spørgsmål.
