@@ -230,3 +230,14 @@ Valgte brugeren PDF i batch-downloaden, fik de en ZIP med PNG-bytes og filendels
 fil ingen printer kunne åbne. Nu laves én rigtig PDF pr. kode, i den valgte printstørrelse
 (300 dpi) eller på A4, og JPG får korrekt image/jpeg. DA+EN. Gate 137/137 (6 nye tests).
 Verificeret live 2026-10-10 (ZIP med PDF'en i valgt størrelse).
+## 2026-10-10 — Kalendersidens vejledning og oprettelses-FAQ (ceo/kalender-howto-faq)
+Siden voksede +500 % fra et lille grundlag (6 besøgende/28 d) og Search Console viste "qr code
+calendar event" (34 visninger, pos. 14), "qr code to add calendar event" (26, pos. 15) og
+"calendar qr code" (29, pos. 17) uden ét klik. Siden havde allerede
+scan-vejledningen + HowTo/FAQPage-data fra e0a128d, men intet svar på det mest
+grundlæggende spørgsmål — hvordan koden oprettes — og ingen links videre til de andre
+QR-typer. Nu er "Hvordan opretter jeg en kalender QR-kode?" første FAQ (synlig og i
+FAQPage-JSON-LD, seks spørgsmål i alt), og der er et internt link-afsnit til de fem andre
+generatorer. MÅL: `/en/calendar-qr-code` CTR fra 0,4 % (566v, 2 klik, pos. 11,0) til over
+2 % pr. 2026-10-24. DA+EN. Gate 173/173 (7 nye tests i test/kalender-content.test.js, 2 af
+dem fejlede på master).
