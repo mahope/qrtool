@@ -1,6 +1,10 @@
 # IMPLEMENTATION_PLAN — qrtool.dk
 
-STATUS:
+STATUS: KOE-TOM 2026-10-11 09:5x — alle Feature-kø-punkter landet. Afventer deploy:
+events- og restaurationsguider (merge 08:2x–09:0x, første batch-vindue 12:30) og
+kalender-SEO (merge 12:0x, første batch-vindue 12:30). Ingen åbne PR'er, ingen sårbarheder,
+CI grøn. Næste iteration: vælg ny feature eller forbed eksisterende.
+
 - DEPLOY OK 2026-10-11 07:5x (verificeret på indhold): 07:30-vinduet bragte de fem
   natlige merges live — `preview-actions` på alle 12 typesider, "Telefon"/wa.me i
   app.js, `local/writereview`, "Statisk QR-Kode med Tekst" på /tekst-qr-kode og
