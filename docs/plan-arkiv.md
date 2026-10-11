@@ -327,3 +327,22 @@ indholdet ligger i koden selv, og der er hverken login eller abonnement
 titel-længde, at titel nævner URL+statisk, beskrivens længde og pointer,
 og at `<title>`, meta title, og/twitter og JSON-LD er identiske. 5 af de 6
 fejlede på master. Gate 232/232.
+
+## Digitalt-visitkort-eksempel på /vcard-qr-kode (2026-10-11, ceo/vcard-example)
+
+Datagrund: 121 visninger/28 d, 0 klik, position 13,0 (GSC) og Plausible 5 besøgende
+(+67 %) på siden; "digitalt visitkort iphone" pos. 9, "qr kode visitkort" pos. 23.
+Brugeren så tomme felter og en placeholder og måtte forestille sig resultatet.
+Derfor sidder der nu over formularen, på begge sprog: et fyldt eksempelkort
+(navn, stilling, telefon, e-mail, hjemmeside, adresse), en rigtig QR-kode der
+kan scannes med det samme (fire modulers hvid kant efter QR-standarden) og en
+knap "Udfyld med eksempel" der fylder alle otte felter og generer koden.
+Samme commit flytter escVcard-escaping (`\ ; , :`) ind i sidens egen vCard-bygger,
+så et navn med semikolon eller komma ikke længere knækker N-linjen — førhen
+skete der intet, og det var den eneste uescapede generator på sitet (app.js
+havde escaped længe). `test/vcard-example.test.js` (10 tests) låser blokkens
+placering over formularen, kortets værdier mod scriptets VCARD_EXAMPLE, at
+knappen udfylder alle felter og genererer, den præcise vCard-streng, at
+eksemplet kan dekodes igen af jsQR, og escapingen. Alle 10 fejlede på master.
+Gate 242/242. Layout følger de eksisterende 968/640 px-brydninger; repoet har
+ingen Playwright, så der er ingen skærmbilleder.

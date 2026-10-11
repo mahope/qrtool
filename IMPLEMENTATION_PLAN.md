@@ -7,8 +7,10 @@ STATUS:
   afsnittet og FAQPage-JSON-LD med seks spørgsmål på begge sprog. Share-billederne
   giver fortsat 200 image/png (19:3x og 23:2x).
 - 2026-10-11: download-knappen ved resultatet på alle 12 QR-typesider (ceo/result-first-subpages).
-- Gate: `npm test` = `npm run build` + `node --test` (232 tests). 232/232 grønne
-  pr. 2026-10-11 03:5x.
+- 2026-10-11: fyldt digitalt-visitkort-eksempel med scannbar QR-kode over formularen
+  på /vcard-qr-kode + /en/vcard-qr-code (ceo/vcard-example).
+- Gate: `npm test` = `npm run build` + `node --test` (242 tests). 242/242 grønne
+  pr. 2026-10-11 06:2x.
 - MÅL: `/` baseline 151 besøgende/28 d, bounce 90 % → under 75 % pr. 2026-11-05.
 - MÅL: Facebook-kilder 46 af 206 besøgende → 60+ pr. 2026-11-05 (share-preview live).
 - MÅL: `/en/calendar-qr-code` CTR 0,4 % (566v, 2 klik, pos. 11,0) → over 2 % pr. 2026-10-24.
@@ -30,15 +32,12 @@ Baseline (Plausible, 28 dage til 2026-10-08): 206 besøgende, 289 sidevisninger,
 
 ### Åbne opgaver
 
-1. Digitalt-visitkort-eksempel på `/vcard-qr-kode`: siden har 121 visninger/28 d (GSC),
-   0 klik, position 13,0 — og søger på "digitalt visitkort iphone" (pos. 9) og
-   "qr kode visitkort" (pos. 23). Accept: et fyldt, synligt eksempel på siden, så
-   brugeren ser produktet før de udfylder felter; CTR > 2 % pr. 2026-11-05.
+Ingen åbne opgaver. Næste kandidater i Feature-køen nedenfor.
 
 Afsluttede opgaver (download-knap ved resultatet på alle typer, telefon-/WhatsApp-QR,
 multi-side print-ark, scan-kontrol, hvid zone, mm-download, EN-generator-først,
 share-billeder, vCard-title/FAQ, CSV-import, batch-PDF, undersidernes print-/scan-værktøjer,
-sms-vejledning, kalender-vejledning) står i `docs/plan-arkiv.md`.
+sms-vejledning, kalender-vejledning, digitalt visitkort-eksempel) står i `docs/plan-arkiv.md`.
 
 ### GSC-CTR-baselines (måles igen pr. 2026-10-23)
 - `/en/calendar-qr-code` 566v, 2 klik, CTR 0,4 %, pos. 11,0 — største enkelt-side uden for `/`.
@@ -71,6 +70,7 @@ sms-vejledning, kalender-vejledning) står i `docs/plan-arkiv.md`.
   i begge sprog. CTR-baseline 0 % (93v, 0 klik) → MÅL: CTR > 2 % pr. 2026-11-05.
 - **vCard-konvertering:** 121v, 0 klik, pos. 13. Efter title/FAQ-landingen måles CTR igen;
   hvis stadig 0, byg et digitalt-visitkort-eksempel ind på siden.
+  LANDET 2026-10-11 (ceo/vcard-example): eksempelløsningen er bygget; CTR måles igen pr. 2026-10-24.
 
 
 ## Bevaret arbejde
@@ -93,9 +93,13 @@ får opmærksomhed.
   på `/` og `/en/` · ceo/google-review-qr · 2026-10-11 03:3x. Verificér live:
   `curl -s https://qrtool.dk/app.js | grep -c 'local/writereview'` skal være 1. Første
   batch-vindue efter merge: 07:30 2026-10-11.
-- Næste feature: `/vcard-qr-kode` mangler et digitalt-visitkort-eksempel (121v, 0 klik,
-  pos. 13,0); "digitalt visitkort iphone" pos. 9.
 - VERIFICÉR DEPLOY: `/tekst-qr-kode` + `/en/text-qr-code` title, H1, beskrivelse og
   delkort til "URL til QR-kode / statisk QR-kode" · ceo/tekst-url-seo · 2026-10-11 03:5x.
   Verificér live: `curl -s https://qrtool.dk/tekst-qr-kode | grep -o 'Statisk QR-Kode med Tekst'`
   skal give ét hit. Første batch-vindue efter merge: 07:30 2026-10-11.
+- VERIFICÉR DEPLOY: digitalt-visitkort-eksempel (eksempelkort + scannbar QR-kode +
+  "Udfyld med eksempel"-knap) over formularen på /vcard-qr-kode + /en/vcard-qr-code ·
+  ceo/vcard-example · 2026-10-11 06:3x. Verificér live:
+  `curl -s https://qrtool.dk/vcard-qr-kode | grep -c 'vcardExampleQR'` skal være 1,
+  og `curl -s https://qrtool.dk/en/vcard-qr-code | grep -c 'vcardExampleQR'` ligeledes.
+  Første batch-vindue efter merge: 07:30 2026-10-11.

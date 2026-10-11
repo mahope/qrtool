@@ -201,6 +201,28 @@
             <div class="input-section wifi-focused">
                 <h3>Create Your Digital Business Card</h3>
 
+                <div class="example-block">
+                    <p class="example-title">See a finished digital business card</p>
+                    <div class="example-card">
+                        <div class="example-avatar" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                        </div>
+                        <div class="example-body">
+                            <p class="example-name">Emma Clark</p>
+                            <p class="example-role">Interior Consultant · Nordic Home ApS</p>
+                            <dl class="example-fields">
+                                <div><dt>Phone</dt><dd>+45 20 45 67 89</dd></div>
+                                <div><dt>Email</dt><dd>emma@nordichome.dk</dd></div>
+                                <div><dt>Website</dt><dd>nordichome.dk</dd></div>
+                                <div><dt>Address</dt><dd>Strandvejen 12, 2900 Hellerup</dd></div>
+                            </dl>
+                        </div>
+                        <div class="example-qr" id="vcardExampleQR" role="img" aria-label="Example of a vCard QR code with the contact Emma Clark"></div>
+                    </div>
+                    <p class="cta-hint">Scan the QR code with your phone — this is exactly the contact the recipient saves.</p>
+                    <button type="button" id="vcardExampleBtn" class="btn btn-secondary">Fill with the example</button>
+                </div>
+
                 <div class="form-group">
                     <label for="vcardFirstName">First Name:</label>
                     <input type="text" id="vcardFirstName" placeholder="John" required>
@@ -482,6 +504,18 @@
             let currentQRCanvas = null;
             let currentQRSVG = null;
 
+            // The example in the block above the form — same values in card and QR code
+            const VCARD_EXAMPLE = {
+                firstName: 'Emma',
+                lastName: 'Clark',
+                org: 'Nordic Home ApS',
+                title: 'Interior Consultant',
+                phone: '+45 20 45 67 89',
+                email: 'emma@nordichome.dk',
+                website: 'https://nordichome.dk',
+                address: 'Strandvejen 12, 2900 Hellerup'
+            };
+
             // Generate logo QR
             function generateLogoQR() {
                 if (typeof qrcode === 'undefined') {
@@ -519,34 +553,67 @@
                     </defs>`;
             }
 
-            // Build vCard 3.0 data
-            function getVCardData() {
-                const firstName = document.getElementById('vcardFirstName').value.trim();
-                const lastName = document.getElementById('vcardLastName').value.trim();
-                const org = document.getElementById('vcardOrg').value.trim();
-                const title = document.getElementById('vcardTitle').value.trim();
-                const phone = document.getElementById('vcardPhone').value.trim();
-                const email = document.getElementById('vcardEmail').value.trim();
-                const website = document.getElementById('vcardWebsite').value.trim();
-                const address = document.getElementById('vcardAddress').value.trim();
+            // Build vCard 3.0 data — values are escaped, so `;`, `,`, `:` and `\`
+            // in a name cannot break the structure
+            function buildVCard(values) {
+                if (!values.firstName && !values.lastName) return null;
 
-                if (!firstName && !lastName) return null;
-
-                const fullName = [firstName, lastName].filter(Boolean).join(' ');
-                const sortName = [lastName, firstName].filter(Boolean).join(';');
+                const fullName = [values.firstName, values.lastName].filter(Boolean).join(' ');
+                const escVcard = s => s.replace(/\\/g, '\\\\').replace(/;/g, '\\;').replace(/,/g, '\\,').replace(/:/g, '\\:');
 
                 let vcard = 'BEGIN:VCARD\nVERSION:3.0\n';
-                vcard += `N:${lastName};${firstName};;;\n`;
-                vcard += `FN:${fullName}\n`;
-                if (org) vcard += `ORG:${org}\n`;
-                if (title) vcard += `TITLE:${title}\n`;
-                if (phone) vcard += `TEL;TYPE=CELL:${phone}\n`;
-                if (email) vcard += `EMAIL:${email}\n`;
-                if (website) vcard += `URL:${website}\n`;
-                if (address) vcard += `ADR;TYPE=WORK:;;${address};;;;\n`;
+                vcard += `N:${escVcard(values.lastName)};${escVcard(values.firstName)};;;\n`;
+                vcard += `FN:${escVcard(fullName)}\n`;
+                if (values.org) vcard += `ORG:${escVcard(values.org)}\n`;
+                if (values.title) vcard += `TITLE:${escVcard(values.title)}\n`;
+                if (values.phone) vcard += `TEL;TYPE=CELL:${values.phone}\n`;
+                if (values.email) vcard += `EMAIL:${values.email}\n`;
+                if (values.website) vcard += `URL:${values.website}\n`;
+                if (values.address) vcard += `ADR;TYPE=WORK:;;${escVcard(values.address)};;;;\n`;
                 vcard += 'END:VCARD';
 
                 return vcard;
+            }
+
+            function getVCardData() {
+                return buildVCard({
+                    firstName: document.getElementById('vcardFirstName').value.trim(),
+                    lastName: document.getElementById('vcardLastName').value.trim(),
+                    org: document.getElementById('vcardOrg').value.trim(),
+                    title: document.getElementById('vcardTitle').value.trim(),
+                    phone: document.getElementById('vcardPhone').value.trim(),
+                    email: document.getElementById('vcardEmail').value.trim(),
+                    website: document.getElementById('vcardWebsite').value.trim(),
+                    address: document.getElementById('vcardAddress').value.trim()
+                });
+            }
+
+            // Fill the form with the example and generate the code straight away
+            function fillExample() {
+                document.getElementById('vcardFirstName').value = VCARD_EXAMPLE.firstName;
+                document.getElementById('vcardLastName').value = VCARD_EXAMPLE.lastName;
+                document.getElementById('vcardOrg').value = VCARD_EXAMPLE.org;
+                document.getElementById('vcardTitle').value = VCARD_EXAMPLE.title;
+                document.getElementById('vcardPhone').value = VCARD_EXAMPLE.phone;
+                document.getElementById('vcardEmail').value = VCARD_EXAMPLE.email;
+                document.getElementById('vcardWebsite').value = VCARD_EXAMPLE.website;
+                document.getElementById('vcardAddress').value = VCARD_EXAMPLE.address;
+                generateQRCode();
+                qrPreview.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+
+            // The example QR code is a real code — it can be scanned right away
+            function renderExampleQR() {
+                const host = document.getElementById('vcardExampleQR');
+                if (!host) return;
+                if (typeof qrcode === 'undefined' || typeof QRPage === 'undefined') {
+                    setTimeout(renderExampleQR, 100);
+                    return;
+                }
+                const qr = qrcode(0, 'M');
+                qr.addData(buildVCard(VCARD_EXAMPLE));
+                qr.make();
+                host.innerHTML = QRPage.toSvgString(qr, QRPage.QUIET_ZONE_MODULES);
             }
 
             // Draw QR to canvas — the white quiet zone counts toward the size
@@ -631,11 +698,16 @@
             if (generateBtn) generateBtn.addEventListener('click', generateQRCode);
             if (downloadBtn) downloadBtn.addEventListener('click', downloadQRCode);
 
-            // Init logo
+            const exampleBtn = document.getElementById('vcardExampleBtn');
+            if (exampleBtn) exampleBtn.addEventListener('click', fillExample);
+
+            // Init logo + example
             if (document.readyState === 'loading') {
                 document.addEventListener('DOMContentLoaded', generateLogoQR);
+                document.addEventListener('DOMContentLoaded', renderExampleQR);
             } else {
                 generateLogoQR();
+                renderExampleQR();
             }
         })();
     </script>
