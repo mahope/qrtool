@@ -297,3 +297,18 @@ behandling på alle 14 generatorsider nu, og `test/site.test.js` låser det: Dow
 komme efter `qrPreview`, ligge i `.preview-actions`, og der må være præcis én pr. side
 (fejler på master, grøn med rettelsen). Scroll-til-resultat-logikken i `app.js` var
 generisk og virkede allerede på undersiderne. Gate 210/210.
+
+## 2026-10-11 — Google-anmeldelse som QR-type (ceo/google-review-qr)
+Brugere, der vil have kunder til at skrive en Google-anmeldelse, måtte i dag bygge
+review-linket i hånden eller gå til en konkurrent (reviewfire, qrchameleon m.fl.
+tilbyder alle "Google review QR"). Nyt fane "Anmeldelse" (DA) / "Review" (EN) på `/`
+og `/en/`: indtast et Place-ID (starter med `ChIJ`, fx `ChIJN1t_tDeuEmsRUsoyG83frY4`)
+eller indsæt et helt link. Bygger
+`https://search.google.com/local/writereview?placeid=<id>` og forhåndsviser det live.
+Et indsat Google-link med `placeid=`/`place_id=` normaliseres til review-formularen, så
+en kopieret "skriv en anmeldelse"-link virker direkte. Valideringen afviser ids uden
+`ChIJ`-præfiks frem for at generere en kode, der fører til en Googlesøgning — Place-ID'et
+findes i Googles officielle Place ID Finder (linket står i feltets hjælpetekst).
+Gate 226/226; 11 nye tests i `test/google-review.test.js` fejler på master, og
+`test/qr-roundtrip.test.js` fik et Google-anmeldelse-tilfælde, der dekoder tilbage til
+review-linket i alle fire fejlkorrektionsniveauer.

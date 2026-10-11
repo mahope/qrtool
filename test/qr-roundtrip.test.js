@@ -106,6 +106,14 @@ const cases = [
             f('calEnd').value = '2026-12-05T22:00';
             f('calDescription').value = '';
         }
+    },
+    {
+        name: 'Google-anmeldelse',
+        tab: 'review',
+        text: 'https://search.google.com/local/writereview?placeid=ChIJN1t_tDeuEmsRUsoyG83frY4',
+        fill: f => {
+            f('reviewPlaceId').value = 'ChIJN1t_tDeuEmsRUsoyG83frY4';
+        }
     }
 ];
 

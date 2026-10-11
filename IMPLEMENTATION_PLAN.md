@@ -7,8 +7,8 @@ STATUS:
   afsnittet og FAQPage-JSON-LD med seks spørgsmål på begge sprog. Share-billederne
   giver fortsat 200 image/png (19:3x og 23:2x).
 - 2026-10-11: download-knappen ved resultatet på alle 12 QR-typesider (ceo/result-first-subpages).
-- Gate: `npm test` = `npm run build` + `node --test` (210 tests). 210/210 grønne
-  pr. 2026-10-11 02:0x.
+- Gate: `npm test` = `npm run build` + `node --test` (226 tests). 226/226 grønne
+  pr. 2026-10-11 03:3x.
 - MÅL: `/` baseline 151 besøgende/28 d, bounce 90 % → under 75 % pr. 2026-11-05.
 - MÅL: Facebook-kilder 46 af 206 besøgende → 60+ pr. 2026-11-05 (share-preview live).
 - MÅL: `/en/calendar-qr-code` CTR 0,4 % (566v, 2 klik, pos. 11,0) → over 2 % pr. 2026-10-24.
@@ -30,10 +30,10 @@ Baseline (Plausible, 28 dage til 2026-10-08): 206 besøgende, 289 sidevisninger,
 
 ### Åbne opgaver
 
-1. Næste feature efter ceo/result-first-subpages: Google Maps-anmeldelse som QR-type
-   (place-ID-felt med vejledning) eller et digitalt-visitkort-eksempel på `/vcard-qr-kode`.
-   `/` er 151 besøgende med 90 % bounce; mobile-first og result-first er lige landet, så
-   effekten måles først 2026-11-05.
+1. Digitalt-visitkort-eksempel på `/vcard-qr-kode`: siden har 121 visninger/28 d (GSC),
+   0 klik, position 13,0 — og søger på "digitalt visitkort iphone" (pos. 9) og
+   "qr kode visitkort" (pos. 23). Accept: et fyldt, synligt eksempel på siden, så
+   brugeren ser produktet før de udfylder felter; CTR > 2 % pr. 2026-11-05.
 
 Afsluttede opgaver (download-knap ved resultatet på alle typer, telefon-/WhatsApp-QR,
 multi-side print-ark, scan-kontrol, hvid zone, mm-download, EN-generator-først,
@@ -60,17 +60,16 @@ sms-vejledning, kalender-vejledning) står i `docs/plan-arkiv.md`.
 
 ### Feature-kø (prioriteret)
 - **`/` som værktøj først:** LANDET 2026-10-11 (ceo/mobile-first) og færdiggjort på alle
-   typer 2026-10-11 (ceo/result-first-subpages). Accept: bounce under 75 % pr. 2026-11-05.
-- **Google-Maps-anmeldelse som QR-type:** konkurrenter tilbyder "skriv en anmeldelse"-koder.
-   Kræver en place-ID fra Google, så felterne skal gøre det tydeligt. Accept: ny fane + test.
+  typer 2026-10-11 (ceo/result-first-subpages). Accept: bounce under 75 % pr. 2026-11-05.
+- **Google-Maps-anmeldelse som QR-type:** LANDET 2026-10-11 (ceo/google-review-qr).
+  Accept: ny fane + test — 226/226 grønne, heraf 11 nye tests der fejler på master.
 - **`/guides/qr-koder-til-restauranter`:** 67 visninger, pos. 11,7, 0 klik. Næststørste
-   danske guide uden klik. Accept: CTR > 2 % pr. 2026-11-05.
+  danske guide uden klik. Accept: CTR > 2 % pr. 2026-11-05.
 - **CTR-løft på `/tekst-qr-kode`:** 93v, pos. 30,8, 0 klik. Omskriv title/description mod
-   "url kode"/"statisk qr kode". MÅL: CTR > 2 % pr. 2026-11-05.
+  "url kode"/"statisk qr kode". MÅL: CTR > 2 % pr. 2026-11-05.
 - **vCard-konvertering:** 121v, 0 klik, pos. 13. Efter title/FAQ-landingen måles CTR igen;
   hvis stadig 0, byg et digitalt-visitkort-eksempel ind på siden.
-- **Google-Maps-anmeldelse som QR-type:** konkurrenter tilbyder "skriv en anmeldelse"-koder.
-  Kræver en place-ID fra Google, så felterne skal gøre det tydeligt. Accept: ny fane + test.
+
 
 ## Bevaret arbejde
 `bevaret/2026-10-auto-union-night` (slet aldrig): (1) opt-in-historik — landet 2026-10-09 i
@@ -88,3 +87,9 @@ får opmærksomhed.
   12 typesider (begge sprog) · ceo/result-first-subpages · 2026-10-11 02:0x.
   Verificér live: `curl -s https://qrtool.dk/wifi-qr-kode | grep -c 'preview-actions'` skal
   være 1, og samme for de øvrige typer. Første batch-vindue efter merge: 07:30 2026-10-11.
+- VERIFICÉR DEPLOY: Anmeldelse-fanen (place-ID/link → `search.google.com/local/writereview`)
+  på `/` og `/en/` · ceo/google-review-qr · 2026-10-11 03:3x. Verificér live:
+  `curl -s https://qrtool.dk/app.js | grep -c 'local/writereview'` skal være 1. Første
+  batch-vindue efter merge: 07:30 2026-10-11.
+- Næste feature: `/vcard-qr-kode` mangler et digitalt-visitkort-eksempel (121v, 0 klik,
+  pos. 13,0); "digitalt visitkort iphone" pos. 9.

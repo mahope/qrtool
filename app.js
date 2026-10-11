@@ -50,6 +50,8 @@ const T = {
         'err.phoneRequired': 'Telefonnummer er påkrævet.',
         'err.phoneInvalid': 'Indtast et telefonnummer med mindst seks cifre (fx +45 12 34 56 78).',
         'err.whatsappInvalid': 'WhatsApp-koder bruger et telefonnummer — indtast cifrene (fx 4512345678).',
+        'err.reviewRequired': 'Place-ID eller link er påkrævet.',
+        'err.reviewInvalid': 'Indtast et Place-ID, der begynder med ChIJ (fx ChIJN1t_tDeuEmsRUsoyG83frY4), eller indsæt et helt link.',
 
         // Toast messages
         'toast.generated': 'QR-kode genereret!',
@@ -109,6 +111,7 @@ const T = {
         'type.social': 'Social',
         'type.app': 'App',
         'type.phone': 'Telefon',
+        'type.review': 'Anmeldelse',
 
         // Aria / Announcements
         'aria.qrGenerated': 'QR-kode genereret for {type}: {preview}',
@@ -219,6 +222,8 @@ const T = {
         'err.phoneRequired': 'Phone number is required.',
         'err.phoneInvalid': 'Enter a phone number with at least six digits (e.g. +45 12 34 56 78).',
         'err.whatsappInvalid': 'WhatsApp codes use a phone number — enter the digits (e.g. 4512345678).',
+        'err.reviewRequired': 'Place ID or link is required.',
+        'err.reviewInvalid': 'Enter a Place ID starting with ChIJ (e.g. ChIJN1t_tDeuEmsRUsoyG83frY4), or paste a full link.',
 
         // Toast messages
         'toast.generated': 'QR code generated!',
@@ -278,6 +283,7 @@ const T = {
         'type.social': 'Social',
         'type.app': 'App',
         'type.phone': 'Phone',
+        'type.review': 'Review',
 
         // Aria / Announcements
         'aria.qrGenerated': 'QR code generated for {type}: {preview}',
@@ -438,7 +444,7 @@ if (contrastToggle) {
 // Tab management
 const tabButtons = document.querySelectorAll('.tab-button');
 const tabContents = document.querySelectorAll('.tab-content');
-const tabOrder = ['text', 'wifi', 'vcard', 'email', 'sms', 'calendar', 'geo', 'payment', 'social', 'app', 'phone'];
+const tabOrder = ['text', 'wifi', 'vcard', 'email', 'sms', 'calendar', 'geo', 'payment', 'social', 'app', 'phone', 'review'];
 let currentTab = 'text';
 
 function switchToTab(tabName, { autoFocus = true } = {}) {
@@ -1212,6 +1218,25 @@ function getQRData() {
             if (phoneDigits.replace(/\D/g, '').length < 6) return null;
             return `tel:${phoneDigits}`;
 
+        case 'review': {
+            const reviewInput = document.getElementById('reviewPlaceId').value.trim();
+            if (!reviewInput) return null;
+
+            // A pasted link is used as-is, but a Google review link with a place id
+            // parameter is normalised so the code always opens the review form.
+            if (/^https?:\/\//i.test(reviewInput)) {
+                const pastedId = /[?&]place_?id=([^&\s]+)/i.exec(reviewInput);
+                if (pastedId && /^[A-Za-z0-9_-]+$/.test(pastedId[1])) {
+                    return `https://search.google.com/local/writereview?placeid=${pastedId[1]}`;
+                }
+                return reviewInput;
+            }
+
+            // Google place ids start with ChIJ; anything else is a typo.
+            if (!/^ChIJ[A-Za-z0-9_-]{5,}$/.test(reviewInput)) return null;
+            return `https://search.google.com/local/writereview?placeid=${reviewInput}`;
+        }
+
         default:
             return null;
     }
@@ -1390,6 +1415,17 @@ function validateForm() {
                 valid = false;
             } else if (digits.length < 6) {
                 setFieldError('phoneNumber', t('err.phoneInvalid'));
+                valid = false;
+            }
+            break;
+        }
+        case 'review': {
+            const reviewInput = document.getElementById('reviewPlaceId').value.trim();
+            if (!reviewInput) {
+                setFieldError('reviewPlaceId', t('err.reviewRequired'));
+                valid = false;
+            } else if (!/^https?:\/\//i.test(reviewInput) && !/^ChIJ[A-Za-z0-9_-]{5,}$/.test(reviewInput)) {
+                setFieldError('reviewPlaceId', t('err.reviewInvalid'));
                 valid = false;
             }
             break;
@@ -2660,7 +2696,8 @@ const typeLabels = {
     'payment': t('type.payment'),
     'social': t('type.social'),
     'app': t('type.app'),
-    'phone': t('type.phone')
+    'phone': t('type.phone'),
+    'review': t('type.review')
 };
 
 function saveToHistory(text, type) {
@@ -3035,6 +3072,25 @@ function updatePhonePreview() {
 }
 
 if (phoneInput) phoneInput.addEventListener('input', updatePhonePreview);
+
+// ===========================================
+// Google review link preview
+// ===========================================
+const reviewPlaceInput = document.getElementById('reviewPlaceId');
+const reviewPreviewUrl = document.getElementById('reviewPreviewUrl');
+
+function updateReviewPreview() {
+    if (!reviewPlaceInput || !reviewPreviewUrl) return;
+    const value = reviewPlaceInput.value.trim();
+    if (!value) { reviewPreviewUrl.textContent = ''; return; }
+    if (/^https?:\/\//i.test(value)) { reviewPreviewUrl.textContent = value; return; }
+    const id = /^ChIJ[A-Za-z0-9_-]{5,}$/.test(value) ? value : '';
+    reviewPreviewUrl.textContent = id
+        ? `search.google.com/local/writereview?placeid=${id}`
+        : '';
+}
+
+if (reviewPlaceInput) reviewPlaceInput.addEventListener('input', updateReviewPreview);
 
 // ===========================================
 // Payment type toggle (PayPal / MobilePay)
