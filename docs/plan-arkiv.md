@@ -382,3 +382,24 @@ og description-ord, sektionen, FAQ-svaret, WIFI-formatet, sprogpariteten af
 eksempelkoderne og at begge koder kan dekodes igen af jsQR efter at være tegnet
 med hvid kant. Alle 9 fejlede på master. Gate 251/251. Ingen Playwright i repoet,
 så 390 px-kolonnen er sikret via den eksisterende énkolonne-grid med 40rem-brud.
+
+## Print-klart deltagerkort i events-guiderne (2026-10-11, ceo/event-attendee-card)
+
+Datagrund: /guides/qr-koder-til-events 75 visninger, 0 klik, CTR 0,0 %, position
+21,7; /en/guides/qr-codes-for-events 81 visninger, 1 klik, CTR 1,2 %, position 16,1.
+De danske søgninger "qr kode léb" (21 visninger, position 49) og "qr stafet"
+(3 visninger, position 45) peger på stafet/løb, hvor guiden intet havde at sige.
+
+Derfor på begge sprog: ny title og description der nævner billetter, adgang og
+stafet/relay; en ny sektion "Sådan ser et kort til deltagerne ud" med to rigtige
+QR-koder, der tegnes i siden af `lib/qrcode.js` fra `data-qr` med fire modulers
+hvid kant — en kalenderkode med et komplet VEVENT (SUMMARY, LOCATION, DTSTART
+lørdag 12. juni 2027 09:00, DTEND 15:00, DESCRIPTION) og en WiFi-kode til
+arrangementets gæstenetværk — plus printstørrelser (3-4 cm til bordkort,
+15-20 cm til plakater); og et FAQ-svar på om QR-koder kan bruges til en stafet,
+som siger ja til startliste, rutekort og afleveringspunkter og nej til live-timing.
+`test/event-guide.test.js` (9 tests) låser title- og description-ord, sektionen,
+FAQ-svaret, at VEVENT-strengen er gyldig (begge ende, VERSION, DTSTART/DTEND,
+lokation) og at 12. juni 2027 rent faktisk er en lørdag (tjekket mod en kalender,
+ikke mod testforfatterens hoved), samt at begge eksempelkoder kan dekodes igen af
+jsQR efter tegning. Alle 9 fejlede på master. Gate 260/260.

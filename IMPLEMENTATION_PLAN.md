@@ -16,6 +16,9 @@ STATUS:
   over 2 % pr. 2026-10-25 (ceo/restaurant-table-tents).
 - MÅL: `/en/guides/qr-codes-for-restaurants` CTR 0,0 % (72v, 0 klik, pos. 18,4) →
   over 2 % pr. 2026-10-25 (ceo/restaurant-table-tents).
+- MÅL: `/guides/qr-koder-til-events` CTR 0,0 % (75v, 0 klik, pos. 21,7) → over 2 % pr. 2026-10-25
+  (ceo/event-attendee-card). MÅL: `/en/guides/qr-codes-for-events` CTR 1,2 % (81v, 1 klik, pos. 16,1)
+  → over 3 % pr. 2026-10-25 (ceo/event-attendee-card).
 - PR-TJEK 2026-10-10: ingen åbne PR'er.
 - BRANCH-TJEK 2026-10-10: intet nyt at rydde.
 
@@ -44,6 +47,13 @@ sms-vejledning, kalender-vejledning, digitalt visitkort-eksempel) står i `docs/
 - `/en/guides/qr-codes-for-restaurants` 72v, 0 klik, CTR 0,0 %, pos. 18,4 — samme
   ændringer på engelsk (ceo/restaurant-table-tents). MÅL: CTR > 2 %.
 - `/en/calendar-qr-code` 566v, 2 klik, CTR 0,4 %, pos. 11,0 — største enkelt-side uden for `/`.
+- `/guides/qr-koder-til-events` 75v, 0 klik, CTR 0,0 %, pos. 21,7 — søgninger "qr kode léb"
+  21v pos. 49, "qr stafet" 3v pos. 45. Title/description, print-klart deltagerkort
+  (kalender- + WiFi-kode) og stafet-FAQ landet 2026-10-11 (ceo/event-attendee-card).
+  MÅL: CTR > 2 %.
+- `/en/guides/qr-codes-for-events` 81v, 1 klik, CTR 1,2 %, pos. 16,1 — samme ændringer på
+  engelsk (ceo/event-attendee-card). MÅL: CTR > 3 %.
+- `/en/guides/business-cards-with-qr-code` 92v, 0 klik, CTR 0,0 %, pos. 17,1.
   MÅL: CTR > 2 % (oprettelses-FAQ + interne links landet 2026-10-10, ceo/kalender-howto-faq).
 - `/en/email-qr-code` 299v, 3 klik, CTR 1,0 %, pos. 8,9 — scanner-vejledning + FAQPage-data
   landet 2026-10-10 (ceo/email-guide). MÅL: CTR > 3 %.
@@ -61,6 +71,8 @@ sms-vejledning, kalender-vejledning, digitalt visitkort-eksempel) står i `docs/
   eneste undtagelse fra reglen om ingen nye afhængigheder.
 
 ### Feature-kø (prioriteret)
+- **`/guides/qr-koder-til-events` + `/en/guides/qr-codes-for-events`:** LANDET 2026-10-11
+  (ceo/event-attendee-card). Accept: CTR > 2 % / > 3 % pr. 2026-10-25.
 - **`/` som værktøj først:** LANDET 2026-10-11 (ceo/mobile-first) og færdiggjort på alle
   typer 2026-10-11 (ceo/result-first-subpages). Accept: bounce under 75 % pr. 2026-11-05.
 - **Google-Maps-anmeldelse som QR-type:** LANDET 2026-10-11 (ceo/google-review-qr).
@@ -83,6 +95,13 @@ ceo/history-opt-in. (2) "30-dages stopregel" — kun BACKLOG-tekst, ingen kode; 
 får opmærksomhed.
 
 ## Verificér deploy
+
+- VERIFICÉR DEPLOY: events-guiderne: ny title/description, print-klart deltagerkort med
+  kalender- og WiFi-kode (`tentCalQR`, `tentWifiQR`) og stafet-FAQ på
+  /guides/qr-koder-til-events + /en/guides/qr-codes-for-events · ceo/event-attendee-card ·
+  2026-10-11 09:0x. Verificér live: `curl -s https://qrtool.dk/guides/qr-koder-til-events |
+  grep -c 'tentCalQR'` skal være 1, og `curl -s https://qrtool.dk/guides/qr-koder-til-events |
+  grep -c 'Sommerstafetten'` skal være 1. Første batch-vindue efter merge: 12:30 2026-10-11.
 
 - VERIFICÉR DEPLOY: restaurationsguiderne: ny title/description, print-klar
   bordopstiller-sektion med to rigtige QR-koder (`tentMenuQR`, `tentWifiQR`) og

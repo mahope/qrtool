@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Primary Meta Tags -->
-    <title>QR Codes for Events and Gatherings — Guide | QRTool.dk</title>
-    <meta name="title" content="QR Codes for Events and Gatherings — Guide | QRTool.dk">
-    <meta name="description" content="Complete guide to using QR codes for events and gatherings. Tickets, access control, WiFi, feedback and more. Optimize your event with QR codes.">
+    <title>QR Codes for Events: Tickets, Access and Relay Races</title>
+    <meta name="title" content="QR Codes for Events: Tickets, Access and Relay Races">
+    <meta name="description" content="How to use QR codes at your event: tickets and access control, calendar invitations, guest WiFi and relay checkpoints. With print-ready examples and answers on what needs a system.">
     <meta name="keywords" content="qr code event, qr code gathering, event qr, qr ticket, qr code conference, qr code festival">
     <meta name="author" content="Mahoje">
     <meta name="robots" content="index, follow">
@@ -19,16 +19,16 @@
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://qrtool.dk/en/guides/qr-codes-for-events">
-    <meta property="og:title" content="QR Codes for Events and Gatherings — Guide">
-    <meta property="og:description" content="Complete guide to using QR codes for events and gatherings. Tickets, access control, WiFi, feedback and more.">
+    <meta property="og:title" content="QR Codes for Events: Tickets, Access and Relay Races">
+    <meta property="og:description" content="Tickets, access control, calendar invitations, guest WiFi and relay checkpoints — with print-ready examples.">
     <meta property="og:image" content="https://qrtool.dk/og-image-en.png">
     <meta property="og:locale" content="en_US">
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:url" content="https://qrtool.dk/en/guides/qr-codes-for-events">
-    <meta name="twitter:title" content="QR Codes for Events and Gatherings — Guide">
-    <meta name="twitter:description" content="Complete guide to using QR codes for events and gatherings. Tickets, access control, WiFi, feedback and more.">
+    <meta name="twitter:title" content="QR Codes for Events: Tickets, Access and Relay Races">
+    <meta name="twitter:description" content="Tickets, access control, calendar invitations, guest WiFi and relay checkpoints — with print-ready examples.">
     <meta name="twitter:image" content="https://qrtool.dk/og-image-en.png">
 
     <!-- Favicon & PWA -->
@@ -195,6 +195,29 @@
             </article>
 
             <article class="content-block">
+                <h2>What a card for attendees looks like</h2>
+                <p>One small card, two codes: the attendee saves the event in their calendar and joins the WiFi straight away. Here is a print-ready example with real QR codes — scan them with your phone and see what happens.</p>
+
+                <div class="tent-grid">
+                    <div class="tent-card">
+                        <p class="tent-name">Sommerstafetten</p>
+                        <div class="example-qr tent-qr" id="tentCalQR" data-qr="BEGIN:VCALENDAR&#10;VERSION:2.0&#10;BEGIN:VEVENT&#10;SUMMARY:Sommerstafetten 2027&#10;LOCATION:Idrætsparken, hovedbanen&#10;DTSTART:20270612T090000&#10;DTEND:20270612T150000&#10;DESCRIPTION:Mød 15 minutter før start. Tag din egen vandflaske.&#10;END:VEVENT&#10;END:VCALENDAR" role="img" aria-label="Example of a calendar QR code with the event Sommerstafetten 2027"></div>
+                        <p class="tent-caption">Save to calendar</p>
+                        <p class="cta-hint">One scan and the date, time and place sit in the attendee's own calendar. The code works without internet too.</p>
+                    </div>
+                    <div class="tent-card">
+                        <p class="tent-name">Sommerstafetten</p>
+                        <div class="example-qr tent-qr" id="tentWifiQR" data-qr="WIFI:T:WPA;S:Sommerstafetten-Gaest;P:stafet2027;;" role="img" aria-label="Example of a QR code for the event guest WiFi network"></div>
+                        <p class="tent-caption">Scan for free WiFi</p>
+                        <p class="cta-hint">The phone joins by itself, so the attendee never types the password.</p>
+                    </div>
+                </div>
+
+                <p>When you print: download the codes as <strong>SVG</strong> or as a <strong>PDF with the size in millimetres</strong>. Table cards and name badges need 3-4 cm, posters need 15-20 cm. The white border has to stay, and lamination keeps spills and rain off the code.</p>
+                <p><a href="/en/calendar-qr-code">Open the calendar generator</a> to make your own invitation, or <a href="/en/">QR Tool</a> for every other type.</p>
+            </article>
+
+            <article class="content-block">
                 <h2>WiFi for event guests</h2>
                 <p>Nothing frustrates event guests more than poor or difficult WiFi access. With a <strong>WiFi QR code</strong> you give your guests instant access to the network without them having to type long passwords. It takes just one scan, and the phone connects automatically.</p>
 
@@ -314,6 +337,13 @@
                 </div>
 
                 <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+                    <h3 itemprop="name">Can I use QR codes for a relay race or a run?</h3>
+                    <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                        <p itemprop="text">Yes, for everything the runners need to know and have: the start list, the route map, the handover points, a way to reach the organiser and guest WiFi on site. The code can sit on the bib number, so one scan gives the runner all of it. For live timing and running stage times you need a timing system with a database behind it — a QR code alone cannot do that.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
                     <h3 itemprop="name">Do QR codes work without an internet connection?</h3>
                     <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
                         <p itemprop="text">The scanning of the QR code itself works offline, but if the code links to a webpage, it requires internet. WiFi QR codes and vCard QR codes work without internet, however, as data is encoded directly in the QR code. Calendar QR codes also work offline.</p>
@@ -392,6 +422,47 @@
     <script>window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }</script>
 
     <script src="/lib/qrcode.js"></script>
+    <script>
+        // Attendee-card example: draw the two QR codes from data-qr with a four
+        // module white border so they scan, exactly like the tool's downloads.
+        (function() {
+            const QUIET_ZONE = 4;
+
+            function drawTentQR(host) {
+                if (typeof qrcode === 'undefined') {
+                    setTimeout(() => drawTentQR(host), 100);
+                    return;
+                }
+                const qr = qrcode(0, 'M');
+                qr.addData(host.dataset.qr);
+                qr.make();
+
+                const cells = qr.getModuleCount();
+                let path = '';
+                for (let y = 0; y < cells; y++) {
+                    for (let x = 0; x < cells; x++) {
+                        if (qr.isDark(y, x)) {
+                            path += `M${x},${y}h1v1h-1z `;
+                        }
+                    }
+                }
+
+                host.innerHTML = `<svg viewBox="0 0 ${cells + QUIET_ZONE * 2} ${cells + QUIET_ZONE * 2}" shape-rendering="crispEdges" aria-hidden="true" focusable="false">` +
+                    `<rect width="${cells + QUIET_ZONE * 2}" height="${cells + QUIET_ZONE * 2}" fill="#ffffff"/>` +
+                    `<g transform="translate(${QUIET_ZONE},${QUIET_ZONE})" fill="#000000"><path d="${path}"/></g></svg>`;
+            }
+
+            function renderTentQRCodes() {
+                document.querySelectorAll('[data-qr]').forEach(drawTentQR);
+            }
+
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', renderTentQRCodes);
+            } else {
+                renderTentQRCodes();
+            }
+        })();
+    </script>
     <script>
         // Theme management & Logo QR
         (function() {
