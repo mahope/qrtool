@@ -134,3 +134,63 @@ test('calendar page: no raw angle brackets or ampersands inside JSON-LD', () => 
         }
     }
 });
+
+test('calendar page: title and description promise to add the event to a calendar', () => {
+    // 525 impressions, one click, position 10.8: the snippet said "Generator -
+    // Events & Appointments" and never answered the searches it ranked for
+    // ("qr code to add calendar event", position 15). Title, description and og
+    // text now carry the intent in both languages.
+    const expect = {
+        da: {
+            title: 'Tilføj Begivenhed til Kalenderen',
+            description: ['iPhone', 'Android', 'Google Kalender'],
+        },
+        en: {
+            title: 'Add Events to Any Calendar',
+            description: ['iPhone', 'Android', 'Google Calendar'],
+        },
+    };
+    for (const { rel, lang } of PAGES) {
+        const html = read(rel);
+        const patterns = [
+            /<title>([^<]*)<\/title>/,
+            /<meta name="title" content="([^"]*)"/,
+            /<meta property="og:title" content="([^"]*)"/,
+            /<meta property="twitter:title" content="([^"]*)"/,
+        ];
+        for (const pattern of patterns) {
+            const match = pattern.exec(html);
+            assert.ok(match, `${rel}: missing a title for ${pattern}`);
+            assert.ok(match[1].includes(expect[lang].title),
+                `${rel}: a title does not promise to add the event: "${match[1]}"`);
+        }
+        const description = /<meta name="description" content="([^"]*)"/.exec(html);
+        assert.ok(description, `${rel}: no meta description`);
+        for (const calendar of expect[lang].description) {
+            assert.ok(description[1].includes(calendar),
+                `${rel}: the description does not name ${calendar}`);
+        }
+    }
+});
+
+test('calendar page: the two closing FAQ answers stay last and in sync', () => {
+    // "qr code schedule" (19 impressions, position 14) and durability doubts are
+    // answered by the last two entries, in the markup and in the FAQPage data.
+    const expect = {
+        da: ['Udløber kalender QR-koden?', 'Kan jeg bruge én kode til en begivenhed, der gentager sig?'],
+        en: ['Does a calendar QR code expire?', 'Can I use one code for an event that repeats?'],
+    };
+    for (const { rel, lang } of PAGES) {
+        const html = read(rel);
+        const faq = graph(html).find(n => n['@type'] === 'FAQPage');
+        const marked = faq.mainEntity.map(q => q.name);
+        const visible = [...html.matchAll(/<div class="faq-item">\s*<h3>([^<]+)<\/h3>/g)].map(m => m[1].trim());
+        assert.deepEqual(marked.slice(-2), expect[lang], `${rel}: marked FAQ does not end with the new answers`);
+        assert.deepEqual(visible.slice(-2), expect[lang], `${rel}: visible FAQ does not end with the new answers`);
+        for (const question of expect[lang]) {
+            const answer = faq.mainEntity.find(q => q.name === question).acceptedAnswer.text;
+            assert.ok(answer && answer.length > 40, `${rel}: "${question}" has no real answer`);
+        }
+    }
+});
+

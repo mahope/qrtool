@@ -40,13 +40,19 @@ share-billeder, vCard-title/FAQ, CSV-import, batch-PDF, undersidernes print-/sca
 sms-vejledning, kalender-vejledning, digitalt visitkort-eksempel) står i `docs/plan-arkiv.md`.
 
 ### GSC-CTR-baselines (måles igen pr. 2026-10-23)
+- `/` 729 visninger, 31 klik, CTR 4,3 %, pos. 14,5.
+- `/en/calendar-qr-code` 525v, 1 klik, CTR 0,2 %, pos. 10,8 — største enkelt-side uden for `/`.
+  Søgninger: "qr code calendar event" 34v pos. 14, "calendar qr code" 29v pos. 17,
+  "qr code to add calendar event" 24v pos. 15, "qr code schedule" 19v pos. 14. Title,
+  description, og-kort, hero-linje, to nye FAQ'er (udløb, gentagende begivenhed) og
+  internt link til events-guiden landet 2026-10-11 (ceo/calendar-add-event-seo).
+  MÅL: CTR > 2 % pr. 2026-10-24.
 - `/guides/qr-koder-til-restauranter` 66v, 0 klik, CTR 0,0 %, pos. 11,7 — største
   danske guide uden klik. Søgninger: "qr-bestilling ved bordet til café" 16v pos. 11,
   "qr kode restaurant" 6v pos. 16. Title/description, print-klar bordopstiller-sektion
   og QR-bestillings-FAQ landet 2026-10-11 (ceo/restaurant-table-tents). MÅL: CTR > 2 %.
 - `/en/guides/qr-codes-for-restaurants` 72v, 0 klik, CTR 0,0 %, pos. 18,4 — samme
   ændringer på engelsk (ceo/restaurant-table-tents). MÅL: CTR > 2 %.
-- `/en/calendar-qr-code` 566v, 2 klik, CTR 0,4 %, pos. 11,0 — største enkelt-side uden for `/`.
 - `/guides/qr-koder-til-events` 75v, 0 klik, CTR 0,0 %, pos. 21,7 — søgninger "qr kode léb"
   21v pos. 49, "qr stafet" 3v pos. 45. Title/description, print-klart deltagerkort
   (kalender- + WiFi-kode) og stafet-FAQ landet 2026-10-11 (ceo/event-attendee-card).
@@ -95,6 +101,14 @@ ceo/history-opt-in. (2) "30-dages stopregel" — kun BACKLOG-tekst, ingen kode; 
 får opmærksomhed.
 
 ## Verificér deploy
+
+- VERIFICÉR DEPLOY: kalender-SEO: ny title/description/og-tekst der matcher søgeintent
+  "qr code to add calendar event", to nye FAQ'er (udløb, gentagende begivenhed) og link
+  til events-guiden på /kalender-qr-kode + /en/calendar-qr-code ·
+  ceo/calendar-add-event-seo · 2026-10-11 12:0x. Verificér live:
+  `curl -s https://qrtool.dk/kalender-qr-kode | grep -c 'Udløber kalender QR-koden?'`
+  skal være 1, og `curl -s https://qrtool.dk/en/calendar-qr-code | grep -c 'Does a calendar
+  QR code expire?'` skal være 1. Første batch-vindue efter merge: 12:30 2026-10-11.
 
 - VERIFICÉR DEPLOY: events-guiderne: ny title/description, print-klart deltagerkort med
   kalender- og WiFi-kode (`tentCalQR`, `tentWifiQR`) og stafet-FAQ på
