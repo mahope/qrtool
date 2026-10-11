@@ -312,3 +312,18 @@ findes i Googles officielle Place ID Finder (linket står i feltets hjælpetekst
 Gate 226/226; 11 nye tests i `test/google-review.test.js` fejler på master, og
 `test/qr-roundtrip.test.js` fik et Google-anmeldelse-tilfælde, der dekoder tilbage til
 review-linket i alle fire fejlkorrektionsniveauer.
+
+## 2026-10-11 — CTR-løft på /tekst-qr-kode (ceo/tekst-url-seo)
+Search Console: 93 visninger, 0 klik, position 30,8. De konkrete søgninger er
+"url kode" (pos. 20), "statisk qr kode" (pos. 29), "gratis qr kode" (pos. 68) og
+"qr kode" (pos. 75) — altså holder siden sig til emnet "url/tekst til QR-kode"
+uden at nævne det, folk søger på: at koden er statisk og kun er til URLs. Titel,
+H1, hero-overskrift, beskrivelse, JSON-LD (SoftwareApplication name +
+description) og delkort (og/twitter) siger nu det samme i begge sprog:
+"URL til QR-Kode – Statisk QR-Kode med Tekst | QRTool.dk" (57 tegn, inden for
+Googles ~60). Påstanden "koden virker for altid" holder for en statisk kode —
+indholdet ligger i koden selv, og der er hverken login eller abonnement
+(klient-side, ingen backend). `test/tekst-seo.test.js` (6 tests) låser
+titel-længde, at titel nævner URL+statisk, beskrivens længde og pointer,
+og at `<title>`, meta title, og/twitter og JSON-LD er identiske. 5 af de 6
+fejlede på master. Gate 232/232.

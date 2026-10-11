@@ -7,8 +7,8 @@ STATUS:
   afsnittet og FAQPage-JSON-LD med seks spørgsmål på begge sprog. Share-billederne
   giver fortsat 200 image/png (19:3x og 23:2x).
 - 2026-10-11: download-knappen ved resultatet på alle 12 QR-typesider (ceo/result-first-subpages).
-- Gate: `npm test` = `npm run build` + `node --test` (226 tests). 226/226 grønne
-  pr. 2026-10-11 03:3x.
+- Gate: `npm test` = `npm run build` + `node --test` (232 tests). 232/232 grønne
+  pr. 2026-10-11 03:5x.
 - MÅL: `/` baseline 151 besøgende/28 d, bounce 90 % → under 75 % pr. 2026-11-05.
 - MÅL: Facebook-kilder 46 af 206 besøgende → 60+ pr. 2026-11-05 (share-preview live).
 - MÅL: `/en/calendar-qr-code` CTR 0,4 % (566v, 2 klik, pos. 11,0) → over 2 % pr. 2026-10-24.
@@ -65,8 +65,10 @@ sms-vejledning, kalender-vejledning) står i `docs/plan-arkiv.md`.
   Accept: ny fane + test — 226/226 grønne, heraf 11 nye tests der fejler på master.
 - **`/guides/qr-koder-til-restauranter`:** 67 visninger, pos. 11,7, 0 klik. Næststørste
   danske guide uden klik. Accept: CTR > 2 % pr. 2026-11-05.
-- **CTR-løft på `/tekst-qr-kode`:** 93v, pos. 30,8, 0 klik. Omskriv title/description mod
-  "url kode"/"statisk qr kode". MÅL: CTR > 2 % pr. 2026-11-05.
+- **CTR-løft på `/tekst-qr-kode`:** LANDET 2026-10-11 (ceo/tekst-url-seo). GSC 93v,
+  pos. 30,8, 0 klik — "url kode" pos. 20, "statisk qr kode" pos. 29. Title/H1/H2,
+  beskrivelse, JSON-LD og delkort siger nu "statisk QR-kode" og "URL til QR-kode"
+  i begge sprog. CTR-baseline 0 % (93v, 0 klik) → MÅL: CTR > 2 % pr. 2026-11-05.
 - **vCard-konvertering:** 121v, 0 klik, pos. 13. Efter title/FAQ-landingen måles CTR igen;
   hvis stadig 0, byg et digitalt-visitkort-eksempel ind på siden.
 
@@ -93,3 +95,7 @@ får opmærksomhed.
   batch-vindue efter merge: 07:30 2026-10-11.
 - Næste feature: `/vcard-qr-kode` mangler et digitalt-visitkort-eksempel (121v, 0 klik,
   pos. 13,0); "digitalt visitkort iphone" pos. 9.
+- VERIFICÉR DEPLOY: `/tekst-qr-kode` + `/en/text-qr-code` title, H1, beskrivelse og
+  delkort til "URL til QR-kode / statisk QR-kode" · ceo/tekst-url-seo · 2026-10-11 03:5x.
+  Verificér live: `curl -s https://qrtool.dk/tekst-qr-kode | grep -o 'Statisk QR-Kode med Tekst'`
+  skal give ét hit. Første batch-vindue efter merge: 07:30 2026-10-11.
