@@ -1,24 +1,21 @@
 # IMPLEMENTATION_PLAN — qrtool.dk
 
 STATUS:
-- DEPLOY OK 2026-10-10 23:2x (verificeret på indhold): 21:30-vinduet bragte
-  telefon-/WhatsApp-fanen (ceo/phone-whatsapp-qr) og email-scanner-vejledningen
-  (ceo/email-guide) live — "Telefon"-fanen og wa.me i den live app.js, "ét scan"-
-  afsnittet og FAQPage-JSON-LD med seks spørgsmål på begge sprog. Share-billederne
-  giver fortsat 200 image/png (19:3x og 23:2x).
-- 2026-10-11: download-knappen ved resultatet på alle 12 QR-typesider (ceo/result-first-subpages).
-- 2026-10-11: fyldt digitalt-visitkort-eksempel med scannbar QR-kode over formularen
-  på /vcard-qr-kode + /en/vcard-qr-code (ceo/vcard-example).
-- Gate: `npm test` = `npm run build` + `node --test` (242 tests). 242/242 grønne
-  pr. 2026-10-11 06:2x.
+- DEPLOY OK 2026-10-11 07:5x (verificeret på indhold): 07:30-vinduet bragte de fem
+  natlige merges live — `preview-actions` på alle 12 typesider, "Telefon"/wa.me i
+  app.js, `local/writereview`, "Statisk QR-Kode med Tekst" på /tekst-qr-kode og
+  `vcardExampleQR` på /vcard-qr-kode + /en/vcard-qr-code. Share-billederne giver
+  nu 200 image/png, så den tidligere HØJ-fond om 404 på /og-image*.png er løst.
+- Gate: `npm test` = `npm run build` + `node --test`. 251/251 grønne pr. 2026-10-11 08:1x.
 - MÅL: `/` baseline 151 besøgende/28 d, bounce 90 % → under 75 % pr. 2026-11-05.
 - MÅL: Facebook-kilder 46 af 206 besøgende → 60+ pr. 2026-11-05 (share-preview live).
 - MÅL: `/en/calendar-qr-code` CTR 0,4 % (566v, 2 klik, pos. 11,0) → over 2 % pr. 2026-10-24.
 - MÅL: `/sms-qr-kode` CTR 3,9 % (102v, 4 klik, pos. 10,7) → over 6 % pr. 2026-10-24.
 - MÅL: `/en/email-qr-code` CTR 1,0 % (299v, 3 klik, pos. 8,9) → over 3 % pr. 2026-11-05.
-- MÅL: typesiderne samlet 1 235 visninger/28 d (GSC) med Download ved inputfeltet → flyttet
-  til resultatet 2026-10-11 (ceo/result-first-subpages). Måles som scroll-depth/bounce pr. 2026-11-05.
-- MÅL: `/scan-qr-kode` ny side ("scan qr kode gratis" 48v pos. 9) → CTR > 3 % pr. 2026-11-05.
+- MÅL: `/guides/qr-koder-til-restauranter` CTR 0,0 % (66v, 0 klik, pos. 11,7) →
+  over 2 % pr. 2026-10-25 (ceo/restaurant-table-tents).
+- MÅL: `/en/guides/qr-codes-for-restaurants` CTR 0,0 % (72v, 0 klik, pos. 18,4) →
+  over 2 % pr. 2026-10-25 (ceo/restaurant-table-tents).
 - PR-TJEK 2026-10-10: ingen åbne PR'er.
 - BRANCH-TJEK 2026-10-10: intet nyt at rydde.
 
@@ -40,6 +37,12 @@ share-billeder, vCard-title/FAQ, CSV-import, batch-PDF, undersidernes print-/sca
 sms-vejledning, kalender-vejledning, digitalt visitkort-eksempel) står i `docs/plan-arkiv.md`.
 
 ### GSC-CTR-baselines (måles igen pr. 2026-10-23)
+- `/guides/qr-koder-til-restauranter` 66v, 0 klik, CTR 0,0 %, pos. 11,7 — største
+  danske guide uden klik. Søgninger: "qr-bestilling ved bordet til café" 16v pos. 11,
+  "qr kode restaurant" 6v pos. 16. Title/description, print-klar bordopstiller-sektion
+  og QR-bestillings-FAQ landet 2026-10-11 (ceo/restaurant-table-tents). MÅL: CTR > 2 %.
+- `/en/guides/qr-codes-for-restaurants` 72v, 0 klik, CTR 0,0 %, pos. 18,4 — samme
+  ændringer på engelsk (ceo/restaurant-table-tents). MÅL: CTR > 2 %.
 - `/en/calendar-qr-code` 566v, 2 klik, CTR 0,4 %, pos. 11,0 — største enkelt-side uden for `/`.
   MÅL: CTR > 2 % (oprettelses-FAQ + interne links landet 2026-10-10, ceo/kalender-howto-faq).
 - `/en/email-qr-code` 299v, 3 klik, CTR 1,0 %, pos. 8,9 — scanner-vejledning + FAQPage-data
@@ -62,8 +65,8 @@ sms-vejledning, kalender-vejledning, digitalt visitkort-eksempel) står i `docs/
   typer 2026-10-11 (ceo/result-first-subpages). Accept: bounce under 75 % pr. 2026-11-05.
 - **Google-Maps-anmeldelse som QR-type:** LANDET 2026-10-11 (ceo/google-review-qr).
   Accept: ny fane + test — 226/226 grønne, heraf 11 nye tests der fejler på master.
-- **`/guides/qr-koder-til-restauranter`:** 67 visninger, pos. 11,7, 0 klik. Næststørste
-  danske guide uden klik. Accept: CTR > 2 % pr. 2026-11-05.
+- **`/guides/qr-koder-til-restauranter` + `/en/guides/qr-codes-for-restaurants`:** LANDET
+  2026-10-11 (ceo/restaurant-table-tents). Accept: CTR > 2 % pr. 2026-10-25 (baseline 0,0 %).
 - **CTR-løft på `/tekst-qr-kode`:** LANDET 2026-10-11 (ceo/tekst-url-seo). GSC 93v,
   pos. 30,8, 0 klik — "url kode" pos. 20, "statisk qr kode" pos. 29. Title/H1/H2,
   beskrivelse, JSON-LD og delkort siger nu "statisk QR-kode" og "URL til QR-kode"
@@ -81,25 +84,11 @@ får opmærksomhed.
 
 ## Verificér deploy
 
-- VERIFICÉR DEPLOY: download-knap ved resultat + scroll efter generering på `/` og
-  `/en/` · ceo/mobile-first · 2026-10-11 00:4x. Verificér live: efter klik på
-  "Generer" på mobil skal resultatet + download-knap være synlige uden scroll.
-  Første batch-vindue efter merge: 07:30 2026-10-11.
-- VERIFICÉR DEPLOY: Download-knappen sidder i `.preview-actions` under QR-resultatet på alle
-  12 typesider (begge sprog) · ceo/result-first-subpages · 2026-10-11 02:0x.
-  Verificér live: `curl -s https://qrtool.dk/wifi-qr-kode | grep -c 'preview-actions'` skal
-  være 1, og samme for de øvrige typer. Første batch-vindue efter merge: 07:30 2026-10-11.
-- VERIFICÉR DEPLOY: Anmeldelse-fanen (place-ID/link → `search.google.com/local/writereview`)
-  på `/` og `/en/` · ceo/google-review-qr · 2026-10-11 03:3x. Verificér live:
-  `curl -s https://qrtool.dk/app.js | grep -c 'local/writereview'` skal være 1. Første
-  batch-vindue efter merge: 07:30 2026-10-11.
-- VERIFICÉR DEPLOY: `/tekst-qr-kode` + `/en/text-qr-code` title, H1, beskrivelse og
-  delkort til "URL til QR-kode / statisk QR-kode" · ceo/tekst-url-seo · 2026-10-11 03:5x.
-  Verificér live: `curl -s https://qrtool.dk/tekst-qr-kode | grep -o 'Statisk QR-Kode med Tekst'`
-  skal give ét hit. Første batch-vindue efter merge: 07:30 2026-10-11.
-- VERIFICÉR DEPLOY: digitalt-visitkort-eksempel (eksempelkort + scannbar QR-kode +
-  "Udfyld med eksempel"-knap) over formularen på /vcard-qr-kode + /en/vcard-qr-code ·
-  ceo/vcard-example · 2026-10-11 06:3x. Verificér live:
-  `curl -s https://qrtool.dk/vcard-qr-kode | grep -c 'vcardExampleQR'` skal være 1,
-  og `curl -s https://qrtool.dk/en/vcard-qr-code | grep -c 'vcardExampleQR'` ligeledes.
-  Første batch-vindue efter merge: 07:30 2026-10-11.
+- VERIFICÉR DEPLOY: restaurationsguiderne: ny title/description, print-klar
+  bordopstiller-sektion med to rigtige QR-koder (`tentMenuQR`, `tentWifiQR`) og
+  QR-bestillings-FAQ på /guides/qr-koder-til-restauranter + /en/guides/qr-codes-for-restaurants
+  · ceo/restaurant-table-tents · 2026-10-11 08:2x. Verificér live:
+  `curl -s https://qrtool.dk/guides/qr-koder-til-restauranter | grep -c 'tentWifiQR'`
+  skal være 1 (samme for /en/guides/qr-codes-for-restaurants) og
+  `curl -s https://qrtool.dk/guides/qr-koder-til-restauranter | grep -c 'bordopstiller'`
+  skal være 1. Første batch-vindue efter merge: 12:30 2026-10-11.

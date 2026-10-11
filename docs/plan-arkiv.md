@@ -346,3 +346,39 @@ knappen udfylder alle felter og genererer, den præcise vCard-streng, at
 eksemplet kan dekodes igen af jsQR, og escapingen. Alle 10 fejlede på master.
 Gate 242/242. Layout følger de eksisterende 968/640 px-brydninger; repoet har
 ingen Playwright, så der er ingen skærmbilleder.
+
+## Download-knap ved resultatet på typerne og mobil-først (2026-10-11, ceo/mobile-first, ceo/result-first-subpages)
+
+DEPLOY OK 2026-10-11 07:5x, verificeret på indhold: `preview-actions` findes på alle
+12 QR-typesider (begge sprog), `local/writereview` i den live app.js, "Statisk QR-Kode
+med Tekst" på /tekst-qr-kode og `vcardExampleQR` på /vcard-qr-kode og
+/en/vcard-qr-code. Share-billederne giver nu 200 image/png på /og-image*.png, som
+løser tidligere reviews fund (HØJ) om 404 på delte preview-billeder: den kørende
+build var ældre end commit'et, og nu er 07:30-vinduets output verificeret direkte
+på URL'erne med cache-bust.
+
+`preview-actions` på /scan-qr-kode er 0 — siden er en scanner uden generator-resultat
+og skal ikke have en download-knap.
+
+## Print-klare bordopstillere i restaurationsguiderne (2026-10-11, ceo/restaurant-table-tents)
+
+Datagrund: /guides/qr-koder-til-restauranter 66 visninger, 0 klik, CTR 0,0 %,
+position 11,7 (GSC); /en/guides/qr-codes-for-restaurants 72 visninger, 0 klik,
+position 18,4. Største enkeltsider uden for forsiden, der aldrig får et klik.
+Guiderne beskrev QR-koder uden at vise én.
+
+Derfor på begge sprog: ny title og description der nævner menukort, bordopstiller
+og printstørrelse i mm (dette er de ord, GSC viser folk søger på); en ny sektion
+"Sådan ser en bordopstiller ud" med to rigtige QR-koder, der tegnes i siden af
+`lib/qrcode.js` fra `data-qr`-attributter med fire modulers hvid kant — en til
+menukort (https://qrtool.dk/) og en WiFi-kode i formatet
+`WIFI:T:WPA;S:...;P:...;;` — plus printvejledning (SVG eller PDF med størrelsen i
+mm, mindst 4 × 4 cm, laminering); og et FAQ-svar på "Hvilke systemer skal jeg bruge
+til QR-bestilling ved bordet?" (16 visninger, position 11) der peger på
+kassesystemer med bord-QR (Lightspeed, iZettle, Trivec) og siger ærligt, at QR Tool
+laver koderne og ikke bestillingsflowet. Guides-oversigternes korttekster er
+opdateret til det samme. `test/restaurant-guide.test.js` (9 tests) låser title-
+og description-ord, sektionen, FAQ-svaret, WIFI-formatet, sprogpariteten af
+eksempelkoderne og at begge koder kan dekodes igen af jsQR efter at være tegnet
+med hvid kant. Alle 9 fejlede på master. Gate 251/251. Ingen Playwright i repoet,
+så 390 px-kolonnen er sikret via den eksisterende énkolonne-grid med 40rem-brud.

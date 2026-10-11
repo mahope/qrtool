@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Primary Meta Tags -->
-    <title>QR Codes for Restaurants — Guide | QRTool.dk</title>
-    <meta name="title" content="QR Codes for Restaurants — Guide | QRTool.dk">
-    <meta name="description" content="Complete guide to QR codes in restaurants: digital menus, guest WiFi, ordering and payment via QR. Practical tips and step-by-step guide for your restaurant.">
+    <title>QR Codes for Restaurants: Menu, Table Tents and WiFi</title>
+    <meta name="title" content="QR Codes for Restaurants: Menu, Table Tents and WiFi">
+    <meta name="description" content="Create QR codes for your restaurant: a digital menu, table tents sized in millimetres, guest WiFi and reviews. With print-ready examples and answers on QR ordering.">
     <meta name="keywords" content="qr code restaurant, menu qr code, restaurant qr, digital menu, qr code menu, restaurant wifi qr, qr ordering">
     <meta name="author" content="Mahoje">
     <meta name="robots" content="index, follow">
@@ -19,16 +19,16 @@
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://qrtool.dk/en/guides/qr-codes-for-restaurants">
-    <meta property="og:title" content="QR Codes for Restaurants — Guide | QRTool.dk">
-    <meta property="og:description" content="Complete guide to QR codes in restaurants: digital menus, guest WiFi, ordering and payment via QR.">
+    <meta property="og:title" content="QR Codes for Restaurants: Menu, Table Tents and WiFi">
+    <meta property="og:description" content="A digital menu, table tents sized in millimetres for print, guest WiFi and reviews — with print-ready examples.">
     <meta property="og:image" content="https://qrtool.dk/og-image-en.png">
     <meta property="og:locale" content="en_US">
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:url" content="https://qrtool.dk/en/guides/qr-codes-for-restaurants">
-    <meta name="twitter:title" content="QR Codes for Restaurants — Guide | QRTool.dk">
-    <meta name="twitter:description" content="Complete guide to QR codes in restaurants: digital menus, guest WiFi, ordering and payment via QR.">
+    <meta name="twitter:title" content="QR Codes for Restaurants: Menu, Table Tents and WiFi">
+    <meta name="twitter:description" content="A digital menu, table tents sized in millimetres for print, guest WiFi and reviews — with print-ready examples.">
     <meta name="twitter:image" content="https://qrtool.dk/og-image-en.png">
 
     <!-- Favicon & PWA -->
@@ -185,6 +185,29 @@
             </article>
 
             <article class="content-block">
+                <h2>What a table tent looks like</h2>
+                <p>Two codes on one tent give the guest both the menu and the WiFi password. Here is a print-ready example with real QR codes — scan them with your phone and see what happens.</p>
+
+                <div class="tent-grid">
+                    <div class="tent-card">
+                        <p class="tent-name">Café Strandgade</p>
+                        <div class="example-qr tent-qr" id="tentMenuQR" data-qr="https://qrtool.dk/" role="img" aria-label="Example of a QR code that opens the restaurant menu"></div>
+                        <p class="tent-caption">Scan for the menu</p>
+                        <p class="cta-hint">In this example the code points to our own front page. Your own code carries the address of your menu.</p>
+                    </div>
+                    <div class="tent-card">
+                        <p class="tent-name">Café Strandgade</p>
+                        <div class="example-qr tent-qr" id="tentWifiQR" data-qr="WIFI:T:WPA;S:Cafe-Strandgade;P:kaffe2026;;" role="img" aria-label="Example of a QR code for the guest WiFi network"></div>
+                        <p class="tent-caption">Scan for free WiFi</p>
+                        <p class="cta-hint">The phone joins the network by itself, so the guest never types the password.</p>
+                    </div>
+                </div>
+
+                <p>When you print: download the code as <strong>SVG</strong> or as a <strong>PDF with the size in millimetres</strong>, and make it at least 4 × 4 cm. QR codes get a white border automatically, and that border has to stay — without it the phone camera can struggle to find the code. Laminate the tents if they have to survive spills and cleaning.</p>
+                <p><a href="/en/">Open QR Tool</a> and make your own codes. It takes less than a minute, with no sign-up and no payment.</p>
+            </article>
+
+            <article class="content-block">
                 <h2>WiFi QR codes for guests</h2>
                 <p>Free WiFi is one of the most requested services among restaurant guests. A <a href="/en/wifi-qr-code">WiFi QR code</a> makes it effortless for guests to get online, without staff having to dictate long passwords.</p>
 
@@ -304,6 +327,13 @@
                 </div>
 
                 <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+                    <h3 itemprop="name">Which systems do I need for QR ordering at the table?</h3>
+                    <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                        <p itemprop="text">For the ordering and payment itself you need a till system with table QR, for example Lightspeed, iZettle, Trivec or a similar system with a mobile-friendly menu and MobilePay payment. QR Tool makes the QR codes, not the ordering flow. If you want to start with the menu, the WiFi and the reviews, you can do all three with nothing but a QR code.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
                     <h3 itemprop="name">Can I use QR codes for takeaway and delivery?</h3>
                     <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
                         <p itemprop="text">Yes, QR codes are ideal for takeaway. Print a code on the packaging that links to your online ordering page, your menu or a feedback form. It creates a connection with the guest even after the visit.</p>
@@ -375,6 +405,47 @@
     <script>window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }</script>
 
     <script src="/lib/qrcode.js"></script>
+    <script>
+        // Table-tent example: draw the two QR codes from data-qr with a four
+        // module white border so they scan, exactly like the tool's downloads.
+        (function() {
+            const QUIET_ZONE = 4;
+
+            function drawTentQR(host) {
+                if (typeof qrcode === 'undefined') {
+                    setTimeout(() => drawTentQR(host), 100);
+                    return;
+                }
+                const qr = qrcode(0, 'M');
+                qr.addData(host.dataset.qr);
+                qr.make();
+
+                const cells = qr.getModuleCount();
+                let path = '';
+                for (let y = 0; y < cells; y++) {
+                    for (let x = 0; x < cells; x++) {
+                        if (qr.isDark(y, x)) {
+                            path += `M${x},${y}h1v1h-1z `;
+                        }
+                    }
+                }
+
+                host.innerHTML = `<svg viewBox="0 0 ${cells + QUIET_ZONE * 2} ${cells + QUIET_ZONE * 2}" shape-rendering="crispEdges" aria-hidden="true" focusable="false">` +
+                    `<rect width="${cells + QUIET_ZONE * 2}" height="${cells + QUIET_ZONE * 2}" fill="#ffffff"/>` +
+                    `<g transform="translate(${QUIET_ZONE},${QUIET_ZONE})" fill="#000000"><path d="${path}"/></g></svg>`;
+            }
+
+            function renderTentQRCodes() {
+                document.querySelectorAll('[data-qr]').forEach(drawTentQR);
+            }
+
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', renderTentQRCodes);
+            } else {
+                renderTentQRCodes();
+            }
+        })();
+    </script>
     <script>
         // Theme management & Logo QR
         (function() {
