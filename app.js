@@ -3128,6 +3128,7 @@ const scanFileInput = document.getElementById('scanFileInput');
 
 let scannerStream = null;
 let scannerAnimationId = null;
+let scanOpenUrl = '';
 
 // Start kamera-scanning
 if (startScanBtn) {
@@ -3260,21 +3261,26 @@ function showScanResult(data) {
     scanResult.style.display = 'block';
     scanResultText.textContent = data;
 
-    // Vis "Åbn link" knap hvis resultatet er en URL
+    // Vis "Åbn link" knap hvis resultatet er en URL. Linket åbnes fra en knap og
+    // ikke fra et <a href>, for analytics-scriptet melder selv klik på links til
+    // andre sider, og så ville indholdet af koden følge med (se lib/qr-scan.js).
+    scanOpenUrl = '';
     try {
         const url = new URL(data);
-        if (url.protocol === 'http:' || url.protocol === 'https:') {
-            scanOpenLink.href = data;
-            scanOpenLink.style.display = '';
-        } else {
-            scanOpenLink.style.display = 'none';
-        }
+        if (url.protocol === 'http:' || url.protocol === 'https:') scanOpenUrl = data;
     } catch {
-        scanOpenLink.style.display = 'none';
+        // ikke et link
     }
+    scanOpenLink.style.display = scanOpenUrl ? '' : 'none';
 
     // Scroll til resultatet
     scanResult.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+if (scanOpenLink) {
+    scanOpenLink.addEventListener('click', () => {
+        if (scanOpenUrl) window.open(scanOpenUrl, '_blank', 'noopener');
+    });
 }
 
 // Kopiér scanningsresultat
