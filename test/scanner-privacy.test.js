@@ -92,6 +92,33 @@ test('privacy claim: no script gives a link an href that holds typed or scanned 
     assert.deepEqual(found.sort(), ALLOWED_LINK_SINKS.slice().sort());
 });
 
+// Plausible sends location.href with every pageview, and the hash extension also
+// reports the fragment. Typed or scanned content would reach it if a script wrote
+// it to the address bar, or if a <form> sent the inputs along in a GET query. No
+// page does either today.
+test('privacy claim: nothing typed or scanned can end up in the page URL', () => {
+    // `var location = ...` is a local variable (the calendar form's place field), not the address bar.
+    const URL_WRITE = /(?<!(?:var|let|const)\s+)\blocation(?:\.(?:hash|search|href|pathname))?\s*=(?!=)|\blocation\.(?:replace|assign)\s*\(|\b(?:push|replace)State\s*\(/;
+    const hits = [];
+
+    for (const rel of htmlFiles()) {
+        const html = read(rel);
+        if (/<form\b/i.test(html)) hits.push(`${rel}: <form>`);
+        for (const code of inlineScripts(html)) {
+            if (URL_WRITE.test(code)) hits.push(`${rel}: writes to the URL`);
+        }
+    }
+    const sources = ['app.js', 'sw.js'];
+    for (const f of fs.readdirSync(path.join(ROOT, 'lib'))) {
+        if (f.endsWith('.js') && !VENDOR_LIBS.has(f)) sources.push(`lib/${f}`);
+    }
+    for (const rel of sources) {
+        if (URL_WRITE.test(read(rel))) hits.push(`${rel}: writes to the URL`);
+    }
+
+    assert.deepEqual(hits, []);
+});
+
 // ---- the scanner pages -------------------------------------------------------
 
 function openControlTag(rel) {
