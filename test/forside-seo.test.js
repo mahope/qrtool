@@ -155,7 +155,7 @@ test('front page: three trust points sit under the generator', () => {
     const da = read(DA);
     const en = read(EN);
     for (const [rel, html, patterns] of [
-        [DA, da, [/Ingen konto/i, /virker også, hvis QRTool\.dk forsvinder/, /forlader aldrig din browser/]],
+        [DA, da, [/Ingen konto/i, /også virker, hvis QRTool\.dk forsvinder/, /forlader aldrig din browser/]],
         [EN, en, [/No account/i, /still work if QRTool\.dk disappears/, /never leaves your browser/]]
     ]) {
         const block = /<section class="trust-line"[\s\S]*?<\/section>/.exec(html);
@@ -180,10 +180,10 @@ test('front page: the trust line does not promise "no tracking" or "free forever
 // ------------------------------------------------------------ sektioner under værktøjet
 
 const SECTIONS = [
-    { id: 'saadan-laver-man-en-qr-kode', da: /Sådan laver man en QR-kode/, en: /How to make a QR code/ },
-    { id: 'qr-kode-med-logo', da: /QR-kode med logo/, en: /QR code with a logo/ },
-    { id: 'qr-kode-som-png-svg-pdf', da: /QR-kode som PNG, SVG eller PDF/, en: /QR code as PNG, SVG or PDF/ },
-    { id: 'statisk-eller-dynamisk-qr-kode', da: /Statisk eller dynamisk QR-kode/, en: /Static or dynamic QR code/ }
+    { id: { [DA]: 'saadan-laver-man-en-qr-kode', [EN]: 'how-to-make-a-qr-code' }, da: /Sådan laver man en QR-kode/, en: /How to make a QR code/ },
+    { id: { [DA]: 'qr-kode-med-logo', [EN]: 'qr-code-with-a-logo' }, da: /QR-kode med logo/, en: /QR code with a logo/ },
+    { id: { [DA]: 'qr-kode-som-png-svg-pdf', [EN]: 'qr-code-as-png-svg-pdf' }, da: /QR-kode som PNG, SVG eller PDF/, en: /QR code as PNG, SVG or PDF/ },
+    { id: { [DA]: 'statisk-eller-dynamisk-qr-kode', [EN]: 'static-or-dynamic-qr-code' }, da: /Statisk eller dynamisk QR-kode/, en: /Static or dynamic QR code/ }
 ];
 
 function section(html, id) {
@@ -197,10 +197,10 @@ test('front page: the four sections for the long searches are on the page', () =
     for (const rel of PAGES) {
         const html = read(rel);
         for (const s of SECTIONS) {
-            const block = section(html, s.id);
-            assert.ok(block, `${rel}: no section #${s.id}`);
+            const block = section(html, s.id[rel]);
+            assert.ok(block, `${rel}: no section #${s.id[rel]}`);
             const heading = /<h2[^>]*>([\s\S]*?)<\/h2>/.exec(block);
-            assert.ok(heading, `${rel}: #${s.id} has no h2`);
+            assert.ok(heading, `${rel}: #${s.id[rel]} has no h2`);
             assert.match(text(heading[1]), rel === DA ? s.da : s.en);
         }
     }
@@ -210,10 +210,10 @@ test('front page: each section is 100 to 220 words and links on to the matching 
     for (const rel of PAGES) {
         const html = read(rel);
         for (const s of SECTIONS) {
-            const block = section(html, s.id);
+            const block = section(html, s.id[rel]);
             const words = text(block).split(' ').length;
-            assert.ok(words >= 100 && words <= 220, `${rel}: #${s.id} has ${words} words`);
-            assert.ok((block.match(/<a href="\/[^"]*"/g) || []).length >= 1, `${rel}: #${s.id} has no internal link`);
+            assert.ok(words >= 100 && words <= 220, `${rel}: #${s.id[rel]} has ${words} words`);
+            assert.ok((block.match(/<a href="\/[^"]*"/g) || []).length >= 1, `${rel}: #${s.id[rel]} has no internal link`);
         }
     }
 });
@@ -229,14 +229,14 @@ test('front page: the how-to steps in the schema match the visible steps', () =>
         const html = read(rel);
         const howTo = jsonLd(html).find(block => block['@type'] === 'HowTo');
         assert.ok(howTo, `${rel}: no HowTo block`);
-        const items = (section(html, 'saadan-laver-man-en-qr-kode').match(/<li>/g) || []).length;
+        const items = (section(html, SECTIONS[0].id[rel]).match(/<li>/g) || []).length;
         assert.equal(howTo.step.length, items, `${rel}: HowTo has ${howTo.step.length} steps, the page shows ${items}`);
     }
 });
 
 test('front page: the static-or-dynamic section is honest about the trade-off', () => {
-    const da = text(section(read(DA), 'statisk-eller-dynamisk-qr-kode'));
-    const en = text(section(read(EN), 'statisk-eller-dynamisk-qr-kode'));
+    const da = text(section(read(DA), SECTIONS[3].id[DA]));
+    const en = text(section(read(EN), SECTIONS[3].id[EN]));
     assert.match(da, /scan-statistik|statistik over scans/i);
     assert.match(da, /kan ikke ændres|ikke kan ændres/);
     assert.match(en, /scan statistics|statistics/i);

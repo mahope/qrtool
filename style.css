@@ -1956,6 +1956,37 @@ header p {
     font-weight: 600;
 }
 
+/* Links in the running text of the front page. The browser default blue is
+   almost invisible on the dark card, and these are the internal links the
+   page leans on. */
+:root {
+    --link-color: #a5b4fc;
+}
+
+[data-theme="light"] {
+    --link-color: #4338ca;
+}
+
+[data-contrast="high"] {
+    --link-color: #ffff00;
+}
+
+[data-contrast="high"][data-theme="light"] {
+    --link-color: #0000cc;
+}
+
+.home-content .content-block p a,
+.home-content .content-block li a {
+    color: var(--link-color);
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
+}
+
+.home-content .content-block p a:hover,
+.home-content .content-block li a:hover {
+    text-decoration-thickness: 2px;
+}
+
 /* Feature Grid */
 .feature-grid {
     display: grid;
@@ -2359,6 +2390,59 @@ header p {
 .scanner-section > p {
     color: var(--text-muted);
     margin-bottom: 1.5rem;
+}
+
+/* Trust line under the generator */
+.trust-line {
+    max-width: 900px;
+    margin: 1.5rem auto 0;
+}
+
+.trust-line ul {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem 1.75rem;
+    margin: 0;
+    padding: 0;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+
+.trust-line li {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.trust-line .icon {
+    flex: none;
+    width: 1.1em;
+    height: 1.1em;
+    color: var(--success-color);
+}
+
+.scanner-section > .btn {
+    text-decoration: none;
+}
+
+@media (max-width: 640px) {
+    .trust-line ul {
+        flex-direction: column;
+        align-items: flex-start;
+        width: fit-content;
+        max-width: 100%;
+        margin: 0 auto;
+    }
+
+    .trust-line li {
+        align-items: flex-start;
+    }
+
+    .trust-line .icon {
+        margin-top: 0.2em;
+    }
 }
 
 .scanner-controls {
@@ -2883,6 +2967,11 @@ header p {
     }
 
     header p {
+        font-size: 0.9rem;
+        margin-top: 0.25rem;
+    }
+
+    header p .header-more {
         display: none;
     }
 
@@ -3111,8 +3200,9 @@ header p {
     border-bottom: 1px solid var(--border-color);
 }
 
-.shortcuts-header h2 {
+.shortcuts-title {
     font-size: 1.1rem;
+    font-weight: 700;
     color: var(--text-color);
     margin: 0;
 }
@@ -3208,6 +3298,7 @@ header p {
     .info-panel,
     .history-section,
     .scanner-section,
+    .trust-line,
     .seo-content,
     .footer,
     .theme-toggle,
