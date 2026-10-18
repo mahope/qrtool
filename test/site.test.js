@@ -44,7 +44,8 @@ function htmlFiles() {
     const walk = dir => {
         for (const entry of fs.readdirSync(path.join(ROOT, dir), { withFileTypes: true })) {
             if (entry.name === 'node_modules' || entry.name === 'dist') continue;
-            const rel = path.join(dir, entry.name);
+            // Always "/", so the path doubles as a URL on Windows too.
+            const rel = path.posix.join(dir, entry.name);
             if (entry.isDirectory()) walk(rel);
             else if (entry.name.endsWith('.html') && entry.name !== '404.html') files.push(rel);
         }
