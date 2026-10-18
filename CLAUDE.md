@@ -13,7 +13,8 @@ QR Tool is a free, client-side QR-code generator (text/URL, WiFi, vCard, email, 
 
 - `npm start` — serve locally with http-server on port 8080 (`npx http-server -p 8080 -o`).
 - `npm run build` — run `build.js`: clean `dist/`, copy site assets, minify CSS/JS with esbuild. Output in `dist/`.
-- `npm test` — currently a no-op (`echo "No tests configured"`). There is no real test suite.
+- `npm test` — builds first (`pretest`), then runs the `node --test` suite in `test/`. On Windows four older site-wide tests in `test/site.test.js` fail on backslash paths and pass on Linux.
+- `node scripts/update-sitemap-lastmod.js` — sets each `<lastmod>` in `sitemap.xml` from the last commit that changed the page. Run it after the last content commit and commit `sitemap.xml` on its own (`--check` only reports). It needs full git history and is not part of `build.js`.
 
 ## Architecture
 
@@ -59,4 +60,4 @@ These have real, hard-to-reverse effects. Get an explicit "yes" before doing any
 - Editing `nginx.conf`, `.htaccess`, or the `Dockerfile` in ways that affect routing, caching, or security headers in production.
 - Triggering a production deploy (pushing to `master` auto-deploys to qrtool.dk via Dokploy).
 
-GDPR note: QR content (including WiFi passwords, vCard contact details, emails, SMS) is processed entirely client-side and is not sent to a server. Keep it that way — do not add any tracking, logging, or backend transmission of user-entered QR data without an explicit decision and privacy-policy update.
+GDPR note: QR content (including WiFi passwords, vCard contact details, emails, SMS) is processed entirely client-side and is not sent to a server. Keep it that way — do not add any tracking, logging, or backend transmission of user-entered QR data without an explicit decision and privacy-policy update. The front page tells visitors that what they type never leaves their browser; `test/privacy-claim.test.js` guards that sentence, so if it fails, remove the sentence or the network call.
