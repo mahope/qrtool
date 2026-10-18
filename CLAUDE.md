@@ -13,7 +13,7 @@ QR Tool is a free, client-side QR-code generator (text/URL, WiFi, vCard, email, 
 
 - `npm start` — serve locally with http-server on port 8080 (`npx http-server -p 8080 -o`).
 - `npm run build` — run `build.js`: clean `dist/`, copy site assets, minify CSS/JS with esbuild. Output in `dist/`.
-- `npm test` — builds first (`pretest`), then runs the `node --test` suite in `test/`. On Windows four older site-wide tests in `test/site.test.js` fail on backslash paths and pass on Linux.
+- `npm test` — builds first (`pretest`), then runs the `node --test` suite in `test/`. On Windows four older site-wide tests in `test/site.test.js` fail because they build file names with backslashes; they pass when `path.join` returns forward slashes.
 - `node scripts/update-sitemap-lastmod.js` — sets each `<lastmod>` in `sitemap.xml` from the last commit that changed the page. Run it after the last content commit and commit `sitemap.xml` on its own (`--check` only reports). It needs full git history and is not part of `build.js`.
 
 ## Architecture

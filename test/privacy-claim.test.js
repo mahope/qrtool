@@ -59,7 +59,14 @@ test('privacy claim: no script reports custom analytics events', () => {
     assert.deepEqual(hits, []);
 });
 
-test('privacy claim: the service worker only fetches the site’s own files', () => {
+// The service worker uses fetch() to cache pages, so it is the one place a network
+// call is allowed. It may only pass on GET requests the page itself made, and never
+// build a request of its own, so it cannot carry anything the visitor typed.
+test('privacy claim: the service worker only replays GET requests the page made', () => {
     const sw = fs.readFileSync(path.join(ROOT, 'sw.js'), 'utf8');
-    assert.match(sw, /origin/i, 'sw.js should keep to same-origin requests');
+    assert.match(sw, /request\.method\s*!==\s*'GET'[\s\S]{0,80}return;/, 'sw.js must ignore every request that is not a GET');
+    const calls = [...sw.matchAll(/\bfetch\s*\(([^)]*)\)/g)].map(m => m[1].trim());
+    assert.ok(calls.length > 0, 'expected the service worker to fetch');
+    assert.deepEqual(calls.filter(arg => arg !== 'request'), [], 'sw.js builds a request of its own');
+    assert.doesNotMatch(sw, /\b(body|FormData|postMessage)\b/, 'sw.js handles request bodies or messages');
 });
