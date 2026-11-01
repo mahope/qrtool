@@ -142,6 +142,9 @@ qr-code-generator/
 
 ## 🔍 SEO & Metadata
 
+See [issue #5 SEO plan and remaining work](docs/seo-plan-issue-5.md) for the
+implementation audit, measurement procedure and approval boundaries.
+
 Siden er fuldt optimeret til SEO med:
 - Comprehensive meta tags (title, description, keywords)
 - Open Graph tags til social media
