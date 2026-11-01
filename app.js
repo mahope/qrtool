@@ -161,6 +161,7 @@ const T = {
         'geo.error': 'Kunne ikke hente placering.',
 
         // Onboarding
+        'onboard.start': 'Sådan virker det',
         'onboard.step': 'Trin {n} af {total}',
         'onboard.skip': 'Spring over',
         'onboard.next': 'Næste',
@@ -333,6 +334,7 @@ const T = {
         'geo.error': 'Could not fetch location.',
 
         // Onboarding
+        'onboard.start': 'How it works',
         'onboard.step': 'Step {n} of {total}',
         'onboard.skip': 'Skip',
         'onboard.next': 'Next',
@@ -3310,7 +3312,14 @@ if (scanCopyBtn) {
 // ===========================================
 
 (function initOnboarding() {
-    if (localStorage.getItem('onboarding-done')) return;
+    if (!generateBtn) return;
+
+    const tourButton = document.createElement('button');
+    tourButton.type = 'button';
+    tourButton.className = 'onboarding-trigger';
+    tourButton.textContent = t('onboard.start');
+    generateBtn.after(tourButton);
+    tourButton.addEventListener('click', start);
 
     const steps = [
         {
@@ -3337,32 +3346,37 @@ if (scanCopyBtn) {
     }
 
     function start() {
+        if (overlay) return;
         overlay = document.createElement('div');
         overlay.className = 'onboarding-overlay';
-        overlay.setAttribute('role', 'dialog');
-        overlay.setAttribute('aria-modal', 'true');
-        overlay.setAttribute('aria-label', t('onboard.ariaLabel'));
         document.body.appendChild(overlay);
 
         tooltip = document.createElement('div');
         tooltip.className = 'onboarding-tooltip';
+        tooltip.setAttribute('role', 'dialog');
+        tooltip.setAttribute('aria-label', t('onboard.ariaLabel'));
         document.body.appendChild(tooltip);
 
         document.addEventListener('keydown', handleKey);
+        overlay.addEventListener('click', dismiss);
 
         requestAnimationFrame(() => {
+            if (!overlay) return;
             overlay.classList.add('active');
             showStep(0);
         });
-
-        overlay.addEventListener('click', dismiss);
     }
 
     function showStep(index) {
         current = index;
+        if (!tooltip) return;
+        if (index >= steps.length) { dismiss(); return; }
         const step = steps[index];
         const targetEl = document.querySelector(step.target);
-        if (!targetEl) { dismiss(); return; }
+        if (!targetEl || !targetEl.getClientRects().length) {
+            showStep(index + 1);
+            return;
+        }
 
         // Remove previous highlight
         document.querySelectorAll('.onboarding-highlight').forEach(el => el.classList.remove('onboarding-highlight'));
@@ -3402,6 +3416,7 @@ if (scanCopyBtn) {
         targetEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 
         requestAnimationFrame(() => {
+            if (!tooltip) return;
             tooltip.classList.add('active');
             // Move focus to next button for keyboard accessibility
             const nextBtn = tooltip.querySelector('.onboarding-btn-next');
@@ -3431,12 +3446,14 @@ if (scanCopyBtn) {
         document.removeEventListener('keydown', handleKey);
         if (stepTimer) { clearTimeout(stepTimer); stepTimer = null; }
         document.querySelectorAll('.onboarding-highlight').forEach(el => el.classList.remove('onboarding-highlight'));
-        if (overlay) { overlay.classList.remove('active'); setTimeout(() => overlay.remove(), 300); }
-        if (tooltip) { tooltip.classList.remove('active'); setTimeout(() => tooltip.remove(), 300); }
+        const oldOverlay = overlay;
+        const oldTooltip = tooltip;
+        overlay = null;
+        tooltip = null;
+        if (oldOverlay) { oldOverlay.classList.remove('active'); setTimeout(() => oldOverlay.remove(), 300); }
+        if (oldTooltip) { oldTooltip.classList.remove('active'); setTimeout(() => oldTooltip.remove(), 300); }
+        tourButton.focus();
     }
-
-    // Start after a brief delay so the page is fully rendered
-    setTimeout(start, 800);
 })();
 
 // ===========================================

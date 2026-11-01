@@ -2537,6 +2537,30 @@ header p {
    Onboarding Tooltips
    =========================================== */
 
+.button-group:has(> .onboarding-trigger) {
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 0;
+}
+
+.onboarding-trigger {
+    flex-basis: 100%;
+    min-height: 44px;
+    padding: 0.5rem;
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    font: inherit;
+    font-size: 0.875rem;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.onboarding-trigger:focus-visible {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
 .onboarding-overlay {
     position: fixed;
     inset: 0;

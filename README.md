@@ -23,6 +23,7 @@ Lavet af [Mahoje](https://mahoje.dk)
 - **📅 Kalender**: iCalendar events til kalendere
 
 ### 🚀 Produktivitet
+- **Introduktion på anmodning**: Vælg "Sådan virker det" (engelsk: "How it works") under Generer for at starte turen. Esc lukker og returnerer fokus til knappen. `onboarding-done` gemmer, at turen er set.
 - **📦 Batch Generering**: Generer flere QR-koder på én gang og download som ZIP
 - **📜 Historik**: Automatisk gem dine seneste 20 QR-koder med localStorage
 - **⚡ Live Preview**: Se din QR-kode i real-time
