@@ -29,28 +29,32 @@ try {
         'Blåbærgrød med æøå og ÆØÅ', 'WIFI:T:WPA;S:Gæstenet;P:hemmelig123;H:false;;'];
     for (const size of [256, 512, 1024, 2048]) {
         for (const style of ['square', 'rounded', 'dots', 'page']) {
-            for (const payload of payloads) {
-                const qr = qrcode(0, 'M'); qr.addData(payload); qr.make();
-                const canvas = document.createElement('canvas'); canvas.width = canvas.height = size;
-                if (style === 'page') QRPage.drawCanvas(qr, size, canvas, '#000000');
-                else drawCanvas(qr, size, canvas, style);
-                const pixels = canvas.getContext('2d').getImageData(0, 0, size, size).data;
-                if (canvas.width !== size || canvas.height !== size) throw Error('wrong canvas dimensions');
-                const decoded = jsQR(pixels, size, size, { inversionAttempts: 'attemptBoth' });
-                if (!decoded || decoded.data !== payload) throw Error(JSON.stringify({size, style, payload, decoded: decoded && decoded.data}));
-                let gray = 0;
-                for (let i = 0; i < pixels.length; i += 4) {
-                    if (pixels[i] > 0 && pixels[i] < 255) gray++;
-                }
-                if (style === 'rounded' || style === 'dots') {
-                    if (!gray) throw Error('curves must be rasterized with antialiasing');
-                }
-                if (style === 'square' || style === 'page') {
+            // Type pages offer 512px and up, with H correction by default.
+            const corrections = style === 'page' && size >= 512 ? ['M', 'H'] : ['M'];
+            for (const correction of corrections) {
+                for (const payload of payloads) {
+                    const qr = qrcode(0, correction); qr.addData(payload); qr.make();
+                    const canvas = document.createElement('canvas'); canvas.width = canvas.height = size;
+                    if (style === 'page') QRPage.drawCanvas(qr, size, canvas, '#000000');
+                    else drawCanvas(qr, size, canvas, style);
+                    const pixels = canvas.getContext('2d').getImageData(0, 0, size, size).data;
+                    if (canvas.width !== size || canvas.height !== size) throw Error('wrong canvas dimensions');
+                    const decoded = jsQR(pixels, size, size, { inversionAttempts: 'attemptBoth' });
+                    if (!decoded || decoded.data !== payload) throw Error(JSON.stringify({size, style, correction, payload, decoded: decoded && decoded.data}));
+                    let gray = 0;
                     for (let i = 0; i < pixels.length; i += 4) {
-                        if (pixels[i] !== 0 && pixels[i] !== 255) throw Error('gray seam at ' + i);
+                        if (pixels[i] > 0 && pixels[i] < 255) gray++;
                     }
+                    if (style === 'rounded' || style === 'dots') {
+                        if (!gray) throw Error('curves must be rasterized with antialiasing');
+                    }
+                    if (style === 'square' || style === 'page') {
+                        for (let i = 0; i < pixels.length; i += 4) {
+                            if (pixels[i] !== 0 && pixels[i] !== 255) throw Error('gray seam at ' + i);
+                        }
+                    }
+                    results.push({size, style, correction, payload});
                 }
-                results.push({size, style, payload});
             }
         }
     }
@@ -66,7 +70,7 @@ try {
         assert.equal(browser.status, 0, browser.stderr);
         const output = browser.stdout.match(/<pre id="result">([^<]*)<\/pre>/);
         assert.ok(output, 'Chrome must report its rasterization results');
-        assert.deepEqual(JSON.parse(output[1].replace(/&quot;/g, '"').replace(/&amp;/g, '&')), { passed: 64 });
+        assert.deepEqual(JSON.parse(output[1].replace(/&quot;/g, '"').replace(/&amp;/g, '&')), { passed: 76 });
     } finally {
         fs.rmSync(temp, { recursive: true, force: true });
     }
