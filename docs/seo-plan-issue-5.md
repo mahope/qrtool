@@ -84,6 +84,10 @@ and after at widths 375 and 1440 for both languages in
 wraps without clipping; the English desktop heading fits. These isolated static
 captures check the text layout only, not camera permissions, scanning, themes,
 external analytics or service-worker behavior. Production was not tested.
+After committing the page edits, `node scripts/update-sitemap-lastmod.js`
+reported `sitemap.xml is up to date.` The existing dates already match the
+content commit date, so no artificial sitemap change was made. All four
+sitemap-specific tests also passed.
 
 Suggested PR title: `Complete the SEO implementation audit and mobile scanner headings`.
 
