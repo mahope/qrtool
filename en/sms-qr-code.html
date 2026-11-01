@@ -34,7 +34,7 @@
     <!-- Favicon & PWA -->
     <link rel="icon" type="image/svg+xml" href="/icon.svg">
     <link rel="manifest" href="/manifest.json">
-    <meta name="theme-color" content="#6366f1">
+    <meta name="theme-color" content="#eef0f2">
 
     <!-- Preconnect for performance -->
 
@@ -422,12 +422,12 @@
             // Theme management
             const themeToggle = document.getElementById('themeToggle');
             const html = document.documentElement;
-            const currentTheme = localStorage.getItem('theme') || 'dark';
-            html.setAttribute('data-theme', currentTheme);
+            const currentTheme = localStorage.getItem('theme');
+            if (currentTheme === 'light' || currentTheme === 'dark') html.setAttribute('data-theme', currentTheme);
 
             if (themeToggle) {
                 themeToggle.addEventListener('click', () => {
-                    const theme = html.getAttribute('data-theme');
+                    const theme = html.getAttribute('data-theme') || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
                     const newTheme = theme === 'dark' ? 'light' : 'dark';
                     html.setAttribute('data-theme', newTheme);
                     localStorage.setItem('theme', newTheme);
@@ -474,13 +474,7 @@
                     }
                 }
 
-                logoSvg.innerHTML = `<path d="${path}" fill="url(#gradient)"/>
-                    <defs>
-                        <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" style="stop-color:#6366f1;stop-opacity:1" />
-                            <stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:1" />
-                        </linearGradient>
-                    </defs>`;
+                logoSvg.innerHTML = `<path d="${path}" fill="var(--ink)"/>`;
             }
 
             // Build SMS URI
@@ -540,7 +534,7 @@
 
                     downloadBtn.disabled = false;
                     generateBtn.textContent = '✓ Generated!';
-                    generateBtn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+                    generateBtn.style.background = 'var(--ink)';
                     setTimeout(() => {
                         generateBtn.innerHTML = '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> Generate SMS QR Code';
                         generateBtn.style.background = '';

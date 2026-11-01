@@ -129,15 +129,108 @@
     </script>
 
     <!-- Critical CSS inline for fast first paint -->
+    <link rel="preload" href="/fonts/schibsted-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
     <style>
-        *{margin:0;padding:0;box-sizing:border-box}
-        :root{--primary-color:#6366f1;--bg-color:#0f172a;--bg-gradient:#1e293b;--card-bg:#1e293b;--text-color:#f1f5f9;--text-muted:#acb7c6;--border-color:#334155}
-        [data-theme="light"]{--bg-color:#f8fafc;--bg-gradient:#e2e8f0;--card-bg:#ffffff;--text-color:#0f172a;--text-muted:#475569;--border-color:#e2e8f0}
-        body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:linear-gradient(135deg,var(--bg-color),var(--bg-gradient));color:var(--text-color);min-height:100vh;padding:2rem 1rem}
-        .container{max-width:1400px;margin:0 auto}
-        header{text-align:center;margin-bottom:2.5rem}
-        header h1{font-size:clamp(1.75rem,5vw,3rem);background:linear-gradient(135deg,#6366f1,#8b5cf6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-    </style>
+*{margin:0;padding:0;box-sizing:border-box}
+@font-face {
+    font-family: 'Schibsted Grotesk';
+    src: url('/fonts/schibsted-grotesk-latin.woff2') format('woff2');
+    font-style: normal;
+    font-weight: 400 700;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Schibsted Fallback';
+    src: local('Liberation Sans'), local('Arial');
+    size-adjust: 99.82%;
+    ascent-override: 97.83%;
+    descent-override: 25.83%;
+    line-gap-override: 0%;
+}
+
+:root {
+    --bench: #eef0f2;
+    --panel: #ffffff;
+    --paper: #ffffff;
+    --ink: #0d0f12;
+    --ink-2: #3b4048;
+    --ink-3: #565c65;
+    --rule: #c9ced4;
+    --field-edge: #6b717a;
+    --mark: #ffe14d;
+    --on-mark: #0d0f12;
+    --ok: #17703f;
+    --warn: #7a4a00;
+    --err: #b42318;
+    --link: #0b4fb3;
+    color-scheme: light;
+}
+
+[data-theme="dark"] {
+    --bench: #0e1013;
+    --panel: #171a1e;
+    --paper: #ffffff;
+    --ink: #f2f3f5;
+    --ink-2: #c3c8cf;
+    --ink-3: #9aa1ab;
+    --rule: #2e343b;
+    --field-edge: #7a818b;
+    --mark: #ffe14d;
+    --on-mark: #0d0f12;
+    --ok: #5fd08e;
+    --warn: #f2b24c;
+    --err: #ff9d94;
+    --link: #8ab4ff;
+    color-scheme: dark;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme]) {
+    --bench: #0e1013;
+    --panel: #171a1e;
+    --paper: #ffffff;
+    --ink: #f2f3f5;
+    --ink-2: #c3c8cf;
+    --ink-3: #9aa1ab;
+    --rule: #2e343b;
+    --field-edge: #7a818b;
+    --mark: #ffe14d;
+    --on-mark: #0d0f12;
+    --ok: #5fd08e;
+    --warn: #f2b24c;
+    --err: #ff9d94;
+    --link: #8ab4ff;
+    color-scheme: dark;
+}
+}
+/* DEPRECATED: compatibility aliases. New styles use semantic tokens. */
+:root {
+    --primary-color: var(--ink);
+    --primary-hover: var(--ink-2);
+    --primary-light: var(--bench);
+    --secondary-color: var(--ink);
+    --bg-color: var(--bench);
+    --bg-gradient: var(--bench);
+    --card-bg: var(--panel);
+    --text-color: var(--ink);
+    --text-muted: var(--ink-3);
+    --border-color: var(--field-edge);
+    --success-color: var(--ok);
+    --error-color: var(--err);
+    --link-color: var(--link);
+    --shadow-sm: none;
+    --shadow: none;
+    --shadow-lg: none;
+    --radius-sm: 4px;
+    --radius: 4px;
+    --radius-lg: 4px;
+    --radius-xl: 4px;
+    --transition: 0.2s ease;
+    --transition-slow: 0.3s ease;
+}
+body{font-family:'Schibsted Grotesk','Schibsted Fallback',Arial,sans-serif;font-size:16px;line-height:1.55;background:var(--bench);color:var(--ink);min-height:100vh;padding:2rem 1rem}.container{max-width:1400px;margin:0 auto}header{text-align:center;margin-bottom:2.5rem}header h1{font-size:36px;line-height:1.1;font-weight:700;letter-spacing:-.02em;color:var(--ink)}@media(min-width:768px){header h1{font-size:48px}}
+</style>
 
     <link rel="stylesheet" href="style.css?v=8">
 

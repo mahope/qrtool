@@ -26,7 +26,7 @@ const copyItems = [
     'og-image-sms.png', 'og-image-sms-en.png',
     'og-image-email.png', 'og-image-email-en.png',
     'og-image-tekst.png', 'og-image-tekst-en.png',
-    'lib', 'guides', 'en'
+    'lib', 'guides', 'en', 'fonts'
 ];
 
 function copyRecursive(src, dest) {
