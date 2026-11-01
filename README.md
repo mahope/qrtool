@@ -180,3 +180,7 @@ Open source - brug frit!
 ---
 
 **QRTool.dk** - Din professionelle QR-kode generator 🚀
+
+## Besøgsstatistik
+
+Plausible og Umami kører side om side på de samme 26 sider. Begge drives af Mahope på egne servere i EU uden cookies eller lagring af persondata. Der sendes ingen brugerdefinerede events eller indtastet/scannet QR-indhold. Scannerens handlinger testes mod begge trackere. `npm test` bygger sitet og kontrollerer også analytics-tags i kilde- og buildfiler samt CSP i nginx og Apache.
