@@ -25,9 +25,9 @@
 /* Accessibility: Visually hidden but accessible to screen readers */
 .visually-hidden,
 .sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
     padding: 0;
     margin: -1px;
     overflow: hidden;
@@ -495,6 +495,7 @@ header p {
 .input-section,
 .preview-section,
 .options-section {
+    min-width: 0;
     background: var(--card-bg);
     border-radius: var(--radius-xl);
     padding: 2rem;
