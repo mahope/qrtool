@@ -25,7 +25,8 @@ mørkt valg overstyrer det. Ældre variabelnavne er kun aliaser i `DEPRECATED`.
 Schibsted Grotesk 400/600/700 er selvhostet under SIL OFL, se `fonts/OFL.txt`.
 Den variable latinfil kommer fra Google Fonts' officielle distribution;
 den dækker også æøå. Ingen font hentes eksternt ved brug af værktøjet.
-Typeskala: 12/14/16/18/20/24/30/36/48 px. Brødtekst og felter: 16 px,
+Typeskala ved standardstørrelse: 12/14/16/18/20/24/30/36/48 px.
+CSS bruger rem, så A+/A++ skalerer teksten med rodens skriftstørrelse. Brødtekst og felter: 16 px,
 brødtekst med linjehøjde 1,55. H1: 36 px på mobil, 48 px fra 768 px,
 linjehøjde 1,1, vægt 700, tracking -0,02em. Rene tal må bruge tabular-nums.
 

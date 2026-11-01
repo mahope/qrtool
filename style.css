@@ -141,7 +141,7 @@
     --radius: 4px;
     --radius-lg: 4px;
     --radius-xl: 4px;
-    --transition: transform var(--transition), opacity var(--transition);
+    --transition: 0.2s ease;
     --transition-slow: 0.3s ease;
 }
 
@@ -240,7 +240,7 @@ header {
 .mobile-nav-close {
     background: none;
     border: none;
-    font-size: 24px;
+    font-size: 1.5rem;
     color: var(--text-muted);
     cursor: pointer;
     padding: 0.25rem;
@@ -261,7 +261,7 @@ header {
     padding: 0.75rem 1rem;
     color: var(--text-color);
     text-decoration: none;
-    font-size: 16px;
+    font-size: 1rem;
     transition: transform var(--transition), opacity var(--transition);
 }
 
@@ -272,7 +272,7 @@ header {
 
 .mobile-nav-divider {
     padding: 8px 16px 4px;
-    font-size: 12px;
+    font-size: 0.75rem;
     font-weight: 600;
     color: var(--text-muted);
     text-transform: uppercase;
@@ -315,7 +315,7 @@ header {
 }
 
 header h1 {
-    font-size: 36px;
+    font-size: 2.25rem;
     line-height: 1.1;
     font-weight: 700;
     margin-bottom: 0.5rem;
@@ -325,7 +325,7 @@ header h1 {
 
 header p {
     color: var(--text-muted);
-    font-size: 18px;
+    font-size: 1.125rem;
 }
 
 /* Theme Toggle */
@@ -343,7 +343,7 @@ header p {
     gap: 0.25rem;
     color: var(--text-muted);
     font-weight: 700;
-    font-size: 12px;
+    font-size: 0.75rem;
     font-family: inherit;
     line-height: 1;
     text-decoration: none;
@@ -372,7 +372,7 @@ header p {
     align-items: center;
     color: var(--text-muted);
     font-weight: 700;
-    font-size: 14px;
+    font-size: 0.875rem;
     font-family: inherit;
     line-height: 1;
 }
@@ -478,7 +478,7 @@ header p {
 /* Breadcrumb */
 .breadcrumb {
     margin-top: 1rem;
-    font-size: 14px;
+    font-size: 0.875rem;
     color: var(--text-muted);
 }
 
@@ -547,7 +547,7 @@ header p {
     margin-bottom: 0.5rem;
     font-weight: 600;
     color: var(--text-color);
-    font-size: 16px;
+    font-size: 1rem;
 }
 
 .form-group input[type="text"],
@@ -563,7 +563,7 @@ header p {
     border-radius: var(--radius);
     background: var(--bg-color);
     color: var(--text-color);
-    font-size: 16px;
+    font-size: 1rem;
     transition: transform var(--transition), opacity var(--transition);
     -webkit-appearance: none;
     appearance: none;
@@ -602,7 +602,7 @@ header p {
 .form-group .field-error {
     display: none;
     color: var(--error-color);
-    font-size: 12px;
+    font-size: 0.75rem;
     margin-top: 0.25rem;
     font-weight: 600;
 }
@@ -640,7 +640,7 @@ header p {
     padding: 0.75rem 1rem;
     cursor: pointer;
     font-weight: 600;
-    font-size: 14px;
+    font-size: 0.875rem;
     color: var(--text-color);
     background: var(--primary-light);
     user-select: none;
@@ -662,7 +662,7 @@ header p {
 .settings-section summary::after {
     content: '▶';
     margin-left: auto;
-    font-size: 12px;
+    font-size: 0.75rem;
     color: var(--text-muted);
     transition: transform var(--transition), opacity var(--transition);
 }
@@ -703,7 +703,7 @@ header p {
     background: var(--card-bg);
     color: var(--text-muted);
     font-weight: 600;
-    font-size: 14px;
+    font-size: 0.875rem;
     font-family: inherit;
     cursor: pointer;
     transition: transform var(--transition), opacity var(--transition);
@@ -725,7 +725,7 @@ header p {
 }
 
 .ec-hint {
-    font-size: 12px;
+    font-size: 0.75rem;
     color: var(--text-muted);
     margin-top: 0.25rem;
     font-style: italic;
@@ -751,7 +751,7 @@ header p {
     border-radius: var(--radius);
     background: var(--bg-color);
     color: var(--text-color);
-    font-size: 16px;
+    font-size: 1rem;
     font-family: inherit;
     -moz-appearance: textfield;
     appearance: textfield;
@@ -775,7 +775,7 @@ header p {
     background: var(--card-bg);
     color: var(--text-muted);
     font-weight: 600;
-    font-size: 14px;
+    font-size: 0.875rem;
     font-family: inherit;
     cursor: pointer;
     transition: transform var(--transition), opacity var(--transition);
@@ -816,7 +816,7 @@ header p {
     border-radius: var(--radius);
     cursor: pointer;
     color: var(--text-muted);
-    font-size: 12px;
+    font-size: 0.75rem;
     font-family: inherit;
     transition: transform var(--transition), opacity var(--transition);
 }
@@ -880,7 +880,7 @@ header p {
 .color-value {
     font-family: inherit;
     color: var(--text-muted);
-    font-size: 14px;
+    font-size: 0.875rem;
     background: var(--bg-color);
     padding: 0.25rem 0.5rem;
     border-radius: var(--radius-sm);
@@ -951,7 +951,7 @@ header p {
     background: var(--card-bg);
     cursor: pointer;
     transition: transform var(--transition), opacity var(--transition);
-    font-size: 12px;
+    font-size: 0.75rem;
     color: var(--text-muted);
     font-family: inherit;
 }
@@ -1018,7 +1018,7 @@ header p {
     padding: 1rem 1.5rem;
     border: none;
     border-radius: var(--radius);
-    font-size: 16px;
+    font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
     transition: transform var(--transition), opacity var(--transition);
@@ -1096,7 +1096,7 @@ header p {
     color: var(--text-color);
     border-radius: var(--radius);
     cursor: pointer;
-    font-size: 14px;
+    font-size: 0.875rem;
     font-weight: 600;
     transition: transform var(--transition), opacity var(--transition);
     border: 2px solid transparent;
@@ -1216,7 +1216,7 @@ header p {
     border-left: 4px solid var(--border-color);
     background: var(--card-bg);
     color: var(--text-muted);
-    font-size: 14px;
+    font-size: 0.875rem;
     line-height: 1.4;
     text-align: left;
 }
@@ -1243,7 +1243,7 @@ header p {
 }
 
 .placeholder p {
-    font-size: 16px;
+    font-size: 1rem;
     margin-top: 1rem;
 }
 
@@ -1295,7 +1295,7 @@ header p {
 .info-panel li {
     padding: 4px 0;
     color: var(--text-muted);
-    font-size: 14px;
+    font-size: 0.875rem;
     display: flex;
     align-items: flex-start;
     gap: 0.5rem;
@@ -1322,7 +1322,7 @@ header p {
 
 .compare-section h3 {
     margin-bottom: 1rem;
-    font-size: 16px;
+    font-size: 1rem;
 }
 
 .compare-grid {
@@ -1351,7 +1351,7 @@ header p {
 
 .compare-item-label {
     margin-top: 0.5rem;
-    font-size: 14px;
+    font-size: 0.875rem;
     font-weight: 600;
     color: var(--text-muted);
 }
@@ -1407,7 +1407,7 @@ header p {
     align-items: center;
     gap: 0.5rem;
     padding: 0.75rem 1rem;
-    font-size: 14px;
+    font-size: 0.875rem;
     transition: transform var(--transition), opacity var(--transition);
 }
 
@@ -1423,7 +1423,7 @@ header p {
     content: '\25B6';
     display: inline-block;
     transition: transform var(--transition), opacity var(--transition);
-    font-size: 12px;
+    font-size: 0.75rem;
     color: var(--primary-color);
 }
 
@@ -1461,7 +1461,7 @@ header p {
 }
 
 .template-icon {
-    font-size: 24px;
+    font-size: 1.5rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1473,7 +1473,7 @@ header p {
 }
 
 .template-name {
-    font-size: 12px;
+    font-size: 0.75rem;
     font-weight: 600;
     text-align: center;
     line-height: 1.2;
@@ -1488,7 +1488,7 @@ header p {
 /* CTA Text Hint */
 .cta-hint {
     display: block;
-    font-size: 12px;
+    font-size: 0.75rem;
     color: var(--text-muted);
     margin-top: 0.25rem;
 }
@@ -1506,7 +1506,7 @@ header p {
     margin-bottom: 0.5rem;
     font-weight: 600;
     color: var(--text-color);
-    font-size: 16px;
+    font-size: 1rem;
 }
 
 .logo-dropzone {
@@ -1532,7 +1532,7 @@ header p {
 
 .logo-dropzone-content p {
     color: var(--text-muted);
-    font-size: 14px;
+    font-size: 0.875rem;
     margin-bottom: 0.25rem;
 }
 
@@ -1543,7 +1543,7 @@ header p {
 }
 
 .logo-hint {
-    font-size: 12px;
+    font-size: 0.75rem;
     color: var(--text-muted);
     opacity: 0.7;
 }
@@ -1571,7 +1571,7 @@ header p {
     color: var(--panel);
     border: none;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 1rem;
     line-height: 1;
     display: flex;
     align-items: center;
@@ -1633,7 +1633,7 @@ header p {
     content: '▶';
     display: inline-block;
     transition: transform var(--transition), opacity var(--transition);
-    font-size: 12px;
+    font-size: 0.75rem;
     color: var(--primary-color);
 }
 
@@ -1685,7 +1685,7 @@ header p {
 }
 
 .batch-progress-text {
-    font-size: 12px;
+    font-size: 0.75rem;
     color: var(--text-muted);
     white-space: nowrap;
     min-width: 3.5rem;
@@ -1725,7 +1725,7 @@ header p {
 }
 
 .batch-preview-item .batch-preview-label {
-    font-size: 12px;
+    font-size: 0.75rem;
     color: var(--text-muted);
     margin-top: 0.25rem;
     overflow: hidden;
@@ -1748,7 +1748,7 @@ header p {
 .history-section h3 {
     margin-bottom: 1rem;
     color: var(--text-color);
-    font-size: 16px;
+    font-size: 1rem;
 }
 
 .history-controls {
@@ -1764,7 +1764,7 @@ header p {
     border-radius: var(--radius-sm);
     background: var(--card-bg);
     color: var(--text-color);
-    font-size: 12px;
+    font-size: 0.75rem;
     font-family: inherit;
 }
 
@@ -1774,7 +1774,7 @@ header p {
     border-radius: var(--radius-sm);
     background: var(--card-bg);
     color: var(--text-color);
-    font-size: 12px;
+    font-size: 0.75rem;
     font-family: inherit;
     cursor: pointer;
 }
@@ -1789,7 +1789,7 @@ header p {
 
 .history-type-badge {
     display: inline-block;
-    font-size: 12px;
+    font-size: 0.75rem;
     padding: 0px 8px;
     border-radius: 4px;
     font-weight: 600;
@@ -1810,7 +1810,7 @@ header p {
 .badge-social { background: var(--bench); color: var(--ink-2); }
 
 .history-item-label {
-    font-size: 12px;
+    font-size: 0.75rem;
     color: var(--text-muted);
     font-style: italic;
     margin-top: 2px;
@@ -1843,7 +1843,7 @@ header p {
 
 .history-empty {
     color: var(--text-muted);
-    font-size: 14px;
+    font-size: 0.875rem;
     text-align: center;
     padding: 1.5rem 1rem;
 }
@@ -1873,7 +1873,7 @@ header p {
 }
 
 .history-item-text {
-    font-size: 14px;
+    font-size: 0.875rem;
     color: var(--text-color);
     white-space: nowrap;
     overflow: hidden;
@@ -1882,7 +1882,7 @@ header p {
 }
 
 .history-item-date {
-    font-size: 12px;
+    font-size: 0.75rem;
     color: var(--text-muted);
 }
 
@@ -1898,7 +1898,7 @@ header p {
     border: 1px solid var(--border-color);
     border-radius: var(--radius-sm);
     cursor: pointer;
-    font-size: 14px;
+    font-size: 0.875rem;
     transition: transform var(--transition), opacity var(--transition);
     line-height: 1;
 }
@@ -1917,7 +1917,7 @@ header p {
     border: none;
     border-radius: var(--radius);
     cursor: pointer;
-    font-size: 14px;
+    font-size: 0.875rem;
     font-weight: 600;
     transition: transform var(--transition), opacity var(--transition);
 }
@@ -1955,20 +1955,20 @@ header p {
 
 .content-block h2 {
     color: var(--text-color);
-    font-size: 30px;
+    font-size: 1.875rem;
     margin-bottom: 1rem;
     color: var(--ink);
 }
 
 .content-block h3 {
     color: var(--text-color);
-    font-size: 20px;
+    font-size: 1.25rem;
     margin: 1.5rem 0 0.75rem;
 }
 
 .content-block h4 {
     color: var(--text-color);
-    font-size: 18px;
+    font-size: 1.125rem;
     margin: 1rem 0 0.5rem;
 }
 
@@ -2032,14 +2032,14 @@ header p {
 }
 
 .feature-item h3 {
-    font-size: 18px;
+    font-size: 1.125rem;
     margin-top: 0;
     margin-bottom: 0.5rem;
 }
 
 .feature-item p {
     margin: 0;
-    font-size: 16px;
+    font-size: 1rem;
     color: var(--text-muted);
 }
 
@@ -2072,7 +2072,7 @@ header p {
     align-items: center;
     justify-content: center;
     font-weight: 700;
-    font-size: 14px;
+    font-size: 0.875rem;
     box-shadow: none;
 }
 
@@ -2127,7 +2127,7 @@ header p {
 
 .faq-item h3 {
     color: var(--text-color);
-    font-size: 16px;
+    font-size: 1rem;
     margin: 0 0 0.75rem 0;
     display: flex;
     align-items: flex-start;
@@ -2145,7 +2145,7 @@ header p {
     margin: 0;
     padding-left: 24px;
     color: var(--text-muted);
-    font-size: 16px;
+    font-size: 1rem;
 }
 
 /* Tips Grid */
@@ -2170,7 +2170,7 @@ header p {
 
 .tip-card h4 {
     margin-top: 0;
-    font-size: 18px;
+    font-size: 1.125rem;
     padding-bottom: 0.75rem;
     border-bottom: 2px solid var(--border-color);
 }
@@ -2193,14 +2193,14 @@ header p {
 }
 
 .hero-content h2 {
-    font-size: 30px;
+    font-size: 1.875rem;
     color: var(--text-color);
     margin-bottom: 1rem;
     color: var(--ink);
 }
 
 .hero-text {
-    font-size: 30px;
+    font-size: 1.875rem;
     color: var(--text-color);
     max-width: 800px;
     margin: 0 auto 1.5rem;
@@ -2223,7 +2223,7 @@ header p {
     font-weight: 600;
     color: var(--text-color);
     transition: transform var(--transition), opacity var(--transition);
-    font-size: 16px;
+    font-size: 1rem;
 }
 
 .benefit:hover {
@@ -2282,14 +2282,14 @@ header p {
 
 .example-role {
     color: var(--text-muted);
-    font-size: 14px;
+    font-size: 0.875rem;
     margin-bottom: 0.5rem;
 }
 
 .example-fields {
     display: grid;
     gap: 0.25rem;
-    font-size: 14px;
+    font-size: 0.875rem;
 }
 
 .example-fields div {
@@ -2352,7 +2352,7 @@ header p {
 }
 
 .tent-card .cta-hint {
-    font-size: 14px;
+    font-size: 0.875rem;
 }
 
 .tent-name {
@@ -2375,7 +2375,7 @@ header p {
 
 .wifi-focused h3 {
     color: var(--text-color);
-    font-size: 20px;
+    font-size: 1.25rem;
     margin-bottom: 1.5rem;
     text-align: center;
 }
@@ -2398,7 +2398,7 @@ header p {
 }
 
 .scanner-section h2 {
-    font-size: 30px;
+    font-size: 1.875rem;
     margin-bottom: 0.5rem;
     color: var(--ink);
 }
@@ -2423,7 +2423,7 @@ header p {
     margin: 0;
     padding: 0;
     color: var(--text-muted);
-    font-size: 16px;
+    font-size: 1rem;
 }
 
 .trust-line li {
@@ -2519,7 +2519,7 @@ header p {
 
 .scan-result h3 {
     color: var(--text-color);
-    font-size: 16px;
+    font-size: 1rem;
     margin-bottom: 0.75rem;
 }
 
@@ -2527,7 +2527,7 @@ header p {
     color: var(--text-color);
     word-break: break-all;
     font-family: inherit;
-    font-size: 14px;
+    font-size: 0.875rem;
     background: var(--bg-color);
     padding: 0.75rem 1rem;
     border-radius: var(--radius);
@@ -2544,7 +2544,7 @@ header p {
 .scan-result-actions .btn {
     flex: none;
     padding: 0.5rem 1rem;
-    font-size: 14px;
+    font-size: 0.875rem;
     min-height: auto;
     text-decoration: none;
 }
@@ -2606,7 +2606,7 @@ header p {
 }
 
 .onboarding-step {
-    font-size: 12px;
+    font-size: 0.75rem;
     font-weight: 700;
     color: var(--primary-color);
     text-transform: uppercase;
@@ -2615,7 +2615,7 @@ header p {
 }
 
 .onboarding-text {
-    font-size: 16px;
+    font-size: 1rem;
     color: var(--text-color);
     line-height: 1.5;
     margin-bottom: 1rem;
@@ -2653,7 +2653,7 @@ header p {
 .onboarding-btn {
     padding: 0.5rem 1rem;
     border-radius: var(--radius);
-    font-size: 14px;
+    font-size: 0.875rem;
     font-weight: 600;
     cursor: pointer;
     border: none;
@@ -2717,7 +2717,7 @@ header p {
     border: 1px solid var(--border-color);
     box-shadow: none;
     color: var(--text-color);
-    font-size: 14px;
+    font-size: 0.875rem;
     font-weight: 600;
     pointer-events: auto;
     opacity: 0;
@@ -2737,7 +2737,7 @@ header p {
 }
 
 .toast-icon {
-    font-size: 20px;
+    font-size: 1.25rem;
     flex-shrink: 0;
 }
 
@@ -2796,7 +2796,7 @@ header p {
 
 .footer-col h4 {
     color: var(--text-color);
-    font-size: 16px;
+    font-size: 1rem;
     margin-bottom: 0.75rem;
 }
 
@@ -2811,7 +2811,7 @@ header p {
 }
 
 .footer-col a {
-    font-size: 14px;
+    font-size: 0.875rem;
     color: var(--text-muted);
 }
 
@@ -2823,7 +2823,7 @@ header p {
     text-align: center;
     padding-top: 1.5rem;
     border-top: 1px solid var(--border-color);
-    font-size: 14px;
+    font-size: 0.875rem;
 }
 
 .footer-bottom p {
@@ -2854,7 +2854,7 @@ header p {
 
 .footer-tools h3 {
     margin: 0 0 1rem 0;
-    font-size: 18px;
+    font-size: 1.125rem;
     color: var(--text-color);
 }
 
@@ -2882,7 +2882,7 @@ header p {
 }
 
 .footer-tool-card .emoji {
-    font-size: 30px;
+    font-size: 1.875rem;
     margin-bottom: 0.5rem;
     display: block;
 }
@@ -2890,12 +2890,12 @@ header p {
 .footer-tool-card h4 {
     margin: 0 0 4px 0;
     color: var(--primary-color);
-    font-size: 16px;
+    font-size: 1rem;
 }
 
 .footer-tool-card p {
     margin: 0;
-    font-size: 14px;
+    font-size: 0.875rem;
     color: var(--text-muted);
 }
 
@@ -2978,12 +2978,12 @@ header p {
     }
 
     header h1 {
-        font-size: 24px;
+        font-size: 2.25rem;
         margin-bottom: 0;
     }
 
     header p {
-        font-size: 14px;
+        font-size: 0.875rem;
         margin-top: 0.25rem;
     }
 
@@ -3011,7 +3011,7 @@ header p {
     /* 0.7rem keeps the button at 45px tall, so it stays a 44px touch target */
     .tab-button {
         padding: 12px 12px;
-        font-size: 12px;
+        font-size: 0.75rem;
         flex: 1 1 calc(33.333% - 0.375rem);
         text-align: center;
     }
@@ -3068,7 +3068,7 @@ header p {
     .guide-list li::before {
         width: 2rem;
         height: 2rem;
-        font-size: 14px;
+        font-size: 0.875rem;
     }
 }
 
@@ -3148,8 +3148,8 @@ header p {
     right: 1.5rem;
     background: none;
     border: none;
-    color: var(--panel);
-    font-size: 36px;
+    color: var(--paper);
+    font-size: 2.25rem;
     cursor: pointer;
     line-height: 1;
     opacity: 0.8;
@@ -3217,7 +3217,7 @@ header p {
 }
 
 .shortcuts-title {
-    font-size: 18px;
+    font-size: 1.125rem;
     font-weight: 700;
     color: var(--text-color);
     margin: 0;
@@ -3226,7 +3226,7 @@ header p {
 .shortcuts-close {
     background: none;
     border: none;
-    font-size: 24px;
+    font-size: 1.5rem;
     color: var(--text-muted);
     cursor: pointer;
     padding: 0.25rem;
@@ -3247,7 +3247,7 @@ header p {
     display: flex;
     align-items: center;
     gap: 0.75rem;
-    font-size: 14px;
+    font-size: 0.875rem;
     color: var(--text-color);
 }
 
@@ -3259,7 +3259,7 @@ header p {
     border: 1px solid var(--border-color);
     border-radius: var(--radius-sm);
     font-family: inherit;
-    font-size: 12px;
+    font-size: 0.75rem;
     text-align: center;
     box-shadow: none;
 }
@@ -3358,11 +3358,11 @@ header p {
 }
 
 /* Shared control foundations, without changing the page structure. */
-body { font-size: 16px; }
+body { font-size: 1rem; }
 button, input, select, textarea { font-family: inherit; }
 button, .btn, input, select { min-height: 24px; }
 input:not([type="checkbox"]):not([type="radio"]):not([type="range"]), textarea, select {
-    font-size: 16px;
+    font-size: 1rem;
     border: 1px solid var(--field-edge);
     border-radius: 4px;
     background-color: var(--panel);
@@ -3393,7 +3393,7 @@ input::placeholder, textarea::placeholder { color: var(--ink-3); opacity: 1; }
 :focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
 #qrPreview { background: var(--paper); color: var(--on-mark); }
 input[type="number"], output, .contrast-ratio { font-variant-numeric: tabular-nums; }
-@media (min-width: 768px) { header h1 { font-size: 48px; } }
+@media (min-width: 768px) { header h1 { font-size: 3rem; } }
 @media (pointer: coarse) {
     button, .btn, input:not([type="checkbox"]):not([type="radio"]), select { min-height: 44px; }
     .btn-primary { min-height: 48px; }
