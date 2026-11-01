@@ -23,14 +23,14 @@ assuming Danish demand estimates apply to English queries.
 | Task | Repository evidence | Outstanding |
 | --- | --- | --- |
 | 1. Homepage | DA/EN search-led titles and H1, no-login/no-expiry introduction, trust points, normalized canonical, corrected organization and free/language schema already present; generic explainer and superlative removed | Verify deployed revision after an authorized release |
-| 2. Scanner | Homepage teaser and site-wide footer links already present; this branch makes the existing camera-first mobile instructions explicit in the DA/EN H2 | GSC query-to-page check and indexing request; navigation coverage needs a separate audit |
+| 2. Scanner | Homepage teaser and site-wide footer links already present; this branch adds scanner navigation on all DA/EN content pages and makes the existing camera-first mobile instructions explicit in the DA/EN H2 | GSC query-to-page check and indexing request |
 | 3. Technical | Existing git-history sitemap updater and tests; this branch validates inline JavaScript and JSON data blocks on all source pages | DNS/www, HTTPS and HTML redirects require approval; browser reproduction of reported console error remains open |
 | 4. Sections | DA/EN logo, PNG/SVG/PDF, how-to and static/dynamic sections with internal links and tests already exist | Do not duplicate them |
 | 5. Portfolio links/byline | No external sites changed | Recover full brief and agree placement before publication |
 | 6. Template asset/outreach | Restaurant/event guides already contain printable examples | Recover full brief; select audience, format and distribution before building a separate asset; no outreach sent |
 | 7. Landing pages | No speculative pages added | GSC intent evidence first, including MobilePay and supported payment behavior |
 
-Existing scanner-link tests guard the hand-copied footers against omissions.
+Scanner-link tests separately guard navigation and the hand-copied footers against omissions.
 No second footer system is introduced. Inline syntax checks treat JSON-LD and
 speculation rules as JSON. These checks do not prove that third-party scripts,
 cached assets or runtime behavior are error-free. The reported console error
@@ -95,3 +95,14 @@ Suggested PR description: Clarify the DA/EN scanner headings and add a source-wi
 inline-script syntax guard. Record existing SEO implementation, measurement
 steps and outstanding approval/access dependencies. Build and 348 tests pass.
 No deployment, DNS, routing changes or production-data writes. Del af #5.
+
+## P2 navigation review correction
+
+Confirmed the missing navigation links independently. Added localized scanner
+navigation to the 28 content pages that lacked it, including policy pages.
+Kept breadcrumb trails separate and reused their existing styling where present.
+The new navigation-specific regression test failed on all 28 pages before the
+fix and passed afterward; footer coverage remains a separate assertion.
+The full build/test suite passes 349 tests with no failures. No dependencies,
+production settings or production data changed. Issue #5 remains partially open
+for the access and approval dependencies listed above.
