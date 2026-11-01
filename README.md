@@ -184,3 +184,17 @@ Open source - brug frit!
 ## Besøgsstatistik
 
 Plausible og Umami kører side om side på de samme 26 sider. Begge drives af Mahope på egne servere i EU uden cookies eller lagring af persondata. Der sendes ingen brugerdefinerede events eller indtastet/scannet QR-indhold. Scannerens handlinger testes mod begge trackere. `npm test` bygger sitet og kontrollerer også analytics-tags i kilde- og buildfiler samt CSP i nginx og Apache.
+
+
+## Canvas regression tests
+
+Run `npm test` to build the site and run the suite. The raster decoding test uses
+an installed Chrome (`google-chrome` by default; override with `CHROME_BIN`). It
+renders real antialiased circles and rounded cells and decodes raw pixels with the
+bundled jsQR, covering four sizes and four payloads on both rendering paths.
+No additional npm packages are needed.
+
+Canvas cells use rounded integer boundaries, including the four-module quiet
+zone. The two `moduleBounds` helpers are checked for equality to avoid adding a
+script dependency to every page. Curved canvas styles keep finder and alignment
+patterns solid for scanner detection. SVG rendering is unchanged.
