@@ -54,7 +54,7 @@ test('privacy claim: no script reports custom analytics events', () => {
     for (const rel of ['app.js', 'sw.js', ...libFiles(), ...htmlFiles()]) {
         const code = fs.readFileSync(path.join(ROOT, rel), 'utf8')
             .replace(/window\.plausible\s*=\s*window\.plausible\s*\|\|\s*function\(\)\s*\{[^}]*\}/g, '');
-        if (/\bplausible\s*\(|plausible-event-name|data-plausible-props/.test(code)) hits.push(rel);
+        if (/\bplausible\s*\(|plausible-event-name|data-plausible-props|\bumami\s*\.\s*track\s*\(|data-umami-event/.test(code)) hits.push(rel);
     }
     assert.deepEqual(hits, []);
 });

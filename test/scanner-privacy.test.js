@@ -142,9 +142,10 @@ function loadScanner(tag) {
     const openControl = createElement('scanOpenLink', tag);
     document.elements.set('scanOpenLink', openControl);
 
-    const calls = { opened: [], plausible: [], beacons: [], fetches: [] };
+    const calls = { opened: [], plausible: [], umami: [], beacons: [], fetches: [] };
     window.open = (...args) => { calls.opened.push(args); return null; };
     window.plausible = (...args) => { calls.plausible.push(args); };
+    window.umami = { track: (...args) => { calls.umami.push(args); } };
     env.globals.navigator.sendBeacon = (...args) => { calls.beacons.push(args); return true; };
     const fetchStub = (...args) => { calls.fetches.push(args); return Promise.resolve({ ok: false }); };
 
@@ -199,6 +200,7 @@ for (const rel of SCAN_PAGES) {
         QRScan.showResult(SCANNED);
         openControl.click();
         assert.deepEqual(calls.plausible, []);
+        assert.deepEqual(calls.umami, []);
         assert.deepEqual(calls.beacons, []);
         assert.deepEqual(calls.fetches, []);
     });
