@@ -10,7 +10,15 @@ const { spawnSync } = require('node:child_process');
 
 // Use the browser's real curve rasterizer, including antialiasing. No canvas
 // approximation or thresholding may hide failures in the downloaded pixels.
-test('real canvas: all sizes, styles and payloads decode from raw pixels', { timeout: 120000 }, () => {
+// The test needs a Chrome binary (CHROME_BIN or google-chrome on the PATH); on a
+// machine without one it is skipped with a message instead of failing, so the
+// rest of the suite still runs. Machines that do have Chrome run it for real.
+const chromeBin = process.env.CHROME_BIN || 'google-chrome';
+const hasChrome = spawnSync(chromeBin, ['--version'], { encoding: 'utf8' }).status === 0;
+test('real canvas: all sizes, styles and payloads decode from raw pixels', {
+    timeout: 120000,
+    skip: hasChrome ? false : `no Chrome found (${chromeBin}); set CHROME_BIN to run the real-canvas raster test`
+}, () => {
     const root = path.join(__dirname, '..');
     const app = fs.readFileSync(path.join(root, 'app.js'), 'utf8');
     const drawing = app.slice(app.indexOf('function moduleBounds('), app.indexOf('function toSvgString('));
@@ -62,7 +70,7 @@ try {
 } catch (error) { document.querySelector('#result').textContent = JSON.stringify({error: error.message, passed: results.length}); }
 </script>`);
     try {
-        const browser = spawnSync(process.env.CHROME_BIN || 'google-chrome', [
+        const browser = spawnSync(chromeBin, [
             '--headless', '--no-sandbox', '--disable-dev-shm-usage',
             `--user-data-dir=${path.join(temp, 'profile')}`, '--dump-dom', pathToFileURL(html).href
         ], { encoding: 'utf8', timeout: 110000, maxBuffer: 4 * 1024 * 1024 });
