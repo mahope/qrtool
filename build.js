@@ -17,7 +17,7 @@ const copyItems = [
     'sms-qr-kode.html', 'kalender-qr-kode.html', 'tekst-qr-kode.html',
     'scan-qr-kode.html',
     'style.css', 'app.js', 'sw.js',
-    'sitemap.xml', 'robots.txt', 'manifest.json', 'icon.svg', 'ads.txt',
+    'sitemap.xml', 'robots.txt', 'manifest.json', 'icon.svg', 'icon-maskable.svg', 'ads.txt',
     '.htaccess',
     'og-image.png', 'og-image-en.png',
     'og-image-wifi.png', 'og-image-wifi-en.png',
