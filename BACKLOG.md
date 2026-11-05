@@ -363,3 +363,4 @@ Gennemgå og justér alle farver så de overholder WCAG AAA (7:1 kontrast). Sær
 
 **Sprint 4 — SEO & Performance:**
 #10 Core Web Vitals, #2 Blog/guides, #54 Self-host biblioteker, #55 CSS/JS minificering
+<!-- udgiv-test 1 (5/11-26): harmløs ændring til test af den automatiske udgivelse -->
