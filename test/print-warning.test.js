@@ -156,3 +156,27 @@ test('English texts exist for all four messages', () => {
     }
     assert.ok(!/print\.\w+': '[^']*[—–]/.test(source), 'no dashes in the print texts');
 });
+
+test('the warning is refreshed when the tab changes and when a code is generated', () => {
+    const source = require('fs').readFileSync(require('path').join(__dirname, '..', 'app.js'), 'utf8');
+    const body = name => {
+        const start = source.indexOf(`function ${name}(`);
+        assert.ok(start >= 0, name);
+        const next = source.indexOf('\nfunction ', start + 1);
+        return source.slice(start, next < 0 ? undefined : next);
+    };
+    assert.match(body('switchToTab'), /schedulePrintWarning\(\)/, 'tab switch');
+    assert.match(body('generateQRCode'), /schedulePrintWarning\(\)/, 'generate (also used by history)');
+});
+
+test('scheduled refresh updates the field after the content changed without an input event', async () => {
+    const api = loadApp();
+    fillText(api, LONG);
+    api.field('printSizeMm').value = '5';
+    api.updatePrintWarning();
+    assert.ok(api.field('printSizeWarning').textContent.length > 0);
+    api.field('qrText').value = 'https://qrtool.dk'; // programmatic, no event
+    api.schedulePrintWarning();
+    await new Promise(r => setTimeout(r, 400));
+    assert.match(api.field('printSizeWarning').textContent, /version 2 /, 'now describes the short code');
+});

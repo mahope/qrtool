@@ -70,7 +70,8 @@ function loadApp(options = {}) {
     buildBatchSheetVectorPDF: (lines, style, ecLevel) => buildBatchSheetVectorPDF(lines, style, ecLevel),
     printWarning: (...args) => printWarning(...args),
     printWarningText: (...args) => printWarningText(...args),
-    updatePrintWarning: () => updatePrintWarning()
+    updatePrintWarning: () => updatePrintWarning(),
+    schedulePrintWarning: () => schedulePrintWarning()
 };`);
 
     factory(...names.map(name => injected[name]));
@@ -125,7 +126,8 @@ function loadApp(options = {}) {
         buildBatchSheetVectorPDF: (lines, style, ecLevel) => bind.buildBatchSheetVectorPDF(lines, style, ecLevel),
         printWarning: (...args) => bind.printWarning(...args),
         printWarningText: (...args) => bind.printWarningText(...args),
-        updatePrintWarning: () => bind.updatePrintWarning()
+        updatePrintWarning: () => bind.updatePrintWarning(),
+        schedulePrintWarning: () => bind.schedulePrintWarning()
     };
 
     return api;

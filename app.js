@@ -465,6 +465,7 @@ function switchToTab(tabName, { autoFocus = true } = {}) {
     if (activeContent) {
         activeContent.classList.add('active');
         currentTab = tabName;
+        schedulePrintWarning();
         if (autoFocus) {
             const firstInput = activeContent.querySelector('input, select, textarea');
             if (firstInput) firstInput.focus();
@@ -1485,6 +1486,7 @@ function generateQRCode() {
         qr.addData(text);
         qr.make();
         lastQR = qr;
+        schedulePrintWarning();
 
         const hasCTA = ctaText && ctaText.value.trim();
         const needsCanvas = currentLogoImage || hasCTA;
@@ -1611,7 +1613,11 @@ function printWarningText(moduleCount, mm, kind, chars) {
     const w = printWarning(moduleCount, mm);
     if (w.level === 'none') return null;
     const dots = w.dotsPerModule.toFixed(1);
-    const key = (kind === 'batch' ? 'print.batch' : 'print.') + (w.level === 'strong' ? (kind === 'batch' ? 'Strong' : 'strong') : (kind === 'batch' ? 'Warn' : 'warn'));
+    const keys = {
+        single: { warn: 'print.warn', strong: 'print.strong' },
+        batch: { warn: 'print.batchWarn', strong: 'print.batchStrong' }
+    };
+    const key = keys[kind][w.level];
     return t(key, {
         mm: String(mm),
         dots: LANG === 'da' ? dots.replace('.', ',') : dots,
@@ -1664,7 +1670,7 @@ function updatePrintWarning() {
     if (batchPrintWarning) batchPrintWarning.textContent = batch;
 }
 
-let printWarningTimer;
+var printWarningTimer;
 function schedulePrintWarning() {
     clearTimeout(printWarningTimer);
     printWarningTimer = setTimeout(updatePrintWarning, 150);
