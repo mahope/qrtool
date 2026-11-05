@@ -23,63 +23,11 @@
     "maxHomeJsBytes": 81920
   },
   "known": {
-    "axe": {
-      "/404-findes-ikke|color-contrast": 4,
-      "/en/|color-contrast": 16,
-      "/en/|label": 4,
-      "/en/|label-content-name-mismatch": 8,
-      "/en/|role-img-alt": 4,
-      "/en/|select-name": 8,
-      "/guides/qr-koder-til-restauranter|color-contrast": 100,
-      "/guides/qr-koder-til-restauranter|label-content-name-mismatch": 4,
-      "/guides/qr-koder-til-restauranter|link-name": 4,
-      "/guides/|color-contrast": 24,
-      "/guides/|label-content-name-mismatch": 4,
-      "/guides/|link-name": 4,
-      "/om-qr-tool|color-contrast": 110,
-      "/om-qr-tool|label-content-name-mismatch": 4,
-      "/om-qr-tool|link-name": 4,
-      "/scan-qr-kode|color-contrast": 22,
-      "/scan-qr-kode|label-content-name-mismatch": 4,
-      "/scan-qr-kode|link-name": 4,
-      "/vcard-qr-kode|color-contrast": 38,
-      "/vcard-qr-kode|label-content-name-mismatch": 4,
-      "/vcard-qr-kode|link-in-text-block": 2,
-      "/vcard-qr-kode|link-name": 4,
-      "/wifi-qr-kode|color-contrast": 24,
-      "/wifi-qr-kode|label-content-name-mismatch": 4,
-      "/wifi-qr-kode|link-name": 4,
-      "/|color-contrast": 16,
-      "/|label": 4,
-      "/|label-content-name-mismatch": 8,
-      "/|role-img-alt": 4,
-      "/|select-name": 8
-    },
-    "overflow": {
-      "/@320": 95,
-      "/en/@320": 95,
-      "/vcard-qr-kode@320": 77,
-      "/en/vcard-qr-code@320": 83,
-      "/kalender-qr-kode@320": 16,
-      "/en/calendar-qr-code@320": 16,
-      "/@390": 49,
-      "/en/@390": 49,
-      "/vcard-qr-kode@390": 7,
-      "/en/vcard-qr-code@390": 13
-    },
+    "axe": {},
+    "overflow": {},
     "lighthouse": {
       "/": {
-        "minAccessibility": 84,
         "maxJsBytes": 130000
-      },
-      "/wifi-qr-kode": {
-        "minAccessibility": 91
-      },
-      "/scan-qr-kode": {
-        "minAccessibility": 89
-      },
-      "/guides/qr-koder-til-restauranter": {
-        "minAccessibility": 92
       }
     }
   }

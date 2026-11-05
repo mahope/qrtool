@@ -12,15 +12,16 @@ Workflowen `.forgejo/workflows/quality.yml` kører på pull requests (og manuelt
 
 Budgetterne ligger i `scripts/quality/budgets.json`, og logikken i `scripts/quality/budgets.mjs` har enhedstests i `test/quality-budgets.test.js`.
 
-## Udgangspunkt (første kørsel)
+## Udgangspunkt
 
-Første kørsel var på denne gren, som indholdsmæssigt er `master` (ingen sideændringer), 5/11-2026 på agent-worker. Den viste, at `master` allerede overskrider flere af de givne budgetter. For at jobbet kan være grønt i dag og alligevel fange regressioner, står de målte værdier i `known` i `budgets.json` som udgangspunkt, der ikke må blive værre. Alt, der ikke står dér, skal opfylde det rigtige budget.
+Første kørsel (5/11-2026, på `master` før designsystemet) viste, at `master` overskred flere budgetter: tilgængelighed 84 til 92 mod 95, vandret overløb op til 95 px ved 320 px og 354 axe-noder med color-contrast. De målte værdier stod dengang i `known` i `budgets.json` som udgangspunkt, der ikke måtte blive værre.
 
-- **CLS:** 0,000 på alle fire sider. Budgettet 0,02 gælder uden undtagelse.
-- **Lighthouse tilgængelighed:** `/` 84, `/wifi-qr-kode` 91, `/scan-qr-kode` 89, restaurantguiden 92 (budget 95). Udgangspunktet er scoren pr. side.
-- **JavaScript overført på forsiden:** 123.403 byte (120,5 KB) mod budgettet 80 KB. Udgangspunktet er sat til 130.000 byte: første kørsel på Forgejo-runneren (efter at vektor-PDF, scankontrol og SEO-tekster var landet på `master`) målte 126.885 byte. De andre sider er under 80 KB.
-- **Vandret overløb:** ved 320 px forsiden 95 px, `/en/` 95 px, `/vcard-qr-kode` 77 px, `/en/vcard-qr-code` 83 px, `/kalender-qr-kode` og `/en/calendar-qr-code` 16 px. Ved 390 px forsiden og `/en/` 49 px, `/vcard-qr-kode` 7 px og `/en/vcard-qr-code` 13 px. Alle andre sider har 0 px.
-- **axe, critical og serious (34 scanninger):** udgangspunktet er antal noder pr. side og regel (nøgle `<side>|<regel>` i `known.axe`), summeret over de to bredder og de to temaer for den side. I alt color-contrast 354, label-content-name-mismatch 40, link-name 24, select-name 16, label 8, role-img-alt 8, link-in-text-block 2, fordelt på 30 side/regel-par. En ny overtrædelse på én side skjules derfor ikke af en rettelse på en anden. Udgangspunktet dækker kun de 9 sider i `axe.mjs`.
+Efter at designsystemet (#17) og rettelserne #43 til #45 er landet, er næsten alt rettet, og `known` er strammet til det, der stadig mangler:
+
+- **JavaScript overført på forsiden:** 123,8 KB mod budgettet 80 KB. Udgangspunktet er 130.000 byte (må ikke vokse); de andre sider er under 80 KB.
+- **Alt andet opfylder de rigtige budgetter:** Lighthouse tilgængelighed 100 på alle fire sider (budget 95), CLS 0,000 til 0,011 (budget 0,02), 0 px vandret overløb ved 320 og 390 px og 0 critical/serious axe-fund på de 9 sider.
+
+`known` kan nu kun indeholde undtagelser; er en værdi blevet bedre, skal undtagelsen fjernes, så den ikke kan glide tilbage.
 
 Tallene er stabile: tre kørsler i træk gav de samme axe-tal efter at overgange og animationer er slået fra under målingen (uden det svingede color-contrast mellem 354 og 376).
 
