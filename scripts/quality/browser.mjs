@@ -13,10 +13,12 @@ export function launchBrowser() {
   return chromium.launch(executablePath ? { executablePath } : {});
 }
 
-// Chrome refuses to start its sandbox as root (typical in CI containers).
+// Chrome refuses to start its sandbox as root and often without user namespaces
+// in CI containers, and /dev/shm is small there: CI (and root) get the usual flags.
 export function chromeFlags() {
   const flags = ['--headless=new'];
-  if (typeof process.getuid === 'function' && process.getuid() === 0) flags.push('--no-sandbox');
+  const root = typeof process.getuid === 'function' && process.getuid() === 0;
+  if (root || process.env.CI) flags.push('--no-sandbox', '--disable-dev-shm-usage');
   return flags;
 }
 

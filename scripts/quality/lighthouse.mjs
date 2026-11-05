@@ -10,7 +10,7 @@ function runCli(args) {
   return new Promise((resolve, reject) => {
     const child = spawn(process.execPath, args, { stdio: ['ignore', 'ignore', 'pipe'] });
     let stderr = '';
-    child.stderr.on('data', (d) => { stderr = (stderr + d).slice(-400); });
+    child.stderr.on('data', (d) => { stderr = (stderr + d).slice(-2500); });
     child.on('error', reject);
     child.on('exit', (code) => resolve({ code, stderr }));
   });
