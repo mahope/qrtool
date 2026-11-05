@@ -32,7 +32,6 @@ const SECONDARY = '#8b5cf6';
 // QR code's quiet-zone layout).
 function motif(x, y, size) {
     const cell = size / 15;
-    const ring = `${cell}`;
     const finder = (cx, cy, color) => `
     <g transform="translate(${cx * cell}, ${cy * cell})">
       <rect x="${cell / 2}" y="${cell / 2}" width="${6 * cell}" height="${6 * cell}" rx="${cell}" fill="none" stroke="${color}" stroke-width="${cell}"/>

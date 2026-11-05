@@ -35,7 +35,6 @@ const T = {
         'err.invalidEmail': 'Ugyldig e-mail-adresse.',
         'err.urlHttps': 'URL skal starte med https://',
         'err.emailRequired': 'E-mail-adresse er påkrævet.',
-        'err.phoneRequired': 'Telefonnummer er påkrævet.',
         'err.eventNameRequired': 'Begivenhedsnavn er påkrævet.',
         'err.startDateRequired': 'Startdato er påkrævet.',
         'err.latRequired': 'Breddegrad er påkrævet.',
@@ -207,7 +206,6 @@ const T = {
         'err.invalidEmail': 'Invalid email address.',
         'err.urlHttps': 'URL must start with https://',
         'err.emailRequired': 'Email address is required.',
-        'err.phoneRequired': 'Phone number is required.',
         'err.eventNameRequired': 'Event name is required.',
         'err.startDateRequired': 'Start date is required.',
         'err.latRequired': 'Latitude is required.',
@@ -1646,7 +1644,6 @@ function decodeQRCanvas(canvas) {
 
     // QR-koden er kvadratisk; et evt. CTA-bånd under den skal ikke læses med
     const side = Math.min(canvas.width, canvas.height);
-    let target = canvas;
     let ctx = canvas.getContext('2d');
 
     // En transparent PNG læses på en hvid overflade, så læg den på hvid: ellers
@@ -1659,7 +1656,6 @@ function decodeQRCanvas(canvas) {
         flatCtx.fillStyle = '#ffffff';
         flatCtx.fillRect(0, 0, side, side);
         flatCtx.drawImage(canvas, 0, 0);
-        target = flat;
         ctx = flatCtx;
     }
 

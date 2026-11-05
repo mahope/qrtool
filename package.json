@@ -6,6 +6,7 @@
   "scripts": {
     "start": "npx http-server -p 8080 -o",
     "build": "node build.js",
+    "lint": "oxlint app.js lib/qr-page.js lib/qr-scan.js build.js build-version.js sw.js og-images.js scripts",
     "pretest": "node build.js",
     "test": "node --test"
   },
@@ -40,7 +41,8 @@
   },
   "devDependencies": {
     "esbuild": "^0.28.1",
-    "http-server": "^14.1.1"
+    "http-server": "^14.1.1",
+    "oxlint": "1.90.0"
   },
   "engines": {
     "node": ">=14.0.0"
