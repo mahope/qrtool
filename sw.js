@@ -4,6 +4,7 @@ const ASSETS = [
     '/style.css?v=8',
     '/app.js?v=8',
     '/icon.svg',
+    '/fonts/schibsted-grotesk-latin.woff2',
     '/manifest.json',
     '/lib/qrcode.js',
     '/lib/qr-page.js',

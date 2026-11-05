@@ -383,14 +383,14 @@ if (typeof qrcode !== 'undefined' && qrcode.stringToBytesFuncs && qrcode.stringT
 const themeToggle = document.getElementById('themeToggle');
 const html = document.documentElement;
 
-// Check for saved theme preference or default to 'dark'
-const currentTheme = localStorage.getItem('theme') || 'dark';
-html.setAttribute('data-theme', currentTheme);
+// Leave the system preference to CSS unless the user saved an override.
+const currentTheme = localStorage.getItem('theme');
+if (currentTheme === 'light' || currentTheme === 'dark') html.setAttribute('data-theme', currentTheme);
 
 // Theme toggle handler (with null check)
 if (themeToggle) {
     themeToggle.addEventListener('click', () => {
-        const theme = html.getAttribute('data-theme');
+        const theme = html.getAttribute('data-theme') || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
         const newTheme = theme === 'dark' ? 'light' : 'dark';
 
         if (document.startViewTransition) {
@@ -678,13 +678,7 @@ function generateLogoQR() {
         }
     }
 
-    logoSvg.innerHTML = `<path d="${path}" fill="url(#gradient)"/>
-        <defs>
-            <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" style="stop-color:#6366f1;stop-opacity:1" />
-                <stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:1" />
-            </linearGradient>
-        </defs>`;
+    logoSvg.innerHTML = `<path d="${path}" fill="var(--ink)"/>`;
 }
 
 // Start logo generation when page loads
