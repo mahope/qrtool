@@ -1793,7 +1793,35 @@ function updateScanStatus(expected) {
 // rammer koderne kanten af billedet, og det er der, scannerapps fejler oftest.
 const QUIET_ZONE_MODULES = 4;
 
-// Hjælpefunktion til at tegne QR-kode på canvas
+function moduleBounds(index, scale) {
+    const start = Math.round(index * scale);
+    const end = Math.round((index + 1) * scale);
+    return { start, size: end - start };
+}
+
+// Recognize the 5x5 alignment pattern in the matrix without copying version tables.
+function alignmentPatternCells(qr) {
+    const cells = qr.getModuleCount();
+    const solid = new Set();
+    for (let y = 2; y < cells - 2; y++) {
+        for (let x = 2; x < cells - 2; x++) {
+            let matches = true;
+            for (let dy = -2; dy <= 2 && matches; dy++) {
+                for (let dx = -2; dx <= 2; dx++) {
+                    const dark = Math.max(Math.abs(dx), Math.abs(dy)) !== 1;
+                    if (qr.isDark(y + dy, x + dx) !== dark) { matches = false; break; }
+                }
+            }
+            if (matches) {
+                for (let dy = -2; dy <= 2; dy++) {
+                    for (let dx = -2; dx <= 2; dx++) solid.add((y + dy) * cells + x + dx);
+                }
+            }
+        }
+    }
+    return solid;
+}
+
 function drawCanvas(qr, size, canvas, style = 'square') {
     const cells = qr.getModuleCount();
     // Kanten tæller med i størrelsen, så en kode aldrig fylder mere end preview
@@ -1813,31 +1841,40 @@ function drawCanvas(qr, size, canvas, style = 'square') {
 
     // Tegn QR-kode baseret på stil
     ctx.fillStyle = qrColor.value;
+    const alignment = style === 'square' ? new Set() : alignmentPatternCells(qr);
 
     for (let y = 0; y < cells; y++) {
         for (let x = 0; x < cells; x++) {
             if (qr.isDark(y, x)) {
-                const px = (x + QUIET_ZONE_MODULES) * scale;
-                const py = (y + QUIET_ZONE_MODULES) * scale;
+                const column = moduleBounds(x + QUIET_ZONE_MODULES, scale);
+                const row = moduleBounds(y + QUIET_ZONE_MODULES, scale);
+                const px = column.start;
+                const py = row.start;
+                const width = column.size;
+                const height = row.size;
 
-                if (style === 'dots') {
+                // Keep the locator patterns solid so scanners can find curved styles.
+                const finder = (x < 7 && y < 7) || (x >= cells - 7 && y < 7) || (x < 7 && y >= cells - 7);
+                if (finder || alignment.has(y * cells + x)) {
+                    ctx.fillRect(px, py, width, height);
+                } else if (style === 'dots') {
                     // Tegn cirkler
                     ctx.beginPath();
-                    ctx.arc(px + scale/2, py + scale/2, scale/2, 0, 2 * Math.PI);
+                    ctx.arc(px + width/2, py + height/2, Math.min(width, height)/2, 0, 2 * Math.PI);
                     ctx.fill();
                 } else if (style === 'rounded') {
                     // Tegn afrundede firkanter
-                    const radius = scale * 0.3;
+                    const radius = Math.min(width, height) * 0.3;
                     ctx.beginPath();
                     if (typeof ctx.roundRect === 'function') {
-                        ctx.roundRect(px, py, scale, scale, radius);
+                        ctx.roundRect(px, py, width, height, radius);
                     } else {
-                        ctx.rect(px, py, scale, scale);
+                        ctx.rect(px, py, width, height);
                     }
                     ctx.fill();
                 } else {
                     // Standard firkanter
-                    ctx.fillRect(px, py, scale, scale);
+                    ctx.fillRect(px, py, width, height);
                 }
             }
         }
