@@ -65,7 +65,9 @@ function loadApp(options = {}) {
     sheetPages: lines => sheetPages(lines),
     buildBatchSheetCanvas: (lines, style, ecLevel, layout) => buildBatchSheetCanvas(lines, style, ecLevel, layout),
     buildSheetPDF: (jpegBytes, imgW, imgH) => buildSheetPDF(jpegBytes, imgW, imgH),
-    buildMultiPageSheetPDF: jpegs => buildMultiPageSheetPDF(jpegs)
+    buildMultiPageSheetPDF: jpegs => buildMultiPageSheetPDF(jpegs),
+    buildQRVectorPDF: (qr, mm, style, logo) => buildQRVectorPDF(qr, mm, style, logo),
+    buildBatchSheetVectorPDF: (lines, style, ecLevel) => buildBatchSheetVectorPDF(lines, style, ecLevel)
 };`);
 
     factory(...names.map(name => injected[name]));
@@ -115,7 +117,9 @@ function loadApp(options = {}) {
         sheetPages: lines => bind.sheetPages(lines),
         buildBatchSheetCanvas: (lines, style, ecLevel, layout) => bind.buildBatchSheetCanvas(lines, style, ecLevel, layout),
         buildSheetPDF: (jpegBytes, imgW, imgH) => bind.buildSheetPDF(jpegBytes, imgW, imgH),
-        buildMultiPageSheetPDF: jpegs => bind.buildMultiPageSheetPDF(jpegs)
+        buildMultiPageSheetPDF: jpegs => bind.buildMultiPageSheetPDF(jpegs),
+        buildQRVectorPDF: (qr, mm, style, logo) => bind.buildQRVectorPDF(qr, mm, style, logo),
+        buildBatchSheetVectorPDF: (lines, style, ecLevel) => bind.buildBatchSheetVectorPDF(lines, style, ecLevel)
     };
 
     return api;
