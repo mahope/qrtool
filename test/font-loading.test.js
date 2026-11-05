@@ -6,11 +6,17 @@ const { pages, read } = require('./helpers/pages');
 
 const FONT = '/fonts/schibsted-grotesk-latin.woff2';
 
+// offline.html is the standalone service worker fallback: tiny, inline styles and a
+// system font on purpose (it must render with nothing else cached), so it is exempt.
+const STANDALONE = new Set(['offline.html']);
+const sitePages = pages.filter(file => !STANDALONE.has(file));
+
 test('there are 31 pages to check', () => {
-    assert.equal(pages.length, 31);
+    assert.equal(sitePages.length, 31);
+    assert.deepEqual(pages.filter(file => STANDALONE.has(file)), ['offline.html']);
 });
 
-for (const file of pages) {
+for (const file of sitePages) {
     test(`${file} preloads the body font exactly once`, () => {
         const html = read(file);
         const preloads = html.match(/<link[^>]+rel="preload"[^>]+as="font"[^>]*>/g) || [];

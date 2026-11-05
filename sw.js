@@ -1,38 +1,27 @@
 const CACHE_NAME = 'qrtool-v9';
+const NAV_TIMEOUT_MS = 3000;
+const MAX_ENTRIES = 80;
+const OFFLINE_URL = '/offline.html';
+
+// App shell only: enough for the generator on / to work offline. Every other
+// page and asset is cached when the visitor uses it.
 const ASSETS = [
     '/',
+    OFFLINE_URL,
     '/style.css?v=8',
     '/app.js?v=8',
-    '/icon.svg',
-    '/fonts/schibsted-grotesk-latin.woff2',
-    '/manifest.json',
     '/lib/qrcode.js',
     '/lib/qr-page.js',
     '/lib/qr-scan.js?v=8',
-    '/lib/jszip.min.js',
-    '/lib/jsQR.min.js',
-    '/scan-qr-kode',
-    '/en/scan-qr-code',
-    '/wifi-qr-kode',
-    '/vcard-qr-kode',
-    '/email-qr-kode',
-    '/sms-qr-kode',
-    '/kalender-qr-kode',
-    '/tekst-qr-kode',
-    '/om-qr-tool',
-    '/privatlivspolitik',
-    '/en/',
-    '/en/wifi-qr-code',
-    '/en/vcard-qr-code',
-    '/en/email-qr-code',
-    '/en/sms-qr-code',
-    '/en/calendar-qr-code',
-    '/en/text-qr-code',
-    '/en/about',
-    '/en/privacy-policy'
+    '/icon.svg',
+    '/fonts/schibsted-grotesk-latin.woff2',
+    '/manifest.json'
 ];
 
-// Install: cache all static assets
+// Statistics hosts (Plausible and Umami) are never intercepted
+const STATS_HOSTS = ['analytics.holstjensen.eu', 'stats.mahoje.dk'];
+
+// Install: cache the app shell
 self.addEventListener('install', (event) => {
     event.waitUntil(
         caches.open(CACHE_NAME).then((cache) => cache.addAll(ASSETS))
@@ -52,42 +41,73 @@ self.addEventListener('activate', (event) => {
     self.clients.claim();
 });
 
-// Fetch: stale-while-revalidate for assets, network-first with cache fallback for navigation
+const SHELL_URLS = new Set(ASSETS.map((a) => new URL(a, self.location.origin).href));
+
+function store(request, response) {
+    if (!response.ok || response.type !== 'basic') return Promise.resolve();
+    const copy = response.clone();
+    return caches.open(CACHE_NAME).then((cache) =>
+        cache.put(request, copy).then(() => cache.keys()).then((keys) => {
+            // Keep the cache bounded: drop the oldest entries beyond the cap, never the app shell
+            const extra = keys.length - MAX_ENTRIES;
+            if (extra <= 0) return undefined;
+            const evictable = keys.filter((key) => !SHELL_URLS.has(key.url));
+            return Promise.all(evictable.slice(0, extra).map((key) => cache.delete(key)));
+        })
+    );
+}
+
+// Navigation: network first, then the page's own cached copy, then offline.html.
+// With a cached copy the network gets 3 s; without one we wait for the network,
+// since a slow answer beats "offline". A navigation never gets another page's content.
+function navigate(request, event) {
+    return caches.match(request, { ignoreSearch: true }).then((cached) => {
+        const network = fetch(request).then((response) => {
+            event.waitUntil(store(request, response).catch(() => {}));
+            return response;
+        });
+        if (!cached) {
+            return network.catch(() => caches.match(OFFLINE_URL));
+        }
+        let timer;
+        const timeout = new Promise((resolve, reject) => { timer = setTimeout(reject, NAV_TIMEOUT_MS); });
+        return Promise.race([network, timeout])
+            .catch(() => {
+                network.catch(() => {});
+                return cached;
+            })
+            .finally(() => clearTimeout(timer));
+    });
+}
+
+// Assets: stale-while-revalidate
+function revalidate(request, event) {
+    return caches.match(request).then((cached) => {
+        const update = fetch(request).then((response) => {
+            event.waitUntil(store(request, response).catch(() => {}));
+            return response;
+        });
+        if (cached) {
+            update.catch(() => {});
+            return cached;
+        }
+        return update;
+    });
+}
+
 self.addEventListener('fetch', (event) => {
     const { request } = event;
 
-    // Skip non-GET requests and analytics
-    if (request.method !== 'GET' || request.url.includes('analytics')) {
+    // Skip non-GET requests, statistics and other origins
+    if (request.method !== 'GET') {
+        return;
+    }
+    const url = new URL(request.url);
+    if (STATS_HOSTS.includes(url.hostname) || url.origin !== self.location.origin) {
         return;
     }
 
     event.respondWith(
-        caches.match(request).then((cached) => {
-            if (cached) {
-                // Return cache, update in background
-                event.waitUntil(
-                    fetch(request).then((response) => {
-                        if (response.ok) {
-                            caches.open(CACHE_NAME).then((cache) => cache.put(request, response));
-                        }
-                    }).catch(() => {})
-                );
-                return cached;
-            }
-
-            // Not in cache: fetch from network
-            return fetch(request).then((response) => {
-                if (response.ok && request.url.startsWith(self.location.origin)) {
-                    const clone = response.clone();
-                    caches.open(CACHE_NAME).then((cache) => cache.put(request, clone));
-                }
-                return response;
-            }).catch(() => {
-                // Offline fallback for navigation requests
-                if (request.mode === 'navigate') {
-                    return caches.match('/');
-                }
-            });
-        })
+        request.mode === 'navigate' ? navigate(request, event) : revalidate(request, event)
     );
 });
