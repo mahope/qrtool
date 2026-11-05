@@ -7,6 +7,7 @@
     "start": "npx http-server -p 8080 -o",
     "build": "node build.js",
     "lint": "oxlint app.js lib/qr-page.js lib/qr-scan.js build.js build-version.js sw.js og-images.js scripts",
+    "quality": "node scripts/quality/run.mjs",
     "pretest": "node build.js",
     "test": "node --test"
   },
@@ -40,9 +41,12 @@
     "qrcode": "^1.5.4"
   },
   "devDependencies": {
+    "@axe-core/playwright": "4.14.0",
     "esbuild": "^0.28.1",
     "http-server": "^14.1.1",
-    "oxlint": "1.90.0"
+    "lighthouse": "13.6.0",
+    "oxlint": "1.90.0",
+    "playwright": "1.64.1"
   },
   "engines": {
     "node": ">=14.0.0"

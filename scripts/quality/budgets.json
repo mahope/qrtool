@@ -1,0 +1,63 @@
+{
+  "axe": {
+    "failImpacts": [
+      "critical",
+      "serious"
+    ]
+  },
+  "overflow": {
+    "widths": [
+      320,
+      390
+    ]
+  },
+  "lighthouse": {
+    "pages": [
+      "/",
+      "/wifi-qr-kode",
+      "/scan-qr-kode",
+      "/guides/qr-koder-til-restauranter"
+    ],
+    "maxCls": 0.02,
+    "minAccessibility": 95,
+    "maxHomeJsBytes": 81920
+  },
+  "known": {
+    "axe": {
+      "color-contrast": 354,
+      "label-content-name-mismatch": 40,
+      "label": 8,
+      "role-img-alt": 8,
+      "select-name": 16,
+      "link-name": 24,
+      "link-in-text-block": 2
+    },
+    "overflow": {
+      "/@320": 95,
+      "/en/@320": 95,
+      "/vcard-qr-kode@320": 77,
+      "/en/vcard-qr-code@320": 83,
+      "/kalender-qr-kode@320": 16,
+      "/en/calendar-qr-code@320": 16,
+      "/@390": 49,
+      "/en/@390": 49,
+      "/vcard-qr-kode@390": 7,
+      "/en/vcard-qr-code@390": 13
+    },
+    "lighthouse": {
+      "/": {
+        "minAccessibility": 84,
+        "maxJsBytes": 125000
+      },
+      "/wifi-qr-kode": {
+        "minAccessibility": 91
+      },
+      "/scan-qr-kode": {
+        "minAccessibility": 89
+      },
+      "/guides/qr-koder-til-restauranter": {
+        "minAccessibility": 92
+      }
+    }
+  }
+}
