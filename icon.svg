@@ -1,11 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-  <defs>
-    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#6366f1"/>
-      <stop offset="100%" style="stop-color:#8b5cf6"/>
-    </linearGradient>
-  </defs>
-  <rect width="512" height="512" rx="96" fill="url(#bg)"/>
+  <rect width="512" height="512" rx="96" fill="#0d0f12"/>
   <!-- QR pattern -->
   <g fill="#fff" transform="translate(96, 96) scale(4.2)">
     <!-- Top-left finder -->
@@ -32,7 +26,7 @@
     <rect x="39" y="3" width="3" height="3"/>
     <rect x="45" y="9" width="3" height="3"/>
     <rect x="30" y="30" width="3" height="3"/>
-    <rect x="36" y="36" width="3" height="3"/>
+    <rect x="36" y="36" width="3" height="3" fill="#ffe14d"/>
     <rect x="42" y="33" width="3" height="3"/>
     <rect x="48" y="30" width="3" height="3"/>
     <rect x="54" y="36" width="3" height="3"/>
