@@ -731,6 +731,7 @@
                             </div>
                         </div>
                         <span class="cta-hint" id="printSizeHint">Optional. Fill it in to download PNG/JPG/WebP at 300 dpi and a PDF at exactly that size.</span>
+                        <p class="print-warning" id="printSizeWarning" aria-live="polite"></p>
                     </div>
 
                     <!-- Error Correction -->
@@ -819,6 +820,7 @@
                                 <button id="batchSheetBtn" class="btn btn-secondary">Download print sheet (A4)</button>
                             </div>
                             <span class="cta-hint">The print sheet splits large batches over several A4 pages in one PDF.</span>
+                            <p class="print-warning" id="batchPrintWarning" aria-live="polite"></p>
                             <div id="batchProgress" class="batch-progress" style="display: none;">
                                 <div class="batch-progress-bar">
                                     <div class="batch-progress-fill" id="batchProgressFill"></div>
