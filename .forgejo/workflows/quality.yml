@@ -23,17 +23,14 @@ jobs:
           node-version: 24
           cache: npm
       - run: npm ci
+      - name: Install Chromium (the runner image has no Chrome)
+        run: npx playwright install --with-deps chromium
       - name: Locate Chrome
         run: |
-          for c in google-chrome google-chrome-stable chromium chromium-browser; do
-            if p=$(command -v "$c"); then
-              echo "Using $p"
-              "$p" --version
-              echo "QUALITY_CHROME=$p" >> "$GITHUB_ENV"
-              exit 0
-            fi
-          done
-          echo "No Chrome or Chromium found on this runner" >&2
-          exit 1
+          p=$(node -e "console.log(require('playwright').chromium.executablePath())")
+          test -x "$p"
+          echo "Using $p"
+          "$p" --version
+          echo "QUALITY_CHROME=$p" >> "$GITHUB_ENV"
       - run: npm run build
       - run: npm run quality
