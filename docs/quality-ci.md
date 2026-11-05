@@ -18,7 +18,7 @@ Første kørsel (5/11-2026, på `master` før designsystemet) viste, at `master`
 
 Efter at designsystemet (#17) og rettelserne #43 til #45 er landet, er næsten alt rettet, og `known` er strammet til det, der stadig mangler:
 
-- **JavaScript overført på forsiden:** 123,8 KB mod budgettet 80 KB. Udgangspunktet er 130.000 byte (må ikke vokse); de andre sider er under 80 KB.
+- **JavaScript overført på forsiden:** 123,8 KB mod budgettet 80 KB. Udgangspunktet er 127.000 byte (må ikke vokse; målt 126.8 KB); de andre sider er under 80 KB.
 - **Alt andet opfylder de rigtige budgetter:** Lighthouse tilgængelighed 100 på alle fire sider (budget 95), CLS 0,000 til 0,011 (budget 0,02), 0 px vandret overløb ved 320 og 390 px og 0 critical/serious axe-fund på de 9 sider.
 
 `known` kan nu kun indeholde undtagelser; er en værdi blevet bedre, skal undtagelsen fjernes, så den ikke kan glide tilbage.

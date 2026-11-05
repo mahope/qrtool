@@ -11,10 +11,11 @@ const { spawnSync } = require('node:child_process');
 // Use the browser's real curve rasterizer, including antialiasing. No canvas
 // approximation or thresholding may hide failures in the downloaded pixels.
 // The test needs a Chrome binary (CHROME_BIN or google-chrome on the PATH); on a
-// machine without one it is skipped with a message instead of failing, so the
-// rest of the suite still runs. Machines that do have Chrome run it for real.
+// developer machine without one it is skipped with a message so the rest of the
+// suite still runs. Under CI (the workflow installs Chromium and sets CHROME_BIN)
+// it is never skipped: a missing or broken Chrome must fail the build.
 const chromeBin = process.env.CHROME_BIN || 'google-chrome';
-const hasChrome = spawnSync(chromeBin, ['--version'], { encoding: 'utf8' }).status === 0;
+const hasChrome = spawnSync(chromeBin, ['--version'], { encoding: 'utf8' }).status === 0 || Boolean(process.env.CI);
 test('real canvas: all sizes, styles and payloads decode from raw pixels', {
     timeout: 120000,
     skip: hasChrome ? false : `no Chrome found (${chromeBin}); set CHROME_BIN to run the real-canvas raster test`

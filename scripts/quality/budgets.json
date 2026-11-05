@@ -27,7 +27,7 @@
     "overflow": {},
     "lighthouse": {
       "/": {
-        "maxJsBytes": 130000
+        "maxJsBytes": 127000
       }
     }
   }
