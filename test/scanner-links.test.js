@@ -17,7 +17,7 @@ function htmlFiles() {
             if (entry.name === 'node_modules' || entry.name === 'dist' || entry.name.startsWith('.')) continue;
             const rel = dir === '.' ? entry.name : `${dir}/${entry.name}`;
             if (entry.isDirectory()) walk(rel);
-            else if (entry.name.endsWith('.html') && entry.name !== '404.html') files.push(rel);
+            else if (entry.name.endsWith('.html') && !['404.html', 'offline.html'].includes(entry.name)) files.push(rel);
         }
     };
     walk('.');
