@@ -25,10 +25,6 @@
   "known": {
     "axe": {},
     "overflow": {},
-    "lighthouse": {
-      "/": {
-        "maxJsBytes": 127000
-      }
-    }
+    "lighthouse": {}
   }
 }
