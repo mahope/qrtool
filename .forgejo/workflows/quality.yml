@@ -1,0 +1,39 @@
+name: Quality
+
+# Accessibility, layout and performance budgets (axe, horizontal overflow,
+# Lighthouse mobile). Kept apart from ci.yml so a red budget does not block
+# the ordinary tests. See docs/quality-ci.md.
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  quality:
+    runs-on: docker
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - name: Locate Chrome
+        run: |
+          for c in google-chrome google-chrome-stable chromium chromium-browser; do
+            if p=$(command -v "$c"); then
+              echo "Using $p"
+              "$p" --version
+              echo "QUALITY_CHROME=$p" >> "$GITHUB_ENV"
+              exit 0
+            fi
+          done
+          echo "No Chrome or Chromium found on this runner" >&2
+          exit 1
+      - run: npm run build
+      - run: npm run quality
