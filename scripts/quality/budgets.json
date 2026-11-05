@@ -1,0 +1,34 @@
+{
+  "axe": {
+    "failImpacts": [
+      "critical",
+      "serious"
+    ]
+  },
+  "overflow": {
+    "widths": [
+      320,
+      390
+    ]
+  },
+  "lighthouse": {
+    "pages": [
+      "/",
+      "/wifi-qr-kode",
+      "/scan-qr-kode",
+      "/guides/qr-koder-til-restauranter"
+    ],
+    "maxCls": 0.02,
+    "minAccessibility": 95,
+    "maxHomeJsBytes": 81920
+  },
+  "known": {
+    "axe": {},
+    "overflow": {},
+    "lighthouse": {
+      "/": {
+        "maxJsBytes": 130000
+      }
+    }
+  }
+}

@@ -1,0 +1,36 @@
+name: Quality
+
+# Accessibility, layout and performance budgets (axe, horizontal overflow,
+# Lighthouse mobile). Kept apart from ci.yml so a red budget does not block
+# the ordinary tests. See docs/quality-ci.md.
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  quality:
+    runs-on: docker
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - name: Install Chromium (the runner image has no Chrome)
+        run: npx playwright install --with-deps chromium
+      - name: Locate Chrome
+        run: |
+          p=$(node -e "console.log(require('playwright').chromium.executablePath())")
+          test -x "$p"
+          echo "Using $p"
+          "$p" --version
+          echo "QUALITY_CHROME=$p" >> "$GITHUB_ENV"
+      - run: npm run build
+      - run: npm run quality

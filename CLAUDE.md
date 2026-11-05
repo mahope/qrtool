@@ -18,6 +18,7 @@ The Forgejo workflow also supports manual runs and checks out the full git histo
 - `npm run build` — run `build.js`: clean `dist/`, copy site assets, minify CSS/JS with esbuild. Output in `dist/`.
 - `npm run lint` — runs oxlint (no config file) on the first-party sources only: `app.js`, `lib/qr-page.js`, `lib/qr-scan.js`, `build.js`, `build-version.js`, `sw.js`, `og-images.js` and `scripts/`. The file list is explicit in `package.json` because `lib/` holds vendored libraries; add new first-party files there. Must give 0 errors and 0 warnings.
 - `npm test` — builds first (`pretest`), then runs the `node --test` suite in `test/`. On Windows four older site-wide tests in `test/site.test.js` fail because they build file names with backslashes; they pass when `path.join` returns forward slashes.
+- `npm run quality` — after `npm run build`: serves `dist/` locally and runs axe, a horizontal-overflow check at 320/390 px and Lighthouse (mobile) against the budgets in `scripts/quality/budgets.json`. Needs Chrome (`QUALITY_CHROME`). Runs in CI via `.forgejo/workflows/quality.yml` on pull requests; see `docs/quality-ci.md`.
 - `node scripts/update-sitemap-lastmod.js` — sets each `<lastmod>` in `sitemap.xml` from the last commit that changed the page. Run it after the last content commit and commit `sitemap.xml` on its own (`--check` only reports). It needs full git history and is not part of `build.js`.
 
 ## Architecture
