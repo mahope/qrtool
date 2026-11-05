@@ -112,6 +112,7 @@
             <nav class="breadcrumb">
                 <a href="/en/">Home</a> / Text & URL QR Code
             </nav>
+            <nav class="breadcrumb" aria-label="Tools"><a href="/en/scan-qr-code">Scan QR Code</a></nav>
         </header>
         <main id="main-content">
         <!-- Hero Section -->
@@ -135,7 +136,7 @@
 
                 <div class="form-group">
                     <label for="qrText">Text or URL:</label>
-                    <textarea id="qrText" rows="4" placeholder="Enter a URL (e.g. https://example.com) or a short text..." required></textarea>
+                    <textarea id="qrText" rows="4" placeholder="Enter a URL (e.g. https://example.com) or a short text..." required autocapitalize="none" autocorrect="off" spellcheck="false"></textarea>
                 </div>
 
                 <div class="settings-grid">
@@ -177,6 +178,7 @@
                             </div>
                         </div>
                         <span class="cta-hint" id="printSizeHint">Optional. When set, PNG/JPG/WebP download at 300 dpi and the PDF at exactly that size.</span>
+                        <p class="print-warning" id="printSizeWarning" aria-live="polite"></p>
                     </div>
                 </div>
 

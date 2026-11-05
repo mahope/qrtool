@@ -77,6 +77,7 @@ function createElement(id, tagName = 'DIV') {
     element.appendChild = child => { element.children.push(child); return child; };
     element.removeChild = child => element.children;
     element.remove = () => {};
+    element.after = () => {};
     element.cloneNode = () => createElement(id, tagName);
     element.focus = () => {};
     element.blur = () => {};

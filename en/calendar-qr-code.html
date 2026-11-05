@@ -187,6 +187,7 @@
             <nav class="breadcrumb">
                 <a href="/en/">Home</a> / Calendar QR Code
             </nav>
+            <nav class="breadcrumb" aria-label="Tools"><a href="/en/scan-qr-code">Scan QR Code</a></nav>
         </header>
         <main id="main-content">
         <!-- Hero Section -->
@@ -210,12 +211,12 @@
 
                 <div class="form-group">
                     <label for="eventTitle">Event title:</label>
-                    <input type="text" id="eventTitle" placeholder="E.g. Company Holiday Party 2026" required>
+                    <input type="text" id="eventTitle" placeholder="E.g. Company Holiday Party 2026" required enterkeyhint="next">
                 </div>
 
                 <div class="form-group">
                     <label for="eventLocation">Location:</label>
-                    <input type="text" id="eventLocation" placeholder="E.g. Hilton Hotel, New York">
+                    <input type="text" id="eventLocation" placeholder="E.g. Hilton Hotel, New York" enterkeyhint="next">
                 </div>
 
                 <div class="form-group">
@@ -272,6 +273,7 @@
                             </div>
                         </div>
                         <span class="cta-hint" id="printSizeHint">Optional. When set, PNG/JPG/WebP download at 300 dpi and the PDF at exactly that size.</span>
+                        <p class="print-warning" id="printSizeWarning" aria-live="polite"></p>
                     </div>
                 </div>
 

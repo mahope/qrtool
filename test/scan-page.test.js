@@ -85,7 +85,7 @@ test('scan page: the Danish scanner page has the camera, the upload and the read
     assert.match(html, /\/lib\/jsQR\.min\.js/);
     assert.match(html, /\/lib\/qr-scan\.js/);
     assert.match(html, /<h1[^>]*>[\s\S]*Scan QR-Kode Online/);
-    assert.match(html, /Sådan scanner du en QR-kode/);
+    assert.match(html, /<h2>QR-kode scanner til iPhone og Android<\/h2>/);
 });
 
 test('scan page: the English mirror is translated and wired the same way', () => {
@@ -93,7 +93,7 @@ test('scan page: the English mirror is translated and wired the same way', () =>
     assert.match(en, /id="startScanBtn"/);
     assert.match(en, /id="scanFileInput"/);
     assert.match(en, /\/lib\/qr-scan\.js/);
-    assert.match(en, /How to scan a QR code/);
+    assert.match(en, /<h2>QR code scanner for iPhone and Android<\/h2>/);
     assert.doesNotMatch(en, /Start kamera/);
     assert.doesNotMatch(en, /Upload billede/);
 });

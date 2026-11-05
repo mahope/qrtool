@@ -226,7 +226,9 @@ test('quiet zone: the canvas that is handed to the download has the margin', () 
     assert.ok(canvas, 'generating a PNG must keep the canvas for download');
 
     const qr = matrixFor(PAYLOAD);
-    const quiet = (SIZE / (qr.getModuleCount() + 8)) * 4;
+    const scale = SIZE / (qr.getModuleCount() + 8);
+    const quiet = Math.round(4 * scale);
+    const codeEnd = Math.round((qr.getModuleCount() + 4) * scale);
 
     const background = canvas.calls.find(call => call.method === 'fillRect');
     assert.ok(background, 'the canvas must be filled with the background colour');
@@ -236,9 +238,9 @@ test('quiet zone: the canvas that is handed to the download has the margin', () 
     assert.ok(modules.length > 0, 'the code must draw modules');
     for (const call of modules) {
         const [x, y, w, h] = call.args;
-        assert.ok(x >= quiet - 0.001, `a module starts at x=${x}, inside the ${quiet}px margin`);
-        assert.ok(y >= quiet - 0.001, `a module starts at y=${y}, inside the ${quiet}px margin`);
-        assert.ok(x + w <= SIZE - quiet + 0.001, `a module ends at x=${x + w}, inside the ${quiet}px margin`);
-        assert.ok(y + h <= SIZE - quiet + 0.001, `a module ends at y=${y + h}, inside the ${quiet}px margin`);
+        assert.ok(x >= quiet, `a module starts at x=${x}, inside the ${quiet}px margin`);
+        assert.ok(y >= quiet, `a module starts at y=${y}, inside the ${quiet}px margin`);
+        assert.ok(x + w <= codeEnd, `a module ends at x=${x + w}, inside the ${quiet}px margin`);
+        assert.ok(y + h <= codeEnd, `a module ends at y=${y + h}, inside the ${quiet}px margin`);
     }
 });

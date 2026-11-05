@@ -787,6 +787,22 @@ header p {
     color: var(--primary-color);
 }
 
+/* Advarsel når printstørrelsen giver for små moduler; tom = skjult */
+.print-warning {
+    margin: 0.5rem 0 0;
+    padding: 0.65rem 0.9rem;
+    border-radius: var(--radius-sm);
+    border-left: 4px solid var(--error-color);
+    background: var(--card-bg);
+    color: var(--text-color);
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.print-warning:empty {
+    display: none;
+}
+
 .settings-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -2562,6 +2578,30 @@ header p {
 /* ===========================================
    Onboarding Tooltips
    =========================================== */
+
+.button-group:has(> .onboarding-trigger) {
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 0;
+}
+
+.onboarding-trigger {
+    flex-basis: 100%;
+    min-height: 44px;
+    padding: 0.5rem;
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    font: inherit;
+    font-size: 0.875rem;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.onboarding-trigger:focus-visible {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
 
 .onboarding-overlay {
     position: fixed;

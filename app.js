@@ -35,7 +35,6 @@ const T = {
         'err.invalidEmail': 'Ugyldig e-mail-adresse.',
         'err.urlHttps': 'URL skal starte med https://',
         'err.emailRequired': 'E-mail-adresse er påkrævet.',
-        'err.phoneRequired': 'Telefonnummer er påkrævet.',
         'err.eventNameRequired': 'Begivenhedsnavn er påkrævet.',
         'err.startDateRequired': 'Startdato er påkrævet.',
         'err.latRequired': 'Breddegrad er påkrævet.',
@@ -57,6 +56,10 @@ const T = {
         'toast.generated': 'QR-kode genereret!',
         'toast.downloaded': 'QR-kode downloadet!',
         'toast.printDownloaded': 'QR-kode downloadet i {mm} mm (300 dpi)!',
+        'print.warn': 'Ved {mm} mm får hvert modul kun {dots} printerpunkter (300 dpi), og det kan gøre koden svær at scanne. Koden har version {version} med {modules} × {rows} moduler. Brug mindst {min} mm, eller kortere indhold, som giver en mindre kode.',
+        'print.strong': 'Koden bliver sandsynligvis ikke læsbar: ved {mm} mm får hvert modul kun {dots} printerpunkter (300 dpi). Koden har version {version} med {modules} × {rows} moduler. Brug mindst {min} mm, eller kortere indhold, som giver en mindre kode.',
+        'print.batchWarn': 'Den længste linje ({chars} tegn) giver version {version} med {modules} × {rows} moduler, og ved {mm} mm får hvert modul kun {dots} printerpunkter (300 dpi). Det kan gøre koden svær at scanne. Brug mindst {min} mm, eller kortere linjer.',
+        'print.batchStrong': 'Den længste linje ({chars} tegn) bliver sandsynligvis ikke læsbar: version {version} med {modules} × {rows} moduler giver kun {dots} printerpunkter pr. modul ved {mm} mm (300 dpi). Brug mindst {min} mm, eller kortere linjer.',
         'toast.copied': 'Kopieret til udklipsholder!',
         'toast.shared': 'QR-kode delt!',
         'toast.generateFirst': 'Generer venligst en QR-kode først!',
@@ -161,6 +164,7 @@ const T = {
         'geo.error': 'Kunne ikke hente placering.',
 
         // Onboarding
+        'onboard.start': 'Sådan virker det',
         'onboard.step': 'Trin {n} af {total}',
         'onboard.skip': 'Spring over',
         'onboard.next': 'Næste',
@@ -207,7 +211,6 @@ const T = {
         'err.invalidEmail': 'Invalid email address.',
         'err.urlHttps': 'URL must start with https://',
         'err.emailRequired': 'Email address is required.',
-        'err.phoneRequired': 'Phone number is required.',
         'err.eventNameRequired': 'Event name is required.',
         'err.startDateRequired': 'Start date is required.',
         'err.latRequired': 'Latitude is required.',
@@ -229,6 +232,10 @@ const T = {
         'toast.generated': 'QR code generated!',
         'toast.downloaded': 'QR code downloaded!',
         'toast.printDownloaded': 'QR code downloaded at {mm} mm (300 dpi)!',
+        'print.warn': 'At {mm} mm each module gets only {dots} printer dots (300 dpi), which can make the code hard to scan. The code is version {version} with {modules} × {rows} modules. Use at least {min} mm, or shorter content, which gives a smaller code.',
+        'print.strong': 'The code will probably not be readable: at {mm} mm each module gets only {dots} printer dots (300 dpi). The code is version {version} with {modules} × {rows} modules. Use at least {min} mm, or shorter content, which gives a smaller code.',
+        'print.batchWarn': 'The longest line ({chars} characters) gives version {version} with {modules} × {rows} modules, and at {mm} mm each module gets only {dots} printer dots (300 dpi). That can make the code hard to scan. Use at least {min} mm, or shorter lines.',
+        'print.batchStrong': 'The longest line ({chars} characters) will probably not be readable: version {version} with {modules} × {rows} modules gives only {dots} printer dots per module at {mm} mm (300 dpi). Use at least {min} mm, or shorter lines.',
         'toast.copied': 'Copied to clipboard!',
         'toast.shared': 'QR code shared!',
         'toast.generateFirst': 'Please generate a QR code first!',
@@ -333,6 +340,7 @@ const T = {
         'geo.error': 'Could not fetch location.',
 
         // Onboarding
+        'onboard.start': 'How it works',
         'onboard.step': 'Step {n} of {total}',
         'onboard.skip': 'Skip',
         'onboard.next': 'Next',
@@ -457,6 +465,7 @@ function switchToTab(tabName, { autoFocus = true } = {}) {
     if (activeContent) {
         activeContent.classList.add('active');
         currentTab = tabName;
+        schedulePrintWarning();
         if (autoFocus) {
             const firstInput = activeContent.querySelector('input, select, textarea');
             if (firstInput) firstInput.focus();
@@ -598,6 +607,8 @@ const ctaText = document.getElementById('ctaText');
 const printSizeMm = document.getElementById('printSizeMm');
 const printSizeHint = document.getElementById('printSizeHint');
 const printSizeHintDefault = printSizeHint ? printSizeHint.textContent : '';
+const printSizeWarning = document.getElementById('printSizeWarning');
+const batchPrintWarning = document.getElementById('batchPrintWarning');
 
 // Batch elements
 const batchInput = document.getElementById('batchInput');
@@ -1469,6 +1480,7 @@ function generateQRCode() {
         qr.addData(text);
         qr.make();
         lastQR = qr;
+        schedulePrintWarning();
 
         const hasCTA = ctaText && ctaText.value.trim();
         const needsCanvas = currentLogoImage || hasCTA;
@@ -1571,6 +1583,93 @@ function updatePrintSizeHint() {
     printSizeHint.textContent = `${mm} mm = ${px}×${px} px ved 300 dpi`;
 }
 
+// Printadvarsel: Denso Wave anbefaler mindst 4 printerpunkter pr. modul for stabil
+// aflæsning. Under 2 punkter er koden så godt som ulæselig. Ren funktion, så
+// grænserne kan testes uden DOM; stille zone regnes med, fordi den fylder med
+// i den fysiske størrelse.
+const PRINT_MIN_DOTS = 4;
+const PRINT_STRONG_DOTS = 2;
+
+function printWarning(moduleCount, mm, dpi = 300, quietZoneModules = QUIET_ZONE_MODULES) {
+    const totalModules = moduleCount + 2 * quietZoneModules;
+    const dotsPerModule = (mm / totalModules) / 25.4 * dpi;
+    const minMm = PRINT_MIN_DOTS / dpi * 25.4 * totalModules;
+    // Små tolerancer, så præcis 4 punkter (afrundingsfejl i flydende tal) ikke advarer
+    const eps = 1e-9;
+    let level = 'none';
+    if (dotsPerModule < PRINT_STRONG_DOTS - eps) level = 'strong';
+    else if (dotsPerModule < PRINT_MIN_DOTS - eps) level = 'warn';
+    return { level, dotsPerModule, minMm, moduleCount, version: (moduleCount - 17) / 4 };
+}
+
+// Tekst til advarslen; null hvis koden er stor nok. kind er 'single' eller 'batch'.
+function printWarningText(moduleCount, mm, kind, chars) {
+    const w = printWarning(moduleCount, mm);
+    if (w.level === 'none') return null;
+    const dots = w.dotsPerModule.toFixed(1);
+    const keys = {
+        single: { warn: 'print.warn', strong: 'print.strong' },
+        batch: { warn: 'print.batchWarn', strong: 'print.batchStrong' }
+    };
+    const key = keys[kind][w.level];
+    return t(key, {
+        mm: String(mm),
+        dots: LANG === 'da' ? dots.replace('.', ',') : dots,
+        version: w.version,
+        modules: w.moduleCount,
+        rows: w.moduleCount,
+        min: Math.ceil(w.minMm),
+        chars
+    });
+}
+
+// Antal moduler for et indhold i det valgte korrektionsniveau; null hvis det ikke kan kodes
+function moduleCountFor(text) {
+    try {
+        const qr = qrcode(0, errorCorrection.value);
+        qr.addData(text);
+        qr.make();
+        return qr.getModuleCount();
+    } catch (error) {
+        return null;
+    }
+}
+
+// Opdaterer advarslerne under printfeltet og ved batch-knapperne. De er
+// live-regioner, så en skærmlæser læser dem op. Intet blokeres.
+function updatePrintWarning() {
+    if (!printSizeWarning && !batchPrintWarning) return;
+    const mm = parsePrintSizeMm();
+    const format = fileFormat ? fileFormat.value : 'png';
+    let single = '';
+    let batch = '';
+
+    if (mm && printSizeWarning && format !== 'svg') {
+        let data = null;
+        try { data = getQRData(); } catch (error) { data = null; }
+        const count = data ? moduleCountFor(data) : null;
+        if (count) single = printWarningText(count, mm, 'single') || '';
+    }
+
+    if (mm && batchPrintWarning && format === 'pdf') {
+        const lines = getBatchLines();
+        if (lines.length) {
+            const longest = lines.reduce((a, b) => (b.length > a.length ? b : a));
+            const count = moduleCountFor(longest);
+            if (count) batch = printWarningText(count, mm, 'batch', longest.length) || '';
+        }
+    }
+
+    if (printSizeWarning) printSizeWarning.textContent = single;
+    if (batchPrintWarning) batchPrintWarning.textContent = batch;
+}
+
+var printWarningTimer;
+function schedulePrintWarning() {
+    clearTimeout(printWarningTimer);
+    printWarningTimer = setTimeout(updatePrintWarning, 150);
+}
+
 // Genmal den senest genererede kode i printstørrelsen, så download matcher previewet
 function renderPrintCanvas(mm) {
     if (!lastQR) return null;
@@ -1585,8 +1684,12 @@ if (printSizeMm) {
         btn.addEventListener('click', () => {
             printSizeMm.value = btn.dataset.mm;
             updatePrintSizeHint();
+            updatePrintWarning();
         });
     });
+    // Indholdet, korrektionsniveauet, formatet og printstørrelsen ændrer alle kodens størrelse
+    document.addEventListener('input', schedulePrintWarning);
+    document.addEventListener('change', schedulePrintWarning);
 }
 
 // ===========================================
@@ -1640,7 +1743,6 @@ function decodeQRCanvas(canvas) {
 
     // QR-koden er kvadratisk; et evt. CTA-bånd under den skal ikke læses med
     const side = Math.min(canvas.width, canvas.height);
-    let target = canvas;
     let ctx = canvas.getContext('2d');
 
     // En transparent PNG læses på en hvid overflade, så læg den på hvid: ellers
@@ -1653,7 +1755,6 @@ function decodeQRCanvas(canvas) {
         flatCtx.fillStyle = '#ffffff';
         flatCtx.fillRect(0, 0, side, side);
         flatCtx.drawImage(canvas, 0, 0);
-        target = flat;
         ctx = flatCtx;
     }
 
@@ -1688,7 +1789,35 @@ function updateScanStatus(expected) {
 // rammer koderne kanten af billedet, og det er der, scannerapps fejler oftest.
 const QUIET_ZONE_MODULES = 4;
 
-// Hjælpefunktion til at tegne QR-kode på canvas
+function moduleBounds(index, scale) {
+    const start = Math.round(index * scale);
+    const end = Math.round((index + 1) * scale);
+    return { start, size: end - start };
+}
+
+// Recognize the 5x5 alignment pattern in the matrix without copying version tables.
+function alignmentPatternCells(qr) {
+    const cells = qr.getModuleCount();
+    const solid = new Set();
+    for (let y = 2; y < cells - 2; y++) {
+        for (let x = 2; x < cells - 2; x++) {
+            let matches = true;
+            for (let dy = -2; dy <= 2 && matches; dy++) {
+                for (let dx = -2; dx <= 2; dx++) {
+                    const dark = Math.max(Math.abs(dx), Math.abs(dy)) !== 1;
+                    if (qr.isDark(y + dy, x + dx) !== dark) { matches = false; break; }
+                }
+            }
+            if (matches) {
+                for (let dy = -2; dy <= 2; dy++) {
+                    for (let dx = -2; dx <= 2; dx++) solid.add((y + dy) * cells + x + dx);
+                }
+            }
+        }
+    }
+    return solid;
+}
+
 function drawCanvas(qr, size, canvas, style = 'square') {
     const cells = qr.getModuleCount();
     // Kanten tæller med i størrelsen, så en kode aldrig fylder mere end preview
@@ -1708,31 +1837,40 @@ function drawCanvas(qr, size, canvas, style = 'square') {
 
     // Tegn QR-kode baseret på stil
     ctx.fillStyle = qrColor.value;
+    const alignment = style === 'square' ? new Set() : alignmentPatternCells(qr);
 
     for (let y = 0; y < cells; y++) {
         for (let x = 0; x < cells; x++) {
             if (qr.isDark(y, x)) {
-                const px = (x + QUIET_ZONE_MODULES) * scale;
-                const py = (y + QUIET_ZONE_MODULES) * scale;
+                const column = moduleBounds(x + QUIET_ZONE_MODULES, scale);
+                const row = moduleBounds(y + QUIET_ZONE_MODULES, scale);
+                const px = column.start;
+                const py = row.start;
+                const width = column.size;
+                const height = row.size;
 
-                if (style === 'dots') {
+                // Keep the locator patterns solid so scanners can find curved styles.
+                const finder = (x < 7 && y < 7) || (x >= cells - 7 && y < 7) || (x < 7 && y >= cells - 7);
+                if (finder || alignment.has(y * cells + x)) {
+                    ctx.fillRect(px, py, width, height);
+                } else if (style === 'dots') {
                     // Tegn cirkler
                     ctx.beginPath();
-                    ctx.arc(px + scale/2, py + scale/2, scale/2, 0, 2 * Math.PI);
+                    ctx.arc(px + width/2, py + height/2, Math.min(width, height)/2, 0, 2 * Math.PI);
                     ctx.fill();
                 } else if (style === 'rounded') {
                     // Tegn afrundede firkanter
-                    const radius = scale * 0.3;
+                    const radius = Math.min(width, height) * 0.3;
                     ctx.beginPath();
                     if (typeof ctx.roundRect === 'function') {
-                        ctx.roundRect(px, py, scale, scale, radius);
+                        ctx.roundRect(px, py, width, height, radius);
                     } else {
-                        ctx.rect(px, py, scale, scale);
+                        ctx.rect(px, py, width, height);
                     }
                     ctx.fill();
                 } else {
                     // Standard firkanter
-                    ctx.fillRect(px, py, scale, scale);
+                    ctx.fillRect(px, py, width, height);
                 }
             }
         }
@@ -1876,8 +2014,15 @@ function downloadQRCode() {
                 downloadBlob(blob, filename);
             }, 'image/webp', 0.95);
 
+        } else if (format === 'pdf' && lastQR && !(ctaText && ctaText.value.trim())) {
+            // Download PDF som vektor — i printstørrelsen hvis den er sat, ellers A4.
+            // En CTA-tekst under koden er systemskrift, så den går via rasterbanen.
+            logoJpegForPdf()
+                .then(logo => downloadBlob(buildQRVectorPDF(lastQR, mm, qrStyle.value, logo), `qr-code-${Date.now()}.pdf`))
+                .catch(error => showToast(t('toast.downloadError') + error.message, 'error'));
+
         } else if (format === 'pdf') {
-            // Download PDF — i printstørrelsen hvis den er sat, ellers A4
+            // Reserve: rasterbanen (JPEG) når koden ikke kan tegnes som vektor
             const canvas = mm ? renderPrintCanvas(mm) : currentQRCanvas;
             if (!canvas) {
                 showToast(t('toast.generateFirst'), 'info');
@@ -1964,6 +2109,277 @@ function buildPDF(jpegBytes, imgW, imgH) {
 function buildPrintPDF(jpegBytes, imgW, imgH, mm) {
     const pt = Math.round(((mm * 72) / 25.4) * 100) / 100;
     return buildPDFDocument(jpegBytes, imgW, imgH, pt, pt, { w: pt, h: pt, x: 0, y: 0 });
+}
+
+// ===========================================
+// Vektor-PDF: koden tegnes direkte fra modulmatricen, ikke som JPEG
+// ===========================================
+// Indholdsstrømmen bruger y-ned-koordinater (siden vendes med én cm), og koden
+// tegnes i modulenheder: ét kvadrat pr. modul, så filen forbliver lille.
+
+const PT_PER_MM = 72 / 25.4;
+const PDF_VECTOR_STYLES = ['square', 'rounded', 'dots'];
+const A4_W_PT = 595.28;
+const A4_H_PT = 841.89;
+const PDF_A4_CODE_PT = 400;
+// Helvetica-bredder (pr. 1000) for ASCII 32 til 126; bruges til at centrere etiketter
+const HELVETICA_WIDTHS = [278, 278, 355, 556, 556, 889, 667, 191, 333, 333, 389, 584, 278, 333, 278, 278,
+    556, 556, 556, 556, 556, 556, 556, 556, 556, 556, 278, 278, 584, 584, 584, 556,
+    1015, 667, 667, 722, 722, 667, 611, 778, 722, 278, 500, 667, 556, 833, 722, 778,
+    667, 778, 722, 667, 611, 722, 667, 944, 667, 667, 611, 278, 278, 278, 469, 556,
+    333, 556, 556, 500, 556, 556, 278, 556, 556, 222, 222, 500, 222, 833, 556, 556,
+    556, 556, 333, 500, 278, 556, 500, 722, 500, 500, 500, 334, 260, 334, 584];
+
+function pdfNum(n, decimals = 3) {
+    const f = Math.pow(10, decimals);
+    const r = Math.round(n * f) / f;
+    return String(r === 0 ? 0 : r);
+}
+
+// '#rrggbb' til PDF's "r g b" (0 til 1)
+function pdfRgb(hex, fallback = '000000') {
+    const m = /^#?([0-9a-f]{6})$/i.exec(hex || '');
+    const v = m ? m[1] : fallback;
+    return [0, 2, 4].map(i => pdfNum(parseInt(v.slice(i, i + 2), 16) / 255)).join(' ');
+}
+
+// Afrundet rektangel som fyldt sti (fire Bézier-hjørner); koordinater i aktuelt rum
+function pdfRoundRectPath(x, y, w, h, r) {
+    const k = r * 0.5523;
+    const n = v => pdfNum(v);
+    return [
+        `${n(x + r)} ${n(y)} m`,
+        `${n(x + w - r)} ${n(y)} l`,
+        `${n(x + w - r + k)} ${n(y)} ${n(x + w)} ${n(y + r - k)} ${n(x + w)} ${n(y + r)} c`,
+        `${n(x + w)} ${n(y + h - r)} l`,
+        `${n(x + w)} ${n(y + h - r + k)} ${n(x + w - r + k)} ${n(y + h)} ${n(x + w - r)} ${n(y + h)} c`,
+        `${n(x + r)} ${n(y + h)} l`,
+        `${n(x + r - k)} ${n(y + h)} ${n(x)} ${n(y + h - r + k)} ${n(x)} ${n(y + h - r)} c`,
+        `${n(x)} ${n(y + r)} l`,
+        `${n(x)} ${n(y + r - k)} ${n(x + r - k)} ${n(y)} ${n(x + r)} ${n(y)} c h f`
+    ].join('\n');
+}
+
+// Formen for ét modul (enhedskvadrat) i stilene prikker og afrundet. Ligger som
+// ét genbrugt form-objekt, så filen ikke vokser med modulantallet.
+function pdfModuleFormContent(style) {
+    if (style === 'dots') {
+        return '1 0.5 m\n1 0.776 0.776 1 0.5 1 c\n0.224 1 0 0.776 0 0.5 c\n0 0.224 0.224 0 0.5 0 c\n0.776 0 1 0.224 1 0.5 c\nh f';
+    }
+    if (style === 'rounded') {
+        return pdfRoundRectPath(0, 0, 1, 1, 0.3);
+    }
+    return null;
+}
+
+// Selve kodens sti i modulenheder (kvadrat 0..cells+2*border). Standard slår
+// sammenhængende mørke moduler i en række sammen til ét rektangel.
+function pdfCodeBody(qr, style, border) {
+    const cells = qr.getModuleCount();
+    const out = [];
+    if (style === 'dots' || style === 'rounded') {
+        for (let y = 0; y < cells; y++) {
+            for (let x = 0; x < cells; x++) {
+                if (qr.isDark(y, x)) out.push(`q 1 0 0 1 ${x + border} ${y + border} cm /M Do Q`);
+            }
+        }
+        return out.join('\n');
+    }
+    for (let y = 0; y < cells; y++) {
+        let x = 0;
+        while (x < cells) {
+            if (!qr.isDark(y, x)) { x++; continue; }
+            let end = x;
+            while (end < cells && qr.isDark(y, end)) end++;
+            out.push(`${x + border} ${y + border} ${end - x} 1 re`);
+            x = end;
+        }
+    }
+    if (out.length) out.push('f');
+    return out.join('\n');
+}
+
+// Koden (baggrund, moduler og evt. logo) med øverste venstre hjørne i (x, y) i et
+// y-ned-rum og kantlængden `size`. `logo` er { w, h } for et JPEG som /Im0.
+function pdfCodeOps(qr, style, x, y, size, logo) {
+    const cells = qr.getModuleCount();
+    const s = size / (cells + QUIET_ZONE_MODULES * 2);
+    const ops = ['q'];
+    if (!transparentBg.checked) {
+        ops.push(`${pdfRgb(bgColor.value, 'ffffff')} rg`);
+        ops.push(`${pdfNum(x, 4)} ${pdfNum(y, 4)} ${pdfNum(size, 4)} ${pdfNum(size, 4)} re f`);
+    }
+    ops.push('q');
+    ops.push(`${pdfNum(s, 6)} 0 0 ${pdfNum(s, 6)} ${pdfNum(x, 4)} ${pdfNum(y, 4)} cm`);
+    ops.push(`${pdfRgb(qrColor.value)} rg`);
+    ops.push(pdfCodeBody(qr, style, QUIET_ZONE_MODULES));
+    ops.push('Q');
+
+    if (logo) {
+        // Samme mål som rasterbanen: hvid afrundet plade og logoet i midten
+        const pct = parseInt(logoSizeInput?.value || 25) / 100;
+        const lw = size * pct;
+        const lx = x + (size - lw) / 2;
+        const ly = y + (size - lw) / 2;
+        const pad = lw * 0.1;
+        ops.push('1 1 1 rg');
+        ops.push(pdfRoundRectPath(lx - pad, ly - pad, lw + pad * 2, lw + pad * 2, lw * 0.08));
+        // Y-ned-rummet vender billedet, så vend det tilbage
+        ops.push(`q ${pdfNum(lw, 4)} 0 0 ${pdfNum(-lw, 4)} ${pdfNum(lx, 4)} ${pdfNum(ly + lw, 4)} cm /Im0 Do Q`);
+    }
+    ops.push('Q');
+    return ops.join('\n');
+}
+
+// Samler en PDF fra færdige sider. pages: [{ content, image: { bytes, w, h } | null }].
+// Siden vendes til y-ned med en cm, så indholdet kan bruge skærmkoordinater.
+function buildVectorPDF(pages, pageW, pageH, moduleForm) {
+    const enc = new TextEncoder();
+    const bodies = [];
+    const addObj = chunks => { bodies.push(chunks); return bodies.length; };
+    const streamObj = (dict, data) => {
+        const bytes = typeof data === 'string' ? enc.encode(data) : data;
+        return [`<< ${dict} /Length ${bytes.length} >>\nstream\n`, bytes, '\nendstream'];
+    };
+
+    addObj(['<< /Type /Catalog /Pages 2 0 R >>']);
+    addObj(['']); // Pages, udfyldes nedenfor
+    const fontId = addObj(['<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>']);
+    const formId = moduleForm
+        ? addObj(streamObj('/Type /XObject /Subtype /Form /BBox [0 0 1 1]', moduleForm))
+        : 0;
+
+    const kids = [];
+    pages.forEach(page => {
+        const pageId = bodies.length + 1;
+        const contentsId = pageId + 1;
+        const imageId = page.image ? pageId + 2 : 0;
+        kids.push(`${pageId} 0 R`);
+        const xobjects = [];
+        if (imageId) xobjects.push(`/Im0 ${imageId} 0 R`);
+        if (formId) xobjects.push(`/M ${formId} 0 R`);
+        const resources = `/Font << /F1 ${fontId} 0 R >> /XObject << ${xobjects.join(' ')} >>`;
+        addObj([`<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ${pdfNum(pageW, 2)} ${pdfNum(pageH, 2)}] /Contents ${contentsId} 0 R /Resources << ${resources} >> >>`]);
+        addObj(streamObj('', `1 0 0 -1 0 ${pdfNum(pageH, 2)} cm\n${page.content}`));
+        if (imageId) {
+            addObj(streamObj(`/Type /XObject /Subtype /Image /Width ${page.image.w} /Height ${page.image.h} /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode`, page.image.bytes));
+        }
+    });
+    bodies[1] = [`<< /Type /Pages /Kids [${kids.join(' ')}] /Count ${pages.length} >>`];
+
+    const parts = [Uint8Array.from([0x25, 0x50, 0x44, 0x46, 0x2D, 0x31, 0x2E, 0x34, 0x0A, 0x25, 0xE2, 0xE3, 0xCF, 0xD3, 0x0A])];
+    let pos = parts[0].length;
+    const offsets = [];
+    const push = chunk => {
+        const b = typeof chunk === 'string' ? enc.encode(chunk) : chunk;
+        parts.push(b);
+        pos += b.length;
+    };
+    bodies.forEach((chunks, i) => {
+        offsets.push(pos);
+        push(`${i + 1} 0 obj\n`);
+        chunks.forEach(push);
+        push('\nendobj\n');
+    });
+    const xrefPos = pos;
+    push(`xref\n0 ${bodies.length + 1}\n0000000000 65535 f \n`);
+    offsets.forEach(o => push(`${String(o).padStart(10, '0')} 00000 n \n`));
+    push(`trailer\n<< /Size ${bodies.length + 1} /Root 1 0 R >>\nstartxref\n${xrefPos}\n%%EOF\n`);
+    return new Blob(parts, { type: 'application/pdf' });
+}
+
+// Vektor-PDF for én kode: i printstørrelsen hvis den er sat (siden er koden),
+// ellers centreret på A4 som rasterbanen. `logo` er { bytes, w, h } eller null.
+function buildQRVectorPDF(qr, mm, style, logo) {
+    let pageW, pageH, x, y, size;
+    if (mm) {
+        pageW = pageH = size = Math.round(mm * PT_PER_MM * 100) / 100;
+        x = y = 0;
+    } else {
+        pageW = A4_W_PT;
+        pageH = A4_H_PT;
+        size = PDF_A4_CODE_PT;
+        x = (pageW - size) / 2;
+        y = (pageH - size) / 2;
+    }
+    const content = pdfCodeOps(qr, style, x, y, size, logo);
+    return buildVectorPDF([{ content, image: logo || null }], pageW, pageH, pdfModuleFormContent(style));
+}
+
+// Logoet som JPEG til PDF'en: tegnes på hvid (som pladen bag det i koden), så
+// gennemsigtighed bliver hvid og ingen alfakanal behøves. Null uden logo.
+function logoJpegForPdf() {
+    if (!currentLogoImage) return Promise.resolve(null);
+    return new Promise((resolve, reject) => {
+        const max = 512;
+        const nw = currentLogoImage.naturalWidth || currentLogoImage.width || max;
+        const nh = currentLogoImage.naturalHeight || currentLogoImage.height || max;
+        const k = Math.min(1, max / Math.max(nw, nh));
+        const canvas = document.createElement('canvas');
+        canvas.width = Math.max(1, Math.round(nw * k));
+        canvas.height = Math.max(1, Math.round(nh * k));
+        const ctx = canvas.getContext('2d');
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(currentLogoImage, 0, 0, canvas.width, canvas.height);
+        canvas.toBlob(blob => {
+            if (!blob) { reject(new Error('Could not read the logo.')); return; }
+            blob.arrayBuffer()
+                .then(buf => resolve({ bytes: new Uint8Array(buf), w: canvas.width, h: canvas.height }))
+                .catch(reject);
+        }, 'image/jpeg', 0.92);
+    });
+}
+
+// Etiket under en kode: kun tegn i WinAnsi/Latin-1 kan skrives med Helvetica
+function pdfLabelHex(text) {
+    let hex = '';
+    let width = 0;
+    for (const ch of text) {
+        let code = ch.codePointAt(0);
+        if (code === 0x2026) code = 0x85; // … i WinAnsi
+        else if (code < 32 || (code > 126 && code < 160) || code > 255) code = 63; // ?
+        hex += code.toString(16).padStart(2, '0');
+        width += code <= 126 ? HELVETICA_WIDTHS[code - 32] : 556;
+    }
+    return { hex, width };
+}
+
+// Én A4-side med op til `perPage` vektorkoder i gitteret og tekst under hver.
+// Rummet er arkets 300 dpi-pixels (SHEET_W x SHEET_H), skaleret til A4.
+function buildBatchSheetVectorContent(lines, style, ecLevel, layout) {
+    const { cols, cell, gap, margin, labelH, perPage } = layout || sheetLayout(lines.length);
+    const k = A4_W_PT / SHEET_W;
+    const ops = [`${pdfNum(k, 6)} 0 0 ${pdfNum(k, 6)} 0 0 cm`];
+    const used = Math.min(lines.length, perPage);
+    for (let i = 0; i < used; i++) {
+        const text = lines[i];
+        const x = margin + (i % cols) * (cell + gap);
+        const y = margin + Math.floor(i / cols) * (cell + labelH + gap);
+
+        const qr = qrcode(0, ecLevel);
+        qr.addData(text);
+        qr.make();
+        ops.push(pdfCodeOps(qr, style, x, y, cell, null));
+
+        const label = text.length > 34 ? text.slice(0, 33) + '…' : text;
+        const fontSize = Math.round(labelH * 0.36);
+        const { hex, width } = pdfLabelHex(label);
+        const tx = x + cell / 2 - (width / 1000) * fontSize / 2;
+        const ty = y + cell + labelH * 0.72;
+        ops.push(`0 0 0 rg BT /F1 ${fontSize} Tf 1 0 0 -1 ${pdfNum(tx, 2)} ${pdfNum(ty, 2)} Tm <${hex}> Tj ET`);
+    }
+    return ops.join('\n');
+}
+
+// Print-ark som vektor-PDF, en A4-side pr. ark
+function buildBatchSheetVectorPDF(lines, style, ecLevel) {
+    const layout = sheetLayout(lines.length);
+    const pages = sheetPages(lines).map(page => ({
+        content: buildBatchSheetVectorContent(page, style, ecLevel, layout),
+        image: null
+    }));
+    return buildVectorPDF(pages, A4_W_PT, A4_H_PT, pdfModuleFormContent(style));
 }
 
 // Hjælpefunktion til at downloade blob
@@ -2428,6 +2844,8 @@ if (batchGenerateBtn && batchInput) {
                 if (format === 'svg') {
                     const svg = toSvgString(qr, QUIET_ZONE_MODULES, style);
                     zip.file(`qr-${i + 1}.svg`, svg);
+                } else if (format === 'pdf' && PDF_VECTOR_STYLES.includes(style)) {
+                    zip.file(`qr-${i + 1}.pdf`, buildQRVectorPDF(qr, mm, style, null));
                 } else if (format === 'pdf') {
                     const canvas = document.createElement('canvas');
                     drawCanvas(qr, renderSize, canvas, style);
@@ -2483,26 +2901,13 @@ if (batchSheetBtn && batchInput) {
         try {
             const style = qrStyle.value;
             const ecLevel = errorCorrection.value;
-            const layout = sheetLayout(lines.length);
 
-            // One canvas is alive at a time: an A4 page at 300 dpi is ~35 MB,
-            // and a batch of 100 would otherwise hold all pages in memory.
-            const jpegs = [];
-            for (const page of sheetPages(lines)) {
-                const canvas = buildBatchSheetCanvas(page, style, ecLevel, layout).canvas;
-                jpegs.push(await new Promise((resolve, reject) => {
-                    canvas.toBlob(blob => {
-                        if (!blob) { reject(new Error('Could not read the canvas.')); return; }
-                        blob.arrayBuffer().then(buf => resolve({ bytes: new Uint8Array(buf), w: canvas.width, h: canvas.height })).catch(reject);
-                    }, 'image/jpeg', 0.92);
-                }));
-            }
-
-            const pdf = jpegs.length === 1
-                ? buildSheetPDF(jpegs[0].bytes, jpegs[0].w, jpegs[0].h)
-                : buildMultiPageSheetPDF(jpegs);
+            // Vector PDF: the codes are drawn from the module matrix, so no
+            // page-sized canvas is held in memory and the edges stay sharp.
+            const pdf = buildBatchSheetVectorPDF(lines, style, ecLevel);
+            const pageCount = sheetPages(lines).length;
             downloadBlob(pdf, `qr-print-ark-${Date.now()}.pdf`);
-            showToast(t('batch.sheetDownloaded', { n: lines.length, pages: jpegs.length }), 'success');
+            showToast(t('batch.sheetDownloaded', { n: lines.length, pages: pageCount }), 'success');
         } catch (error) {
             console.error('Fejl ved print-ark:', error);
             showToast(t('batch.error') + error.message, 'error');
@@ -3304,7 +3709,14 @@ if (scanCopyBtn) {
 // ===========================================
 
 (function initOnboarding() {
-    if (localStorage.getItem('onboarding-done')) return;
+    if (!generateBtn) return;
+
+    const tourButton = document.createElement('button');
+    tourButton.type = 'button';
+    tourButton.className = 'onboarding-trigger';
+    tourButton.textContent = t('onboard.start');
+    generateBtn.after(tourButton);
+    tourButton.addEventListener('click', start);
 
     const steps = [
         {
@@ -3331,32 +3743,37 @@ if (scanCopyBtn) {
     }
 
     function start() {
+        if (overlay) return;
         overlay = document.createElement('div');
         overlay.className = 'onboarding-overlay';
-        overlay.setAttribute('role', 'dialog');
-        overlay.setAttribute('aria-modal', 'true');
-        overlay.setAttribute('aria-label', t('onboard.ariaLabel'));
         document.body.appendChild(overlay);
 
         tooltip = document.createElement('div');
         tooltip.className = 'onboarding-tooltip';
+        tooltip.setAttribute('role', 'dialog');
+        tooltip.setAttribute('aria-label', t('onboard.ariaLabel'));
         document.body.appendChild(tooltip);
 
         document.addEventListener('keydown', handleKey);
+        overlay.addEventListener('click', dismiss);
 
         requestAnimationFrame(() => {
+            if (!overlay) return;
             overlay.classList.add('active');
             showStep(0);
         });
-
-        overlay.addEventListener('click', dismiss);
     }
 
     function showStep(index) {
         current = index;
+        if (!tooltip) return;
+        if (index >= steps.length) { dismiss(); return; }
         const step = steps[index];
         const targetEl = document.querySelector(step.target);
-        if (!targetEl) { dismiss(); return; }
+        if (!targetEl || !targetEl.getClientRects().length) {
+            showStep(index + 1);
+            return;
+        }
 
         // Remove previous highlight
         document.querySelectorAll('.onboarding-highlight').forEach(el => el.classList.remove('onboarding-highlight'));
@@ -3396,6 +3813,7 @@ if (scanCopyBtn) {
         targetEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 
         requestAnimationFrame(() => {
+            if (!tooltip) return;
             tooltip.classList.add('active');
             // Move focus to next button for keyboard accessibility
             const nextBtn = tooltip.querySelector('.onboarding-btn-next');
@@ -3425,12 +3843,14 @@ if (scanCopyBtn) {
         document.removeEventListener('keydown', handleKey);
         if (stepTimer) { clearTimeout(stepTimer); stepTimer = null; }
         document.querySelectorAll('.onboarding-highlight').forEach(el => el.classList.remove('onboarding-highlight'));
-        if (overlay) { overlay.classList.remove('active'); setTimeout(() => overlay.remove(), 300); }
-        if (tooltip) { tooltip.classList.remove('active'); setTimeout(() => tooltip.remove(), 300); }
+        const oldOverlay = overlay;
+        const oldTooltip = tooltip;
+        overlay = null;
+        tooltip = null;
+        if (oldOverlay) { oldOverlay.classList.remove('active'); setTimeout(() => oldOverlay.remove(), 300); }
+        if (oldTooltip) { oldTooltip.classList.remove('active'); setTimeout(() => oldTooltip.remove(), 300); }
+        tourButton.focus();
     }
-
-    // Start after a brief delay so the page is fully rendered
-    setTimeout(start, 800);
 })();
 
 // ===========================================

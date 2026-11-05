@@ -187,6 +187,7 @@
             <nav class="breadcrumb">
                 <a href="/">Hjem</a> / Kalender QR-Kode
             </nav>
+            <nav class="breadcrumb" aria-label="Værktøjer"><a href="/scan-qr-kode">Scan QR-kode</a></nav>
         </header>
         <main id="main-content">
         <!-- Hero Section -->
@@ -210,12 +211,12 @@
 
                 <div class="form-group">
                     <label for="eventTitle">Begivenhedens titel:</label>
-                    <input type="text" id="eventTitle" placeholder="F.eks. Firmajulefrokost 2026" required>
+                    <input type="text" id="eventTitle" placeholder="F.eks. Firmajulefrokost 2026" required enterkeyhint="next">
                 </div>
 
                 <div class="form-group">
                     <label for="eventLocation">Lokation:</label>
-                    <input type="text" id="eventLocation" placeholder="F.eks. Tivoli Hotel, København">
+                    <input type="text" id="eventLocation" placeholder="F.eks. Tivoli Hotel, København" enterkeyhint="next">
                 </div>
 
                 <div class="form-group">
@@ -272,6 +273,7 @@
                             </div>
                         </div>
                         <span class="cta-hint" id="printSizeHint">Valgfri. Udfyldes den, downloades PNG/JPG/WebP i 300 dpi og PDF i præcis den størrelse.</span>
+                        <p class="print-warning" id="printSizeWarning" aria-live="polite"></p>
                     </div>
                 </div>
 
