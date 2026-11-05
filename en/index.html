@@ -245,7 +245,7 @@
                 <div class="tab-content active" data-content="text">
                     <div class="form-group">
                         <label for="qrText">Enter text or URL:</label>
-                        <textarea id="qrText" rows="4" placeholder="https://example.com or your text here..."></textarea>
+                        <textarea id="qrText" rows="4" placeholder="https://example.com or your text here..." autocapitalize="none" autocorrect="off" spellcheck="false"></textarea>
                         <span class="field-error" id="qrTextError"></span>
                     </div>
                 </div>
@@ -254,12 +254,12 @@
                 <div class="tab-content" data-content="wifi">
                     <div class="form-group">
                         <label for="wifiSSID">Network Name (SSID):</label>
-                        <input type="text" id="wifiSSID" placeholder="My WiFi Network">
+                        <input type="text" id="wifiSSID" placeholder="My WiFi Network" autocapitalize="none" autocorrect="off" spellcheck="false" autocomplete="off" enterkeyhint="next">
                         <span class="field-error" id="wifiSSIDError"></span>
                     </div>
                     <div class="form-group">
                         <label for="wifiPassword">Password:</label>
-                        <input type="text" id="wifiPassword" placeholder="enter password">
+                        <input type="text" id="wifiPassword" placeholder="enter password" autocapitalize="none" autocorrect="off" spellcheck="false" autocomplete="off" enterkeyhint="done">
                     </div>
                     <div class="form-group">
                         <label for="wifiEncryption">Encryption:</label>
@@ -281,29 +281,29 @@
                 <div class="tab-content" data-content="vcard">
                     <div class="form-group">
                         <label for="vcardName">Full Name:</label>
-                        <input type="text" id="vcardName" placeholder="John Smith">
+                        <input type="text" id="vcardName" placeholder="John Smith" enterkeyhint="next">
                         <span class="field-error" id="vcardNameError"></span>
                     </div>
                     <div class="form-group">
                         <label for="vcardOrg">Organization:</label>
-                        <input type="text" id="vcardOrg" placeholder="My Company Inc.">
+                        <input type="text" id="vcardOrg" placeholder="My Company Inc." enterkeyhint="next">
                     </div>
                     <div class="form-group">
                         <label for="vcardTitle">Title:</label>
-                        <input type="text" id="vcardTitle" placeholder="Director">
+                        <input type="text" id="vcardTitle" placeholder="Director" enterkeyhint="next">
                     </div>
                     <div class="form-group">
                         <label for="vcardPhone">Phone:</label>
-                        <input type="tel" id="vcardPhone" placeholder="+1 555 123 4567">
+                        <input type="tel" id="vcardPhone" placeholder="+1 555 123 4567" inputmode="tel" enterkeyhint="next">
                     </div>
                     <div class="form-group">
                         <label for="vcardEmail">Email:</label>
-                        <input type="email" id="vcardEmail" placeholder="john@example.com">
+                        <input type="email" id="vcardEmail" placeholder="john@example.com" autocapitalize="none" autocorrect="off" spellcheck="false" inputmode="email" enterkeyhint="next">
                         <span class="field-error" id="vcardEmailError"></span>
                     </div>
                     <div class="form-group">
                         <label for="vcardWebsite">Website:</label>
-                        <input type="url" id="vcardWebsite" placeholder="https://example.com">
+                        <input type="url" id="vcardWebsite" placeholder="https://example.com" autocapitalize="none" autocorrect="off" spellcheck="false" inputmode="url" enterkeyhint="next">
                         <span class="field-error" id="vcardWebsiteError"></span>
                     </div>
                     <div class="form-group">
@@ -316,12 +316,12 @@
                 <div class="tab-content" data-content="email">
                     <div class="form-group">
                         <label for="emailTo">To (email address):</label>
-                        <input type="email" id="emailTo" placeholder="recipient@example.com">
+                        <input type="email" id="emailTo" placeholder="recipient@example.com" autocapitalize="none" autocorrect="off" spellcheck="false" inputmode="email" enterkeyhint="next">
                         <span class="field-error" id="emailToError"></span>
                     </div>
                     <div class="form-group">
                         <label for="emailSubject">Subject:</label>
-                        <input type="text" id="emailSubject" placeholder="Hello!">
+                        <input type="text" id="emailSubject" placeholder="Hello!" enterkeyhint="next">
                     </div>
                     <div class="form-group">
                         <label for="emailBody">Message:</label>
@@ -333,7 +333,7 @@
                 <div class="tab-content" data-content="sms">
                     <div class="form-group">
                         <label for="smsPhone">Phone Number:</label>
-                        <input type="tel" id="smsPhone" placeholder="+1 555 123 4567">
+                        <input type="tel" id="smsPhone" placeholder="+1 555 123 4567" inputmode="tel" enterkeyhint="next">
                         <span class="field-error" id="smsPhoneError"></span>
                     </div>
                     <div class="form-group">
@@ -346,12 +346,12 @@
                 <div class="tab-content" data-content="calendar">
                     <div class="form-group">
                         <label for="calTitle">Event:</label>
-                        <input type="text" id="calTitle" placeholder="Meeting with client">
+                        <input type="text" id="calTitle" placeholder="Meeting with client" enterkeyhint="next">
                         <span class="field-error" id="calTitleError"></span>
                     </div>
                     <div class="form-group">
                         <label for="calLocation">Location:</label>
-                        <input type="text" id="calLocation" placeholder="Office, New York">
+                        <input type="text" id="calLocation" placeholder="Office, New York" enterkeyhint="next">
                     </div>
                     <div class="form-group">
                         <label for="calStart">Start Date & Time:</label>
@@ -386,7 +386,7 @@
                     </div>
                     <div class="form-group">
                         <label for="socialUsername">Username / Profile ID:</label>
-                        <input type="text" id="socialUsername" placeholder="yourusername">
+                        <input type="text" id="socialUsername" placeholder="yourusername" autocapitalize="none" autocorrect="off" spellcheck="false" enterkeyhint="done">
                         <span class="field-error" id="socialUsernameError"></span>
                     </div>
                     <p class="cta-hint" id="socialPreviewUrl"></p>
@@ -403,7 +403,7 @@
                     </div>
                     <div class="form-group">
                         <label for="appId">App ID or link:</label>
-                        <input type="text" id="appId" placeholder="id123456789 or com.example.app">
+                        <input type="text" id="appId" placeholder="id123456789 or com.example.app" autocapitalize="none" autocorrect="off" spellcheck="false" enterkeyhint="done">
                         <span class="field-error" id="appIdError"></span>
                     </div>
                     <p class="cta-hint" id="appPreviewUrl"></p>
@@ -413,7 +413,7 @@
                 <div class="tab-content" data-content="phone">
                     <div class="form-group">
                         <label for="phoneNumber">Phone number:</label>
-                        <input type="tel" id="phoneNumber" placeholder="+45 12 34 56 78">
+                        <input type="tel" id="phoneNumber" placeholder="+45 12 34 56 78" inputmode="tel" enterkeyhint="done">
                         <span class="field-error" id="phoneNumberError"></span>
                     </div>
                     <p class="cta-hint">Starts a call when scanned: <span id="phonePreview"></span></p>
@@ -422,7 +422,7 @@
                 <div class="tab-content" data-content="review">
                     <div class="form-group">
                         <label for="reviewPlaceId">Place ID or link:</label>
-                        <input type="text" id="reviewPlaceId" placeholder="ChIJN1t_tDeuEmsRUsoyG83frY4">
+                        <input type="text" id="reviewPlaceId" placeholder="ChIJN1t_tDeuEmsRUsoyG83frY4" autocapitalize="none" autocorrect="off" spellcheck="false" enterkeyhint="done">
                         <span class="field-error" id="reviewPlaceIdError"></span>
                     </div>
                     <p class="cta-hint">Opens the Google review form when scanned: <span id="reviewPreviewUrl"></span></p>
@@ -444,7 +444,7 @@
                     </div>
                     <div class="form-group">
                         <label for="geoLabel">Name/label (optional):</label>
-                        <input type="text" id="geoLabel" placeholder="Times Square, New York">
+                        <input type="text" id="geoLabel" placeholder="Times Square, New York" enterkeyhint="done">
                     </div>
                     <button type="button" id="geoLocateBtn" class="btn btn-secondary" style="margin-bottom: 1rem;"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Use My Location</button>
                 </div>
@@ -461,7 +461,7 @@
                     <div id="paypalFields">
                         <div class="form-group">
                             <label for="paypalUsername">PayPal.me username:</label>
-                            <input type="text" id="paypalUsername" placeholder="yourusername">
+                            <input type="text" id="paypalUsername" placeholder="yourusername" autocapitalize="none" autocorrect="off" spellcheck="false" enterkeyhint="next">
                             <span class="field-error" id="paypalUsernameError"></span>
                         </div>
                         <div class="form-group">
@@ -472,7 +472,7 @@
                     <div id="mobilepayFields" style="display: none;">
                         <div class="form-group">
                             <label for="mobilepayPhone">Phone Number:</label>
-                            <input type="tel" id="mobilepayPhone" placeholder="+1 555 123 4567">
+                            <input type="tel" id="mobilepayPhone" placeholder="+1 555 123 4567" inputmode="tel" enterkeyhint="next">
                             <span class="field-error" id="mobilepayPhoneError"></span>
                         </div>
                         <div class="form-group">
@@ -481,7 +481,7 @@
                         </div>
                     <div class="form-group">
                         <label for="mobilepayComment">Comment (optional):</label>
-                        <input type="text" id="mobilepayComment" placeholder="Payment for...">
+                        <input type="text" id="mobilepayComment" placeholder="Payment for..." enterkeyhint="done">
                     </div>
                 </div>
                 </div>
