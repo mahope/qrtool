@@ -177,6 +177,7 @@
             <nav class="breadcrumb">
                 <a href="/en/">Home</a> / Email QR Code
             </nav>
+            <nav class="breadcrumb" aria-label="Tools"><a href="/en/scan-qr-code">Scan QR Code</a></nav>
         </header>
 
         <!-- Hero Section -->
@@ -200,12 +201,12 @@
 
                 <div class="form-group">
                     <label for="emailTo">Recipient (email):</label>
-                    <input type="email" id="emailTo" placeholder="contact@yourbusiness.com" required>
+                    <input type="email" id="emailTo" placeholder="contact@yourbusiness.com" required autocapitalize="none" autocorrect="off" spellcheck="false" inputmode="email" enterkeyhint="next">
                 </div>
 
                 <div class="form-group">
                     <label for="emailSubject">Subject (optional):</label>
-                    <input type="text" id="emailSubject" placeholder="Inquiry from QR code">
+                    <input type="text" id="emailSubject" placeholder="Inquiry from QR code" enterkeyhint="next">
                 </div>
 
                 <div class="form-group">
@@ -252,6 +253,7 @@
                             </div>
                         </div>
                         <span class="cta-hint" id="printSizeHint">Optional. When set, PNG/JPG/WebP download at 300 dpi and the PDF at exactly that size.</span>
+                        <p class="print-warning" id="printSizeWarning" aria-live="polite"></p>
                     </div>
                 </div>
 

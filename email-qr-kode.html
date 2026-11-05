@@ -177,6 +177,7 @@
             <nav class="breadcrumb">
                 <a href="/">Hjem</a> / Email QR-Kode
             </nav>
+            <nav class="breadcrumb" aria-label="Værktøjer"><a href="/scan-qr-kode">Scan QR-kode</a></nav>
         </header>
 
         <!-- Hero Section -->
@@ -200,12 +201,12 @@
 
                 <div class="form-group">
                     <label for="emailTo">Modtager (email):</label>
-                    <input type="email" id="emailTo" placeholder="kontakt@dinvirksomhed.dk" required>
+                    <input type="email" id="emailTo" placeholder="kontakt@dinvirksomhed.dk" required autocapitalize="none" autocorrect="off" spellcheck="false" inputmode="email" enterkeyhint="next">
                 </div>
 
                 <div class="form-group">
                     <label for="emailSubject">Emne (valgfrit):</label>
-                    <input type="text" id="emailSubject" placeholder="Forespørgsel fra QR-kode">
+                    <input type="text" id="emailSubject" placeholder="Forespørgsel fra QR-kode" enterkeyhint="next">
                 </div>
 
                 <div class="form-group">
@@ -252,6 +253,7 @@
                             </div>
                         </div>
                         <span class="cta-hint" id="printSizeHint">Valgfri. Udfyldes den, downloades PNG/JPG/WebP i 300 dpi og PDF i præcis den størrelse.</span>
+                        <p class="print-warning" id="printSizeWarning" aria-live="polite"></p>
                     </div>
                 </div>
 

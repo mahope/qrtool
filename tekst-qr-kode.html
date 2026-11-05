@@ -111,6 +111,7 @@
             <nav class="breadcrumb">
                 <a href="/">Hjem</a> / Tekst & URL QR-Kode
             </nav>
+            <nav class="breadcrumb" aria-label="Værktøjer"><a href="/scan-qr-kode">Scan QR-kode</a></nav>
         </header>
 
         <!-- Hero Section -->
@@ -134,7 +135,7 @@
 
                 <div class="form-group">
                     <label for="qrText">Tekst eller URL:</label>
-                    <textarea id="qrText" rows="4" placeholder="Indtast en URL (f.eks. https://example.com) eller en kort tekst..." required></textarea>
+                    <textarea id="qrText" rows="4" placeholder="Indtast en URL (f.eks. https://example.com) eller en kort tekst..." required autocapitalize="none" autocorrect="off" spellcheck="false"></textarea>
                 </div>
 
                 <div class="settings-grid">
@@ -176,6 +177,7 @@
                             </div>
                         </div>
                         <span class="cta-hint" id="printSizeHint">Valgfri. Udfyldes den, downloades PNG/JPG/WebP i 300 dpi og PDF i præcis den størrelse.</span>
+                        <p class="print-warning" id="printSizeWarning" aria-live="polite"></p>
                     </div>
                 </div>
 

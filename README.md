@@ -23,6 +23,7 @@ Lavet af [Mahoje](https://mahoje.dk)
 - **📅 Kalender**: iCalendar events til kalendere
 
 ### 🚀 Produktivitet
+- **Introduktion på anmodning**: Vælg "Sådan virker det" (engelsk: "How it works") under Generer for at starte turen. Esc lukker og returnerer fokus til knappen. `onboarding-done` gemmer, at turen er set.
 - **📦 Batch Generering**: Generer flere QR-koder på én gang og download som ZIP
 - **📜 Historik**: Automatisk gem dine seneste 20 QR-koder med localStorage
 - **⚡ Live Preview**: Se din QR-kode i real-time
@@ -122,6 +123,8 @@ qr-code-generator/
 └── README.md       # Denne fil
 ```
 
+Bibliotekerne i `lib/` (QR-generator, jsQR og JSZip) er kopieret ind i projektet og er ikke npm-afhængigheder. Version, kilde og licens står i `docs/vendored-libraries.md`.
+
 ## 🛠️ Teknologier
 
 - **QRCode.js**: QR-kode generering
@@ -141,6 +144,9 @@ qr-code-generator/
 - vCard QR-koder gemmer automatisk til kontakter ved scanning
 
 ## 🔍 SEO & Metadata
+
+See [issue #5 SEO plan and remaining work](docs/seo-plan-issue-5.md) for the
+implementation audit, measurement procedure and approval boundaries.
 
 Siden er fuldt optimeret til SEO med:
 - Comprehensive meta tags (title, description, keywords)
@@ -184,3 +190,17 @@ Open source - brug frit!
 ## Besøgsstatistik
 
 Plausible og Umami kører side om side på de samme 26 sider. Begge drives af Mahope på egne servere i EU uden cookies eller lagring af persondata. Der sendes ingen brugerdefinerede events eller indtastet/scannet QR-indhold. Scannerens handlinger testes mod begge trackere. `npm test` bygger sitet og kontrollerer også analytics-tags i kilde- og buildfiler samt CSP i nginx og Apache.
+
+
+## Canvas regression tests
+
+Run `npm test` to build the site and run the suite. The raster decoding test uses
+an installed Chrome (`google-chrome` by default; override with `CHROME_BIN`). It
+renders real antialiased circles and rounded cells and decodes raw pixels with the
+bundled jsQR, covering four sizes and four payloads on both rendering paths.
+No additional npm packages are needed.
+
+Canvas cells use rounded integer boundaries, including the four-module quiet
+zone. The two `moduleBounds` helpers are checked for equality to avoid adding a
+script dependency to every page. Curved canvas styles keep finder and alignment
+patterns solid for scanner detection. SVG rendering is unchanged.

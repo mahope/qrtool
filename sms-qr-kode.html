@@ -177,6 +177,7 @@
             <nav class="breadcrumb">
                 <a href="/">Hjem</a> / SMS QR-Kode
             </nav>
+            <nav class="breadcrumb" aria-label="Værktøjer"><a href="/scan-qr-kode">Scan QR-kode</a></nav>
         </header>
 
         <!-- Hero Section -->
@@ -200,7 +201,7 @@
 
                 <div class="form-group">
                     <label for="smsPhone">Telefonnummer:</label>
-                    <input type="tel" id="smsPhone" placeholder="+45 12345678" required>
+                    <input type="tel" id="smsPhone" placeholder="+45 12345678" required inputmode="tel" enterkeyhint="next">
                 </div>
 
                 <div class="form-group">
@@ -247,6 +248,7 @@
                             </div>
                         </div>
                         <span class="cta-hint" id="printSizeHint">Valgfri. Udfyldes den, downloades PNG/JPG/WebP i 300 dpi og PDF i præcis den størrelse.</span>
+                        <p class="print-warning" id="printSizeWarning" aria-live="polite"></p>
                     </div>
                 </div>
 
