@@ -6,9 +6,9 @@ import { chromeExecutable, chromeFlags } from './browser.mjs';
 
 // The CLI runs as a child process; it must not block this process, because
 // the static server lives here and has to answer Lighthouse's requests.
-function runCli(args) {
+function runCli(args, env) {
   return new Promise((resolve, reject) => {
-    const child = spawn(process.execPath, args, { stdio: ['ignore', 'ignore', 'pipe'] });
+    const child = spawn(process.execPath, args, { stdio: ['ignore', 'ignore', 'pipe'], env });
     let stderr = '';
     child.stderr.on('data', (d) => { stderr = (stderr + d).slice(-2500); });
     child.on('error', reject);
@@ -31,8 +31,8 @@ export async function runLighthouse(origin, pages) {
         '--only-categories=performance,accessibility',
         `--chrome-flags=${chromeFlags().join(' ')}`,
       ];
-      if (chrome) args.push(`--chrome-path=${chrome}`);
-      const r = await runCli(args);
+      // The Lighthouse CLI finds Chrome through CHROME_PATH (it has no --chrome-path flag).
+      const r = await runCli(args, chrome ? { ...process.env, CHROME_PATH: chrome } : process.env);
       if (r.code !== 0 || !fs.existsSync(out)) {
         throw new Error(`Lighthouse failed for ${p}: ${r.stderr}`);
       }
