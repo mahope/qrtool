@@ -2013,12 +2013,13 @@ header p {
 /* Feature Grid */
 .feature-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
     gap: 1rem;
     margin-top: 1.5rem;
 }
 
 .feature-item {
+    min-width: 0;
     background: var(--primary-light);
     border: 1px solid var(--border-color);
     border-radius: var(--radius-lg);
@@ -2080,7 +2081,7 @@ header p {
 /* Use Cases */
 .use-cases {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
     gap: 1.5rem;
     margin-top: 1.5rem;
 }
@@ -2152,7 +2153,7 @@ header p {
 /* Tips Grid */
 .tips-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
     gap: 1.5rem;
     margin-top: 1.5rem;
 }
@@ -2206,6 +2207,7 @@ header p {
     max-width: 800px;
     margin: 0 auto 1.5rem;
     line-height: 1.65;
+    overflow-wrap: break-word;
 }
 
 .hero-benefits {
@@ -2238,6 +2240,7 @@ header p {
    =========================================== */
 
 .example-block {
+    max-width: 100%;
     background: var(--primary-light);
     border: 1px solid var(--border-color);
     border-radius: var(--radius-lg);
@@ -2256,6 +2259,10 @@ header p {
     grid-template-columns: auto 1fr auto;
     gap: 1rem;
     align-items: start;
+}
+
+.example-card > * {
+    min-width: 0;
 }
 
 .example-avatar {
@@ -2305,6 +2312,8 @@ header p {
 
 .example-fields dd {
     margin: 0;
+    min-width: 0;
+    overflow-wrap: anywhere;
     color: var(--text-color);
 }
 
@@ -2861,11 +2870,12 @@ header p {
 
 .footer-tools-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
     gap: 1rem;
 }
 
 .footer-tool-card {
+    min-width: 0;
     display: block;
     padding: 1rem;
     background: var(--bg-color);
