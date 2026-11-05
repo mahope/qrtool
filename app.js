@@ -2871,7 +2871,6 @@ if (batchGenerateBtn && batchInput) {
         batchGenerateBtn.disabled = true;
         if (typeof JSZip === 'undefined') {
             batchGenerateBtn.textContent = t('batch.loadingZip');
-            showToast(t('batch.loadingZip'), 'info');
             const zipLoaded = await loadJSZip();
             if (!zipLoaded) {
                 batchGenerateBtn.textContent = originalText;
