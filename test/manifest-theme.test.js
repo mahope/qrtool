@@ -49,3 +49,12 @@ test('theme-color: every page has a light and a dark tag with token colours', ()
     }
     assert.deepEqual(bad, []);
 });
+
+test('en/manifest.json: same tokens and icons as the Danish manifest, English shortcuts exist', () => {
+    const en = JSON.parse(fs.readFileSync(path.join(root, 'en/manifest.json'), 'utf8'));
+    assert.equal(en.theme_color, manifest.theme_color);
+    assert.equal(en.background_color, manifest.background_color);
+    assert.deepEqual(en.icons, manifest.icons);
+    assert.equal(en.shortcuts.length, manifest.shortcuts.length);
+    for (const s of en.shortcuts) assert.ok(fs.existsSync(path.join(root, s.url.slice(1) + '.html')), s.url);
+});
