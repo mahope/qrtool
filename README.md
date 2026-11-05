@@ -122,6 +122,8 @@ qr-code-generator/
 └── README.md       # Denne fil
 ```
 
+Bibliotekerne i `lib/` (QR-generator, jsQR og JSZip) er kopieret ind i projektet og er ikke npm-afhængigheder. Version, kilde og licens står i `docs/vendored-libraries.md`.
+
 ## 🛠️ Teknologier
 
 - **QRCode.js**: QR-kode generering
