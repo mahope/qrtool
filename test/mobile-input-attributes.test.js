@@ -76,8 +76,8 @@ const parsed = files.map(file => ({
     groups: fieldGroups(fs.readFileSync(file, 'utf8'))
 }));
 
-test('finds all 31 HTML files', () => {
-    assert.equal(files.length, 31);
+test('finds all 32 HTML files (31 pages and the service worker offline fallback, which has no fields)', () => {
+    assert.equal(files.length, 32);
 });
 
 test('every listed field carries the required attributes', () => {
