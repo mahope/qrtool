@@ -80,8 +80,9 @@ const T = {
         // Batch
         'batch.enterText': 'Indtast venligst mindst én URL/tekst!',
         'batch.max100': 'Maksimalt 100 QR-koder ad gangen!',
-        'batch.jszipMissing': 'JSZip biblioteket mangler. Genindlæs siden.',
+        'batch.jszipMissing': 'ZIP-værktøjet kunne ikke hentes. Tjek forbindelsen og prøv igen.',
         'batch.generating': 'Genererer...',
+        'batch.loadingZip': 'Henter ZIP-værktøjet...',
         'batch.downloaded': '{n} QR-koder downloadet som ZIP!',
         'batch.error': 'Fejl ved batch generering: ',
         'batch.preview': '{n} QR-koder vist i forhåndsvisning',
@@ -256,8 +257,9 @@ const T = {
         // Batch
         'batch.enterText': 'Please enter at least one URL/text!',
         'batch.max100': 'Maximum 100 QR codes at a time!',
-        'batch.jszipMissing': 'JSZip library is missing. Reload the page.',
+        'batch.jszipMissing': 'The ZIP tool could not be loaded. Check your connection and try again.',
         'batch.generating': 'Generating...',
+        'batch.loadingZip': 'Loading the ZIP tool...',
         'batch.downloaded': '{n} QR codes downloaded as ZIP!',
         'batch.error': 'Batch generation error: ',
         'batch.preview': '{n} QR codes shown in preview',
@@ -1728,10 +1730,59 @@ function setScanStatus(message, state) {
     }
 }
 
+// jsQR (257 KB) og JSZip (98 KB) hentes først, når de bruges, så de ikke
+// koster hovedtråden noget ved første indlæsning. Service workeren cacher dem
+// ved brug, så scan og ZIP-download også virker offline bagefter.
+let scanCheckRun = 0;
+const lazyLibs = {};
+
+function loadLib(src, isLoaded) {
+    if (isLoaded()) return Promise.resolve(true);
+    if (!lazyLibs[src]) {
+        lazyLibs[src] = new Promise((resolve) => {
+            try {
+                const script = document.createElement('script');
+                script.src = src;
+                script.onload = () => resolve(isLoaded());
+                script.onerror = () => resolve(false);
+                document.head.appendChild(script);
+            } catch {
+                resolve(false);
+            }
+        }).then((ok) => {
+            // Et mislykket forsøg (offline første gang) må kunne gentages
+            if (!ok) delete lazyLibs[src];
+            return ok;
+        });
+    }
+    return lazyLibs[src];
+}
+
+const loadJsQR = () => loadLib('/lib/jsQR.min.js', () => typeof jsQR !== 'undefined');
+const loadJSZip = () => loadLib('/lib/jszip.min.js', () => typeof JSZip !== 'undefined');
+
+// Kør i tomgang, så hentning og parsing af jsQR ikke konkurrerer med input
+function whenIdle(fn) {
+    if (typeof requestIdleCallback === 'function') {
+        requestIdleCallback(fn, { timeout: 3000 });
+    } else {
+        setTimeout(fn, 250);
+    }
+}
+
 function scheduleScanCheck(text) {
     if (!qrPreview) return;
     clearTimeout(scanCheckTimer);
-    if (typeof jsQR === 'undefined') return;
+    const run = ++scanCheckRun;
+    if (typeof jsQR === 'undefined') {
+        // Første kode på siden: hent jsQR i tomgang og kontrollér bagefter
+        whenIdle(() => {
+            loadJsQR().then((ok) => {
+                if (ok && run === scanCheckRun) scheduleScanCheck(text);
+            });
+        });
+        return;
+    }
     setScanStatus(t('scan.checking'), 'checking');
     // Dekodning koster op mod 100 ms på 2048 px, så den må ikke stå i vejen
     scanCheckTimer = setTimeout(() => updateScanStatus(text), 250);
@@ -2816,14 +2867,19 @@ if (batchGenerateBtn && batchInput) {
             return;
         }
 
-        if (typeof JSZip === 'undefined') {
-            showToast(t('batch.jszipMissing'), 'error');
-            return;
-        }
-
         const originalText = batchGenerateBtn.textContent;
-        batchGenerateBtn.textContent = t('batch.generating');
         batchGenerateBtn.disabled = true;
+        if (typeof JSZip === 'undefined') {
+            batchGenerateBtn.textContent = t('batch.loadingZip');
+            const zipLoaded = await loadJSZip();
+            if (!zipLoaded) {
+                batchGenerateBtn.textContent = originalText;
+                batchGenerateBtn.disabled = false;
+                showToast(t('batch.jszipMissing'), 'error');
+                return;
+            }
+        }
+        batchGenerateBtn.textContent = t('batch.generating');
 
         try {
             const zip = new JSZip();
@@ -3535,7 +3591,7 @@ if (startScanBtn) {
 }
 
 async function startScanner() {
-    if (typeof jsQR === 'undefined') {
+    if (!(await loadJsQR())) {
         showToast(t('scanner.libMissing'), 'error');
         return;
     }
@@ -3614,45 +3670,51 @@ if (scanFileInput) {
         const file = e.target.files[0];
         if (!file) return;
 
-        if (typeof jsQR === 'undefined') {
-            showToast(t('scanner.libMissing'), 'error');
-            return;
+        loadJsQR().then((ok) => {
+            if (!ok) {
+                showToast(t('scanner.libMissing'), 'error');
+                scanFileInput.value = '';
+                return;
+            }
+            decodeScanFile(file);
+        });
+    });
+}
+
+function decodeScanFile(file) {
+    const img = new Image();
+    const url = URL.createObjectURL(file);
+
+    img.onload = () => {
+        const canvas = document.createElement('canvas');
+        canvas.width = img.width;
+        canvas.height = img.height;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0);
+        URL.revokeObjectURL(url);
+
+        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        const code = jsQR(imageData.data, imageData.width, imageData.height, {
+            inversionAttempts: 'attemptBoth'
+        });
+
+        if (code) {
+            showScanResult(code.data);
+        } else {
+            showToast(t('scanner.noQR'), 'info');
         }
 
-        const img = new Image();
-        const url = URL.createObjectURL(file);
+        // Reset file input
+        scanFileInput.value = '';
+    };
 
-        img.onload = () => {
-            const canvas = document.createElement('canvas');
-            canvas.width = img.width;
-            canvas.height = img.height;
-            const ctx = canvas.getContext('2d');
-            ctx.drawImage(img, 0, 0);
-            URL.revokeObjectURL(url);
+    img.onerror = () => {
+        URL.revokeObjectURL(url);
+        showToast(t('scanner.imgError'), 'error');
+        scanFileInput.value = '';
+    };
 
-            const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-            const code = jsQR(imageData.data, imageData.width, imageData.height, {
-                inversionAttempts: 'attemptBoth'
-            });
-
-            if (code) {
-                showScanResult(code.data);
-            } else {
-                showToast(t('scanner.noQR'), 'info');
-            }
-
-            // Reset file input
-            scanFileInput.value = '';
-        };
-
-        img.onerror = () => {
-            URL.revokeObjectURL(url);
-            showToast(t('scanner.imgError'), 'error');
-            scanFileInput.value = '';
-        };
-
-        img.src = url;
-    });
+    img.src = url;
 }
 
 // Vis scanningsresultat
