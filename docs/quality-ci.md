@@ -14,14 +14,9 @@ Budgetterne ligger i `scripts/quality/budgets.json`, og logikken i `scripts/qual
 
 ## Udgangspunkt
 
-Første kørsel (5/11-2026, på `master` før designsystemet) viste, at `master` overskred flere budgetter: tilgængelighed 84 til 92 mod 95, vandret overløb op til 95 px ved 320 px og 354 axe-noder med color-contrast. De målte værdier stod dengang i `known` i `budgets.json` som udgangspunkt, der ikke måtte blive værre.
+Første kørsel (5/11-2026, på `master` før designsystemet) viste, at `master` overskred flere budgetter: tilgængelighed 84 til 92 mod 95, vandret overløb op til 95 px ved 320 px, 354 axe-noder med color-contrast og 123,8 KB JavaScript på forsiden mod budgettet 80 KB. De målte værdier stod dengang i `known` i `budgets.json` som udgangspunkt, der ikke måtte blive værre.
 
-Efter at designsystemet (#17) og rettelserne #43 til #45 er landet, er næsten alt rettet, og `known` er strammet til det, der stadig mangler:
-
-- **JavaScript overført på forsiden:** 123,8 KB mod budgettet 80 KB. Udgangspunktet er 127.000 byte (må ikke vokse; målt 126.8 KB); de andre sider er under 80 KB.
-- **Alt andet opfylder de rigtige budgetter:** Lighthouse tilgængelighed 100 på alle fire sider (budget 95), CLS 0,000 til 0,011 (budget 0,02), 0 px vandret overløb ved 320 og 390 px og 0 critical/serious axe-fund på de 9 sider.
-
-`known` kan nu kun indeholde undtagelser; er en værdi blevet bedre, skal undtagelsen fjernes, så den ikke kan glide tilbage.
+Efter designsystemet (#17), rettelserne #43 til #45 og udskydelsen af jsQR og JSZip (#46) opfylder `master` alle budgetter (forsiden 39,9 KB JavaScript, tilgængelighed 100, CLS 0,000, 0 px overløb, 0 axe-fund), og `known` er tom. `known` kan kun indeholde undtagelser; er en værdi blevet bedre, skal undtagelsen fjernes, så den ikke kan glide tilbage.
 
 Tallene er stabile: tre kørsler i træk gav de samme axe-tal efter at overgange og animationer er slået fra under målingen (uden det svingede color-contrast mellem 354 og 376).
 
