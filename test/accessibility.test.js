@@ -72,11 +72,36 @@ test('home pages label the style selects, the logo input and the preview image',
     }
 });
 
+function declared(block, name) {
+    const match = block.match(new RegExp(`${name}:\\s*(#[0-9a-fA-F]{6})`));
+    assert.ok(match, `${name} is declared`);
+    return match[1];
+}
+
+function luminance(hex) {
+    const channels = [1, 3, 5].map(at => {
+        const value = parseInt(hex.slice(at, at + 2), 16) / 255;
+        return value <= 0.03928 ? value / 12.92 : ((value + 0.055) / 1.055) ** 2.4;
+    });
+    return 0.2126 * channels[0] + 0.7152 * channels[1] + 0.0722 * channels[2];
+}
+
+function contrast(a, b) {
+    const [hi, lo] = [luminance(a), luminance(b)].sort((x, y) => y - x);
+    return (hi + 0.05) / (lo + 0.05);
+}
+
+function selectorsOf(rule) {
+    return rule.selectors.split(',').map(selector => selector.trim().replace(/\s+/g, ' '));
+}
+
 test('links in running text, breadcrumbs and the footer are underlined, not only coloured', () => {
     const rules = [...css.matchAll(/([^{}]+)\{([^{}]*)\}/g)].map(([, selectors, body]) => ({ selectors, body }));
-    for (const needle of ['.breadcrumb a', '.footer-links a', 'p a']) {
-        const hit = rules.find(rule => rule.selectors.includes(needle) && /text-decoration:\s*underline/.test(rule.body));
-        assert.ok(hit, `${needle} is underlined`);
+    // The last same-specificity rule wins, so the final text-decoration for each selector must be underline.
+    for (const selector of ['.breadcrumb a', '.footer-links a', 'main p a:not(.btn)']) {
+        const deciding = rules.filter(rule => selectorsOf(rule).includes(selector) && /text-decoration:/.test(rule.body)).pop();
+        assert.ok(deciding, `${selector} sets text-decoration`);
+        assert.match(deciding.body, /text-decoration:\s*underline/, `${selector} ends up underlined`);
     }
 });
 
@@ -84,4 +109,14 @@ test('the logo hint meets 4.5:1 contrast in both themes', () => {
     const rule = css.match(/\.logo-hint\s*\{([^}]*)\}/);
     assert.ok(rule, '.logo-hint rule exists');
     assert.doesNotMatch(rule[1], /opacity:\s*0?\.\d/);
+    assert.match(rule[1], /color:\s*var\(--text-muted\)/);
+    assert.match(css, /--text-muted:\s*var\(--ink-3\)/);
+    const light = css.match(/:root\s*\{([^}]*--ink-3[^}]*)\}/)[1];
+    const dark = css.match(/\[data-theme="dark"\]\s*\{([^}]*)\}/)[1];
+    for (const [theme, block] of [['light', light], ['dark', dark]]) {
+        for (const surface of ['--bench', '--panel']) {
+            const ratio = contrast(declared(block, '--ink-3'), declared(block, surface));
+            assert.ok(ratio >= 4.5, `${theme}: --ink-3 on ${surface} is ${ratio.toFixed(2)}:1`);
+        }
+    }
 });

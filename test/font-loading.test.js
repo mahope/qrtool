@@ -28,3 +28,24 @@ for (const file of pages) {
         assert.ok(font < sheet);
     });
 }
+
+const css = require('node:fs').readFileSync(require('node:path').join(__dirname, '..', 'style.css'), 'utf8');
+
+test('the web font never swaps in late, and the fallback face has matched metrics', () => {
+    const faces = css.match(/@font-face\s*\{[^}]*\}/g);
+    const web = faces.find(face => face.includes("'Schibsted Grotesk'"));
+    const fallback = faces.find(face => face.includes("'Schibsted Fallback'"));
+    assert.match(web, /font-display:\s*optional/);
+    assert.match(fallback, /size-adjust:\s*[\d.]+%/);
+    assert.match(fallback, /ascent-override:\s*[\d.]+%/);
+    assert.match(fallback, /descent-override:\s*[\d.]+%/);
+    assert.match(css, /font-family:[^;]*'Schibsted Fallback'/);
+});
+
+test('the inline critical CSS of the home pages uses the same font-display', () => {
+    for (const file of ['index.html', 'en/index.html']) {
+        const html = read(file);
+        assert.doesNotMatch(html, /font-display:\s*swap/);
+        assert.match(html, /font-display:\s*optional/);
+    }
+});

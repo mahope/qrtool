@@ -17,7 +17,7 @@ function walk(dir, out) {
 }
 
 // Every shipped HTML page (Danish, en/, guides/, 404), as repo-relative POSIX paths.
-const pages = walk(ROOT, []).filter(file => file !== 'index.html.bak').sort();
+const pages = walk(ROOT, []).sort();
 
 function read(file) {
     return fs.readFileSync(path.join(ROOT, file), 'utf8');
