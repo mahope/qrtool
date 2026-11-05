@@ -99,15 +99,15 @@
 </head>
 <body>
     <a href="#main-content" class="skip-link">Skip to content</a>
-    <div class="container" role="main" id="main-content">
+    <div class="container">
         <header>
             <div class="header-top">
                 <div class="logo">
-                    <a href="/en/">
+                    <a href="/en/" aria-label="QRTool.dk, home">
                         <svg id="logoQR" width="50" height="50" viewBox="0 0 100 100"></svg>
                     </a>
                 </div>
-                    <a id="langSwitcher" class="lang-switcher" href="/" aria-label="Skift til dansk"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>DA</a>
+                    <a id="langSwitcher" class="lang-switcher" href="/" aria-label="DA: Dansk version"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>DA</a>
                 <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme">
                     <svg class="sun-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <circle cx="12" cy="12" r="5"></circle>
@@ -131,7 +131,7 @@
                 <a href="/en/">Home</a> / Guides
             </nav>
         </header>
-
+        <main id="main-content">
         <section class="seo-content">
             <div class="content-block">
                 <p>Our free guides help you make the most of QR codes in your everyday life and business. Whether you run a restaurant, organize events or want to upgrade your business cards — we have a guide for you.</p>
@@ -139,19 +139,19 @@
 
             <div class="feature-grid" style="margin-top: 2rem;">
                 <a href="/en/guides/qr-codes-for-restaurants" class="feature-item" style="text-decoration: none; color: inherit; cursor: pointer; transition: transform 0.2s;">
-                    <h3>QR codes for restaurants</h3>
+                    <h2>QR codes for restaurants</h2>
                     <p>Menus, table tents sized in millimetres, guest WiFi and reviews. With print-ready examples and answers on QR ordering.</p>
                     <span style="color: var(--primary); font-weight: 600;">Read guide &rarr;</span>
                 </a>
 
                 <a href="/en/guides/qr-codes-for-events" class="feature-item" style="text-decoration: none; color: inherit; cursor: pointer; transition: transform 0.2s;">
-                    <h3>QR codes for events</h3>
+                    <h2>QR codes for events</h2>
                     <p>Learn how to use QR codes for tickets, access control, WiFi, feedback and more at your next event or conference.</p>
                     <span style="color: var(--primary); font-weight: 600;">Read guide &rarr;</span>
                 </a>
 
                 <a href="/en/guides/business-cards-with-qr-code" class="feature-item" style="text-decoration: none; color: inherit; cursor: pointer; transition: transform 0.2s;">
-                    <h3>Business cards with QR code</h3>
+                    <h2>Business cards with QR code</h2>
                     <p>Step-by-step tutorial for creating digital business cards with vCard QR codes. Share your contact details with a single scan.</p>
                     <span style="color: var(--primary); font-weight: 600;">Read guide &rarr;</span>
                 </a>
@@ -166,6 +166,8 @@
                 <p style="margin-top: 1.5rem;"><a href="/en/" style="color: var(--primary); font-weight: 600; font-size: 1.1rem;">Create your free QR code now &rarr;</a></p>
             </div>
         </section>
+
+        </main>
 
         <footer>
             <p>A free tool from <a href="https://mahoje.dk" target="_blank" rel="noopener">Mahoje</a></p>

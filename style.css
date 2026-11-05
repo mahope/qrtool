@@ -1321,7 +1321,7 @@ header p {
     background: var(--card-bg);
 }
 
-.compare-section h3 {
+.compare-section h2 {
     margin-bottom: 1rem;
     font-size: 1rem;
 }
@@ -1546,7 +1546,6 @@ header p {
 .logo-hint {
     font-size: 0.75rem;
     color: var(--text-muted);
-    opacity: 0.7;
 }
 
 .logo-preview-wrap {
@@ -1746,7 +1745,7 @@ header p {
     padding: 1rem;
 }
 
-.history-section h3 {
+.history-section h2 {
     margin-bottom: 1rem;
     color: var(--text-color);
     font-size: 1rem;
@@ -2033,7 +2032,7 @@ header p {
     box-shadow: none;
 }
 
-.feature-item h3 {
+.feature-item h2 {
     font-size: 1.125rem;
     margin-top: 0;
     margin-bottom: 0.5rem;
@@ -2170,7 +2169,8 @@ header p {
     border-color: var(--primary-color);
 }
 
-.tip-card h4 {
+.tip-card h3 {
+    margin-bottom: 0.5rem;
     margin-top: 0;
     font-size: 1.125rem;
     padding-bottom: 0.75rem;
@@ -3423,3 +3423,14 @@ input[type="number"], output, .contrast-ratio { font-variant-numeric: tabular-nu
 .color-preset.active .preset-label { color: var(--on-mark); }
 input[type="checkbox"], input[type="radio"], input[type="range"] { accent-color: var(--ink); }
 a { color: var(--link); }
+
+/* WCAG 1.4.1: a link inside running text, the breadcrumb or the footer line is
+   marked by more than its colour. Cards and buttons keep their own styling. */
+main p a:not(.btn),
+main li a:not(.btn),
+.breadcrumb a,
+.footer-links a,
+.footer p a {
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
+}

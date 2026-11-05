@@ -252,7 +252,7 @@ body{font-family:'Schibsted Grotesk','Schibsted Fallback',Arial,sans-serif;font-
 </head>
 <body>
     <a href="#main-content" class="skip-link">Skip to Content</a>
-    <div class="container" role="main" id="main-content">
+    <div class="container">
         <header>
             <div class="header-top">
                 <div class="logo">
@@ -262,7 +262,7 @@ body{font-family:'Schibsted Grotesk','Schibsted Fallback',Arial,sans-serif;font-
                     <button id="menuToggle" class="menu-toggle" aria-label="Open menu" aria-expanded="false">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
                     </button>
-                    <a id="langSwitcher" class="lang-switcher" href="/" aria-label="Skift til dansk"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>DA</a>
+                    <a id="langSwitcher" class="lang-switcher" href="/" aria-label="DA: Dansk version"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>DA</a>
                     <button id="fontSizeToggle" class="font-size-toggle" aria-label="Change text size" title="Text size">
                         <span>A</span>
                     </button>
@@ -315,6 +315,7 @@ body{font-family:'Schibsted Grotesk','Schibsted Fallback',Arial,sans-serif;font-
         </nav>
         <div id="mobileNavOverlay" class="mobile-nav-overlay"></div>
 
+        <main id="main-content">
         <div class="main-content">
             <!-- Input section -->
             <div class="input-section">
@@ -580,7 +581,7 @@ body{font-family:'Schibsted Grotesk','Schibsted Fallback',Arial,sans-serif;font-
                 </div>
 
                 <div class="button-group">
-                    <button id="generateBtn" class="btn btn-primary" aria-label="Generate your QR code now">Generate QR Code</button>
+                    <button id="generateBtn" class="btn btn-primary">Generate QR Code</button>
                 </div>
             </div>
 
@@ -588,7 +589,7 @@ body{font-family:'Schibsted Grotesk','Schibsted Fallback',Arial,sans-serif;font-
             <div class="preview-section">
                 <div class="preview-container">
                     <div id="qrAnnouncement" class="sr-only" aria-live="assertive" aria-atomic="true"></div>
-                    <div id="qrPreview" class="qr-preview" role="img" aria-labelledby="qrAnnouncement">
+                    <div id="qrPreview" class="qr-preview" role="img" aria-label="QR code preview">
                         <div class="placeholder">
                             <div class="skeleton-qr" aria-hidden="true">
                                 <div class="skeleton-block"></div>
@@ -615,13 +616,13 @@ body{font-family:'Schibsted Grotesk','Schibsted Fallback',Arial,sans-serif;font-
 
                 <!-- Compare Section -->
                 <div class="compare-section" id="compareSection" style="display: none;">
-                    <h3><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg> Compare Styles</h3>
+                    <h2><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg> Compare Styles</h2>
                     <div class="compare-grid" id="compareGrid"></div>
                 </div>
 
                 <!-- History Section -->
                 <div class="history-section">
-                    <h3><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Previous QR Codes</h3>
+                    <h2><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Previous QR Codes</h2>
                     <div class="form-group checkbox-group">
                         <label for="historyOptIn">
                             <input type="checkbox" id="historyOptIn" autocomplete="off" aria-describedby="historyPrivacy">
@@ -700,7 +701,7 @@ body{font-family:'Schibsted Grotesk','Schibsted Fallback',Arial,sans-serif;font-
                         <div class="settings-section-content">
                     <div class="form-group style-selector-group">
                         <label>QR code style:</label>
-                        <select id="qrStyle" class="visually-hidden">
+                        <select id="qrStyle" class="visually-hidden" aria-label="QR code style">
                             <option value="square">Standard</option>
                             <option value="rounded">Rounded</option>
                             <option value="dots">Dots</option>
@@ -829,7 +830,7 @@ body{font-family:'Schibsted Grotesk','Schibsted Fallback',Arial,sans-serif;font-
                     <!-- Error Correction -->
                     <div class="form-group ec-group">
                         <label>Error Correction:</label>
-                        <select id="errorCorrection" class="visually-hidden">
+                        <select id="errorCorrection" class="visually-hidden" aria-label="Error correction">
                             <option value="L">Low</option>
                             <option value="M" selected>Medium</option>
                             <option value="Q">High</option>
@@ -883,7 +884,7 @@ body{font-family:'Schibsted Grotesk','Schibsted Fallback',Arial,sans-serif;font-
                             <img id="logoPreviewImg" alt="Logo preview">
                             <button type="button" class="logo-remove-btn" id="logoRemoveBtn" aria-label="Remove logo">&times;</button>
                         </div>
-                        <input type="file" id="logoFileInput" accept="image/png,image/jpeg,image/svg+xml,image/webp" class="visually-hidden">
+                        <input type="file" id="logoFileInput" aria-label="Choose logo file" accept="image/png,image/jpeg,image/svg+xml,image/webp" class="visually-hidden">
                     </div>
                     <div class="form-group logo-size-group" id="logoSizeGroup" style="display:none;">
                         <label for="logoSize">Logo size: <span id="logoSizeValue">25</span>%</label>
@@ -1133,7 +1134,7 @@ body{font-family:'Schibsted Grotesk','Schibsted Fallback',Arial,sans-serif;font-
                 <h2>Tips for effective QR codes</h2>
                 <div class="tips-grid">
                     <div class="tip-card">
-                        <h4><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Do</h4>
+                        <h3><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Do</h3>
                         <ul>
                             <li>Test the QR code on multiple devices</li>
                             <li>Use high contrast (black on white is best)</li>
@@ -1143,7 +1144,7 @@ body{font-family:'Schibsted Grotesk','Schibsted Fallback',Arial,sans-serif;font-
                         </ul>
                     </div>
                     <div class="tip-card">
-                        <h4><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> Avoid</h4>
+                        <h3><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> Avoid</h3>
                         <ul>
                             <li>Low contrast colors (gray on white)</li>
                             <li>Making the QR code too small</li>
@@ -1156,6 +1157,7 @@ body{font-family:'Schibsted Grotesk','Schibsted Fallback',Arial,sans-serif;font-
             </article>
         </section>
 
+        </main>
         <!-- Footer with branding -->
         <footer class="footer lazy-section">
             <div class="footer-columns">
