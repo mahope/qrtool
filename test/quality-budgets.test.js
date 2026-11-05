@@ -63,12 +63,36 @@ test('axe: only critical and serious violations count, known ones may not get wo
             { id: 'link-in-text-block', impact: 'serious', nodes: 2 },
         ] },
     ];
-    const failures = checkAxe(results, budgets.axe, { 'link-in-text-block': 2 });
+    const failures = checkAxe(results, budgets.axe, { '/|link-in-text-block': 2 });
     assert.equal(failures.length, 1);
     assert.match(failures[0], /color-contrast/);
-    const worse = checkAxe(results, budgets.axe, { 'link-in-text-block': 1, 'color-contrast': 3 });
+    const worse = checkAxe(results, budgets.axe, { '/|link-in-text-block': 1, '/|color-contrast': 3 });
     assert.equal(worse.length, 1);
     assert.match(worse[0], /link-in-text-block/);
+});
+
+test('axe: the baseline is per page, so a fix on one page cannot hide a new violation on another', async () => {
+    const { checkAxe } = await load();
+    const known = { '/|color-contrast': 10 };
+    // The front page was fixed (4 nodes left), but /wifi-qr-kode gained 6.
+    const results = [
+        { path: '/', width: 390, theme: 'default', violations: [{ id: 'color-contrast', impact: 'serious', nodes: 4 }] },
+        { path: '/wifi-qr-kode', width: 390, theme: 'default', violations: [{ id: 'color-contrast', impact: 'serious', nodes: 6 }] },
+    ];
+    const failures = checkAxe(results, budgets.axe, known);
+    assert.equal(failures.length, 1);
+    assert.ok(failures[0].includes('/wifi-qr-kode'));
+});
+
+test('axe: nodes are summed over widths and themes for the same page', async () => {
+    const { checkAxe } = await load();
+    const v = [{ id: 'label', impact: 'critical', nodes: 2 }];
+    const results = [
+        { path: '/a', width: 390, theme: 'default', violations: v },
+        { path: '/a', width: 1440, theme: 'toggled', violations: v },
+    ];
+    assert.deepEqual(checkAxe(results, budgets.axe, { '/a|label': 4 }), []);
+    assert.equal(checkAxe(results, budgets.axe, { '/a|label': 3 }).length, 1);
 });
 
 test('lighthouse: a known baseline loosens the budget for that page only, and may not get worse', async () => {

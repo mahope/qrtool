@@ -9,7 +9,7 @@ export function chromeExecutable() {
 }
 
 export function launchBrowser() {
-  const executablePath = process.env.QUALITY_CHROME || undefined;
+  const executablePath = chromeExecutable();
   return chromium.launch(executablePath ? { executablePath } : {});
 }
 

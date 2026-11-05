@@ -39,14 +39,17 @@ try {
   const wantOverflow = only.includes('overflow');
   if (wantAxe || wantOverflow) {
     const browser = await launchBrowser();
-    const limit = createLimiter(Number(process.env.QUALITY_CONCURRENCY) || 4);
-    const paths = [...new Set([...sitemapPaths(path.join(dist, 'sitemap.xml')), '/404-findes-ikke'])];
-    // axe and the overflow check share the browser and the limiter.
-    await timed('axe + overflow', () => Promise.all([
-      wantAxe && runAxe(browser, server.origin, limit).then((r) => { report.axe = r; }),
-      wantOverflow && runOverflow(browser, server.origin, limit, paths, config.overflow.widths).then((r) => { report.overflow = r; }),
-    ]));
-    await browser.close();
+    try {
+      const limit = createLimiter(Number(process.env.QUALITY_CONCURRENCY) || 4);
+      const paths = [...new Set([...sitemapPaths(path.join(dist, 'sitemap.xml')), '/404-findes-ikke'])];
+      // axe and the overflow check share the browser and the limiter.
+      await timed('axe + overflow', () => Promise.all([
+        wantAxe && runAxe(browser, server.origin, limit).then((r) => { report.axe = r; }),
+        wantOverflow && runOverflow(browser, server.origin, limit, paths, config.overflow.widths).then((r) => { report.overflow = r; }),
+      ]));
+    } finally {
+      await browser.close();
+    }
     if (report.axe) failures.push(...checkAxe(report.axe, config.axe, config.known.axe));
     if (report.overflow) failures.push(...checkOverflow(report.overflow, config.known.overflow));
   }
@@ -73,7 +76,7 @@ if (report.axe) {
   for (const r of report.axe) for (const v of r.violations) {
     if (config.axe.failImpacts.includes(v.impact)) totals[v.id] = (totals[v.id] || 0) + v.nodes;
   }
-  console.log(`axe: ${report.axe.length} scans, critical/serious nodes per rule: ${JSON.stringify(totals)}`);
+  console.log(`axe: ${report.axe.length} scans, critical/serious nodes per rule (all pages): ${JSON.stringify(totals)}`);
 }
 if (arg('out')) fs.writeFileSync(arg('out'), JSON.stringify(report, null, 1));
 

@@ -36,23 +36,25 @@ export function checkOverflow(results, knownOverflow = {}) {
   return failures;
 }
 
-// knownAxe maps a rule id to the total number of nodes accepted across all
-// pages, widths and themes until it is fixed.
+// knownAxe maps "<path>|<rule id>" to the number of nodes accepted on that page
+// (summed over widths and themes) until it is fixed. Per page, so a fix on one
+// page cannot hide a new violation on another.
 export function checkAxe(results, budget, knownAxe = {}) {
   const totals = {};
   for (const r of results) {
     for (const v of r.violations) {
       if (!budget.failImpacts.includes(v.impact)) continue;
-      const t = (totals[v.id] ||= { nodes: 0, impact: v.impact, where: new Set() });
+      const key = `${r.path}|${v.id}`;
+      const t = (totals[key] ||= { nodes: 0, impact: v.impact });
       t.nodes += v.nodes;
-      t.where.add(r.path);
     }
   }
   const failures = [];
-  for (const [id, t] of Object.entries(totals)) {
-    const allowed = knownAxe[id] ?? 0;
+  for (const [key, t] of Object.entries(totals)) {
+    const allowed = knownAxe[key] ?? 0;
     if (t.nodes > allowed) {
-      failures.push(`axe ${id} (${t.impact}): ${t.nodes} nodes on ${[...t.where].join(', ')} (allowed ${allowed})`);
+      const [page, id] = key.split('|');
+      failures.push(`axe ${id} (${t.impact}) on ${page}: ${t.nodes} nodes (allowed ${allowed})`);
     }
   }
   return failures;

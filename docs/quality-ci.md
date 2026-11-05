@@ -20,13 +20,13 @@ Første kørsel var på denne gren, som indholdsmæssigt er `master` (ingen side
 - **Lighthouse tilgængelighed:** `/` 84, `/wifi-qr-kode` 91, `/scan-qr-kode` 89, restaurantguiden 92 (budget 95). Udgangspunktet er scoren pr. side.
 - **JavaScript overført på forsiden:** 123.403 byte (120,5 KB) mod budgettet 80 KB. Udgangspunktet er sat til 125.000 byte. De andre sider er under 80 KB.
 - **Vandret overløb:** ved 320 px forsiden 95 px, `/en/` 95 px, `/vcard-qr-kode` 77 px, `/en/vcard-qr-code` 83 px, `/kalender-qr-kode` og `/en/calendar-qr-code` 16 px. Ved 390 px forsiden og `/en/` 49 px, `/vcard-qr-kode` 7 px og `/en/vcard-qr-code` 13 px. Alle andre sider har 0 px.
-- **axe, critical og serious, samlet antal noder over alle sider, bredder og temaer (34 scanninger):** color-contrast 354, label-content-name-mismatch 40, link-name 24, select-name 16, label 8, role-img-alt 8, link-in-text-block 2.
+- **axe, critical og serious (34 scanninger):** udgangspunktet er antal noder pr. side og regel (nøgle `<side>|<regel>` i `known.axe`), summeret over de to bredder og de to temaer for den side. I alt color-contrast 354, label-content-name-mismatch 40, link-name 24, select-name 16, label 8, role-img-alt 8, link-in-text-block 2, fordelt på 30 side/regel-par. En ny overtrædelse på én side skjules derfor ikke af en rettelse på en anden. Udgangspunktet dækker kun de 9 sider i `axe.mjs`.
 
 Tallene er stabile: tre kørsler i træk gav de samme axe-tal efter at overgange og animationer er slået fra under målingen (uden det svingede color-contrast mellem 354 og 376).
 
 ## Når en side bliver bedre
 
-Når en ændring retter noget af ovenstående, skal den samme pull request sænke tallet i `known` (eller fjerne posten, når budgettet er nået). Ellers kan en senere regression op til det gamle tal slippe igennem. Jobbet kræver ikke, at tallet sænkes, men det er hele pointen med udgangspunktet.
+Når en ændring retter noget af ovenstående, skal den samme pull request sænke tallet i `known` (eller fjerne posten, når budgettet er nået). Ellers kan en senere regression op til det gamle tal slippe igennem. For axe gælder det tallet for netop den side og regel. Jobbet kræver ikke, at tallet sænkes, men det er hele pointen med udgangspunktet.
 
 ## Dokumentation af at budgetterne kan fejle
 
@@ -35,7 +35,7 @@ Lokalt dry-run 5/11-2026: en `<div style="width:600px">` og en blok, der indsæt
 - `/wifi-qr-kode`: 292 px vandret overløb ved 320 px og 222 px ved 390 px
 - `/wifi-qr-kode`: CLS 0,353 mod budgettet 0,02
 
-Uden bruddet gav samme kørsel exit 0 ("All quality budgets met"). De rene budgetfunktioner testes desuden i `test/quality-budgets.test.js`.
+Uden bruddet gav samme kørsel exit 0 ("All quality budgets met"). De rene budgetfunktioner testes desuden i `test/quality-budgets.test.js`. Bemærk: for tilgængelighed og JavaScript på forsiden er bruddet kun påvist i enhedstest (budgetfunktionerne), ikke ved at forringe en rigtig side. Det samme gælder at overløb og CLS kun er påvist på `/wifi-qr-kode`.
 
 ## Kørselstid
 
@@ -43,7 +43,12 @@ Lokalt på agent-worker (belastet af andre job): 108 til 177 sekunder for hele s
 
 ## Chrome
 
-Workflowens trin "Locate Chrome" leder efter `google-chrome`, `google-chrome-stable`, `chromium` og `chromium-browser`, skriver sti og version i loggen og sætter `QUALITY_CHROME`. Findes ingen, fejler jobbet med en tydelig besked. Hvilken sti runneren bruger, står i første kørsels log. Som root starter Lighthouse Chrome med `--no-sandbox`; på agent-worker, hvor scriptet ikke kører som root, bruges sandbox.
+Workflowens trin "Locate Chrome" leder efter `google-chrome`, `google-chrome-stable`, `chromium` og `chromium-browser`, skriver sti og version i loggen og sætter `QUALITY_CHROME`. Findes ingen, fejler jobbet med en tydelig besked. Hvilken sti runneren bruger, står i første kørsels log. Stien er ikke verificeret på Forgejo-runneren: første kørsel skal tjekkes, før jobbet gøres til et krav i branch protection. Som root starter Lighthouse Chrome med `--no-sandbox`; på agent-worker, hvor scriptet ikke kører som root, bruges sandbox.
+
+## Kendte bivirkninger
+
+- **Dockerfile:** produktions-imaget bygger på `node:20-alpine` med `npm ci --production=false`, så de nye devDependencies (142 pakker) installeres ved hver Dokploy-deploy. `lighthouse` og `@axe-core/playwright` kræver Node 22 eller nyere, så npm skriver EBADENGINE-advarsler på Node 20 (buildet fejler kun med `engine-strict`), og buildet bliver langsommere. Dockerfilen er ikke ændret i dette job. Før merge til `master` bør det aftales separat, om basen skal op på Node 24, eller om byggetrinnet skal undgå dev-pakkerne.
+- **`engines.node`:** `package.json` siger stadig `>=14.0.0`, men de nye devDependencies kræver Node 22.19 eller nyere. Kvalitetsjobbet kører på Node 24 i workflowen. `engines` er bevidst ikke hævet, fordi det ville ramme Docker-bygget ovenfor.
 
 ## Afhængigheder
 
