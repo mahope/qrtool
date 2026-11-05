@@ -36,6 +36,15 @@ Desktop.ini
 *.swo
 *~
 
+# Local screenshots, backups and session handoffs
+/*-check.png
+/*-desktop.png
+/check-da-main.png
+/lang-switcher-*.png
+/live-*.png
+/*.bak
+.claude-handoff.md
+
 # Build files (if applicable)
 dist/
 build/

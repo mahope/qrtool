@@ -59,6 +59,19 @@ test('scanner: the link sits in the footer of the pages, not only in the body', 
     assert.deepEqual(missing, []);
 });
 
+test('scanner: every page has a scanner link in navigation outside the footer', () => {
+    const missing = [];
+    for (const rel of htmlFiles()) {
+        const html = fs.readFileSync(path.join(ROOT, rel), 'utf8');
+        const beforeFooter = html.split(/<footer\b/i)[0];
+        const navigation = [...beforeFooter.matchAll(/<nav\b[^>]*>[\s\S]*?<\/nav>/gi)];
+        if (!navigation.some(([nav]) => anchors(nav).includes(SCANNER[langOf(rel)]))) {
+            missing.push(rel);
+        }
+    }
+    assert.deepEqual(missing, []);
+});
+
 test('scanner: the front pages teach where the scanner lives, from the footer and the body', () => {
     for (const [rel, lang] of [['index.html', 'da'], ['en/index.html', 'en']]) {
         const html = fs.readFileSync(path.join(ROOT, rel), 'utf8');

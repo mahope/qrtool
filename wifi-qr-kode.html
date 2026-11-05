@@ -44,6 +44,7 @@
     <!-- Preload critical resources -->
     <link rel="preload" href="style.css?v=8" as="style">
 
+    <link rel="preload" href="/fonts/schibsted-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="style.css?v=8">
 
     <!-- Schema.org for WiFi QR -->
@@ -145,11 +146,11 @@
         <header>
             <div class="header-top">
                 <div class="logo">
-                    <a href="/">
+                    <a href="/" aria-label="QRTool.dk, forside">
                         <svg id="logoQR" width="50" height="50" viewBox="0 0 100 100"></svg>
                     </a>
                 </div>
-                    <a id="langSwitcher" class="lang-switcher" href="/en/" aria-label="Switch to English"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>EN</a>
+                    <a id="langSwitcher" class="lang-switcher" href="/en/" aria-label="EN: English version"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>EN</a>
                 <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme">
                     <svg class="sun-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <circle cx="12" cy="12" r="5"></circle>
@@ -172,8 +173,9 @@
             <nav class="breadcrumb">
                 <a href="/">Hjem</a> / WiFi QR-Kode
             </nav>
+            <nav class="breadcrumb" aria-label="Værktøjer"><a href="/scan-qr-kode">Scan QR-kode</a></nav>
         </header>
-
+        <main id="main-content">
         <!-- Hero Section -->
         <section class="hero-section">
             <div class="hero-content">
@@ -195,12 +197,12 @@
 
                 <div class="form-group">
                     <label for="wifiSSID">Netværksnavn (SSID):</label>
-                    <input type="text" id="wifiSSID" placeholder="Mit WiFi Netværk" required>
+                    <input type="text" id="wifiSSID" placeholder="Mit WiFi Netværk" required autocapitalize="none" autocorrect="off" spellcheck="false" autocomplete="off" enterkeyhint="next">
                 </div>
 
                 <div class="form-group">
                     <label for="wifiPassword">Adgangskode:</label>
-                    <input type="text" id="wifiPassword" placeholder="skriv adgangskode">
+                    <input type="text" id="wifiPassword" placeholder="skriv adgangskode" autocapitalize="none" autocorrect="off" spellcheck="false" autocomplete="off" enterkeyhint="done">
                 </div>
 
                 <div class="form-group">
@@ -258,6 +260,7 @@
                             </div>
                         </div>
                         <span class="cta-hint" id="printSizeHint">Valgfri. Udfyldes den, downloades PNG/JPG/WebP i 300 dpi og PDF i præcis den størrelse.</span>
+                        <p class="print-warning" id="printSizeWarning" aria-live="polite"></p>
                     </div>
                 </div>
 
@@ -390,6 +393,8 @@
                 </div>
             </article>
         </section>
+
+        </main>
 
         <footer class="footer">
             <p>Lavet med <svg class="icon" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> af <a href="https://mahoje.dk" target="_blank" rel="noopener">Mahoje</a></p>

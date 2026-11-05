@@ -44,6 +44,7 @@
     <!-- Preload critical resources -->
     <link rel="preload" href="/style.css?v=8" as="style">
 
+    <link rel="preload" href="/fonts/schibsted-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="/style.css?v=8">
 
     <!-- Schema.org for vCard QR -->
@@ -154,11 +155,11 @@
         <header>
             <div class="header-top">
                 <div class="logo">
-                    <a href="/en/">
+                    <a href="/en/" aria-label="QRTool.dk, home">
                         <svg id="logoQR" width="50" height="50" viewBox="0 0 100 100"></svg>
                     </a>
                 </div>
-                    <a id="langSwitcher" class="lang-switcher" href="/" aria-label="Skift til dansk"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>DA</a>
+                    <a id="langSwitcher" class="lang-switcher" href="/" aria-label="DA: Dansk version"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>DA</a>
                 <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme">
                     <svg class="sun-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <circle cx="12" cy="12" r="5"></circle>
@@ -181,8 +182,9 @@
             <nav class="breadcrumb">
                 <a href="/en/">Home</a> / vCard QR Code
             </nav>
+            <nav class="breadcrumb" aria-label="Tools"><a href="/en/scan-qr-code">Scan QR Code</a></nav>
         </header>
-
+        <main id="main-content">
         <!-- Hero Section -->
         <section class="hero-section">
             <div class="hero-content">
@@ -226,42 +228,42 @@
 
                 <div class="form-group">
                     <label for="vcardFirstName">First Name:</label>
-                    <input type="text" id="vcardFirstName" placeholder="John" required>
+                    <input type="text" id="vcardFirstName" placeholder="John" required enterkeyhint="next">
                 </div>
 
                 <div class="form-group">
                     <label for="vcardLastName">Last Name:</label>
-                    <input type="text" id="vcardLastName" placeholder="Smith" required>
+                    <input type="text" id="vcardLastName" placeholder="Smith" required enterkeyhint="next">
                 </div>
 
                 <div class="form-group">
                     <label for="vcardOrg">Company:</label>
-                    <input type="text" id="vcardOrg" placeholder="Acme Inc.">
+                    <input type="text" id="vcardOrg" placeholder="Acme Inc." enterkeyhint="next">
                 </div>
 
                 <div class="form-group">
                     <label for="vcardTitle">Title / Position:</label>
-                    <input type="text" id="vcardTitle" placeholder="Marketing Manager">
+                    <input type="text" id="vcardTitle" placeholder="Marketing Manager" enterkeyhint="next">
                 </div>
 
                 <div class="form-group">
                     <label for="vcardPhone">Phone:</label>
-                    <input type="tel" id="vcardPhone" placeholder="+1 555 123 4567">
+                    <input type="tel" id="vcardPhone" placeholder="+1 555 123 4567" inputmode="tel" enterkeyhint="next">
                 </div>
 
                 <div class="form-group">
                     <label for="vcardEmail">Email:</label>
-                    <input type="email" id="vcardEmail" placeholder="john@company.com">
+                    <input type="email" id="vcardEmail" placeholder="john@company.com" autocapitalize="none" autocorrect="off" spellcheck="false" inputmode="email" enterkeyhint="next">
                 </div>
 
                 <div class="form-group">
                     <label for="vcardWebsite">Website:</label>
-                    <input type="url" id="vcardWebsite" placeholder="https://company.com">
+                    <input type="url" id="vcardWebsite" placeholder="https://company.com" autocapitalize="none" autocorrect="off" spellcheck="false" inputmode="url" enterkeyhint="next">
                 </div>
 
                 <div class="form-group">
                     <label for="vcardAddress">Address:</label>
-                    <input type="text" id="vcardAddress" placeholder="123 Main Street, New York, NY 10001">
+                    <input type="text" id="vcardAddress" placeholder="123 Main Street, New York, NY 10001" enterkeyhint="done">
                 </div>
 
                 <div class="settings-grid">
@@ -303,6 +305,7 @@
                             </div>
                         </div>
                         <span class="cta-hint" id="printSizeHint">Optional. When set, PNG/JPG/WebP download at 300 dpi and the PDF at exactly that size.</span>
+                        <p class="print-warning" id="printSizeWarning" aria-live="polite"></p>
                     </div>
                 </div>
 
@@ -442,6 +445,8 @@
                 </div>
             </article>
         </section>
+
+        </main>
 
         <footer class="footer">
             <p>Made with <svg class="icon" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> by <a href="https://mahoje.dk" target="_blank" rel="noopener">Mahoje</a></p>
