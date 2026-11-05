@@ -67,7 +67,10 @@ function loadApp(options = {}) {
     buildSheetPDF: (jpegBytes, imgW, imgH) => buildSheetPDF(jpegBytes, imgW, imgH),
     buildMultiPageSheetPDF: jpegs => buildMultiPageSheetPDF(jpegs),
     buildQRVectorPDF: (qr, mm, style, logo) => buildQRVectorPDF(qr, mm, style, logo),
-    buildBatchSheetVectorPDF: (lines, style, ecLevel) => buildBatchSheetVectorPDF(lines, style, ecLevel)
+    buildBatchSheetVectorPDF: (lines, style, ecLevel) => buildBatchSheetVectorPDF(lines, style, ecLevel),
+    printWarning: (...args) => printWarning(...args),
+    printWarningText: (...args) => printWarningText(...args),
+    updatePrintWarning: () => updatePrintWarning()
 };`);
 
     factory(...names.map(name => injected[name]));
@@ -119,7 +122,10 @@ function loadApp(options = {}) {
         buildSheetPDF: (jpegBytes, imgW, imgH) => bind.buildSheetPDF(jpegBytes, imgW, imgH),
         buildMultiPageSheetPDF: jpegs => bind.buildMultiPageSheetPDF(jpegs),
         buildQRVectorPDF: (qr, mm, style, logo) => bind.buildQRVectorPDF(qr, mm, style, logo),
-        buildBatchSheetVectorPDF: (lines, style, ecLevel) => bind.buildBatchSheetVectorPDF(lines, style, ecLevel)
+        buildBatchSheetVectorPDF: (lines, style, ecLevel) => bind.buildBatchSheetVectorPDF(lines, style, ecLevel),
+        printWarning: (...args) => bind.printWarning(...args),
+        printWarningText: (...args) => bind.printWarningText(...args),
+        updatePrintWarning: () => bind.updatePrintWarning()
     };
 
     return api;

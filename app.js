@@ -57,6 +57,10 @@ const T = {
         'toast.generated': 'QR-kode genereret!',
         'toast.downloaded': 'QR-kode downloadet!',
         'toast.printDownloaded': 'QR-kode downloadet i {mm} mm (300 dpi)!',
+        'print.warn': 'Ved {mm} mm får hvert modul kun {dots} printerpunkter (300 dpi), og det kan gøre koden svær at scanne. Koden har version {version} med {modules} × {rows} moduler. Brug mindst {min} mm, eller kortere indhold, som giver en mindre kode.',
+        'print.strong': 'Koden bliver sandsynligvis ikke læsbar: ved {mm} mm får hvert modul kun {dots} printerpunkter (300 dpi). Koden har version {version} med {modules} × {rows} moduler. Brug mindst {min} mm, eller kortere indhold, som giver en mindre kode.',
+        'print.batchWarn': 'Den længste linje ({chars} tegn) giver version {version} med {modules} × {rows} moduler, og ved {mm} mm får hvert modul kun {dots} printerpunkter (300 dpi). Det kan gøre koden svær at scanne. Brug mindst {min} mm, eller kortere linjer.',
+        'print.batchStrong': 'Den længste linje ({chars} tegn) bliver sandsynligvis ikke læsbar: version {version} med {modules} × {rows} moduler giver kun {dots} printerpunkter pr. modul ved {mm} mm (300 dpi). Brug mindst {min} mm, eller kortere linjer.',
         'toast.copied': 'Kopieret til udklipsholder!',
         'toast.shared': 'QR-kode delt!',
         'toast.generateFirst': 'Generer venligst en QR-kode først!',
@@ -229,6 +233,10 @@ const T = {
         'toast.generated': 'QR code generated!',
         'toast.downloaded': 'QR code downloaded!',
         'toast.printDownloaded': 'QR code downloaded at {mm} mm (300 dpi)!',
+        'print.warn': 'At {mm} mm each module gets only {dots} printer dots (300 dpi), which can make the code hard to scan. The code is version {version} with {modules} × {rows} modules. Use at least {min} mm, or shorter content, which gives a smaller code.',
+        'print.strong': 'The code will probably not be readable: at {mm} mm each module gets only {dots} printer dots (300 dpi). The code is version {version} with {modules} × {rows} modules. Use at least {min} mm, or shorter content, which gives a smaller code.',
+        'print.batchWarn': 'The longest line ({chars} characters) gives version {version} with {modules} × {rows} modules, and at {mm} mm each module gets only {dots} printer dots (300 dpi). That can make the code hard to scan. Use at least {min} mm, or shorter lines.',
+        'print.batchStrong': 'The longest line ({chars} characters) will probably not be readable: version {version} with {modules} × {rows} modules gives only {dots} printer dots per module at {mm} mm (300 dpi). Use at least {min} mm, or shorter lines.',
         'toast.copied': 'Copied to clipboard!',
         'toast.shared': 'QR code shared!',
         'toast.generateFirst': 'Please generate a QR code first!',
@@ -598,6 +606,8 @@ const ctaText = document.getElementById('ctaText');
 const printSizeMm = document.getElementById('printSizeMm');
 const printSizeHint = document.getElementById('printSizeHint');
 const printSizeHintDefault = printSizeHint ? printSizeHint.textContent : '';
+const printSizeWarning = document.getElementById('printSizeWarning');
+const batchPrintWarning = document.getElementById('batchPrintWarning');
 
 // Batch elements
 const batchInput = document.getElementById('batchInput');
@@ -1577,6 +1587,89 @@ function updatePrintSizeHint() {
     printSizeHint.textContent = `${mm} mm = ${px}×${px} px ved 300 dpi`;
 }
 
+// Printadvarsel: Denso Wave anbefaler mindst 4 printerpunkter pr. modul for stabil
+// aflæsning. Under 2 punkter er koden så godt som ulæselig. Ren funktion, så
+// grænserne kan testes uden DOM; stille zone regnes med, fordi den fylder med
+// i den fysiske størrelse.
+const PRINT_MIN_DOTS = 4;
+const PRINT_STRONG_DOTS = 2;
+
+function printWarning(moduleCount, mm, dpi = 300, quietZoneModules = QUIET_ZONE_MODULES) {
+    const totalModules = moduleCount + 2 * quietZoneModules;
+    const dotsPerModule = (mm / totalModules) / 25.4 * dpi;
+    const minMm = PRINT_MIN_DOTS / dpi * 25.4 * totalModules;
+    // Små tolerancer, så præcis 4 punkter (afrundingsfejl i flydende tal) ikke advarer
+    const eps = 1e-9;
+    let level = 'none';
+    if (dotsPerModule < PRINT_STRONG_DOTS - eps) level = 'strong';
+    else if (dotsPerModule < PRINT_MIN_DOTS - eps) level = 'warn';
+    return { level, dotsPerModule, minMm, moduleCount, version: (moduleCount - 17) / 4 };
+}
+
+// Tekst til advarslen; null hvis koden er stor nok. kind er 'single' eller 'batch'.
+function printWarningText(moduleCount, mm, kind, chars) {
+    const w = printWarning(moduleCount, mm);
+    if (w.level === 'none') return null;
+    const dots = w.dotsPerModule.toFixed(1);
+    const key = (kind === 'batch' ? 'print.batch' : 'print.') + (w.level === 'strong' ? (kind === 'batch' ? 'Strong' : 'strong') : (kind === 'batch' ? 'Warn' : 'warn'));
+    return t(key, {
+        mm: String(mm),
+        dots: LANG === 'da' ? dots.replace('.', ',') : dots,
+        version: w.version,
+        modules: w.moduleCount,
+        rows: w.moduleCount,
+        min: Math.ceil(w.minMm),
+        chars
+    });
+}
+
+// Antal moduler for et indhold i det valgte korrektionsniveau; null hvis det ikke kan kodes
+function moduleCountFor(text) {
+    try {
+        const qr = qrcode(0, errorCorrection.value);
+        qr.addData(text);
+        qr.make();
+        return qr.getModuleCount();
+    } catch (error) {
+        return null;
+    }
+}
+
+// Opdaterer advarslerne under printfeltet og ved batch-knapperne. De er
+// live-regioner, så en skærmlæser læser dem op. Intet blokeres.
+function updatePrintWarning() {
+    if (!printSizeWarning && !batchPrintWarning) return;
+    const mm = parsePrintSizeMm();
+    const format = fileFormat ? fileFormat.value : 'png';
+    let single = '';
+    let batch = '';
+
+    if (mm && printSizeWarning && format !== 'svg') {
+        let data = null;
+        try { data = getQRData(); } catch (error) { data = null; }
+        const count = data ? moduleCountFor(data) : null;
+        if (count) single = printWarningText(count, mm, 'single') || '';
+    }
+
+    if (mm && batchPrintWarning && format === 'pdf') {
+        const lines = getBatchLines();
+        if (lines.length) {
+            const longest = lines.reduce((a, b) => (b.length > a.length ? b : a));
+            const count = moduleCountFor(longest);
+            if (count) batch = printWarningText(count, mm, 'batch', longest.length) || '';
+        }
+    }
+
+    if (printSizeWarning) printSizeWarning.textContent = single;
+    if (batchPrintWarning) batchPrintWarning.textContent = batch;
+}
+
+let printWarningTimer;
+function schedulePrintWarning() {
+    clearTimeout(printWarningTimer);
+    printWarningTimer = setTimeout(updatePrintWarning, 150);
+}
+
 // Genmal den senest genererede kode i printstørrelsen, så download matcher previewet
 function renderPrintCanvas(mm) {
     if (!lastQR) return null;
@@ -1591,8 +1684,12 @@ if (printSizeMm) {
         btn.addEventListener('click', () => {
             printSizeMm.value = btn.dataset.mm;
             updatePrintSizeHint();
+            updatePrintWarning();
         });
     });
+    // Indholdet, korrektionsniveauet, formatet og printstørrelsen ændrer alle kodens størrelse
+    document.addEventListener('input', schedulePrintWarning);
+    document.addEventListener('change', schedulePrintWarning);
 }
 
 // ===========================================
@@ -2005,9 +2102,9 @@ function pdfNum(n, decimals = 3) {
 }
 
 // '#rrggbb' til PDF's "r g b" (0 til 1)
-function pdfRgb(hex) {
+function pdfRgb(hex, fallback = '000000') {
     const m = /^#?([0-9a-f]{6})$/i.exec(hex || '');
-    const v = m ? m[1] : '000000';
+    const v = m ? m[1] : fallback;
     return [0, 2, 4].map(i => pdfNum(parseInt(v.slice(i, i + 2), 16) / 255)).join(' ');
 }
 
@@ -2074,7 +2171,7 @@ function pdfCodeOps(qr, style, x, y, size, logo) {
     const s = size / (cells + QUIET_ZONE_MODULES * 2);
     const ops = ['q'];
     if (!transparentBg.checked) {
-        ops.push(`${pdfRgb(bgColor.value)} rg`);
+        ops.push(`${pdfRgb(bgColor.value, 'ffffff')} rg`);
         ops.push(`${pdfNum(x, 4)} ${pdfNum(y, 4)} ${pdfNum(size, 4)} ${pdfNum(size, 4)} re f`);
     }
     ops.push('q');
