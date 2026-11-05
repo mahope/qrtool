@@ -39,7 +39,9 @@ test('/csp-report logs the POST body to its own log and answers 204 without a th
     const block = (conf.match(/location = \/csp-report \{[^]*?proxy_pass[^;]*;/) || [])[0] || '';
     assert.match(block, /limit_except POST/);
     assert.match(block, /access_log \/var\/log\/nginx\/csp-report\.log csp_report if=\$csp_report_post/);
-    assert.match(block, /client_max_body_size/);
+    assert.match(block, /client_max_body_size 4k/);
+    assert.match(block, /limit_req zone=csp_report/);
+    assert.match(conf, /limit_req_zone [^;]*zone=csp_report:/);
     assert.match(conf, /log_format csp_report .*\$request_body/);
     assert.match(conf, /listen 127\.0\.0\.1:8081;[^]*return 204;/);
 });

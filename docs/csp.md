@@ -16,6 +16,15 @@ camera, geolocation, and the service worker incl. offline):
 Known gap: `script-src` still has `'unsafe-inline'`, because ~20 pages carry page-specific inline
 scripts. Dropping it means moving those into files (or hashing them at build time).
 
+Deliberate differences from the enforced policy (so switching to enforce is no surprise): the
+report-only policy has `default-src 'none'` instead of `'self'` plus the analytics host, and
+`font-src 'self'` without `data:`. The audit saw no data: fonts and no default-src fallbacks in use.
+
+The log only holds accepted reports (POST, 204, non-empty body). `/csp-report` is limited to about
+30 requests a minute per client address (burst 10, then 429) and 4k per body, so the log grows by
+at most roughly 1 GB a week even under abuse; normal traffic is a few lines a day. The container
+has no log rotation, so remove the file with `truncate -s 0` if it ever gets large.
+
 ## Check the log
 
 ```
@@ -25,7 +34,7 @@ docker exec <qrtool-container> sh -c 'wc -l < /var/log/nginx/csp-report.log; tai
 Count by violated directive (empty output means no violations):
 
 ```
-docker exec <qrtool-container> cat /var/log/nginx/csp-report.log | jq -r '.report | fromjson? | (."csp-report"["effective-directive"] // .[0].body.effectiveDirective)' | sort | uniq -c
+docker exec <qrtool-container> cat /var/log/nginx/csp-report.log | jq -r '.report | fromjson? | if type=="array" then .[].body.effectiveDirective else ."csp-report"["effective-directive"] end' | sort | uniq -c
 ```
 
 ## Run the audit locally

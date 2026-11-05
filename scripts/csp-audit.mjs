@@ -69,10 +69,12 @@ export async function runAudit({ distDir = path.join(root, 'dist'), log = () => 
       });
     });
 
+    // On the context (not the page) so the service worker's own fetches are recorded too.
+    context.on('request', (r) => requests.push({ type: r.resourceType(), origin: new URL(r.url()).origin, url: r.url() }));
+
     const origin = server.origin;
     const newPage = async () => {
       const page = await context.newPage();
-      page.on('request', (r) => requests.push({ type: r.resourceType(), origin: new URL(r.url()).origin, url: r.url() }));
       page.on('pageerror', (e) => errors.push(`${page.url()}: ${e.message}`));
       return page;
     };
