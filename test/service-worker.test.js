@@ -12,7 +12,7 @@ const SOURCE = fs.readFileSync(path.join(ROOT, 'sw.js'), 'utf8');
 
 // Runs sw.js in a vm with stubbed self/caches/fetch. `network` maps path -> body
 // (or is null for offline); `shell` lists what the install event caches.
-function loadSw({ network }) {
+function loadSw({ network, delay = 0 }) {
     const listeners = {};
     const store = new Map();
     const requested = [];
@@ -34,16 +34,23 @@ function loadSw({ network }) {
         },
         caches: {
             open: async () => cache,
-            match: async (r) => store.get(key(r)),
+            match: async (r, opts) => {
+                if (opts && opts.ignoreSearch) {
+                    const u = new URL(typeof r === 'string' ? r : r.url, 'https://qrtool.dk');
+                    return store.get(u.origin + u.pathname);
+                }
+                return store.get(key(r));
+            },
             keys: async () => ['qrtool-v9'],
             delete: async () => true
         },
         fetch: async (r) => {
             requested.push(r.url);
+            if (delay) await new Promise((res) => setTimeout(res, delay));
             if (!network || !(new URL(r.url).pathname in network)) throw new TypeError('offline');
             return makeResponse(network[new URL(r.url).pathname]);
         },
-        URL, setTimeout, Promise
+        URL, setTimeout, clearTimeout, Promise
     };
     vm.createContext(sandbox);
     vm.runInContext(SOURCE + '\n;this.__ASSETS = ASSETS;', sandbox);
@@ -133,4 +140,34 @@ test('service worker: the cache is bounded', async () => {
     const sw = loadSw({ network: paths });
     for (let i = 0; i < 100; i++) await sw.dispatch(`/p${i}`, { mode: 'navigate' });
     assert.ok(sw.store.size <= 80, `cache holds ${sw.store.size} entries`);
+});
+
+test('service worker: eviction never drops the app shell', async () => {
+    const paths = {};
+    for (let i = 0; i < 100; i++) paths[`/p${i}`] = 'x';
+    const sw = loadSw({ network: paths });
+    await sw.install();
+    for (let i = 0; i < 100; i++) await sw.dispatch(`/p${i}`, { mode: 'navigate' });
+    assert.ok(sw.store.size <= 80, `cache holds ${sw.store.size} entries`);
+    for (const a of sw.sandbox.__ASSETS) {
+        assert.ok(sw.store.has(new URL(a, 'https://qrtool.dk').href), `${a} was evicted`);
+    }
+});
+
+test('service worker: a slow network is awaited when the page is not cached', async () => {
+    const sw = loadSw({ network: { '/guides/langsom': 'slow page' }, delay: 3300 });
+    await sw.install();
+    assert.equal((await sw.dispatch('/guides/langsom', { mode: 'navigate' })).text, 'slow page');
+});
+
+test('service worker: a slow network falls back to the cached copy after 3 s', async () => {
+    const sw = loadSw({ network: { '/wifi-qr-kode': 'fresh' }, delay: 3300 });
+    sw.store.set('https://qrtool.dk/wifi-qr-kode', { ok: true, type: 'basic', text: 'stale', clone() { return this; } });
+    assert.equal((await sw.dispatch('/wifi-qr-kode', { mode: 'navigate' })).text, 'stale');
+});
+
+test('service worker: a cached page is found despite a query string', async () => {
+    const sw = loadSw({ network: null });
+    sw.store.set('https://qrtool.dk/wifi-qr-kode', { ok: true, type: 'basic', text: 'wifi page', clone() { return this; } });
+    assert.equal((await sw.dispatch('/wifi-qr-kode?utm_source=x', { mode: 'navigate' })).text, 'wifi page');
 });
