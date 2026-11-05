@@ -82,7 +82,7 @@ test('scan page: the Danish scanner page has the camera, the upload and the read
     assert.match(html, /id="startScanBtn"/);
     assert.match(html, /id="scanFileInput"/);
     assert.match(html, /id="scanResult"/);
-    assert.match(html, /\/lib\/jsQR\.min\.js/);
+    assert.doesNotMatch(html, /jsQR\.min\.js/, 'jsQR is loaded by lib/qr-scan.js when the camera or an image is used');
     assert.match(html, /\/lib\/qr-scan\.js/);
     assert.match(html, /<h1[^>]*>[\s\S]*Scan QR-Kode Online/);
     assert.match(html, /<h2>QR-kode scanner til iPhone og Android<\/h2>/);

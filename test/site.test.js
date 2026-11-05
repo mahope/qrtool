@@ -270,7 +270,7 @@ const TOOL_PAGES = [
 test('tool pages: every subpage loads the shared QR helpers', () => {
     for (const rel of TOOL_PAGES) {
         const html = read(rel);
-        assert.ok(html.includes('<script src="/lib/jsQR.min.js"></script>'), `${rel} loads jsQR`);
+        assert.ok(!/jsQR\.min\.js/.test(html), `${rel} leaves jsQR to be loaded when it is used`);
         assert.ok(html.includes('<script src="/lib/qr-page.js"></script>'), `${rel} loads lib/qr-page.js`);
         assert.ok(html.includes('QRPage.download('), `${rel} downloads through QRPage`);
         assert.ok(html.includes('QRPage.scheduleScanCheck('), `${rel} checks that the code scans`);
