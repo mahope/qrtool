@@ -29,9 +29,13 @@ function resolveFile(root, pathname) {
   return null;
 }
 
-export function startServer(distDir, port = 0) {
+// options.headers are added to every response; options.handler(req, res) may
+// answer a request itself (return true) before the static lookup.
+export function startServer(distDir, port = 0, options = {}) {
   const root = path.resolve(distDir);
+  const extraHeaders = options.headers || {};
   const server = http.createServer((req, res) => {
+    if (options.handler && options.handler(req, res)) return;
     const { pathname } = new URL(req.url, 'http://localhost');
     let file = resolveFile(root, pathname);
     let status = 200;
@@ -41,7 +45,7 @@ export function startServer(distDir, port = 0) {
     }
     const ext = path.extname(file);
     const body = fs.readFileSync(file);
-    const headers = { 'Content-Type': TYPES[ext] || 'application/octet-stream', 'Cache-Control': 'no-store' };
+    const headers = { 'Content-Type': TYPES[ext] || 'application/octet-stream', 'Cache-Control': 'no-store', ...extraHeaders };
     if (GZIP.has(ext) && /\bgzip\b/.test(req.headers['accept-encoding'] || '')) {
       headers['Content-Encoding'] = 'gzip';
       headers.Vary = 'Accept-Encoding';
