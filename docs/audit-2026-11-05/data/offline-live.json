@@ -1,0 +1,113 @@
+{
+ "reqsInstall": [],
+ "offline": {
+  "index": {
+   "path": "/",
+   "status": 200,
+   "title": "Lav QR-kode gratis: QR-kodegenerator uden login | QRTool.dk",
+   "h1": "Lav en QR-kode gratis",
+   "fromSW": true,
+   "canvasOrSvg": true
+  },
+  "wifi": {
+   "path": "/wifi-qr-kode",
+   "status": 200,
+   "title": "WiFi QR-Kode Generator - Gratis | QRTool.dk",
+   "h1": "WiFi QR-Kode Generator",
+   "fromSW": true,
+   "canvasOrSvg": true
+  },
+  "scan": {
+   "path": "/scan-qr-kode",
+   "status": 200,
+   "title": "Scan QR-Kode Online - Gratis QR-Scanner | QRTool.dk",
+   "h1": "Scan QR-Kode Online",
+   "fromSW": true
+  },
+  "guides_index": {
+   "path": "/guides/",
+   "status": 200,
+   "title": "QR-kode Guides — Tips og vejledninger | QRTool.dk",
+   "h1": "QR-kode Guides",
+   "fromSW": true
+  },
+  "guide_article": {
+   "path": "/guides/qr-koder-til-restauranter",
+   "status": 200,
+   "title": "Lav QR-kode gratis: QR-kodegenerator uden login | QRTool.dk",
+   "h1": "Lav en QR-kode gratis",
+   "fromSW": true,
+   "canvasOrSvg": false
+  },
+  "en_index": {
+   "path": "/en/",
+   "status": 200,
+   "title": "Free QR Code Generator: No Login, No Expiry | QRTool.dk",
+   "h1": "Make a free QR code",
+   "fromSW": true,
+   "canvasOrSvg": true
+  },
+  "om": {
+   "path": "/om-qr-tool",
+   "status": 200,
+   "title": "Om QR Tool | QRTool.dk",
+   "h1": "Om QR Tool",
+   "fromSW": true
+  },
+  "cookiepolitik": {
+   "path": "/cookiepolitik",
+   "status": 200,
+   "title": "Lav QR-kode gratis: QR-kodegenerator uden login | QRTool.dk",
+   "h1": "Lav en QR-kode gratis",
+   "fromSW": true,
+   "canvasOrSvg": true
+  },
+  "guide_visitkort": {
+   "path": "/guides/visitkort-med-qr-kode",
+   "status": 200,
+   "title": "Lav QR-kode gratis: QR-kodegenerator uden login | QRTool.dk",
+   "h1": "Lav en QR-kode gratis",
+   "fromSW": true,
+   "canvasOrSvg": false
+  }
+ },
+ "swState": "activated",
+ "caches": {
+  "qrtool-011a45be54": {
+   "count": 29,
+   "sample": [
+    "/",
+    "/style.css?v=011a45be54",
+    "/app.js?v=011a45be54",
+    "/icon.svg",
+    "/manifest.json",
+    "/lib/qrcode.js?v=011a45be54",
+    "/lib/qr-page.js?v=011a45be54",
+    "/lib/qr-scan.js?v=011a45be54",
+    "/lib/jszip.min.js",
+    "/lib/jsQR.min.js",
+    "/scan-qr-kode",
+    "/en/scan-qr-code",
+    "/wifi-qr-kode",
+    "/vcard-qr-kode",
+    "/email-qr-kode",
+    "/sms-qr-kode",
+    "/kalender-qr-kode",
+    "/tekst-qr-kode",
+    "/om-qr-tool",
+    "/privatlivspolitik",
+    "/en/",
+    "/en/wifi-qr-code",
+    "/en/vcard-qr-code",
+    "/en/email-qr-code",
+    "/en/sms-qr-code",
+    "/en/calendar-qr-code",
+    "/en/text-qr-code",
+    "/en/about",
+    "/en/privacy-policy"
+   ]
+  }
+ },
+ "sw_fetches_during_install": 0,
+ "total_requests_first_load_incl_sw": 18
+}

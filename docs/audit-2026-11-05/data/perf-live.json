@@ -1,0 +1,100 @@
+{
+ "coverage": [
+  {
+   "url": "/",
+   "total": 117,
+   "used": 39,
+   "pct": 33
+  },
+  {
+   "url": "/lib/qrcode.js?v=011a45be54",
+   "total": 21336,
+   "used": 11097,
+   "pct": 52
+  },
+  {
+   "url": "/lib/jszip.min.js",
+   "total": 97630,
+   "used": 17390,
+   "pct": 18
+  },
+  {
+   "url": "/app.js?v=011a45be54",
+   "total": 80844,
+   "used": 27751,
+   "pct": 34
+  },
+  {
+   "url": "/",
+   "total": 81,
+   "used": 81,
+   "pct": 100
+  },
+  {
+   "url": "/lib/jsQR.min.js",
+   "total": 256885,
+   "used": 194845,
+   "pct": 76
+  }
+ ],
+ "longTasksColdLoad4x": [
+  {
+   "s": 1831,
+   "d": 51
+  },
+  {
+   "s": 2020,
+   "d": 87
+  },
+  {
+   "s": 2119,
+   "d": 470
+  }
+ ],
+ "typing": {
+  "256": {
+   "n": 4,
+   "max": 112,
+   "sum": 373,
+   "wallMs": 4892
+  },
+  "512": {
+   "n": 2,
+   "max": 104,
+   "sum": 169,
+   "wallMs": 4854
+  },
+  "1024": {
+   "n": 3,
+   "max": 120,
+   "sum": 256,
+   "wallMs": 5718
+  },
+  "2048": {
+   "n": 5,
+   "max": 174,
+   "sum": 497,
+   "wallMs": 7806
+  }
+ },
+ "batch": {
+  "50@1x": {
+   "ms": 1074,
+   "zipBytes": 767835,
+   "longTasks": 0,
+   "maxLongTask": 0,
+   "sumLongTask": 0
+  },
+  "200@1x": {
+   "error": "TimeoutError: page.waitForEvent: Timeout 120000ms exceeded while waiting for event \"download\"\n==========================",
+   "ms": 120009
+  },
+  "50@4x": {
+   "ms": 1842,
+   "zipBytes": 767835,
+   "longTasks": 1,
+   "maxLongTask": 82,
+   "sumLongTask": 82
+  }
+ }
+}

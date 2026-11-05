@@ -1,0 +1,1416 @@
+[
+ {
+  "p": "/",
+  "vw": 390,
+  "theme": "default",
+  "violations": [
+   {
+    "id": "color-contrast",
+    "impact": "serious",
+    "nodes": 4,
+    "sample": ".skip-link | button[data-style=\"square\"] > span"
+   },
+   {
+    "id": "heading-order",
+    "impact": "moderate",
+    "nodes": 2,
+    "sample": ".history-section > h3 | .tip-card:nth-child(1) > h4"
+   },
+   {
+    "id": "label-content-name-mismatch",
+    "impact": "serious",
+    "nodes": 2,
+    "sample": "#langSwitcher | #generateBtn"
+   },
+   {
+    "id": "label",
+    "impact": "critical",
+    "nodes": 1,
+    "sample": "#logoFileInput"
+   },
+   {
+    "id": "landmark-banner-is-top-level",
+    "impact": "moderate",
+    "nodes": 1,
+    "sample": "header"
+   },
+   {
+    "id": "landmark-contentinfo-is-top-level",
+    "impact": "moderate",
+    "nodes": 1,
+    "sample": "footer"
+   },
+   {
+    "id": "role-img-alt",
+    "impact": "serious",
+    "nodes": 1,
+    "sample": "#qrPreview"
+   },
+   {
+    "id": "select-name",
+    "impact": "critical",
+    "nodes": 2,
+    "sample": "#qrStyle | #errorCorrection"
+   }
+  ]
+ },
+ {
+  "p": "/wifi-qr-kode",
+  "vw": 390,
+  "theme": "default",
+  "violations": [
+   {
+    "id": "color-contrast",
+    "impact": "serious",
+    "nodes": 5,
+    "sample": "ul > li:nth-child(1) > strong | ul > li:nth-child(2) > strong"
+   },
+   {
+    "id": "label-content-name-mismatch",
+    "impact": "serious",
+    "nodes": 1,
+    "sample": "#langSwitcher"
+   },
+   {
+    "id": "landmark-one-main",
+    "impact": "moderate",
+    "nodes": 1,
+    "sample": "html"
+   },
+   {
+    "id": "link-name",
+    "impact": "serious",
+    "nodes": 1,
+    "sample": ".logo > a[href=\"/\"]"
+   },
+   {
+    "id": "region",
+    "impact": "moderate",
+    "nodes": 9,
+    "sample": ".hero-section | .input-section > h3"
+   }
+  ]
+ },
+ {
+  "p": "/vcard-qr-kode",
+  "vw": 390,
+  "theme": "default",
+  "violations": [
+   {
+    "id": "color-contrast",
+    "impact": "serious",
+    "nodes": 10,
+    "sample": "ul > li:nth-child(1) > strong | ul > li:nth-child(2) > strong"
+   },
+   {
+    "id": "label-content-name-mismatch",
+    "impact": "serious",
+    "nodes": 1,
+    "sample": "#langSwitcher"
+   },
+   {
+    "id": "landmark-one-main",
+    "impact": "moderate",
+    "nodes": 1,
+    "sample": "html"
+   },
+   {
+    "id": "link-in-text-block",
+    "impact": "serious",
+    "nodes": 1,
+    "sample": "a[href$=\"mahoje.dk\"]"
+   },
+   {
+    "id": "link-name",
+    "impact": "serious",
+    "nodes": 1,
+    "sample": ".logo > a[href=\"/\"]"
+   },
+   {
+    "id": "region",
+    "impact": "moderate",
+    "nodes": 17,
+    "sample": ".hero-section | .input-section > h3"
+   }
+  ]
+ },
+ {
+  "p": "/scan-qr-kode",
+  "vw": 390,
+  "theme": "default",
+  "violations": [
+   {
+    "id": "color-contrast",
+    "impact": "serious",
+    "nodes": 9,
+    "sample": "a[href$=\"tekst-qr-kode\"] | a[href$=\"wifi-qr-kode\"]"
+   },
+   {
+    "id": "label-content-name-mismatch",
+    "impact": "serious",
+    "nodes": 1,
+    "sample": "#langSwitcher"
+   },
+   {
+    "id": "landmark-one-main",
+    "impact": "moderate",
+    "nodes": 1,
+    "sample": "html"
+   },
+   {
+    "id": "link-name",
+    "impact": "serious",
+    "nodes": 1,
+    "sample": ".logo > a[href=\"/\"]"
+   },
+   {
+    "id": "region",
+    "impact": "moderate",
+    "nodes": 6,
+    "sample": ".hero-section | #scanner-section > h2"
+   }
+  ]
+ },
+ {
+  "p": "/guides/",
+  "vw": 390,
+  "theme": "default",
+  "violations": [
+   {
+    "id": "color-contrast",
+    "impact": "serious",
+    "nodes": 9,
+    "sample": ".skip-link | a[href$=\"wifi-qr-kode\"]"
+   },
+   {
+    "id": "heading-order",
+    "impact": "moderate",
+    "nodes": 1,
+    "sample": ".feature-item:nth-child(1) > h3"
+   },
+   {
+    "id": "label-content-name-mismatch",
+    "impact": "serious",
+    "nodes": 1,
+    "sample": "#langSwitcher"
+   },
+   {
+    "id": "landmark-banner-is-top-level",
+    "impact": "moderate",
+    "nodes": 1,
+    "sample": "header"
+   },
+   {
+    "id": "landmark-contentinfo-is-top-level",
+    "impact": "moderate",
+    "nodes": 1,
+    "sample": "footer"
+   },
+   {
+    "id": "link-name",
+    "impact": "serious",
+    "nodes": 1,
+    "sample": ".logo > a[href=\"/\"]"
+   }
+  ]
+ },
+ {
+  "p": "/guides/qr-koder-til-restauranter",
+  "vw": 390,
+  "theme": "default",
+  "violations": [
+   {
+    "id": "color-contrast",
+    "impact": "serious",
+    "nodes": 27,
+    "sample": ".skip-link | article:nth-child(2) > ul > li:nth-child(1) > strong"
+   },
+   {
+    "id": "label-content-name-mismatch",
+    "impact": "serious",
+    "nodes": 1,
+    "sample": "#langSwitcher"
+   },
+   {
+    "id": "landmark-banner-is-top-level",
+    "impact": "moderate",
+    "nodes": 1,
+    "sample": "header"
+   },
+   {
+    "id": "landmark-contentinfo-is-top-level",
+    "impact": "moderate",
+    "nodes": 1,
+    "sample": "footer"
+   },
+   {
+    "id": "link-name",
+    "impact": "serious",
+    "nodes": 1,
+    "sample": ".logo > a[href=\"/\"]"
+   }
+  ]
+ },
+ {
+  "p": "/om-qr-tool",
+  "vw": 390,
+  "theme": "default",
+  "violations": [
+   {
+    "id": "color-contrast",
+    "impact": "serious",
+    "nodes": 29,
+    "sample": "article:nth-child(1) > p:nth-child(3) > strong:nth-child(1) | strong:nth-child(2)"
+   },
+   {
+    "id": "label-content-name-mismatch",
+    "impact": "serious",
+    "nodes": 1,
+    "sample": "#langSwitcher"
+   },
+   {
+    "id": "landmark-one-main",
+    "impact": "moderate",
+    "nodes": 1,
+    "sample": "html"
+   },
+   {
+    "id": "link-name",
+    "impact": "serious",
+    "nodes": 1,
+    "sample": ".logo > a[href=\"/\"]"
+   },
+   {
+    "id": "region",
+    "impact": "moderate",
+    "nodes": 12,
+    "sample": "article:nth-child(1) | article:nth-child(2)"
+   }
+  ]
+ },
+ {
+  "p": "/404-findes-ikke",
+  "vw": 390,
+  "theme": "default",
+  "violations": [
+   {
+    "id": "color-contrast",
+    "impact": "serious",
+    "nodes": 2,
+    "sample": "a[href$=\"levetidsberegner.dk\"] > h4 | a[href$=\"pakkeliste.com\"] > h4"
+   },
+   {
+    "id": "landmark-one-main",
+    "impact": "moderate",
+    "nodes": 1,
+    "sample": "html"
+   },
+   {
+    "id": "region",
+    "impact": "moderate",
+    "nodes": 4,
+    "sample": "h1 | h2"
+   }
+  ]
+ },
+ {
+  "p": "/en/",
+  "vw": 390,
+  "theme": "default",
+  "violations": [
+   {
+    "id": "color-contrast",
+    "impact": "serious",
+    "nodes": 4,
+    "sample": ".skip-link | button[data-style=\"square\"] > span"
+   },
+   {
+    "id": "heading-order",
+    "impact": "moderate",
+    "nodes": 2,
+    "sample": ".history-section > h3 | .tip-card:nth-child(1) > h4"
+   },
+   {
+    "id": "label-content-name-mismatch",
+    "impact": "serious",
+    "nodes": 2,
+    "sample": "#langSwitcher | #generateBtn"
+   },
+   {
+    "id": "label",
+    "impact": "critical",
+    "nodes": 1,
+    "sample": "#logoFileInput"
+   },
+   {
+    "id": "landmark-banner-is-top-level",
+    "impact": "moderate",
+    "nodes": 1,
+    "sample": "header"
+   },
+   {
+    "id": "landmark-contentinfo-is-top-level",
+    "impact": "moderate",
+    "nodes": 1,
+    "sample": "footer"
+   },
+   {
+    "id": "role-img-alt",
+    "impact": "serious",
+    "nodes": 1,
+    "sample": "#qrPreview"
+   },
+   {
+    "id": "select-name",
+    "impact": "critical",
+    "nodes": 2,
+    "sample": "#qrStyle | #errorCorrection"
+   }
+  ]
+ },
+ {
+  "p": "/",
+  "vw": 390,
+  "theme": "toggled",
+  "violations": [
+   {
+    "id": "color-contrast",
+    "impact": "serious",
+    "nodes": 4,
+    "sample": ".skip-link | button[data-style=\"square\"] > span"
+   },
+   {
+    "id": "heading-order",
+    "impact": "moderate",
+    "nodes": 2,
+    "sample": ".history-section > h3 | .tip-card:nth-child(1) > h4"
+   },
+   {
+    "id": "label-content-name-mismatch",
+    "impact": "serious",
+    "nodes": 2,
+    "sample": "#langSwitcher | #generateBtn"
+   },
+   {
+    "id": "label",
+    "impact": "critical",
+    "nodes": 1,
+    "sample": "#logoFileInput"
+   },
+   {
+    "id": "landmark-banner-is-top-level",
+    "impact": "moderate",
+    "nodes": 1,
+    "sample": "header"
+   },
+   {
+    "id": "landmark-contentinfo-is-top-level",
+    "impact": "moderate",
+    "nodes": 1,
+    "sample": "footer"
+   },
+   {
+    "id": "role-img-alt",
+    "impact": "serious",
+    "nodes": 1,
+    "sample": "#qrPreview"
+   },
+   {
+    "id": "select-name",
+    "impact": "critical",
+    "nodes": 2,
+    "sample": "#qrStyle | #errorCorrection"
+   }
+  ]
+ },
+ {
+  "p": "/wifi-qr-kode",
+  "vw": 390,
+  "theme": "toggled",
+  "violations": [
+   {
+    "id": "color-contrast",
+    "impact": "serious",
+    "nodes": 5,
+    "sample": "ul > li:nth-child(1) > strong | ul > li:nth-child(2) > strong"
+   },
+   {
+    "id": "label-content-name-mismatch",
+    "impact": "serious",
+    "nodes": 1,
+    "sample": "#langSwitcher"
+   },
+   {
+    "id": "landmark-one-main",
+    "impact": "moderate",
+    "nodes": 1,
+    "sample": "html"
+   },
+   {
+    "id": "link-name",
+    "impact": "serious",
+    "nodes": 1,
+    "sample": ".logo > a[href=\"/\"]"
+   },
+   {
+    "id": "region",
+    "impact": "moderate",
+    "nodes": 9,
+    "sample": ".hero-section | .input-section > h3"
+   }
+  ]
+ },
+ {
+  "p": "/vcard-qr-kode",
+  "vw": 390,
+  "theme": "toggled",
+  "violations": [
+   {
+    "id": "color-contrast",
+    "impact": "serious",
+    "nodes": 10,
+    "sample": "ul > li:nth-child(1) > strong | ul > li:nth-child(2) > strong"
+   },
+   {
+    "id": "label-content-name-mismatch",
+    "impact": "serious",
+    "nodes": 1,
+    "sample": "#langSwitcher"
+   },
+   {
+    "id": "landmark-one-main",
+    "impact": "moderate",
+    "nodes": 1,
+    "sample": "html"
+   },
+   {
+    "id": "link-in-text-block",
+    "impact": "serious",
+    "nodes": 1,
+    "sample": "a[href$=\"mahoje.dk\"]"
+   },
+   {
+    "id": "link-name",
+    "impact": "serious",
+    "nodes": 1,
+    "sample": ".logo > a[href=\"/\"]"
+   },
+   {
+    "id": "region",
+    "impact": "moderate",
+    "nodes": 17,
+    "sample": ".hero-section | .input-section > h3"
+   }
+  ]
+ },
+ {
+  "p": "/scan-qr-kode",
+  "vw": 390,
+  "theme": "toggled",
+  "violations": [
+   {
+    "id": "color-contrast",
+    "impact": "serious",
+    "nodes": 9,
+    "sample": "a[href$=\"tekst-qr-kode\"] | a[href$=\"wifi-qr-kode\"]"
+   },
+   {
+    "id": "label-content-name-mismatch",
+    "impact": "serious",
+    "nodes": 1,
+    "sample": "#langSwitcher"
+   },
+   {
+    "id": "landmark-one-main",
+    "impact": "moderate",
+    "nodes": 1,
+    "sample": "html"
+   },
+   {
+    "id": "link-name",
+    "impact": "serious",
+    "nodes": 1,
+    "sample": ".logo > a[href=\"/\"]"
+   },
+   {
+    "id": "region",
+    "impact": "moderate",
+    "nodes": 6,
+    "sample": ".hero-section | #scanner-section > h2"
+   }
+  ]
+ },
+ {
+  "p": "/guides/",
+  "vw": 390,
+  "theme": "toggled",
+  "violations": [
+   {
+    "id": "color-contrast",
+    "impact": "serious",
+    "nodes": 3,
+    "sample": ".skip-link | a[href$=\"levetidsberegner.dk\"] > h4"
+   },
+   {
+    "id": "heading-order",
+    "impact": "moderate",
+    "nodes": 1,
+    "sample": ".feature-item:nth-child(1) > h3"
+   },
+   {
+    "id": "label-content-name-mismatch",
+    "impact": "serious",
+    "nodes": 1,
+    "sample": "#langSwitcher"
+   },
+   {
+    "id": "landmark-banner-is-top-level",
+    "impact": "moderate",
+    "nodes": 1,
+    "sample": "header"
+   },
+   {
+    "id": "landmark-contentinfo-is-top-level",
+    "impact": "moderate",
+    "nodes": 1,
+    "sample": "footer"
+   },
+   {
+    "id": "link-name",
+    "impact": "serious",
+    "nodes": 1,
+    "sample": ".logo > a[href=\"/\"]"
+   }
+  ]
+ },
+ {
+  "p": "/guides/qr-koder-til-restauranter",
+  "vw": 390,
+  "theme": "toggled",
+  "violations": [
+   {
+    "id": "color-contrast",
+    "impact": "serious",
+    "nodes": 27,
+    "sample": ".skip-link | article:nth-child(2) > ul > li:nth-child(1) > strong"
+   },
+   {
+    "id": "label-content-name-mismatch",
+    "impact": "serious",
+    "nodes": 1,
+    "sample": "#langSwitcher"
+   },
+   {
+    "id": "landmark-banner-is-top-level",
+    "impact": "moderate",
+    "nodes": 1,
+    "sample": "header"
+   },
+   {
+    "id": "landmark-contentinfo-is-top-level",
+    "impact": "moderate",
+    "nodes": 1,
+    "sample": "footer"
+   },
+   {
+    "id": "link-name",
+    "impact": "serious",
+    "nodes": 1,
+    "sample": ".logo > a[href=\"/\"]"
+   }
+  ]
+ },
+ {
+  "p": "/om-qr-tool",
+  "vw": 390,
+  "theme": "toggled",
+  "violations": [
+   {
+    "id": "color-contrast",
+    "impact": "serious",
+    "nodes": 26,
+    "sample": "article:nth-child(1) > p:nth-child(3) > strong:nth-child(1) | strong:nth-child(2)"
+   },
+   {
+    "id": "label-content-name-mismatch",
+    "impact": "serious",
+    "nodes": 1,
+    "sample": "#langSwitcher"
+   },
+   {
+    "id": "landmark-one-main",
+    "impact": "moderate",
+    "nodes": 1,
+    "sample": "html"
+   },
+   {
+    "id": "link-name",
+    "impact": "serious",
+    "nodes": 1,
+    "sample": ".logo > a[href=\"/\"]"
+   },
+   {
+    "id": "region",
+    "impact": "moderate",
+    "nodes": 12,
+    "sample": "article:nth-child(1) | article:nth-child(2)"
+   }
+  ]
+ },
+ {
+  "p": "/en/",
+  "vw": 390,
+  "theme": "toggled",
+  "violations": [
+   {
+    "id": "color-contrast",
+    "impact": "serious",
+    "nodes": 4,
+    "sample": ".skip-link | button[data-style=\"square\"] > span"
+   },
+   {
+    "id": "heading-order",
+    "impact": "moderate",
+    "nodes": 2,
+    "sample": ".history-section > h3 | .tip-card:nth-child(1) > h4"
+   },
+   {
+    "id": "label-content-name-mismatch",
+    "impact": "serious",
+    "nodes": 2,
+    "sample": "#langSwitcher | #generateBtn"
+   },
+   {
+    "id": "label",
+    "impact": "critical",
+    "nodes": 1,
+    "sample": "#logoFileInput"
+   },
+   {
+    "id": "landmark-banner-is-top-level",
+    "impact": "moderate",
+    "nodes": 1,
+    "sample": "header"
+   },
+   {
+    "id": "landmark-contentinfo-is-top-level",
+    "impact": "moderate",
+    "nodes": 1,
+    "sample": "footer"
+   },
+   {
+    "id": "role-img-alt",
+    "impact": "serious",
+    "nodes": 1,
+    "sample": "#qrPreview"
+   },
+   {
+    "id": "select-name",
+    "impact": "critical",
+    "nodes": 2,
+    "sample": "#qrStyle | #errorCorrection"
+   }
+  ]
+ },
+ {
+  "p": "/",
+  "vw": 1440,
+  "theme": "default",
+  "violations": [
+   {
+    "id": "color-contrast",
+    "impact": "serious",
+    "nodes": 4,
+    "sample": ".skip-link | button[data-style=\"square\"] > span"
+   },
+   {
+    "id": "heading-order",
+    "impact": "moderate",
+    "nodes": 2,
+    "sample": ".history-section > h3 | .tip-card:nth-child(1) > h4"
+   },
+   {
+    "id": "label-content-name-mismatch",
+    "impact": "serious",
+    "nodes": 2,
+    "sample": "#langSwitcher | #generateBtn"
+   },
+   {
+    "id": "label",
+    "impact": "critical",
+    "nodes": 1,
+    "sample": "#logoFileInput"
+   },
+   {
+    "id": "landmark-banner-is-top-level",
+    "impact": "moderate",
+    "nodes": 1,
+    "sample": "header"
+   },
+   {
+    "id": "landmark-contentinfo-is-top-level",
+    "impact": "moderate",
+    "nodes": 1,
+    "sample": "footer"
+   },
+   {
+    "id": "role-img-alt",
+    "impact": "serious",
+    "nodes": 1,
+    "sample": "#qrPreview"
+   },
+   {
+    "id": "select-name",
+    "impact": "critical",
+    "nodes": 2,
+    "sample": "#qrStyle | #errorCorrection"
+   }
+  ]
+ },
+ {
+  "p": "/wifi-qr-kode",
+  "vw": 1440,
+  "theme": "default",
+  "violations": [
+   {
+    "id": "color-contrast",
+    "impact": "serious",
+    "nodes": 7,
+    "sample": "ul > li:nth-child(1) > strong | ul > li:nth-child(2) > strong"
+   },
+   {
+    "id": "label-content-name-mismatch",
+    "impact": "serious",
+    "nodes": 1,
+    "sample": "#langSwitcher"
+   },
+   {
+    "id": "landmark-one-main",
+    "impact": "moderate",
+    "nodes": 1,
+    "sample": "html"
+   },
+   {
+    "id": "link-name",
+    "impact": "serious",
+    "nodes": 1,
+    "sample": ".logo > a[href=\"/\"]"
+   },
+   {
+    "id": "region",
+    "impact": "moderate",
+    "nodes": 9,
+    "sample": ".hero-section | .input-section > h3"
+   }
+  ]
+ },
+ {
+  "p": "/vcard-qr-kode",
+  "vw": 1440,
+  "theme": "default",
+  "violations": [
+   {
+    "id": "color-contrast",
+    "impact": "serious",
+    "nodes": 9,
+    "sample": "ul > li:nth-child(1) > strong | ul > li:nth-child(2) > strong"
+   },
+   {
+    "id": "label-content-name-mismatch",
+    "impact": "serious",
+    "nodes": 1,
+    "sample": "#langSwitcher"
+   },
+   {
+    "id": "landmark-one-main",
+    "impact": "moderate",
+    "nodes": 1,
+    "sample": "html"
+   },
+   {
+    "id": "link-name",
+    "impact": "serious",
+    "nodes": 1,
+    "sample": ".logo > a[href=\"/\"]"
+   },
+   {
+    "id": "region",
+    "impact": "moderate",
+    "nodes": 17,
+    "sample": ".hero-section | .input-section > h3"
+   }
+  ]
+ },
+ {
+  "p": "/scan-qr-kode",
+  "vw": 1440,
+  "theme": "default",
+  "violations": [
+   {
+    "id": "color-contrast",
+    "impact": "serious",
+    "nodes": 9,
+    "sample": "a[href$=\"tekst-qr-kode\"] | a[href$=\"wifi-qr-kode\"]"
+   },
+   {
+    "id": "label-content-name-mismatch",
+    "impact": "serious",
+    "nodes": 1,
+    "sample": "#langSwitcher"
+   },
+   {
+    "id": "landmark-one-main",
+    "impact": "moderate",
+    "nodes": 1,
+    "sample": "html"
+   },
+   {
+    "id": "link-name",
+    "impact": "serious",
+    "nodes": 1,
+    "sample": ".logo > a[href=\"/\"]"
+   },
+   {
+    "id": "region",
+    "impact": "moderate",
+    "nodes": 6,
+    "sample": ".hero-section | #scanner-section > h2"
+   }
+  ]
+ },
+ {
+  "p": "/guides/",
+  "vw": 1440,
+  "theme": "default",
+  "violations": [
+   {
+    "id": "color-contrast",
+    "impact": "serious",
+    "nodes": 9,
+    "sample": ".skip-link | a[href$=\"wifi-qr-kode\"]"
+   },
+   {
+    "id": "heading-order",
+    "impact": "moderate",
+    "nodes": 1,
+    "sample": ".feature-item:nth-child(1) > h3"
+   },
+   {
+    "id": "label-content-name-mismatch",
+    "impact": "serious",
+    "nodes": 1,
+    "sample": "#langSwitcher"
+   },
+   {
+    "id": "landmark-banner-is-top-level",
+    "impact": "moderate",
+    "nodes": 1,
+    "sample": "header"
+   },
+   {
+    "id": "landmark-contentinfo-is-top-level",
+    "impact": "moderate",
+    "nodes": 1,
+    "sample": "footer"
+   },
+   {
+    "id": "link-name",
+    "impact": "serious",
+    "nodes": 1,
+    "sample": ".logo > a[href=\"/\"]"
+   }
+  ]
+ },
+ {
+  "p": "/guides/qr-koder-til-restauranter",
+  "vw": 1440,
+  "theme": "default",
+  "violations": [
+   {
+    "id": "color-contrast",
+    "impact": "serious",
+    "nodes": 27,
+    "sample": ".skip-link | article:nth-child(2) > ul > li:nth-child(1) > strong"
+   },
+   {
+    "id": "label-content-name-mismatch",
+    "impact": "serious",
+    "nodes": 1,
+    "sample": "#langSwitcher"
+   },
+   {
+    "id": "landmark-banner-is-top-level",
+    "impact": "moderate",
+    "nodes": 1,
+    "sample": "header"
+   },
+   {
+    "id": "landmark-contentinfo-is-top-level",
+    "impact": "moderate",
+    "nodes": 1,
+    "sample": "footer"
+   },
+   {
+    "id": "link-name",
+    "impact": "serious",
+    "nodes": 1,
+    "sample": ".logo > a[href=\"/\"]"
+   }
+  ]
+ },
+ {
+  "p": "/om-qr-tool",
+  "vw": 1440,
+  "theme": "default",
+  "violations": [
+   {
+    "id": "color-contrast",
+    "impact": "serious",
+    "nodes": 29,
+    "sample": "article:nth-child(1) > p:nth-child(3) > strong:nth-child(1) | strong:nth-child(2)"
+   },
+   {
+    "id": "label-content-name-mismatch",
+    "impact": "serious",
+    "nodes": 1,
+    "sample": "#langSwitcher"
+   },
+   {
+    "id": "landmark-one-main",
+    "impact": "moderate",
+    "nodes": 1,
+    "sample": "html"
+   },
+   {
+    "id": "link-name",
+    "impact": "serious",
+    "nodes": 1,
+    "sample": ".logo > a[href=\"/\"]"
+   },
+   {
+    "id": "region",
+    "impact": "moderate",
+    "nodes": 12,
+    "sample": "article:nth-child(1) | article:nth-child(2)"
+   }
+  ]
+ },
+ {
+  "p": "/404-findes-ikke",
+  "vw": 1440,
+  "theme": "default",
+  "violations": [
+   {
+    "id": "color-contrast",
+    "impact": "serious",
+    "nodes": 2,
+    "sample": "a[href$=\"levetidsberegner.dk\"] > h4 | a[href$=\"pakkeliste.com\"] > h4"
+   },
+   {
+    "id": "landmark-one-main",
+    "impact": "moderate",
+    "nodes": 1,
+    "sample": "html"
+   },
+   {
+    "id": "region",
+    "impact": "moderate",
+    "nodes": 4,
+    "sample": "h1 | h2"
+   }
+  ]
+ },
+ {
+  "p": "/en/",
+  "vw": 1440,
+  "theme": "default",
+  "violations": [
+   {
+    "id": "color-contrast",
+    "impact": "serious",
+    "nodes": 4,
+    "sample": ".skip-link | button[data-style=\"square\"] > span"
+   },
+   {
+    "id": "heading-order",
+    "impact": "moderate",
+    "nodes": 2,
+    "sample": ".history-section > h3 | .tip-card:nth-child(1) > h4"
+   },
+   {
+    "id": "label-content-name-mismatch",
+    "impact": "serious",
+    "nodes": 2,
+    "sample": "#langSwitcher | #generateBtn"
+   },
+   {
+    "id": "label",
+    "impact": "critical",
+    "nodes": 1,
+    "sample": "#logoFileInput"
+   },
+   {
+    "id": "landmark-banner-is-top-level",
+    "impact": "moderate",
+    "nodes": 1,
+    "sample": "header"
+   },
+   {
+    "id": "landmark-contentinfo-is-top-level",
+    "impact": "moderate",
+    "nodes": 1,
+    "sample": "footer"
+   },
+   {
+    "id": "role-img-alt",
+    "impact": "serious",
+    "nodes": 1,
+    "sample": "#qrPreview"
+   },
+   {
+    "id": "select-name",
+    "impact": "critical",
+    "nodes": 2,
+    "sample": "#qrStyle | #errorCorrection"
+   }
+  ]
+ },
+ {
+  "p": "/",
+  "vw": 1440,
+  "theme": "toggled",
+  "violations": [
+   {
+    "id": "color-contrast",
+    "impact": "serious",
+    "nodes": 4,
+    "sample": ".skip-link | button[data-style=\"square\"] > span"
+   },
+   {
+    "id": "heading-order",
+    "impact": "moderate",
+    "nodes": 2,
+    "sample": ".history-section > h3 | .tip-card:nth-child(1) > h4"
+   },
+   {
+    "id": "label-content-name-mismatch",
+    "impact": "serious",
+    "nodes": 2,
+    "sample": "#langSwitcher | #generateBtn"
+   },
+   {
+    "id": "label",
+    "impact": "critical",
+    "nodes": 1,
+    "sample": "#logoFileInput"
+   },
+   {
+    "id": "landmark-banner-is-top-level",
+    "impact": "moderate",
+    "nodes": 1,
+    "sample": "header"
+   },
+   {
+    "id": "landmark-contentinfo-is-top-level",
+    "impact": "moderate",
+    "nodes": 1,
+    "sample": "footer"
+   },
+   {
+    "id": "role-img-alt",
+    "impact": "serious",
+    "nodes": 1,
+    "sample": "#qrPreview"
+   },
+   {
+    "id": "select-name",
+    "impact": "critical",
+    "nodes": 2,
+    "sample": "#qrStyle | #errorCorrection"
+   }
+  ]
+ },
+ {
+  "p": "/wifi-qr-kode",
+  "vw": 1440,
+  "theme": "toggled",
+  "violations": [
+   {
+    "id": "color-contrast",
+    "impact": "serious",
+    "nodes": 7,
+    "sample": "ul > li:nth-child(1) > strong | ul > li:nth-child(2) > strong"
+   },
+   {
+    "id": "label-content-name-mismatch",
+    "impact": "serious",
+    "nodes": 1,
+    "sample": "#langSwitcher"
+   },
+   {
+    "id": "landmark-one-main",
+    "impact": "moderate",
+    "nodes": 1,
+    "sample": "html"
+   },
+   {
+    "id": "link-name",
+    "impact": "serious",
+    "nodes": 1,
+    "sample": ".logo > a[href=\"/\"]"
+   },
+   {
+    "id": "region",
+    "impact": "moderate",
+    "nodes": 9,
+    "sample": ".hero-section | .input-section > h3"
+   }
+  ]
+ },
+ {
+  "p": "/vcard-qr-kode",
+  "vw": 1440,
+  "theme": "toggled",
+  "violations": [
+   {
+    "id": "color-contrast",
+    "impact": "serious",
+    "nodes": 9,
+    "sample": "ul > li:nth-child(1) > strong | ul > li:nth-child(2) > strong"
+   },
+   {
+    "id": "label-content-name-mismatch",
+    "impact": "serious",
+    "nodes": 1,
+    "sample": "#langSwitcher"
+   },
+   {
+    "id": "landmark-one-main",
+    "impact": "moderate",
+    "nodes": 1,
+    "sample": "html"
+   },
+   {
+    "id": "link-name",
+    "impact": "serious",
+    "nodes": 1,
+    "sample": ".logo > a[href=\"/\"]"
+   },
+   {
+    "id": "region",
+    "impact": "moderate",
+    "nodes": 17,
+    "sample": ".hero-section | .input-section > h3"
+   }
+  ]
+ },
+ {
+  "p": "/scan-qr-kode",
+  "vw": 1440,
+  "theme": "toggled",
+  "violations": [
+   {
+    "id": "color-contrast",
+    "impact": "serious",
+    "nodes": 9,
+    "sample": "a[href$=\"tekst-qr-kode\"] | a[href$=\"wifi-qr-kode\"]"
+   },
+   {
+    "id": "label-content-name-mismatch",
+    "impact": "serious",
+    "nodes": 1,
+    "sample": "#langSwitcher"
+   },
+   {
+    "id": "landmark-one-main",
+    "impact": "moderate",
+    "nodes": 1,
+    "sample": "html"
+   },
+   {
+    "id": "link-name",
+    "impact": "serious",
+    "nodes": 1,
+    "sample": ".logo > a[href=\"/\"]"
+   },
+   {
+    "id": "region",
+    "impact": "moderate",
+    "nodes": 6,
+    "sample": ".hero-section | #scanner-section > h2"
+   }
+  ]
+ },
+ {
+  "p": "/guides/",
+  "vw": 1440,
+  "theme": "toggled",
+  "violations": [
+   {
+    "id": "color-contrast",
+    "impact": "serious",
+    "nodes": 3,
+    "sample": ".skip-link | a[href$=\"levetidsberegner.dk\"] > h4"
+   },
+   {
+    "id": "heading-order",
+    "impact": "moderate",
+    "nodes": 1,
+    "sample": ".feature-item:nth-child(1) > h3"
+   },
+   {
+    "id": "label-content-name-mismatch",
+    "impact": "serious",
+    "nodes": 1,
+    "sample": "#langSwitcher"
+   },
+   {
+    "id": "landmark-banner-is-top-level",
+    "impact": "moderate",
+    "nodes": 1,
+    "sample": "header"
+   },
+   {
+    "id": "landmark-contentinfo-is-top-level",
+    "impact": "moderate",
+    "nodes": 1,
+    "sample": "footer"
+   },
+   {
+    "id": "link-name",
+    "impact": "serious",
+    "nodes": 1,
+    "sample": ".logo > a[href=\"/\"]"
+   }
+  ]
+ },
+ {
+  "p": "/guides/qr-koder-til-restauranter",
+  "vw": 1440,
+  "theme": "toggled",
+  "violations": [
+   {
+    "id": "color-contrast",
+    "impact": "serious",
+    "nodes": 27,
+    "sample": ".skip-link | article:nth-child(2) > ul > li:nth-child(1) > strong"
+   },
+   {
+    "id": "label-content-name-mismatch",
+    "impact": "serious",
+    "nodes": 1,
+    "sample": "#langSwitcher"
+   },
+   {
+    "id": "landmark-banner-is-top-level",
+    "impact": "moderate",
+    "nodes": 1,
+    "sample": "header"
+   },
+   {
+    "id": "landmark-contentinfo-is-top-level",
+    "impact": "moderate",
+    "nodes": 1,
+    "sample": "footer"
+   },
+   {
+    "id": "link-name",
+    "impact": "serious",
+    "nodes": 1,
+    "sample": ".logo > a[href=\"/\"]"
+   }
+  ]
+ },
+ {
+  "p": "/om-qr-tool",
+  "vw": 1440,
+  "theme": "toggled",
+  "violations": [
+   {
+    "id": "color-contrast",
+    "impact": "serious",
+    "nodes": 26,
+    "sample": "article:nth-child(1) > p:nth-child(3) > strong:nth-child(1) | strong:nth-child(2)"
+   },
+   {
+    "id": "label-content-name-mismatch",
+    "impact": "serious",
+    "nodes": 1,
+    "sample": "#langSwitcher"
+   },
+   {
+    "id": "landmark-one-main",
+    "impact": "moderate",
+    "nodes": 1,
+    "sample": "html"
+   },
+   {
+    "id": "link-name",
+    "impact": "serious",
+    "nodes": 1,
+    "sample": ".logo > a[href=\"/\"]"
+   },
+   {
+    "id": "region",
+    "impact": "moderate",
+    "nodes": 12,
+    "sample": "article:nth-child(1) | article:nth-child(2)"
+   }
+  ]
+ },
+ {
+  "p": "/en/",
+  "vw": 1440,
+  "theme": "toggled",
+  "violations": [
+   {
+    "id": "color-contrast",
+    "impact": "serious",
+    "nodes": 4,
+    "sample": ".skip-link | button[data-style=\"square\"] > span"
+   },
+   {
+    "id": "heading-order",
+    "impact": "moderate",
+    "nodes": 2,
+    "sample": ".history-section > h3 | .tip-card:nth-child(1) > h4"
+   },
+   {
+    "id": "label-content-name-mismatch",
+    "impact": "serious",
+    "nodes": 2,
+    "sample": "#langSwitcher | #generateBtn"
+   },
+   {
+    "id": "label",
+    "impact": "critical",
+    "nodes": 1,
+    "sample": "#logoFileInput"
+   },
+   {
+    "id": "landmark-banner-is-top-level",
+    "impact": "moderate",
+    "nodes": 1,
+    "sample": "header"
+   },
+   {
+    "id": "landmark-contentinfo-is-top-level",
+    "impact": "moderate",
+    "nodes": 1,
+    "sample": "footer"
+   },
+   {
+    "id": "role-img-alt",
+    "impact": "serious",
+    "nodes": 1,
+    "sample": "#qrPreview"
+   },
+   {
+    "id": "select-name",
+    "impact": "critical",
+    "nodes": 2,
+    "sample": "#qrStyle | #errorCorrection"
+   }
+  ]
+ }
+]
