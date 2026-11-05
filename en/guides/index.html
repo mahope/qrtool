@@ -34,7 +34,7 @@
     <!-- Favicon & PWA -->
     <link rel="icon" type="image/svg+xml" href="/icon.svg">
     <link rel="manifest" href="/manifest.json">
-    <meta name="theme-color" content="#6366f1">
+    <meta name="theme-color" content="#eef0f2">
 
     <!-- Preconnect for performance -->
 
@@ -84,6 +84,7 @@
     }
     </script>
 
+    <link rel="preload" href="/fonts/schibsted-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="/style.css?v=8">
     <script type="application/ld+json">
     {
@@ -98,15 +99,15 @@
 </head>
 <body>
     <a href="#main-content" class="skip-link">Skip to content</a>
-    <div class="container" role="main" id="main-content">
+    <div class="container">
         <header>
             <div class="header-top">
                 <div class="logo">
-                    <a href="/en/">
+                    <a href="/en/" aria-label="QRTool.dk, home">
                         <svg id="logoQR" width="50" height="50" viewBox="0 0 100 100"></svg>
                     </a>
                 </div>
-                    <a id="langSwitcher" class="lang-switcher" href="/" aria-label="Skift til dansk"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>DA</a>
+                    <a id="langSwitcher" class="lang-switcher" href="/" aria-label="DA: Dansk version"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>DA</a>
                 <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme">
                     <svg class="sun-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <circle cx="12" cy="12" r="5"></circle>
@@ -131,7 +132,7 @@
             </nav>
             <nav class="breadcrumb" aria-label="Tools"><a href="/en/scan-qr-code">Scan QR Code</a></nav>
         </header>
-
+        <main id="main-content">
         <section class="seo-content">
             <div class="content-block">
                 <p>Our free guides help you make the most of QR codes in your everyday life and business. Whether you run a restaurant, organize events or want to upgrade your business cards — we have a guide for you.</p>
@@ -139,19 +140,19 @@
 
             <div class="feature-grid" style="margin-top: 2rem;">
                 <a href="/en/guides/qr-codes-for-restaurants" class="feature-item" style="text-decoration: none; color: inherit; cursor: pointer; transition: transform 0.2s;">
-                    <h3>QR codes for restaurants</h3>
+                    <h2>QR codes for restaurants</h2>
                     <p>Menus, table tents sized in millimetres, guest WiFi and reviews. With print-ready examples and answers on QR ordering.</p>
                     <span style="color: var(--primary); font-weight: 600;">Read guide &rarr;</span>
                 </a>
 
                 <a href="/en/guides/qr-codes-for-events" class="feature-item" style="text-decoration: none; color: inherit; cursor: pointer; transition: transform 0.2s;">
-                    <h3>QR codes for events</h3>
+                    <h2>QR codes for events</h2>
                     <p>Learn how to use QR codes for tickets, access control, WiFi, feedback and more at your next event or conference.</p>
                     <span style="color: var(--primary); font-weight: 600;">Read guide &rarr;</span>
                 </a>
 
                 <a href="/en/guides/business-cards-with-qr-code" class="feature-item" style="text-decoration: none; color: inherit; cursor: pointer; transition: transform 0.2s;">
-                    <h3>Business cards with QR code</h3>
+                    <h2>Business cards with QR code</h2>
                     <p>Step-by-step tutorial for creating digital business cards with vCard QR codes. Share your contact details with a single scan.</p>
                     <span style="color: var(--primary); font-weight: 600;">Read guide &rarr;</span>
                 </a>
@@ -166,6 +167,8 @@
                 <p style="margin-top: 1.5rem;"><a href="/en/" style="color: var(--primary); font-weight: 600; font-size: 1.1rem;">Create your free QR code now &rarr;</a></p>
             </div>
         </section>
+
+        </main>
 
         <footer>
             <p>A free tool from <a href="https://mahoje.dk" target="_blank" rel="noopener">Mahoje</a></p>
@@ -203,12 +206,12 @@
         (function() {
             const themeToggle = document.getElementById('themeToggle');
             const html = document.documentElement;
-            const currentTheme = localStorage.getItem('theme') || 'dark';
-            html.setAttribute('data-theme', currentTheme);
+            const currentTheme = localStorage.getItem('theme');
+            if (currentTheme === 'light' || currentTheme === 'dark') html.setAttribute('data-theme', currentTheme);
 
             if (themeToggle) {
                 themeToggle.addEventListener('click', () => {
-                    const theme = html.getAttribute('data-theme');
+                    const theme = html.getAttribute('data-theme') || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
                     const newTheme = theme === 'dark' ? 'light' : 'dark';
                     html.setAttribute('data-theme', newTheme);
                     localStorage.setItem('theme', newTheme);
@@ -242,13 +245,7 @@
                     }
                 }
 
-                logoSvg.innerHTML = `<path d="${path}" fill="url(#gradient)"/>
-                    <defs>
-                        <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" style="stop-color:#6366f1;stop-opacity:1" />
-                            <stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:1" />
-                        </linearGradient>
-                    </defs>`;
+                logoSvg.innerHTML = `<path d="${path}" fill="var(--ink)"/>`;
             }
 
             if (document.readyState === 'loading') {

@@ -12,7 +12,7 @@ fs.mkdirSync(DIST, { recursive: true });
 
 // Files/dirs to copy to dist
 const copyItems = [
-    'index.html', 'wifi-qr-kode.html', 'om-qr-tool.html', 'privatlivspolitik.html',
+    'index.html', 'offline.html', 'wifi-qr-kode.html', 'om-qr-tool.html', 'privatlivspolitik.html',
     'cookiepolitik.html', '404.html', 'vcard-qr-kode.html', 'email-qr-kode.html',
     'sms-qr-kode.html', 'kalender-qr-kode.html', 'tekst-qr-kode.html',
     'scan-qr-kode.html',
@@ -26,7 +26,7 @@ const copyItems = [
     'og-image-sms.png', 'og-image-sms-en.png',
     'og-image-email.png', 'og-image-email-en.png',
     'og-image-tekst.png', 'og-image-tekst-en.png',
-    'lib', 'guides', 'en'
+    'lib', 'guides', 'en', 'fonts'
 ];
 
 function copyRecursive(src, dest) {

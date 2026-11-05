@@ -37,8 +37,8 @@ function sitemapUrls() {
     return urls;
 }
 
-// 404.html is an error page: it must stay out of the sitemap and needs no
-// canonical, because it should never be indexed.
+// 404.html and offline.html are utility pages: they must stay out of the sitemap and need no
+// canonical, because they should never be indexed.
 function htmlFiles() {
     const files = [];
     const walk = dir => {
@@ -47,7 +47,7 @@ function htmlFiles() {
             // Always "/", so the path doubles as a URL on Windows too.
             const rel = path.posix.join(dir, entry.name);
             if (entry.isDirectory()) walk(rel);
-            else if (entry.name.endsWith('.html') && entry.name !== '404.html') files.push(rel);
+            else if (entry.name.endsWith('.html') && !['404.html', 'offline.html'].includes(entry.name)) files.push(rel);
         }
     };
     walk('.');
@@ -72,7 +72,7 @@ test('sitemap: every listed URL is also built into dist/', () => {
 
 test('sitemap: every indexable page in the repo is listed in the sitemap', () => {
     const listed = new Set(sitemapUrls().map(urlToFile));
-    const missing = htmlFiles().filter(rel => rel !== '404.html' && !listed.has(rel));
+    const missing = htmlFiles().filter(rel => !['404.html', 'offline.html'].includes(rel) && !listed.has(rel));
     assert.deepEqual(missing, []);
 });
 
