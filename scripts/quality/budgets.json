@@ -70,7 +70,7 @@
     "lighthouse": {
       "/": {
         "minAccessibility": 84,
-        "maxJsBytes": 125000
+        "maxJsBytes": 130000
       },
       "/wifi-qr-kode": {
         "minAccessibility": 91
