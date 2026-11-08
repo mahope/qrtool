@@ -247,3 +247,4 @@ https://mahoje.dk
 
 For support eller spørgsmål, kontakt via Mahoje
 <!-- udgiv-test 3 (5/11-26): harmløs ændring til test af den automatiske udgivelse -->
+<!-- udgiv-test 4 (8/11-26): harmløs ændring til test af den automatiske udgivelse -->
