@@ -24,7 +24,7 @@ jobs:
           test "$(git rev-list --count HEAD)" -gt 1
       - uses: actions/setup-node@v4
         with:
-          node-version: 24
+          node-version: 26
           cache: npm
       - run: npm ci
       - name: Install Chromium for the real-canvas raster test
