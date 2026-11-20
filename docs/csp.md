@@ -16,6 +16,8 @@ camera, geolocation, and the service worker incl. offline):
 Known gap: `script-src` still has `'unsafe-inline'`, because ~20 pages carry page-specific inline
 scripts. Dropping it means moving those into files (or hashing them at build time).
 
+Known gap: the audit stubs the two analytics hosts (`analytics.holstjensen.eu`, `stats.mahoje.dk`) with an empty script so it needs no network. It proves the pages and the policy allow loading the analytics script, but not what that script loads or sends in turn. A green audit therefore does not verify `connect-src` for analytics or the rest of the analytics chain.
+
 Deliberate differences from the enforced policy (so switching to enforce is no surprise): the
 report-only policy has `default-src 'none'` instead of `'self'` plus the analytics host, and
 `font-src 'self'` without `data:`. The audit saw no data: fonts and no default-src fallbacks in use.
