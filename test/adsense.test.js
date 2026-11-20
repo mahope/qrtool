@@ -52,10 +52,34 @@ test('AdSense: the policies mention AdSense and Google\'s consent dialog', () =>
 });
 
 test('AdSense: the privacy settings button explains itself when no message opens', () => {
+    const vm = require('node:vm');
     for (const rel of ['privatlivspolitik.html', 'cookiepolitik.html', 'en/privacy-policy.html', 'en/cookie-policy.html']) {
         const html = fs.readFileSync(path.join(ROOT, rel), 'utf8');
         assert.match(html, /id="qtRevokeNote" role="status"/, rel);
-        assert.match(html, /setTimeout\(function\(\)\{n\.textContent="/, rel);
-        assert.match(html, /CONSENT_API_READY:function\(\)\{clearTimeout\(t\)/, rel);
+        const src = html.match(/<script>(function qtRevoke[\s\S]*?)<\/script>/)[1];
+        const run = (apiReady) => {
+            const note = { textContent: 'old' };
+            const timers = [];
+            let shown = 0;
+            const ctx = {
+                document: { getElementById: () => note },
+                setTimeout: (fn) => timers.push(fn) - 1,
+                clearTimeout: (id) => { timers[id] = null; },
+            };
+            ctx.window = ctx;
+            vm.runInNewContext(src + ';qtRevoke();', ctx);
+            ctx.googlefc.showRevocationMessage = () => { shown++; };
+            if (apiReady) ctx.googlefc.callbackQueue.forEach(cb => cb.CONSENT_API_READY());
+            timers.forEach(fn => fn && fn());
+            return { text: note.textContent, shown };
+        };
+        // API never ready: the explanation appears after the timeout.
+        const blocked = run(false);
+        assert.ok(blocked.text.length > 20, rel);
+        assert.equal(blocked.shown, 0, rel);
+        // API ready: Google's dialog opens and no explanation is left behind.
+        const ready = run(true);
+        assert.equal(ready.text, '', rel);
+        assert.equal(ready.shown, 1, rel);
     }
 });
