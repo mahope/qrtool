@@ -50,3 +50,12 @@ test('AdSense: the policies mention AdSense and Google\'s consent dialog', () =>
         assert.match(html, /20\. november 2026|20 November 2026/, rel);
     }
 });
+
+test('AdSense: the privacy settings button explains itself when no message opens', () => {
+    for (const rel of ['privatlivspolitik.html', 'cookiepolitik.html', 'en/privacy-policy.html', 'en/cookie-policy.html']) {
+        const html = fs.readFileSync(path.join(ROOT, rel), 'utf8');
+        assert.match(html, /id="qtRevokeNote" role="status"/, rel);
+        assert.match(html, /setTimeout\(function\(\)\{n\.textContent="/, rel);
+        assert.match(html, /CONSENT_API_READY:function\(\)\{clearTimeout\(t\)/, rel);
+    }
+});
