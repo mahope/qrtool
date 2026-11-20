@@ -27,13 +27,13 @@ test('report-only CSP is strict: nothing by default, no eval, no plugins, no for
     assert.deepEqual(directive('form-action'), ["'self'"]);
     assert.deepEqual(directive('frame-ancestors'), ["'self'"]);
     // Only our own statistics and Google AdSense (with Google's consent message) may be allowed.
-    const allowed = /^https:\/\/(analytics\.holstjensen\.eu|stats\.mahoje\.dk|pagead2\.googlesyndication\.com|fundingchoicesmessages\.google\.com|googleads\.g\.doubleclick\.net|tpc\.googlesyndication\.com)$/;
+    const allowed = /^https:\/\/(analytics\.holstjensen\.eu|stats\.mahoje\.dk|pagead2\.googlesyndication\.com|fundingchoicesmessages\.google\.com|googleads\.g\.doubleclick\.net|tpc\.googlesyndication\.com|partner\.googleadservices\.com|www\.googletagservices\.com|\*\.adtrafficquality\.google|fonts\.googleapis\.com|fonts\.gstatic\.com|www\.google\.com)$/;
     for (const d of ['script-src', 'connect-src', 'img-src', 'style-src', 'font-src', 'frame-src']) {
         const hosts = directive(d).filter(s => /^https?:/.test(s));
         for (const host of hosts) assert.match(host, allowed, `${d} allows ${host}`);
     }
     // Frames are only for Google's consent message and ads, never anything else.
-    assert.ok(directive('frame-src').every(s => /^https:\/\/(fundingchoicesmessages\.google\.com|googleads\.g\.doubleclick\.net|tpc\.googlesyndication\.com)$/.test(s)));
+    assert.ok(directive('frame-src').every(s => /^https:\/\/(fundingchoicesmessages\.google\.com|googleads\.g\.doubleclick\.net|tpc\.googlesyndication\.com|\*\.adtrafficquality\.google|www\.google\.com)$/.test(s)));
     assert.ok(directive('report-uri').includes('/csp-report'));
     assert.ok(directive('report-to').includes('csp'));
 });

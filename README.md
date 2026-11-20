@@ -197,7 +197,9 @@ Alle offentlige sider (undtagen `offline.html`) har AdSense-scriptet (`adsbygoog
 
 Samtykke i EØS, Storbritannien og Schweiz leveres af Googles egen certificerede CMP, "Privatliv og meddelelser", som slås til i AdSense (Privatliv og meddelelser) og indlæses gennem det samme script. Sitet har ingen egen samtykkeløsning: det gamle, ubrugte cookiebanner på forsiderne er fjernet. Et ikke-certificeret banner (fx vanilla-cookieconsent) er ikke nok til annoncer.
 
-`nginx.conf` tillader Googles værter i `script-src`, `connect-src`, `img-src` og `frame-src` (både den håndhævede CSP og report-only-politikken). Efter ændringer i AdSense: åbn en side med DevTools og tjek, at ingen Google-anmodninger blokeres, og at `/csp-report` ikke logger nye Google-værter.
+`nginx.conf` tillader Googles værter i `script-src`, `connect-src`, `img-src` og `frame-src` (både den håndhævede CSP og report-only-politikken). Efter ændringer i AdSense: åbn en side med DevTools og tjek, at ingen Google-anmodninger blokeres, og at `/csp-report` ikke logger nye Google-værter. Allowlisten følger Googles CSP-vejledning (inkl. `*.adtrafficquality.google`, `fonts.googleapis.com` og `fonts.gstatic.com`) og står også i `.htaccess`, men den er ikke testet mod den rigtige Google-kæde: `scripts/csp-audit.mjs` stubber `pagead2.googlesyndication.com` med et tomt script. Tjek derfor en side med CMP slået til, før der merges.
+
+Tilbagetrækning af samtykke: politiksiderne har en "Privatlivsindstillinger"-knap, der kalder `googlefc.showRevocationMessage()`. Den virker kun, når beskeden i AdSense (Privatliv og meddelelser) er oprettet; slå også Googles egen tilbagetrækningsknap til dér. Bemærk, at `adsbygoogle.js` kører i førsteparts-kontekst og teknisk kan læse DOM og localStorage (inkl. QR-historikken). Overvej det, før der tilføjes annonceenheder eller Auto ads på generatorsiderne.
 
 Privatliv: indtastet QR-indhold står aldrig i URL, hash eller query, og `test/privacy-claim.test.js` vogter, at ingen kode sender det videre. Privatlivs- og cookiepolitikken (DA og EN) nævner AdSense og Googles samtykkedialog og er dateret 20. november 2026.
 

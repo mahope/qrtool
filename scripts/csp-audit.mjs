@@ -13,7 +13,9 @@ import { startServer } from './quality/server.mjs';
 import { chromeFlags, chromeExecutable, sitemapPaths } from './quality/browser.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const ANALYTICS = ['https://analytics.holstjensen.eu', 'https://stats.mahoje.dk', 'https://pagead2.googlesyndication.com'];
+// Stubbed with an empty script. pagead2.googlesyndication.com is stubbed too, so the real
+// Google chain (CMP dialog, adtrafficquality) is NOT exercised here: check it in DevTools.
+const STUBBED_THIRD_PARTY = ['https://analytics.holstjensen.eu', 'https://stats.mahoje.dk', 'https://pagead2.googlesyndication.com'];
 
 export function readPolicy(nginxFile = path.join(root, 'nginx.conf')) {
   const conf = fs.readFileSync(nginxFile, 'utf8');
@@ -56,7 +58,7 @@ export async function runAudit({ distDir = path.join(root, 'dist'), log = () => 
     });
     // The analytics hosts are stubbed so the run needs no network; anything else that
     // leaves the local server is recorded and refused.
-    for (const origin of ANALYTICS) {
+    for (const origin of STUBBED_THIRD_PARTY) {
       await context.route(`${origin}/**`, (route) => route.fulfill({ status: 200, contentType: 'text/javascript', body: '' }));
     }
     await context.addInitScript(() => {

@@ -54,7 +54,7 @@
     Header always set Permissions-Policy "geolocation=(), microphone=(), camera=(self), payment=(), usb=()"
 
     # Content Security Policy
-    Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://analytics.holstjensen.eu https://stats.mahoje.dk; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self' https://analytics.holstjensen.eu https://stats.mahoje.dk; form-action 'self'; frame-ancestors 'self'; base-uri 'self'; object-src 'none';"
+    Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://analytics.holstjensen.eu https://stats.mahoje.dk https://pagead2.googlesyndication.com https://fundingchoicesmessages.google.com https://partner.googleadservices.com https://tpc.googlesyndication.com https://www.googletagservices.com https://*.adtrafficquality.google; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: blob: https://pagead2.googlesyndication.com https://googleads.g.doubleclick.net https://*.adtrafficquality.google; font-src 'self' data: https://fonts.gstatic.com; connect-src 'self' https://analytics.holstjensen.eu https://stats.mahoje.dk https://pagead2.googlesyndication.com https://fundingchoicesmessages.google.com https://*.adtrafficquality.google; frame-src https://fundingchoicesmessages.google.com https://googleads.g.doubleclick.net https://tpc.googlesyndication.com https://*.adtrafficquality.google https://www.google.com; form-action 'self'; frame-ancestors 'self'; base-uri 'self'; object-src 'none';"
 
     # Cross-Origin policies
     Header always set Cross-Origin-Opener-Policy "same-origin"
