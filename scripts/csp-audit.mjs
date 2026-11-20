@@ -13,7 +13,7 @@ import { startServer } from './quality/server.mjs';
 import { chromeFlags, chromeExecutable, sitemapPaths } from './quality/browser.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const ANALYTICS = ['https://analytics.holstjensen.eu', 'https://stats.mahoje.dk'];
+const ANALYTICS = ['https://analytics.holstjensen.eu', 'https://stats.mahoje.dk', 'https://pagead2.googlesyndication.com'];
 
 export function readPolicy(nginxFile = path.join(root, 'nginx.conf')) {
   const conf = fs.readFileSync(nginxFile, 'utf8');

@@ -191,6 +191,15 @@ Open source - brug frit!
 
 Plausible og Umami kører side om side på de samme 26 sider. Begge drives af Mahope på egne servere i EU uden cookies eller lagring af persondata. Der sendes ingen brugerdefinerede events eller indtastet/scannet QR-indhold. Scannerens handlinger testes mod begge trackere. `npm test` bygger sitet og kontrollerer også analytics-tags i kilde- og buildfiler samt CSP i nginx og Apache.
 
+## Annoncer og samtykke (Google AdSense)
+
+Alle offentlige sider (undtagen `offline.html`) har AdSense-scriptet (`adsbygoogle.js?client=ca-pub-1902871361369866`) i `<head>`. Der er endnu ingen annonceenheder (`ins.adsbygoogle`). `ads.txt` ligger i roden og serveres som `text/plain`.
+
+Samtykke i EØS, Storbritannien og Schweiz leveres af Googles egen certificerede CMP, "Privatliv og meddelelser", som slås til i AdSense (Privatliv og meddelelser) og indlæses gennem det samme script. Sitet har ingen egen samtykkeløsning: det gamle, ubrugte cookiebanner på forsiderne er fjernet. Et ikke-certificeret banner (fx vanilla-cookieconsent) er ikke nok til annoncer.
+
+`nginx.conf` tillader Googles værter i `script-src`, `connect-src`, `img-src` og `frame-src` (både den håndhævede CSP og report-only-politikken). Efter ændringer i AdSense: åbn en side med DevTools og tjek, at ingen Google-anmodninger blokeres, og at `/csp-report` ikke logger nye Google-værter.
+
+Privatliv: indtastet QR-indhold står aldrig i URL, hash eller query, og `test/privacy-claim.test.js` vogter, at ingen kode sender det videre. Privatlivs- og cookiepolitikken (DA og EN) nævner AdSense og Googles samtykkedialog og er dateret 20. november 2026.
 
 ## Canvas regression tests
 

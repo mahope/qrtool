@@ -23,14 +23,17 @@ test('report-only CSP is strict: nothing by default, no eval, no plugins, no for
     assert.deepEqual(directive('default-src'), ["'none'"]);
     assert.ok(!/unsafe-eval|wasm-unsafe-eval/.test(reportOnly));
     assert.deepEqual(directive('object-src'), ["'none'"]);
-    assert.deepEqual(directive('frame-src'), ["'none'"]);
     assert.deepEqual(directive('base-uri'), ["'self'"]);
     assert.deepEqual(directive('form-action'), ["'self'"]);
     assert.deepEqual(directive('frame-ancestors'), ["'self'"]);
-    for (const d of ['script-src', 'connect-src', 'img-src', 'style-src', 'font-src']) {
+    // Only our own statistics and Google AdSense (with Google's consent message) may be allowed.
+    const allowed = /^https:\/\/(analytics\.holstjensen\.eu|stats\.mahoje\.dk|pagead2\.googlesyndication\.com|fundingchoicesmessages\.google\.com|googleads\.g\.doubleclick\.net|tpc\.googlesyndication\.com)$/;
+    for (const d of ['script-src', 'connect-src', 'img-src', 'style-src', 'font-src', 'frame-src']) {
         const hosts = directive(d).filter(s => /^https?:/.test(s));
-        for (const host of hosts) assert.match(host, /^https:\/\/(analytics\.holstjensen\.eu|stats\.mahoje\.dk)$/, `${d} allows ${host}`);
+        for (const host of hosts) assert.match(host, allowed, `${d} allows ${host}`);
     }
+    // Frames are only for Google's consent message and ads, never anything else.
+    assert.ok(directive('frame-src').every(s => /^https:\/\/(fundingchoicesmessages\.google\.com|googleads\.g\.doubleclick\.net|tpc\.googlesyndication\.com)$/.test(s)));
     assert.ok(directive('report-uri').includes('/csp-report'));
     assert.ok(directive('report-to').includes('csp'));
 });
@@ -59,7 +62,7 @@ test('no CSP violations in report-only mode across all pages and features', { ti
     }
     assert.deepEqual(audit.violations, [], 'CSP violations:\n' + JSON.stringify(audit.violations, null, 2));
     assert.deepEqual(audit.posted, [], 'the browser reported violations to /csp-report');
-    const allowed = new Set(["'self'", 'https://analytics.holstjensen.eu', 'https://stats.mahoje.dk']);
+    const allowed = new Set(["'self'", 'https://analytics.holstjensen.eu', 'https://stats.mahoje.dk', 'https://pagead2.googlesyndication.com']);
     for (const [type, origins] of Object.entries(audit.resources)) {
         for (const o of origins) assert.ok(allowed.has(o), `${type} loaded from unexpected origin ${o}`);
     }

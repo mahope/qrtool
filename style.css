@@ -3376,8 +3376,7 @@ header p {
     .onboarding-overlay,
     .onboarding-tooltip,
     .skip-link,
-    [data-seo-explainer],
-    #cookie-consent-banner {
+    [data-seo-explainer] {
         display: none !important;
     }
 
