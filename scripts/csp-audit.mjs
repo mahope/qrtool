@@ -13,7 +13,7 @@ import { startServer } from './quality/server.mjs';
 import { chromeFlags, chromeExecutable, sitemapPaths } from './quality/browser.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const ANALYTICS = ['https://analytics.holstjensen.eu', 'https://stats.mahoje.dk'];
+const STUBBED_THIRD_PARTY = ['https://analytics.holstjensen.eu', 'https://stats.mahoje.dk'];
 
 export function readPolicy(nginxFile = path.join(root, 'nginx.conf')) {
   const conf = fs.readFileSync(nginxFile, 'utf8');
@@ -54,9 +54,10 @@ export async function runAudit({ distDir = path.join(root, 'dist'), log = () => 
       permissions: ['geolocation', 'camera'],
       geolocation: { latitude: 55.6761, longitude: 12.5683 },
     });
-    // The analytics hosts are stubbed so the run needs no network; anything else that
-    // leaves the local server is recorded and refused.
-    for (const origin of ANALYTICS) {
+    // The third-party analytics hosts are stubbed with an empty script so the run needs no
+    // network. That means what they would load in turn (any further chain) is not tested
+    // here; anything else that leaves the local server is recorded and refused.
+    for (const origin of STUBBED_THIRD_PARTY) {
       await context.route(`${origin}/**`, (route) => route.fulfill({ status: 200, contentType: 'text/javascript', body: '' }));
     }
     await context.addInitScript(() => {
