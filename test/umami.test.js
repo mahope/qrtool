@@ -37,11 +37,11 @@ test('both CSP configurations permit both analytics hosts for scripts and connec
     }
 });
 
-function parseCsp(file, headerName) {
+function parseCsp(file) {
     const config = fs.readFileSync(path.join(ROOT, file), 'utf8');
-    const line = config.split('\n').find(l => new RegExp('(add_header|Header always set) ' + headerName + ' "').test(l));
-    assert.ok(line, file + ' has no ' + headerName);
-    const policy = line.match(new RegExp(headerName + ' "([^"]+)"'))[1];
+    const line = config.split('\n').find(l => /(add_header|Header always set) Content-Security-Policy "/.test(l));
+    assert.ok(line, file + ' has no Content-Security-Policy');
+    const policy = line.match(/Content-Security-Policy "([^"]+)"/)[1];
     const directives = new Map();
     for (const part of policy.split(';').map(s => s.trim()).filter(Boolean)) {
         const [name, ...sources] = part.split(/\s+/);
@@ -51,8 +51,8 @@ function parseCsp(file, headerName) {
 }
 
 test('Apache and nginx enforced CSPs agree on the directives they share', () => {
-    const nginx = parseCsp('nginx.conf', 'Content-Security-Policy');
-    const apache = parseCsp('.htaccess', 'Content-Security-Policy');
+    const nginx = parseCsp('nginx.conf');
+    const apache = parseCsp('.htaccess');
     const shared = ['upgrade-insecure-requests', 'default-src', 'script-src', 'style-src', 'img-src', 'font-src', 'connect-src'];
     for (const name of shared) {
         assert.ok(nginx.has(name), 'nginx.conf lacks ' + name);
