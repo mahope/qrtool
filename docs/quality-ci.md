@@ -35,7 +35,9 @@ Uden bruddet gav samme kørsel exit 0 ("All quality budgets met"). De rene budge
 
 ## Kørselstid
 
-Lokalt på agent-worker (belastet af andre job): 108 til 177 sekunder for hele sekvensen (axe og overløb sammen ca. 55 til 70 s, Lighthouse ca. 50 til 80 s). Workflowen har `timeout-minutes: 6`. Selve Forgejo-runneren er ikke afprøvet endnu, så tiden dér inklusive `npm ci` er ikke målt.
+Lokalt på agent-worker (belastet af andre job): 108 til 177 sekunder for hele sekvensen (axe og overløb sammen ca. 55 til 70 s, Lighthouse ca. 50 til 80 s). Workflowen har `timeout-minutes: 6`. Selve Forgejo-runneren er ikke afprøvet endnu, så tiden dér inklusive `npm ci` er ikke målt, og de 6 minutter er derfor et skøn (ca. dobbelt så meget som den langsomste lokale kørsel plus installation), ikke et målt tal.
+
+Opfølgning, som ikke må glemmes: når `quality.yml` har kørt på runneren på mindst tre pull requests, aflæses den samlede tid i Forgejos kørselslog, og `timeout-minutes` sættes til ca. 2 gange den langsomste målte tid. Samtidig rettes denne sektion fra skøn til målte tal. Indtil da kan et hængende job binde runneren i op til 6 minutter.
 
 ## Chrome
 
