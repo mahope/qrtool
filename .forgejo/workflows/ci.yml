@@ -25,9 +25,9 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 24
-          # No `cache: npm`: the runner cannot reach its cache server, and the
-          # restore timed out after ~4.5 min, eating the job budget (#130).
-          # Do not add it back as an optimisation.
+          # No `cache: npm`: the runner cannot reach its cache server (#130).
+          # The restore timed out after ~4.5 min of the job budget; do not add
+          # it back as an optimisation.
       - run: npm ci
       - name: Install Chromium for the real-canvas raster test
         run: |
