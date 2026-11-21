@@ -36,3 +36,27 @@ test('both CSP configurations permit both analytics hosts for scripts and connec
         }
     }
 });
+
+function parseCsp(file, headerName) {
+    const config = fs.readFileSync(path.join(ROOT, file), 'utf8');
+    const line = config.split('\n').find(l => new RegExp('(add_header|Header always set) ' + headerName + ' "').test(l));
+    assert.ok(line, file + ' has no ' + headerName);
+    const policy = line.match(new RegExp(headerName + ' "([^"]+)"'))[1];
+    const directives = new Map();
+    for (const part of policy.split(';').map(s => s.trim()).filter(Boolean)) {
+        const [name, ...sources] = part.split(/\s+/);
+        directives.set(name, sources.slice().sort().join(' '));
+    }
+    return directives;
+}
+
+test('Apache and nginx enforced CSPs agree on the directives they share', () => {
+    const nginx = parseCsp('nginx.conf', 'Content-Security-Policy');
+    const apache = parseCsp('.htaccess', 'Content-Security-Policy');
+    const shared = ['upgrade-insecure-requests', 'default-src', 'script-src', 'style-src', 'img-src', 'font-src', 'connect-src'];
+    for (const name of shared) {
+        assert.ok(nginx.has(name), 'nginx.conf lacks ' + name);
+        assert.ok(apache.has(name), '.htaccess lacks ' + name);
+        assert.equal(apache.get(name), nginx.get(name), name + ' differs between .htaccess and nginx.conf');
+    }
+});
