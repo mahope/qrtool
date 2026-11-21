@@ -37,13 +37,17 @@ export async function runLighthouse(origin, pages) {
         throw new Error(`Lighthouse failed for ${p}: ${r.stderr}`);
       }
       const j = JSON.parse(fs.readFileSync(out, 'utf8'));
-      const script = (j.audits['resource-summary'].details.items || []).find((i) => i.resourceType === 'script');
+      // The budget covers the site's own JavaScript. Third-party scripts (AdSense and the
+      // Google consent chain) are outside our control and vary per run, so they are left out.
+      const jsBytes = (j.audits['network-requests'].details.items || [])
+        .filter((i) => i.resourceType === 'Script' && new URL(i.url).origin === origin)
+        .reduce((sum, i) => sum + (i.transferSize || 0), 0);
       runs.push({
         path: p,
         cls: j.audits['cumulative-layout-shift'].numericValue,
         accessibility: Math.round(j.categories.accessibility.score * 100),
         performance: Math.round(j.categories.performance.score * 100),
-        jsBytes: script ? script.transferSize : 0,
+        jsBytes,
       });
     }
   } finally {

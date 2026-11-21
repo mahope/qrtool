@@ -112,6 +112,8 @@ QR Tool husker dine seneste 20 genererede QR-koder:
 - Genindlæs tidligere QR-koder med ét klik
 - Slet individuelle eller hele historikken
 
+> **Advarsel om tredjepartsscripts:** Historikken ligger i localStorage, og siden viser det, brugeren skriver, i DOM'en. Et script som `adsbygoogle.js` kører på sidens oprindelse og kan læse begge dele. Siderne indlæser AdSense-scriptet (se "Annoncer og samtykke" nedenfor), så privatlivspolitikken og påstanden på forsiden om, at det indtastede aldrig forlader browseren (`test/privacy-claim.test.js`), skal vurderes igen, før der tilføjes annonceenheder på sider med QR-indhold.
+
 ## 📁 Projektstruktur
 
 ```
