@@ -112,7 +112,7 @@ QR Tool husker dine seneste 20 genererede QR-koder:
 - Genindlæs tidligere QR-koder med ét klik
 - Slet individuelle eller hele historikken
 
-> **Advarsel om tredjepartsscripts:** Historikken ligger i localStorage, og siden viser det, brugeren skriver, i DOM'en. Et script som `adsbygoogle.js` kører på sidens oprindelse og kan læse begge dele. I dag indlæser ingen side et annoncescript. Tilføjes et (fx AdSense), skal det ikke køre på sider med QR-indhold, før privatlivspolitikken og påstanden på forsiden om, at det indtastede aldrig forlader browseren (`test/privacy-claim.test.js`), er vurderet igen. Testen fanger ikke et nyt eksternt script: den tjekker kun inline-scripts, `app.js`, `sw.js` og `lib/` og springer `<script src=...>` over, så et tilføjet `adsbygoogle.js` holder ikke CI rødt.
+> **Advarsel om tredjepartsscripts:** Historikken ligger i localStorage, og siden viser det, brugeren skriver, i DOM'en. Et script som `adsbygoogle.js` kører på sidens oprindelse og kan læse begge dele. I dag indlæser ingen side et annoncescript. Tilføjes et (fx AdSense), skal det ikke køre på sider med QR-indhold, før privatlivspolitikken og påstanden på forsiden om, at det indtastede aldrig forlader browseren (`test/privacy-claim.test.js`), er vurderet igen. Privacy-testen fanger ikke et nyt eksternt script: den tjekker kun inline-scripts, `app.js`, `sw.js` og `lib/` og springer `<script src=...>` over. Det er i dag kun CSP-auditten (`test/csp-report-only.test.js`), der gør CI rødt for et tilføjet `adsbygoogle.js`, og den melder det som et CSP-brud (`script-src` tillader kun `'self'` og vores egne statistikværter), ikke som et privatlivsbrud.
 
 ## 📁 Projektstruktur
 
