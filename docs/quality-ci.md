@@ -37,7 +37,7 @@ Uden bruddet gav samme kørsel exit 0 ("All quality budgets met"). De rene budge
 
 Lokalt på agent-worker (belastet af andre job): 108 til 177 sekunder for hele sekvensen (axe og overløb sammen ca. 55 til 70 s, Lighthouse ca. 50 til 80 s). Workflowen har `timeout-minutes: 6`. De 108 til 177 sekunder er kun `npm run quality`; på runneren kommer `npm ci`, `npx playwright install --with-deps chromium` (apt-get og download) og `npm run build` oveni, og 2 gange 177 s er allerede ca. 5,9 minutter. Grænsen har derfor ingen dokumenteret margin til installationen, og den første kørsel på runneren kan time ud. Forgejo-runneren er ikke afprøvet endnu, så 6 minutter er et skøn, ikke et målt tal.
 
-Opfølgning (spores i issue #151, som skal blive åbent, til den er udført): aflæs den samlede tid i Forgejos kørselslog for de første kørsler på runneren, ret `timeout-minutes` til et rimeligt loft over den målte tid, og ret denne sektion fra skøn til målte tal. Indtil da kan et hængende job binde runneren i op til 6 minutter.
+Opfølgning (spores i issue #151, som skal blive åbent, til den er udført): aflæs den samlede tid i Forgejos kørselslog for de første kørsler på runneren, sæt `timeout-minutes` til den længste målte samlede tid plus 50 %, rundet op til hele minutter (fx 4 minutter målt giver 6), og ret denne sektion fra skøn til målte tal. Indtil da kan et hængende job binde runneren i op til 6 minutter.
 
 ## Chrome
 
