@@ -35,7 +35,7 @@ Uden bruddet gav samme kørsel exit 0 ("All quality budgets met"). De rene budge
 
 ## Kørselstid
 
-Lokalt på agent-worker (belastet af andre job): 108 til 177 sekunder for hele sekvensen (axe og overløb sammen ca. 55 til 70 s, Lighthouse ca. 50 til 80 s). Workflowen har `timeout-minutes: 6`. Selve Forgejo-runneren er ikke afprøvet endnu, så tiden dér inklusive `npm ci` er ikke målt.
+Lokalt på agent-worker (belastet af andre job): 108 til 177 sekunder for hele sekvensen (axe og overløb sammen ca. 55 til 70 s, Lighthouse ca. 50 til 80 s). Workflowen har `timeout-minutes: 15`, så der er plads til `npm ci`, installation af Chromium og målingerne på en belastet runner. Tiden på selve Forgejo-runneren er ikke målt endnu.
 
 ## Chrome
 
