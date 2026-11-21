@@ -39,7 +39,7 @@ Lokalt på agent-worker (belastet af andre job): 108 til 177 sekunder for hele s
 
 ## Chrome
 
-Workflowens trin "Locate Chrome" leder efter `google-chrome`, `google-chrome-stable`, `chromium` og `chromium-browser`, skriver sti og version i loggen og sætter `QUALITY_CHROME`. Findes ingen, fejler jobbet med en tydelig besked. Hvilken sti runneren bruger, står i første kørsels log. Stien er ikke verificeret på Forgejo-runneren: første kørsel skal tjekkes, før jobbet gøres til et krav i branch protection. Som root starter Lighthouse Chrome med `--no-sandbox`; på agent-worker, hvor scriptet ikke kører som root, bruges sandbox.
+Runner-imaget har ingen Chrome. Workflowen installerer derfor Chromium med `npx playwright install --with-deps chromium` (trinnet "Install Chromium"), og trinnet "Locate Chrome" henter stien fra `chromium.executablePath()` i Playwright, tjekker at filen er kørbar, skriver sti og version i loggen og sætter `QUALITY_CHROME`. Findes filen ikke, fejler jobbet. Installationen er en del af kørselstiden ovenfor. Som root starter Lighthouse Chrome med `--no-sandbox`; på agent-worker, hvor scriptet ikke kører som root, bruges sandbox.
 
 ## Kendte bivirkninger
 
@@ -48,4 +48,4 @@ Workflowens trin "Locate Chrome" leder efter `google-chrome`, `google-chrome-sta
 
 ## Afhængigheder
 
-Tre nye devDependencies, alle fastlåste: `playwright` 1.64.1 (udgivet 14/10-2026), `@axe-core/playwright` 4.14.0 (15/10-2026) og `lighthouse` 13.6.0 (27/10-2026). De er installeret med `--ignore-scripts`; Playwrights browsere hentes ikke, fordi jobbet bruger den Chrome, der allerede er på runneren.
+Tre nye devDependencies, alle fastlåste: `playwright` 1.64.1 (udgivet 14/10-2026), `@axe-core/playwright` 4.14.0 (15/10-2026) og `lighthouse` 13.6.0 (27/10-2026). De er installeret med `--ignore-scripts`; pakkerne installeres uden scripts, og Chromium hentes først i workflowen med `npx playwright install --with-deps chromium`, fordi runneren ikke har en Chrome.
