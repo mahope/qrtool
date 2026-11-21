@@ -15,13 +15,12 @@ concurrency:
 jobs:
   quality:
     runs-on: docker
-    timeout-minutes: 6
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 24
-          cache: npm
       - run: npm ci
       - name: Install Chromium (the runner image has no Chrome)
         run: npx playwright install --with-deps chromium
