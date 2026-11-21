@@ -112,7 +112,7 @@ QR Tool husker dine seneste 20 genererede QR-koder:
 - Genindlæs tidligere QR-koder med ét klik
 - Slet individuelle eller hele historikken
 
-> **Advarsel om tredjepartsscripts:** Historikken ligger i localStorage, og siden viser det, brugeren skriver, i DOM'en. Et script som `adsbygoogle.js` kører på sidens oprindelse og kan læse begge dele. I dag indlæser ingen side et annoncescript, men sidernes analytics-scripts (Plausible fra `analytics.holstjensen.eu` og Umami fra `stats.mahoje.dk/s.js`) kører også på sidens oprindelse og kan teknisk læse det samme. Derfor skal de forblive selvhostede og betroede af Mahope. Tilføjes et (fx AdSense), skal det ikke køre på sider med QR-indhold, før privatlivspolitikken og påstanden på forsiden om, at det indtastede aldrig forlader browseren (`test/privacy-claim.test.js`), er vurderet igen.
+> **Advarsel om tredjepartsscripts:** Historikken ligger i localStorage, og siden viser det, brugeren skriver, i DOM'en. Et script som `adsbygoogle.js` kører på sidens oprindelse og kan læse begge dele. I dag indlæser ingen side et annoncescript, men sidernes analytics-scripts (Plausible fra `analytics.holstjensen.eu` og Umami fra `stats.mahoje.dk/s.js`) kører også på sidens oprindelse og kan teknisk læse det samme. Derfor skal de fortsat drives af Mahope på egne servere. Tilføjes et (fx AdSense), skal det ikke køre på sider med QR-indhold, før privatlivspolitikken og påstanden på forsiden om, at det indtastede aldrig forlader browseren (`test/privacy-claim.test.js`), er vurderet igen.
 
 ## 📁 Projektstruktur
 
