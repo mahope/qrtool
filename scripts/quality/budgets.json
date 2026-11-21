@@ -20,7 +20,8 @@
     ],
     "maxCls": 0.02,
     "minAccessibility": 95,
-    "maxHomeJsBytes": 81920
+    "maxHomeJsBytes": 81920,
+    "maxHomeThirdPartyJsBytes": 409600
   },
   "known": {
     "axe": {},

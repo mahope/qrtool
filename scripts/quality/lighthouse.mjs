@@ -2,6 +2,7 @@ import { spawn } from 'node:child_process';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
+import { sumScriptBytes } from './budgets.mjs';
 import { chromeExecutable, chromeFlags } from './browser.mjs';
 
 // The CLI runs as a child process; it must not block this process, because
@@ -37,17 +38,16 @@ export async function runLighthouse(origin, pages) {
         throw new Error(`Lighthouse failed for ${p}: ${r.stderr}`);
       }
       const j = JSON.parse(fs.readFileSync(out, 'utf8'));
-      // The budget covers the site's own JavaScript. Third-party scripts (AdSense and the
-      // Google consent chain) are outside our control and vary per run, so they are left out.
-      const jsBytes = (j.audits['network-requests'].details.items || [])
-        .filter((i) => i.resourceType === 'Script' && new URL(i.url).origin === origin)
-        .reduce((sum, i) => sum + (i.transferSize || 0), 0);
+      // Own and third-party scripts (AdSense, Google consent chain) get separate budgets.
+      const { own: jsBytes, thirdParty: thirdPartyJsBytes } = sumScriptBytes(
+        j.audits['network-requests'].details.items || [], origin);
       runs.push({
         path: p,
         cls: j.audits['cumulative-layout-shift'].numericValue,
         accessibility: Math.round(j.categories.accessibility.score * 100),
         performance: Math.round(j.categories.performance.score * 100),
         jsBytes,
+        thirdPartyJsBytes,
       });
     }
   } finally {

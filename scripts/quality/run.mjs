@@ -63,7 +63,7 @@ try {
 
 if (report.lighthouse) {
   for (const r of report.lighthouse) {
-    console.log(`lighthouse ${r.path}: CLS ${r.cls.toFixed(3)}, accessibility ${r.accessibility}, performance ${r.performance}, JS ${(r.jsBytes / 1024).toFixed(1)} KB`);
+    console.log(`lighthouse ${r.path}: CLS ${r.cls.toFixed(3)}, accessibility ${r.accessibility}, performance ${r.performance}, own JS ${(r.jsBytes / 1024).toFixed(1)} KB, third-party JS ${(r.thirdPartyJsBytes / 1024).toFixed(1)} KB`);
   }
 }
 if (report.overflow) {

@@ -8,7 +8,7 @@ Workflowen `.forgejo/workflows/quality.yml` kører på pull requests (og manuelt
 |---|---|---|
 | axe (WCAG 2.2 AA og best practice), 390 og 1440 px, standardtema og skiftet tema | 9 sider, se `scripts/quality/axe.mjs` | 0 fund med alvorlighed critical eller serious |
 | Vandret overløb ved 320 og 390 px (`scrollWidth` mod vinduets bredde) | alle sider i `sitemap.xml` plus 404 | 0 px |
-| Lighthouse mobil (én kørsel pr. side) | `/`, `/wifi-qr-kode`, `/scan-qr-kode`, `/guides/qr-koder-til-restauranter` | CLS højst 0,02, tilgængelighed mindst 95, eget JavaScript (fra sitets eget domæne, uden AdSense og andre tredjepartsscripts) overført højst 80 KB på forsiden |
+| Lighthouse mobil (én kørsel pr. side) | `/`, `/wifi-qr-kode`, `/scan-qr-kode`, `/guides/qr-koder-til-restauranter` | CLS højst 0,02, tilgængelighed mindst 95, eget JavaScript (fra sitets eget domæne) overført højst 80 KB på forsiden og tredjeparts-JavaScript (AdSense og Googles samtykkekæde) højst 400 KB på forsiden (målt ca. 261 KB) |
 
 Budgetterne ligger i `scripts/quality/budgets.json`, og logikken i `scripts/quality/budgets.mjs` har enhedstests i `test/quality-budgets.test.js`.
 

@@ -1,6 +1,19 @@
 // Pure budget checks for the quality job. Each function takes measured results
 // and returns a list of human-readable failures (empty means green).
 
+// Splits the script transfer of a page into the site's own JavaScript and
+// third-party JavaScript (AdSense, Google consent chain). items are Lighthouse
+// network-requests rows; origin is the origin of the served site.
+export function sumScriptBytes(items, origin) {
+  const sums = { own: 0, thirdParty: 0 };
+  const siteOrigin = new URL(origin).origin;
+  for (const i of items) {
+    if (i.resourceType !== 'Script') continue;
+    sums[new URL(i.url).origin === siteOrigin ? 'own' : 'thirdParty'] += i.transferSize || 0;
+  }
+  return sums;
+}
+
 // known maps a page path to a baseline ({ minAccessibility, maxJsBytes }) that
 // replaces the budget for that page until the page is fixed. CLS has no
 // baseline: it is within budget everywhere.
@@ -18,6 +31,13 @@ export function checkLighthouse(runs, budget, known = {}) {
     }
     if (r.path === '/' && r.jsBytes > maxJsBytes) {
       failures.push(`${r.path}: JavaScript transferred ${r.jsBytes} B is above the budget ${maxJsBytes} B`);
+    }
+    // A home page without any own script means the measurement is broken, not that the page is light.
+    if (r.path === '/' && r.jsBytes === 0) {
+      failures.push(`${r.path}: no own JavaScript was measured, so the JavaScript budget cannot be checked`);
+    }
+    if (r.path === '/' && budget.maxHomeThirdPartyJsBytes !== undefined && r.thirdPartyJsBytes > budget.maxHomeThirdPartyJsBytes) {
+      failures.push(`${r.path}: third-party JavaScript transferred ${r.thirdPartyJsBytes} B is above the budget ${budget.maxHomeThirdPartyJsBytes} B`);
     }
   }
   return failures;

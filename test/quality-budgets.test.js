@@ -39,6 +39,30 @@ test('lighthouse: the JavaScript budget only applies to the front page', async (
     assert.deepEqual(checkLighthouse(runs, budgets.lighthouse), []);
 });
 
+test('sumScriptBytes: splits own and third-party scripts and ignores other resource types', async () => {
+    const { sumScriptBytes } = await load();
+    const items = [
+        { url: 'http://127.0.0.1:4173/app.js', resourceType: 'Script', transferSize: 1000 },
+        { url: 'https://pagead2.googlesyndication.com/adsbygoogle.js', resourceType: 'Script', transferSize: 5000 },
+        { url: 'http://127.0.0.1:4173/style.css', resourceType: 'Stylesheet', transferSize: 700 },
+        { url: 'http://127.0.0.1:4173/lib/qr.js', resourceType: 'Script' },
+    ];
+    assert.deepEqual(sumScriptBytes(items, 'http://127.0.0.1:4173'), { own: 1000, thirdParty: 5000 });
+    assert.deepEqual(sumScriptBytes(items, 'http://127.0.0.1:4173/'), { own: 1000, thirdParty: 5000 });
+});
+
+test('lighthouse: third-party JavaScript has its own front page budget, and 0 own bytes fails', async () => {
+    const { checkLighthouse } = await load();
+    const b = { ...budgets.lighthouse, maxHomeThirdPartyJsBytes: 400000 };
+    assert.deepEqual(checkLighthouse([{ path: '/', cls: 0, accessibility: 100, jsBytes: 1, thirdPartyJsBytes: 400000 }], b), []);
+    const over = checkLighthouse([{ path: '/', cls: 0, accessibility: 100, jsBytes: 1, thirdPartyJsBytes: 400001 }], b);
+    assert.equal(over.length, 1);
+    assert.match(over[0], /third-party/);
+    const broken = checkLighthouse([{ path: '/', cls: 0, accessibility: 100, jsBytes: 0, thirdPartyJsBytes: 0 }], b);
+    assert.equal(broken.length, 1);
+    assert.match(broken[0], /no own JavaScript/);
+});
+
 test('overflow: a page wider than the viewport fails, a known one may not get worse', async () => {
     const { checkOverflow } = await load();
     const results = [
