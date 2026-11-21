@@ -55,8 +55,10 @@ export async function runAudit({ distDir = path.join(root, 'dist'), log = () => 
       geolocation: { latitude: 55.6761, longitude: 12.5683 },
     });
     // The third-party analytics hosts are stubbed with an empty script so the run needs no
-    // network. That means what they would load in turn (any further chain) is not tested
-    // here; anything else that leaves the local server is recorded and refused.
+    // network. That means what they would request in turn (beacons such as the Plausible and
+    // stats.mahoje.dk pageview calls, further scripts) is not exercised here, so connect-src
+    // for those hosts is untested; anything else that leaves the local server is recorded
+    // and refused.
     for (const origin of STUBBED_THIRD_PARTY) {
       await context.route(`${origin}/**`, (route) => route.fulfill({ status: 200, contentType: 'text/javascript', body: '' }));
     }
