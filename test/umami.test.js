@@ -39,7 +39,7 @@ test('both CSP configurations permit both analytics hosts for scripts and connec
 
 function parseCsp(file, headerName) {
     const config = fs.readFileSync(path.join(ROOT, file), 'utf8');
-    const line = config.split('\n').find(l => new RegExp('(add_header|Header always set) ' + headerName + ' "').test(l));
+    const line = config.split('\n').find(l => new RegExp('^\\s*(add_header|Header always set)\\s+' + headerName + '\\s+"').test(l));
     assert.ok(line, file + ' has no ' + headerName);
     const policy = line.match(new RegExp(headerName + ' "([^"]+)"'))[1];
     const directives = new Map();
