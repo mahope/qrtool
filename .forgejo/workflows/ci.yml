@@ -25,7 +25,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 24
-          cache: npm
+          # No `cache: npm`: the runner cannot reach its cache server (#130).
       - run: npm ci
       - name: Install Chromium for the real-canvas raster test
         run: |

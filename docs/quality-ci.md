@@ -35,7 +35,7 @@ Uden bruddet gav samme kørsel exit 0 ("All quality budgets met"). De rene budge
 
 ## Kørselstid
 
-Lokalt på agent-worker (belastet af andre job): 108 til 177 sekunder for hele sekvensen (axe og overløb sammen ca. 55 til 70 s, Lighthouse ca. 50 til 80 s). Workflowen har `timeout-minutes: 6` og bruger bevidst ikke `cache: npm` i setup-node: runneren kan ikke nå sin cache-server, og gendannelsen brugte ca. 4,5 minut på at time ud, før jobbet fejlede (issue #130). Selve Forgejo-runneren er ikke afprøvet endnu, så tiden dér inklusive `npm ci` er ikke målt.
+Lokalt på agent-worker (belastet af andre job): 108 til 177 sekunder for hele sekvensen (axe og overløb sammen ca. 55 til 70 s, Lighthouse ca. 50 til 80 s). Workflowen har `timeout-minutes: 15` (uden cache skal `npm ci` og Chromium-download med, og tiden på runneren er ikke målt; sæt den ned, når en grøn kørsel er set) og bruger bevidst ikke `cache: npm` i setup-node: runneren kan ikke nå sin cache-server, og gendannelsen brugte ca. 4,5 minut på at time ud, før jobbet fejlede (issue #130). Kørselstiden på Forgejo-runneren inklusive `npm ci` er endnu ikke målt.
 
 ## Chrome
 
