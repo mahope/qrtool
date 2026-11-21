@@ -12,6 +12,8 @@ concurrency:
 jobs:
   test:
     runs-on: docker
+    # Unmeasured margin: lower this once a green run on the runner has been timed.
+    # 15 also covers the setup-node npm cache restore timeout (~4.5 min) while `cache: npm` is on.
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
