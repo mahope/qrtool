@@ -21,6 +21,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 24
+          # No `cache: npm`: the runner cannot reach its cache server, and the
+          # restore timed out after ~4.5 min, eating the job budget (#130).
       - run: npm ci
       - name: Install Chromium (the runner image has no Chrome)
         run: npx playwright install --with-deps chromium
